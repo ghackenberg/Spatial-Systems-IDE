@@ -1,0 +1,9 @@
+digraph {
+	"Thread[[Sort module, Material gray, Exit],5,main]" [label = "PortThread\n\nSort module\nMaterial gray\nExit", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Sort module, Material gray],5,main]" [label = "ScenarioThread\n\nSort module\nMaterial gray", shape = box, style = filled, fillcolor = yellow];
+	"[Sort module, Material gray, Exit]" [label = "ExitLifeMaterialPort\n\nSort module\nMaterial gray\nExit", shape = ellipse, style = filled, color = pink];
+	"Thread[[Sort module, Material gray],5,main]" -> "Thread[[Sort module, Material gray, Exit],5,main]" [];
+	"Thread[[Sort module, Material gray, Exit],5,main]" -> "[Sort module, Material gray, Exit]" [style = dashed];
+	"[Sort module, Material gray, Exit]" -> "Thread[[Sort module, Material gray],5,main]" [];
+	"Thread[[Sort module, Material gray],5,main]" -> "[Sort module, Material gray, Exit]" [style = dashed];
+}

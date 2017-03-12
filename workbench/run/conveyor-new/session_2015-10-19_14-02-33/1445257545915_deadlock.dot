@@ -1,0 +1,9 @@
+digraph {
+	"Thread[[Conveyor, Success scenario, Exit],5,main]" [label = "PortThread\n\nConveyor\nSuccess scenario\nExit", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Conveyor, Success scenario],5,main]" [label = "ScenarioThread\n\nConveyor\nSuccess scenario", shape = box, style = filled, fillcolor = yellow];
+	"[Conveyor, Success scenario, Exit]" [label = "ExitLifeMaterialPort\n\nConveyor\nSuccess scenario\nExit", shape = ellipse, style = filled, color = pink];
+	"Thread[[Conveyor, Success scenario],5,main]" -> "Thread[[Conveyor, Success scenario, Exit],5,main]" [];
+	"Thread[[Conveyor, Success scenario, Exit],5,main]" -> "[Conveyor, Success scenario, Exit]" [style = dashed];
+	"[Conveyor, Success scenario, Exit]" -> "Thread[[Conveyor, Success scenario],5,main]" [];
+	"Thread[[Conveyor, Success scenario],5,main]" -> "[Conveyor, Success scenario, Exit]" [style = dashed];
+}

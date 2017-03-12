@@ -1,0 +1,28 @@
+digraph {
+	"Thread[[Distributor, White material at stack],5,main]" [label = "ScenarioThread\n\nDistributor\nWhite material at stack", shape = box, style = filled, fillcolor = yellow];
+	"Thread[[Distributor, Stamper ready],5,main]" [label = "PortThread\n\nDistributor\nStamper ready", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Distributor, Controller, Ready],5,main]" [label = "PortThread\n\nDistributor\nController\nReady", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Distributor, Controller, Distribute behavior, Internal stamper ready],5,main]" [label = "VariableThread\n\nDistributor\nController\nDistribute behavior\nInternal stamper ready", shape = box, style = filled, fillcolor = white];
+	"Thread[[Distributor, Controller, Distribute behavior, Internal sorter ready],5,main]" [label = "VariableThread\n\nDistributor\nController\nDistribute behavior\nInternal sorter ready", shape = box, style = filled, fillcolor = white];
+	"Thread[[Distributor, Controller, Distribute behavior],5,main]" [label = "BehaviorThread\n\nDistributor\nController\nDistribute behavior", shape = box, style = filled, fillcolor = red];
+	"[Distributor, Controller, Stamper ready]" [label = "DataPort\n\nDistributor\nController\nStamper ready", shape = ellipse, style = filled, color = pink];
+	"[Demo workspace, Demo project, Pick and place unit, Stamper, Controller, Ready]" [label = "DataPort\n\nDemo workspace\nDemo project\nPick and place unit\nStamper\nController\nReady", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Ready]" [label = "DataPort\n\nDistributor\nReady", shape = ellipse, style = filled, color = pink];
+	"[Demo workspace, Demo project, Pick and place unit, Stamper, Ready]" [label = "DataPort\n\nDemo workspace\nDemo project\nPick and place unit\nStamper\nReady", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Stamper ready]" [label = "DataPort\n\nDistributor\nStamper ready", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Controller, Ready]" [label = "DataPort\n\nDistributor\nController\nReady", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Ready]" -> "Thread[[Distributor, White material at stack],5,main]" [label = "blocking"];
+	"Thread[[Distributor, White material at stack],5,main]" -> "[Distributor, Stamper ready]" [label = "writing", style = dashed];
+	"Thread[[Distributor, White material at stack],5,main]" -> "Thread[[Distributor, Stamper ready],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Stamper ready],5,main]" -> "[Distributor, Stamper ready]" [label = "writing", style = dashed];
+	"Thread[[Distributor, Controller, Distribute behavior],5,main]" -> "Thread[[Distributor, Controller, Ready],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, Ready],5,main]" -> "[Distributor, Controller, Ready]" [label = "writing", style = dashed];
+	"Thread[[Distributor, Controller, Distribute behavior],5,main]" -> "Thread[[Distributor, Controller, Distribute behavior, Internal stamper ready],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, Distribute behavior],5,main]" -> "Thread[[Distributor, Controller, Distribute behavior, Internal sorter ready],5,main]" [label = "blocking"];
+	"[Distributor, Controller, Stamper ready]" -> "Thread[[Distributor, Controller, Distribute behavior],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, Distribute behavior],5,main]" -> "[Distributor, Controller, Ready]" [label = "writing", style = dashed];
+	"[Distributor, Stamper ready]" -> "[Distributor, Controller, Stamper ready]" [label = "static channel", color = green]; 
+	"[Distributor, Controller, Ready]" -> "[Distributor, Ready]" [label = "static channel", color = green]; 
+	"[Demo workspace, Demo project, Pick and place unit, Stamper, Controller, Ready]" -> "[Demo workspace, Demo project, Pick and place unit, Stamper, Ready]" [label = "static channel", color = green]; 
+	"[Demo workspace, Demo project, Pick and place unit, Stamper, Ready]" -> "[Distributor, Stamper ready]" [label = "static channel", color = green]; 
+}

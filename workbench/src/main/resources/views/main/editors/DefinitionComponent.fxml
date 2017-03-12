@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import de.tum.imomesa.workbench.commons.nodes.PTreeTableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+
+<BorderPane fx:id="borderPane" xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.main.editors.DefinitionComponentController">
+	<top>
+		<ToolBar>
+			<items>
+				<Spinner fx:id="spinner" min="1" max="10000" initialValue="1000" editable="true" />
+				<Label text="milliseconds per scenario" />
+				<Separator />
+				<Button text="Generate report" onAction="#startIntegration" />
+				<Separator />
+				<Label text="Progress" />
+				<ProgressBar fx:id="progressBar" progress="0" />
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<TreeTableView>
+			<columns>
+				<PTreeTableColumn text="Name" percentageWidth="0.4"/>
+				<PTreeTableColumn text="Successes (in %)" percentageWidth="0.2"/>
+				<PTreeTableColumn text="Failures (in %)" percentageWidth="0.2"/>
+				<PTreeTableColumn text="Timeouts (in %)" percentageWidth="0.2"/>
+			</columns>
+		</TreeTableView>
+	</center>
+</BorderPane>

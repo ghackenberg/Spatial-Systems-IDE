@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+<?import de.tum.imomesa.workbench.commons.nodes.PTableColumn?>
+<?import de.tum.imomesa.workbench.commons.nodes.ElementCellFactory?>
+
+<Tab xmlns:fx="de.tum.imomesa" text="Changes" closable="false" fx:controller="de.tum.imomesa.workbench.controllers.main.ChangeController">
+	<graphic>
+		<ImageView>
+			<image>
+				<Image url="icons/tabs/change.png"/>
+			</image>
+		</ImageView>
+	</graphic>
+	<content>
+		<BorderPane>
+			<top>
+				<ToolBar>
+					<items>
+						<Button text="" visible="false" />
+					</items>
+				</ToolBar>
+			</top>
+			<center>
+				<TableView fx:id="table">
+					<columns>
+						<PTableColumn text="Message" percentageWidth="0.55">
+							<cellFactory>
+								<ElementCellFactory />
+							</cellFactory>
+							<cellValueFactory>
+								<PropertyValueFactory property="message" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Timestamp" percentageWidth="0.15">
+							<cellValueFactory>
+								<PropertyValueFactory property="timestamp" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Client" percentageWidth="0.15">
+							<cellValueFactory>
+								<PropertyValueFactory property="client" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Element" percentageWidth="0.15">
+							<cellValueFactory>
+								<PropertyValueFactory property="key" />
+							</cellValueFactory>
+						</PTableColumn>
+						<!--
+						<PTableColumn text="Type" percentageWidth="0.25">
+							<cellValueFactory>
+								<PropertyValueFactory property="type" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Name" percentageWidth="0.1">
+							<cellValueFactory>
+								<PropertyValueFactory property="name" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Value" percentageWidth="0.25">
+							<cellValueFactory>
+								<PropertyValueFactory property="value" />
+							</cellValueFactory>
+						</PTableColumn>
+						-->
+					</columns>
+				</TableView>
+			</center>
+		</BorderPane>
+	</content>
+</Tab>

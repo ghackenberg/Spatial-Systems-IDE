@@ -1,0 +1,34 @@
+digraph {
+	"Thread[[Distributor, New monitor],5,main]" [label = "MonitorThread\n\nDistributor\nNew monitor", shape = box, style = filled, fillcolor = blue];
+	"Thread[[Distributor, Lifter, Cylinder, Cylinder, New behavior, Height],5,main]" [label = "VariableThread\n\nDistributor\nLifter\nCylinder\nCylinder\nNew behavior\nHeight", shape = box, style = filled, fillcolor = white];
+	"Thread[[Distributor, Lifter, Cylinder, Cylinder, New behavior],5,main]" [label = "BehaviorThread\n\nDistributor\nLifter\nCylinder\nCylinder\nNew behavior", shape = box, style = filled, fillcolor = red];
+	"Thread[[Distributor, Controller, Lift],5,main]" [label = "PortThread\n\nDistributor\nController\nLift", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Distributor, Controller, Finished],5,main]" [label = "PortThread\n\nDistributor\nController\nFinished", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Distributor, Controller, New behavior, Internal suck],5,main]" [label = "VariableThread\n\nDistributor\nController\nNew behavior\nInternal suck", shape = box, style = filled, fillcolor = white];
+	"Thread[[Distributor, Controller, New behavior],5,main]" [label = "BehaviorThread\n\nDistributor\nController\nNew behavior", shape = box, style = filled, fillcolor = red];
+	"[Distributor, Controller, Lift]" [label = "DataPort\n\nDistributor\nController\nLift", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Lifter, Cylinder, Cylinder, Open]" [label = "DataPort\n\nDistributor\nLifter\nCylinder\nCylinder\nOpen", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Lifter, Open]" [label = "DataPort\n\nDistributor\nLifter\nOpen", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Lifter, Cylinder, Open]" [label = "ReferencePort\n\nDistributor\nLifter\nCylinder\nOpen", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Controller, Finished]" [label = "DataPort\n\nDistributor\nController\nFinished", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Controller, New behavior, Internal suck]" [label = "Variable\n\nDistributor\nController\nNew behavior\nInternal suck", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Finished]" [label = "DataPort\n\nDistributor\nFinished", shape = ellipse, style = filled, color = pink];
+	"[Distributor, Finished]" -> "Thread[[Distributor, New monitor],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Lifter, Cylinder, Cylinder, New behavior],5,main]" -> "Thread[[Distributor, Lifter, Cylinder, Cylinder, New behavior, Height],5,main]" [label = "blocking"];
+	"[Distributor, Lifter, Cylinder, Cylinder, Open]" -> "Thread[[Distributor, Lifter, Cylinder, Cylinder, New behavior],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, New behavior],5,main]" -> "Thread[[Distributor, Controller, Lift],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, Lift],5,main]" -> "[Distributor, Controller, Lift]" [label = "writing", style = dashed];
+	"Thread[[Distributor, Controller, New behavior],5,main]" -> "Thread[[Distributor, Controller, Finished],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, Finished],5,main]" -> "[Distributor, Controller, Finished]" [label = "writing", style = dashed];
+	"Thread[[Distributor, Controller, New behavior],5,main]" -> "Thread[[Distributor, Controller, New behavior, Internal suck],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, New behavior, Internal suck],5,main]" -> "[Distributor, Controller, New behavior, Internal suck]" [label = "writing", style = dashed];
+	"[Distributor, Controller, New behavior, Internal suck]" -> "Thread[[Distributor, Controller, New behavior],5,main]" [label = "blocking"];
+	"Thread[[Distributor, Controller, New behavior],5,main]" -> "[Distributor, Controller, Lift]" [label = "writing", style = dashed];
+	"Thread[[Distributor, Controller, New behavior],5,main]" -> "[Distributor, Controller, Finished]" [label = "writing", style = dashed];
+	"Thread[[Distributor, Controller, New behavior],5,main]" -> "[Distributor, Controller, New behavior, Internal suck]" [label = "writing", style = dashed];
+	"[Distributor, Lifter, Cylinder, Open]" -> "[Distributor, Lifter, Cylinder, Cylinder, Open]" [label = "forward", color = gray]; 
+	"[Distributor, Controller, Lift]" -> "[Distributor, Lifter, Open]" [label = "static channel", color = green]; 
+	"[Distributor, Lifter, Open]" -> "[Distributor, Lifter, Cylinder, Open]" [label = "static channel", color = green]; 
+	"[Distributor, Lifter, Cylinder, Cylinder, Open]" -> "[Distributor, Lifter, Cylinder, Open]" [label = "forward", color = gray];
+	"[Distributor, Controller, Finished]" -> "[Distributor, Finished]" [label = "static channel", color = green]; 
+}

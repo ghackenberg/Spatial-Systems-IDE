@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import de.tum.imomesa.workbench.commons.nodes.ElementCellFactory?>
+<?import de.tum.imomesa.workbench.commons.nodes.PTableColumn?>
+
+<BorderPane xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.main.editors.component.PropertiesController">
+	<top>
+		<ToolBar>
+			<items>
+				<Button text="" visible="false" />
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<ScrollPane fitToWidth="true" fitToHeight="true">
+			<content>
+				<TableView fx:id="tableView">
+					<columns>
+						<PTableColumn text="Class" percentageWidth="0.2">
+							<cellFactory>
+								<ElementCellFactory />
+							</cellFactory>
+							<cellValueFactory>
+								<PropertyValueFactory property="className" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Name" percentageWidth="0.2">
+							<cellValueFactory>
+								<PropertyValueFactory property="name" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Description" percentageWidth="0.2">
+							<cellValueFactory>
+								<PropertyValueFactory property="description" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Read type" percentageWidth="0.1">
+							<cellValueFactory>
+								<PropertyValueFactory property="readType" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Write type" percentageWidth="0.1">
+							<cellValueFactory>
+								<PropertyValueFactory property="writeType" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Default" percentageWidth="0.1">
+							<cellValueFactory>
+								<PropertyValueFactory property="default" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Expression" percentageWidth="0.1">
+							<cellValueFactory>
+								<PropertyValueFactory property="expression" />
+							</cellValueFactory>
+						</PTableColumn>
+					</columns>
+				</TableView>
+			</content>
+		</ScrollPane>
+	</center>
+</BorderPane>

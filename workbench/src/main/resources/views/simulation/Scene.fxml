@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+
+<Tab xmlns:fx="de.tum.imomesa" text="Scene" closable="false" fx:controller="de.tum.imomesa.workbench.controllers.simulation.SceneController">
+	<graphic>
+		<ImageView>
+			<image>
+				<Image url="icons/tabs/scene.png"/>
+			</image>
+		</ImageView>
+	</graphic>
+	<content>
+		<BorderPane>
+			<top>
+				<ToolBar>
+					<items>
+						<CheckBox fx:id="coordinates" selected="true"/>
+						<Label text="Show coordinate system"/>
+						<CheckBox fx:id="outline" selected="true"/>
+						<Label text="Show outline"/>
+						<CheckBox fx:id="highlight" selected="true"/>
+						<Label text="Highlight selected"/>
+						<Button text="" visible="false" />
+					</items>
+				</ToolBar>
+			</top>
+			<center>
+				<Pane fx:id="pane"/>
+			</center>
+		</BorderPane>
+	</content>
+</Tab>

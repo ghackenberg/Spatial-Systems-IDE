@@ -1,0 +1,123 @@
+body {
+	font-family: "Calibri";
+	
+	margin: 1em;
+}
+table {
+	width: 100%;
+	
+	border-collapse: collapse;
+}
+td, th {
+	position: relative;
+	
+	white-space: nowrap;
+	
+	text-align: left;
+	
+	border-width: 1px;
+	border-style: solid;
+	border-color: white;
+	
+	padding: 0.5em;
+}
+td {
+	background: rgba(0,0,0,0.0);
+	
+	width: 10000px;
+}
+
+thead > tr > th {
+	font-weight: bold;
+	
+	background-color: rgba(0,0,0,0.16);
+}
+
+tbody > tr > th {
+	background: rgba(0,0,0,0.04);
+	
+	font-weight: normal;
+}
+tbody > tr > th[rowspan] {
+	background-color: rgba(0,0,0,0.08);
+	
+	vertical-align: top;
+}
+
+tfoot > tr > td {
+	background-color: rgba(0,0,0,0.16);
+	
+	padding-top: 0em;
+}
+tfoot > tr > td > div {
+	float: left;
+	margin-right: 0.5em;
+	margin-top: 0.5em;
+}
+tfoot > tr > td > div > div {
+	display: inline-block;
+}
+tfoot > tr > td > div > div:first-child {
+	width: 1em;
+}
+
+div.swimlane {
+	position: absolute;
+	
+	top: 0.5em;
+	left: 0.5em;
+	right: 0.5em;
+	bottom: 0.5em;
+}
+
+div.interval, div.point {
+	position: absolute;
+}
+div.interval {
+	z-index: 0;
+	
+	top: 25%;
+	bottom: 25%;
+	
+	background: green;
+}
+div.point {
+	z-index: 1;
+	
+	top: 0%;
+	bottom: 0%;
+	
+	margin-left: -0.5px;
+	
+	width: 1px;
+	
+	background: green;
+}
+
+div.Empty {
+	background: white;
+}
+div.Manage {
+	background: gray;
+}
+div.Release {
+	background: lightgray;
+}
+div.Non-determinism {
+	background: lightgreen;
+}
+div.Timeout {
+	background: blue;
+}
+div.Constraint_violation {
+	background: firebrick;
+}
+div.Generic_fixed_point {
+	background: red;
+}
+div.Part_collision {
+	background: orange;
+}
+div.Multiple_actions {
+	background: yellow;
+}

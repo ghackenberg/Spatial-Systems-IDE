@@ -1,0 +1,48 @@
+body {
+	font-family: "Calibri Light";
+	
+	margin: 0px;
+}
+table {
+	border-collapse: collapse;
+	
+	width: 100%;
+}
+tr {
+	text-align: left;
+}
+tr:first-child {
+	text-align: center;
+	background: rgba(0,0,0,0.4);
+}
+tr.Flip_0 {
+	background: rgba(0,0,0,0.1);
+}
+tr.Flip_1 {
+	background: rgba(0,0,0,0.2);
+}
+td, th {
+	border-style: solid;
+	border-color: white;
+	border-width: 1px;
+	
+	white-space: nowrap;
+}
+th[rowspan]{
+	background: rgba(0,0,0,0.3);
+}
+th {
+	background: rgba(0,0,0,0.1);
+}
+td {
+	width: 1000px;
+}
+td.Success {
+	background: green;
+}
+td.Failure {
+	background: red;
+}
+td.Timeout {
+	background: blue;
+}

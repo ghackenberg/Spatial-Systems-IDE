@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import de.tum.imomesa.workbench.commons.nodes.PTableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<Tab xmlns:fx="de.tum.imomesa" text="Results" closable="false" fx:controller="de.tum.imomesa.workbench.controllers.simulation.ResultController">
+	<graphic>
+		<ImageView>
+			<image>
+				<Image url="icons/tabs/result.png"/>
+			</image>
+		</ImageView>
+	</graphic>
+	<content>
+		<BorderPane>
+			<top>
+				<ToolBar>
+					<items>
+						<Button text="" visible="false" />
+					</items>
+				</ToolBar>
+			</top>
+			<center>
+				<TableView fx:id="tableView">
+					<columns>
+						<PTableColumn text="Message" percentageWidth="0.35" fx:id="message">
+							<cellValueFactory>
+								<PropertyValueFactory property="message"/>
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Issues" percentageWidth="0.3">
+							<cellValueFactory>
+								<PropertyValueFactory property="markerString"/>
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Duration" percentageWidth="0.15">
+							<cellValueFactory>
+								<PropertyValueFactory property="durationString"/>
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Time" percentageWidth="0.2">
+							<cellValueFactory>
+								<PropertyValueFactory property="timeString"/>
+							</cellValueFactory>
+						</PTableColumn>
+					</columns>
+				</TableView>
+			</center>
+		</BorderPane>
+	</content>
+</Tab>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.TabPane?>
+<?import java.net.URL ?>
+
+<BorderPane xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.SimulationController">
+	<stylesheets>
+		<URL value="@../styles/Simulation.css"/>
+	</stylesheets>
+	<top>
+		<ToolBar>
+			<items>
+				<Label text="Layout"/>
+				<Button text="Large screen" disable="true" onAction="#layoutLarge" fx:id="buttonLayoutLarge">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/layouts/layout_one.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button text="Medium screen" onAction="#layoutMedium" fx:id="buttonLayoutMedium">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/layouts/layout_two.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button text="Small screen" onAction="#layoutSmall" fx:id="buttonLayoutSmall">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/layouts/layout_three.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Separator/>
+				<Label text="Step"/>
+				<Button fx:id="bBackward" text="Backward" onAction="#handleBackward">
+					<graphic>
+						<ImageView fitHeight="20" fitWidth="20">
+							<image>
+								<Image url="icons/actions/backward.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="bForward" text="Forward" onAction="#handleForward">
+					<graphic>
+						<ImageView fitHeight="20" fitWidth="20">
+							<image>
+								<Image url="icons/actions/forward.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Separator/>
+				<Label text="Animation"/>
+				<Spinner fx:id="spIdleTime" min="100" max="1000" initialValue="100" amountToStepBy="50" prefWidth="100" />
+				<Text text="ms per step"/>
+				<Button fx:id="bPlay" text="Play" onAction="#handlePlay">
+					<graphic>
+						<ImageView fitHeight="20" fitWidth="20">
+							<image>
+								<Image url="icons/actions/play.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="bPause" text="Pause" onAction="#handlePause">
+					<graphic>
+						<ImageView fitHeight="20" fitWidth="20">
+							<image>
+								<Image url="icons/actions/pause.png" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Separator/>
+				<Label text="Timeline"/>
+				<Slider fx:id="sStep" showTickMarks="true" showTickLabels="true" value="0" prefWidth="500"/>
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<GridPane hgap="1" vgap="1" fx:id="gridPane">
+			<padding>
+				<!-- <Insets top="5" left="5" right="5" bottom="5"/> -->
+			</padding>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="16"/>
+				<ColumnConstraints percentWidth="34"/>
+				<ColumnConstraints percentWidth="34"/>
+				<ColumnConstraints percentWidth="16"/>
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints percentHeight="70"/>
+				<RowConstraints percentHeight="30"/>
+			</rowConstraints>
+			<children>
+				<TabPane GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" fx:id="tabPaneExplorer" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="simulation/Explorer.fxml" fx:id="embeddedExplorer"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="tabPaneEditor" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="simulation/Editor.fxml" fx:id="embeddedEditor"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="tabPaneScene" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="simulation/Scene.fxml" fx:id="embeddedScene"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="tabPaneMarker" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="simulation/Marker.fxml" fx:id="embeddedMarker"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="tabPaneResult" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="simulation/Result.fxml" fx:id="embeddedResult"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.rowSpan="2" fx:id="tabPaneAttribute" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="simulation/Attribute.fxml" fx:id="embeddedAttribute"/>
+					</tabs>
+				</TabPane>
+			</children>
+		</GridPane>
+	</center>
+	<bottom>
+		<ToolBar>
+			<items>
+				<Label text="Copyright 2015, Georg Hackenberg und Thomas Stocker, Lehrstuhl für Software und Systems Engineering, Technische Universität München" />
+			</items>
+		</ToolBar>
+	</bottom>
+</BorderPane>

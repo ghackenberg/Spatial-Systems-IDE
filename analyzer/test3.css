@@ -1,0 +1,33 @@
+@import url(test2.css);
+
+div.Requirement {
+	background: darkred;
+}
+div.Port {
+	background: orange;
+}
+div.Property {
+	background: orangered;
+}
+div.Scenario {
+	background: red;
+}
+div.Monitor {
+	background: yellow;
+}
+div.Component {
+	background: green;
+}
+div.Behavior {
+	background: darkblue;
+}
+div.Part {
+	background: blue;
+}
+div.Idle {
+	background: lightgray;
+}
+
+div.point {
+	background: transparent;
+}

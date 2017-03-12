@@ -1,0 +1,22 @@
+digraph {
+	"Thread[[Pusher, Active],5,main]" [label = "PortThread\n\nPusher\nActive", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Pusher, Volume, Active],5,main]" [label = "PortThread\n\nPusher\nVolume\nActive", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Pusher, Volume, Behavior],5,main]" [label = "BehaviorThread\n\nPusher\nVolume\nBehavior", shape = box, style = filled, fillcolor = red];
+	"Thread[[Pusher, Piston, Material],5,main]" [label = "MaterialBindingPortThread\n\nPusher\nPiston\nMaterial", shape = box, style = filled, fillcolor = orange];
+	"Thread[[Pusher, Piston, Active],5,main]" [label = "PortThread\n\nPusher\nPiston\nActive", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Pusher, Piston, Behavior],5,main]" [label = "BehaviorThread\n\nPusher\nPiston\nBehavior", shape = box, style = filled, fillcolor = red];
+	"[Pusher, Piston, Active]" [label = "GenericPort\n\nPusher\nPiston\nActive", shape = ellipse, style = filled, color = pink];
+	"[Pusher, Active]" [label = "DataPort\n\nPusher\nActive", shape = ellipse, style = filled, color = pink];
+	"[Pusher, Volume, Active]" [label = "DataPort\n\nPusher\nVolume\nActive", shape = ellipse, style = filled, color = pink];
+	"Thread[[Pusher, Piston, Material],5,main]" -> "Thread[[Pusher, Active],5,main]" [label = "blocking"];
+	"Thread[[Pusher, Active],5,main]" -> "[Pusher, Active]" [label = "writing", style = dashed];
+	"Thread[[Pusher, Piston, Material],5,main]" -> "Thread[[Pusher, Volume, Active],5,main]" [label = "blocking"];
+	"Thread[[Pusher, Volume, Active],5,main]" -> "[Pusher, Volume, Active]" [label = "writing", style = dashed];
+	"[Pusher, Volume, Active]" -> "Thread[[Pusher, Volume, Behavior],5,main]" [label = "blocking"];
+	"Thread[[Pusher, Piston, Behavior],5,main]" -> "Thread[[Pusher, Piston, Material],5,main]" [label = "blocking"];
+	"Thread[[Pusher, Piston, Material],5,main]" -> "Thread[[Pusher, Piston, Active],5,main]" [label = "blocking"];
+	"Thread[[Pusher, Piston, Active],5,main]" -> "[Pusher, Piston, Active]" [label = "writing", style = dashed];
+	"[Pusher, Piston, Active]" -> "Thread[[Pusher, Piston, Behavior],5,main]" [label = "blocking"];
+	"[Pusher, Active]" -> "[Pusher, Piston, Active]" [label = "static channel", color = green]; 
+	"[Pusher, Active]" -> "[Pusher, Volume, Active]" [label = "static channel", color = green]; 
+}

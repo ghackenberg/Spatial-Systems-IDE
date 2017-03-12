@@ -1,0 +1,2633 @@
+{
+   "objects": [
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Workspace",
+         "fields": {
+            "parent": null,
+            "projects": [{"key": 0.850721312642925}],
+            "name": "Demo workspace",
+            "description": null
+         },
+         "key": 0.6175065087387692,
+         "timestamp": 1445256153361
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Project",
+         "fields": {
+            "parent": {"key": 0.6175065087387692},
+            "component": {"key": 0.420955492001686},
+            "templates": [
+               {"key": 0.12065419482399908},
+               {"key": 0.5082614541367955}
+            ],
+            "name": "Demo project",
+            "description": null
+         },
+         "key": 0.850721312642925,
+         "timestamp": 1445256167930
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.DefinitionComponent",
+         "fields": {
+            "cameraAngleY": 325.4000000000003,
+            "cameraAngleX": 327.00000000000045,
+            "parent": {"key": 0.850721312642925},
+            "requirements": [
+               {"key": 0.3165066785410474},
+               {"key": 0.3928538774229997}
+            ],
+            "components": [
+               {"key": 0.5941270056346233},
+               {"key": 0.823413767769186},
+               {"key": 0.5892828598139613},
+               {"key": 0.9914834229262323}
+            ],
+            "behaviors": [],
+            "transforms": [],
+            "description": null,
+            "scenarios": [{"key": 0.3684064385698631}],
+            "ports": [{"key": 0.9844942738620589}],
+            "cameraDistance": -240,
+            "cameraTranslateY": -5.2,
+            "point": {"key": 0.07746226963315328},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 4.5,
+            "parts": [
+               {"key": 0.9060235685439912},
+               {"key": 0.2300586755415457},
+               {"key": 0.4096785971771675},
+               {"key": 0.6791876564104367},
+               {"key": 0.8683586561658138},
+               {"key": 0.09772336146108551}
+            ],
+            "name": "Conveyor",
+            "properties": [],
+            "monitors": []
+         },
+         "key": 0.420955492001686,
+         "timestamp": 1445256174276
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "x": 0,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.07746226963315328,
+         "timestamp": 1445256174305
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Requirement",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "requirements": [],
+            "name": "Move material from entry to exit",
+            "description": null
+         },
+         "key": 0.3165066785410474,
+         "timestamp": 1445256182266
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Requirement",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "requirements": [],
+            "name": "Move material within 60 seconds",
+            "description": null
+         },
+         "key": 0.3928538774229997,
+         "timestamp": 1445256194154
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.DefinitionComponent",
+         "fields": {
+            "cameraAngleY": 327.20000000000095,
+            "cameraAngleX": 326.9999999999993,
+            "parent": {"key": 0.850721312642925},
+            "requirements": [],
+            "components": [],
+            "behaviors": [],
+            "transforms": [],
+            "description": null,
+            "scenarios": [],
+            "ports": [{"key": 0.9627511609793454}],
+            "cameraDistance": -120,
+            "cameraTranslateY": 0,
+            "point": {"key": 0.6001424325557394},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 0,
+            "parts": [{"key": 0.21510901302186558}],
+            "name": "Material",
+            "properties": [],
+            "monitors": []
+         },
+         "key": 0.12065419482399908,
+         "timestamp": 1445256205521
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.12065419482399908},
+            "x": 0,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.6001424325557394,
+         "timestamp": 1445256205533
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.47532101747091526},
+            "parent": {"key": 0.12065419482399908},
+            "transforms": [],
+            "name": "New part",
+            "description": null
+         },
+         "key": 0.21510901302186558,
+         "timestamp": 1445256213642
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 153,
+            "parent": {"key": 0.21510901302186558},
+            "depth": 10,
+            "green": 153,
+            "blue": 153,
+            "width": 10,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 10
+         },
+         "key": 0.47532101747091526,
+         "timestamp": 1445256218565
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.scenarios.Scenario",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "variables": [],
+            "initialLabel": {"key": 0.8922736352372084},
+            "finalLabel": {"key": 0.2287527779479699},
+            "name": "Success scenario",
+            "description": null,
+            "ports": [
+               {"key": 0.5990580944328966},
+               {"key": 0.8702506315995351}
+            ],
+            "transitions": [
+               {"key": 0.26613139065376057},
+               {"key": 0.615322102522063}
+            ],
+            "labels": [
+               {"key": 0.8922736352372084},
+               {"key": 0.3314350429615126},
+               {"key": 0.2287527779479699}
+            ]
+         },
+         "key": 0.3684064385698631,
+         "timestamp": 1445256246818
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.EntryLifeMaterialPort",
+         "fields": {
+            "volume": {"key": 0.08759473137782858},
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.3684064385698631},
+            "component": {"key": 0.12065419482399908},
+            "default": {"key": 0.10164772521051713},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Entry",
+            "description": null,
+            "readType": {"type": "java.util.Set"},
+            "outgoingStaticChannels": [],
+            "direction": 2
+         },
+         "key": 0.5990580944328966,
+         "timestamp": 1445256258557
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.ExitLifeMaterialPort",
+         "fields": {
+            "volume": {"key": 0.16977486353804772},
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.3684064385698631},
+            "component": {"key": 0.12065419482399908},
+            "default": {"key": 0.24046858322255305},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Exit",
+            "description": null,
+            "readType": {"type": "java.util.Set"},
+            "outgoingStaticChannels": [],
+            "direction": 2
+         },
+         "key": 0.8702506315995351,
+         "timestamp": 1445256268068
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.5990580944328966},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.10164772521051713,
+         "timestamp": 1445256278924
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 0,
+            "parent": {"key": 0.5990580944328966},
+            "depth": 5,
+            "green": 0,
+            "blue": 0,
+            "width": 5,
+            "transforms": [{"key": 0.3020827673007519}],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.08759473137782858,
+         "timestamp": 1445256282220
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.08759473137782858},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.5773530535862109}
+         },
+         "key": 0.3020827673007519,
+         "timestamp": 1445256290999
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.3020827673007519},
+            "x": -50,
+            "y": 10,
+            "z": 0
+         },
+         "key": 0.5773530535862109,
+         "timestamp": 1445256291001
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.8702506315995351},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.24046858322255305,
+         "timestamp": 1445256308118
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 0,
+            "parent": {"key": 0.8702506315995351},
+            "depth": 5,
+            "green": 0,
+            "blue": 0,
+            "width": 5,
+            "transforms": [{"key": 0.9920207527083931}],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.16977486353804772,
+         "timestamp": 1445256311644
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.16977486353804772},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.6925094524059116}
+         },
+         "key": 0.9920207527083931,
+         "timestamp": 1445256319903
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.9920207527083931},
+            "x": 50,
+            "y": 10,
+            "z": 0
+         },
+         "key": 0.6925094524059116,
+         "timestamp": 1445256319906
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.scenarios.Step",
+         "fields": {
+            "parent": {"key": 0.3684064385698631},
+            "name": "Initial step",
+            "description": null,
+            "actions": [],
+            "properties": [],
+            "point": {"key": 0.2900183370899285}
+         },
+         "key": 0.8922736352372084,
+         "timestamp": 1445256380723
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.8922736352372084},
+            "x": 135,
+            "y": 66,
+            "z": 0
+         },
+         "key": 0.2900183370899285,
+         "timestamp": 1445256380728
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.scenarios.Step",
+         "fields": {
+            "parent": {"key": 0.3684064385698631},
+            "name": "Intermediate step",
+            "description": null,
+            "actions": [{"key": 0.5785963308826622}],
+            "properties": [{"key": 0.49470717912714035}],
+            "point": {"key": 0.2361251674453989}
+         },
+         "key": 0.3314350429615126,
+         "timestamp": 1445256394392
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.3314350429615126},
+            "x": 352,
+            "y": 392,
+            "z": 0
+         },
+         "key": 0.2361251674453989,
+         "timestamp": 1445256394394
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.scenarios.Step",
+         "fields": {
+            "parent": {"key": 0.3684064385698631},
+            "name": "Final step",
+            "description": null,
+            "actions": [],
+            "properties": [],
+            "point": {"key": 0.19714338786438712}
+         },
+         "key": 0.2287527779479699,
+         "timestamp": 1445256403817
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.2287527779479699},
+            "x": 670,
+            "y": 709,
+            "z": 0
+         },
+         "key": 0.19714338786438712,
+         "timestamp": 1445256403819
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.scenarios.Transition",
+         "fields": {
+            "parent": {"key": 0.3684064385698631},
+            "sourceLabel": {"key": 0.8922736352372084},
+            "guard": {"key": 0.23799666262877195},
+            "targetLabel": {"key": 0.3314350429615126},
+            "name": "Create material @ entry",
+            "description": null,
+            "actions": [{"key": 0.9948006159146142}]
+         },
+         "key": 0.26613139065376057,
+         "timestamp": 1445256419073
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.scenarios.Transition",
+         "fields": {
+            "parent": {"key": 0.3684064385698631},
+            "sourceLabel": {"key": 0.3314350429615126},
+            "guard": {"key": 0.11155594324896445},
+            "targetLabel": {"key": 0.2287527779479699},
+            "name": "Remove material @ exit",
+            "description": null,
+            "actions": []
+         },
+         "key": 0.615322102522063,
+         "timestamp": 1445256421472
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Guard",
+         "fields": {
+            "parent": {"key": 0.26613139065376057},
+            "expression": {"key": 0.7086228593029823},
+            "name": "New guard",
+            "description": null
+         },
+         "key": 0.23799666262877195,
+         "timestamp": 1445256451185
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Guard",
+         "fields": {
+            "parent": {"key": 0.615322102522063},
+            "expression": {"key": 0.383929019309987},
+            "name": "New guard",
+            "description": null
+         },
+         "key": 0.11155594324896445,
+         "timestamp": 1445256452705
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.23799666262877195},
+            "type": {"type": "java.lang.Boolean"},
+            "value": true
+         },
+         "key": 0.7086228593029823,
+         "timestamp": 1445256460756
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.26613139065376057},
+            "expression": {"key": 0.5090073234169831},
+            "observation": {"key": 0.5990580944328966},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.9948006159146142,
+         "timestamp": 1445256465952
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.9948006159146142},
+            "type": {"type": "java.lang.Boolean"},
+            "value": true
+         },
+         "key": 0.5090073234169831,
+         "timestamp": 1445256475030
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.GreaterExpression",
+         "fields": {
+            "parent": {"key": 0.11155594324896445},
+            "arguments": [
+               {"key": 0.356220034910251},
+               {"key": 0.1454176778256513}
+            ],
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.383929019309987,
+         "timestamp": 1445256501241
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.CardinalityExpression",
+         "fields": {
+            "parent": {"key": 0.383929019309987},
+            "argument": {"key": 0.444485419999781},
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.356220034910251,
+         "timestamp": 1445256509435
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.ObservationExpression",
+         "fields": {
+            "parent": {"key": 0.356220034910251},
+            "delay": 1,
+            "observation": {"key": 0.8702506315995351},
+            "type": {"type": "java.util.Set"}
+         },
+         "key": 0.444485419999781,
+         "timestamp": 1445256514219
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.383929019309987},
+            "doubleValue": 0,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.1454176778256513,
+         "timestamp": 1445256526491
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.properties.ConstraintProperty",
+         "fields": {
+            "parent": {"key": 0.3314350429615126},
+            "default": {"key": 0.8079615971709032},
+            "expression": {"key": 0.4971645458469367},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Maximum duration",
+            "description": null,
+            "readType": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.49470717912714035,
+         "timestamp": 1445256544507
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.49470717912714035},
+            "type": {"type": "java.lang.Boolean"},
+            "value": true
+         },
+         "key": 0.8079615971709032,
+         "timestamp": 1445256549500
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.SmallerExpression",
+         "fields": {
+            "parent": {"key": 0.49470717912714035},
+            "arguments": [
+               {"key": 0.31101334998835783},
+               {"key": 0.8074304389800968}
+            ],
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.4971645458469367,
+         "timestamp": 1445256560853
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.DurationExpression",
+         "fields": {
+            "parent": {"key": 0.4971645458469367},
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.31101334998835783,
+         "timestamp": 1445256566516
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.4971645458469367},
+            "doubleValue": 60,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.8074304389800968,
+         "timestamp": 1445256569285
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.3314350429615126},
+            "expression": {"key": 0.22812998661831052},
+            "observation": {"key": 0.8702506315995351},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.5785963308826622,
+         "timestamp": 1445256600024
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.5785963308826622},
+            "type": {"type": "java.lang.Boolean"},
+            "value": true
+         },
+         "key": 0.22812998661831052,
+         "timestamp": 1445256609523
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.InteractionMaterialPort",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "bindsVolumes": false,
+            "description": null,
+            "ports": [{"key": 0.42791246634462565}],
+            "point": {"key": 0.7448802885534624},
+            "volume": {"key": 0.06855532747063187},
+            "incomingStaticChannels": [],
+            "default": {"key": 0.07892536853298304},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "executionPriority": 0,
+            "name": "Material",
+            "readType": {"type": "java.util.Set"},
+            "alwaysActive": true,
+            "outgoingStaticChannels": [],
+            "direction": 2
+         },
+         "key": 0.9844942738620589,
+         "timestamp": 1445256626188
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.9844942738620589},
+            "x": 586,
+            "y": 623,
+            "z": 0
+         },
+         "key": 0.7448802885534624,
+         "timestamp": 1445256626193
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.9844942738620589},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.07892536853298304,
+         "timestamp": 1445256638538
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 0,
+            "parent": {"key": 0.9844942738620589},
+            "depth": 5,
+            "green": 26,
+            "blue": 128,
+            "width": 105,
+            "transforms": [{"key": 0.7635966025294048}],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.06855532747063187,
+         "timestamp": 1445256642227
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.06855532747063187},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.09323601840632845}
+         },
+         "key": 0.7635966025294048,
+         "timestamp": 1445256665742
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.7635966025294048},
+            "x": 0,
+            "y": 10,
+            "z": 0
+         },
+         "key": 0.09323601840632845,
+         "timestamp": 1445256665743
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.KinematicEnergyPort",
+         "fields": {
+            "incomingStaticChannels": [{"key": 0.564795417538168}],
+            "parent": {"key": 0.9844942738620589},
+            "transform": null,
+            "default": {"key": 0.24823109449456904},
+            "writeType": [
+               {"type": "java.lang.Number"},
+               {"type": "org.apache.commons.math3.linear.RealMatrix"}
+            ],
+            "name": "Energy",
+            "description": null,
+            "readType": {"type": "org.apache.commons.math3.linear.RealMatrix"},
+            "outgoingStaticChannels": [],
+            "direction": 0
+         },
+         "key": 0.42791246634462565,
+         "timestamp": 1445256691251
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.KinematicEnergyPort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.12065419482399908},
+            "transform": null,
+            "default": {"key": 0.01928582068085516},
+            "writeType": [
+               {"type": "java.lang.Number"},
+               {"type": "org.apache.commons.math3.linear.RealMatrix"}
+            ],
+            "name": "Energy",
+            "description": null,
+            "readType": {"type": "org.apache.commons.math3.linear.RealMatrix"},
+            "outgoingStaticChannels": [],
+            "direction": 0
+         },
+         "key": 0.9627511609793454,
+         "timestamp": 1445256707827
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.DefinitionComponent",
+         "fields": {
+            "cameraAngleY": 310.6000000000006,
+            "cameraAngleX": 319.2000000000005,
+            "parent": {"key": 0.850721312642925},
+            "requirements": [],
+            "components": [],
+            "behaviors": [{"key": 0.9165571890086929}],
+            "transforms": [],
+            "description": null,
+            "scenarios": [],
+            "ports": [
+               {"key": 0.5479513351916233},
+               {"key": 0.8529614561312003}
+            ],
+            "cameraDistance": -80,
+            "cameraTranslateY": 0,
+            "point": {"key": 0.9267865917548189},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 0,
+            "parts": [
+               {"key": 0.8880364510995271},
+               {"key": 0.17330449585216956}
+            ],
+            "name": "Sensor",
+            "properties": [],
+            "monitors": []
+         },
+         "key": 0.5082614541367955,
+         "timestamp": 1445256728535
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.5082614541367955},
+            "x": 0,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.9267865917548189,
+         "timestamp": 1445256728544
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.InteractionMaterialPort",
+         "fields": {
+            "parent": {"key": 0.5082614541367955},
+            "bindsVolumes": false,
+            "description": null,
+            "ports": [],
+            "point": {"key": 0.6445091618204807},
+            "volume": {"key": 0.7574785950867523},
+            "incomingStaticChannels": [],
+            "default": {"key": 0.7931978180388556},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "executionPriority": 0,
+            "name": "Material",
+            "readType": {"type": "java.util.Set"},
+            "alwaysActive": true,
+            "outgoingStaticChannels": [],
+            "direction": 2
+         },
+         "key": 0.5479513351916233,
+         "timestamp": 1445256737379
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.5479513351916233},
+            "x": 0,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.6445091618204807,
+         "timestamp": 1445256737385
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.DataPort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.5082614541367955},
+            "default": {"key": 0.059363733579966715},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Present",
+            "description": null,
+            "readType": {"type": "java.lang.Boolean"},
+            "outgoingStaticChannels": [],
+            "direction": 1
+         },
+         "key": 0.8529614561312003,
+         "timestamp": 1445256746530
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.8529614561312003},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.059363733579966715,
+         "timestamp": 1445256757986
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.5479513351916233},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.7931978180388556,
+         "timestamp": 1445256761354
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 0,
+            "parent": {"key": 0.5479513351916233},
+            "depth": 20,
+            "green": 0,
+            "blue": 0,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.7574785950867523,
+         "timestamp": 1445256764108
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.23881856566493753},
+            "parent": {"key": 0.5082614541367955},
+            "transforms": [{"key": 0.7829364548263745}],
+            "name": "Mount left",
+            "description": null
+         },
+         "key": 0.8880364510995271,
+         "timestamp": 1445256786279
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.6402266052709513},
+            "parent": {"key": 0.5082614541367955},
+            "transforms": [{"key": 0.6006688631763235}],
+            "name": "Mount right",
+            "description": null
+         },
+         "key": 0.17330449585216956,
+         "timestamp": 1445256789127
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 153,
+            "parent": {"key": 0.8880364510995271},
+            "depth": 5,
+            "green": 153,
+            "blue": 153,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.23881856566493753,
+         "timestamp": 1445256807531
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 153,
+            "parent": {"key": 0.17330449585216956},
+            "depth": 5,
+            "green": 153,
+            "blue": 153,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.6402266052709513,
+         "timestamp": 1445256817314
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.8880364510995271},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.6995571505934363}
+         },
+         "key": 0.7829364548263745,
+         "timestamp": 1445256826699
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.7829364548263745},
+            "x": 0,
+            "y": 0,
+            "z": -12.5
+         },
+         "key": 0.6995571505934363,
+         "timestamp": 1445256826700
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.17330449585216956},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.20529733454918708}
+         },
+         "key": 0.6006688631763235,
+         "timestamp": 1445256840226
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.6006688631763235},
+            "x": 0,
+            "y": 0,
+            "z": 12.5
+         },
+         "key": 0.20529733454918708,
+         "timestamp": 1445256840227
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Behavior",
+         "fields": {
+            "parent": {"key": 0.5082614541367955},
+            "variables": [],
+            "initialLabel": {"key": 0.09923529968799794},
+            "name": "Default behavior",
+            "description": null,
+            "transitions": [],
+            "labels": [{"key": 0.09923529968799794}]
+         },
+         "key": 0.9165571890086929,
+         "timestamp": 1445256864831
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.State",
+         "fields": {
+            "parent": {"key": 0.9165571890086929},
+            "parts": [],
+            "name": "Default state",
+            "description": null,
+            "actions": [{"key": 0.6143270476926748}],
+            "properties": [],
+            "point": {"key": 0.01455636538906846}
+         },
+         "key": 0.09923529968799794,
+         "timestamp": 1445256876223
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.09923529968799794},
+            "x": 360,
+            "y": 367,
+            "z": 0
+         },
+         "key": 0.01455636538906846,
+         "timestamp": 1445256876226
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.09923529968799794},
+            "expression": {"key": 0.49626590243377666},
+            "observation": {"key": 0.8529614561312003},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.6143270476926748,
+         "timestamp": 1445256896215
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.GreaterExpression",
+         "fields": {
+            "parent": {"key": 0.6143270476926748},
+            "arguments": [
+               {"key": 0.5050248665160775},
+               {"key": 0.44052961759083176}
+            ],
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.49626590243377666,
+         "timestamp": 1445256910594
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.CardinalityExpression",
+         "fields": {
+            "parent": {"key": 0.49626590243377666},
+            "argument": {"key": 0.823192225518096},
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.5050248665160775,
+         "timestamp": 1445256918674
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.ObservationExpression",
+         "fields": {
+            "parent": {"key": 0.5050248665160775},
+            "delay": 0,
+            "observation": {"key": 0.5479513351916233},
+            "type": {"type": "java.util.Set"}
+         },
+         "key": 0.823192225518096,
+         "timestamp": 1445256925428
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.49626590243377666},
+            "doubleValue": 0,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.44052961759083176,
+         "timestamp": 1445256935002
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.9627511609793454},
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.01928582068085516,
+         "timestamp": 1445256965037
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.42791246634462565},
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.24823109449456904,
+         "timestamp": 1445256977099
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.ReferenceComponent",
+         "fields": {
+            "template": {"key": 0.5082614541367955},
+            "cameraAngleY": 340.8000000000002,
+            "cameraAngleX": 339.4000000000003,
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.16743587462944787}],
+            "description": null,
+            "ports": [
+               {"key": 0.9584277217394771},
+               {"key": 0.2708858943169319}
+            ],
+            "cameraDistance": -280,
+            "cameraTranslateY": 0,
+            "point": {"key": 0.40537503870170977},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 0,
+            "name": "Sensor entry"
+         },
+         "key": 0.5941270056346233,
+         "timestamp": 1445256986945
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.5941270056346233},
+            "x": 86,
+            "y": 36,
+            "z": 0
+         },
+         "key": 0.40537503870170977,
+         "timestamp": 1445256986957
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.ReferencePort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.5941270056346233},
+            "portImplementation": {"key": 0.5479513351916233},
+            "outgoingStaticChannels": []
+         },
+         "key": 0.9584277217394771,
+         "timestamp": 1445256994738
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.ReferencePort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.5941270056346233},
+            "portImplementation": {"key": 0.8529614561312003},
+            "outgoingStaticChannels": [{"key": 0.8815027468884183}]
+         },
+         "key": 0.2708858943169319,
+         "timestamp": 1445256994744
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.ReferenceComponent",
+         "fields": {
+            "template": {"key": 0.5082614541367955},
+            "cameraAngleY": 310.6000000000006,
+            "cameraAngleX": 319.2000000000005,
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.412368526640158}],
+            "description": null,
+            "ports": [
+               {"key": 0.7387274640998255},
+               {"key": 0.8022186331975207}
+            ],
+            "cameraDistance": -80,
+            "cameraTranslateY": 0,
+            "point": {"key": 0.5780412231131109},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 0,
+            "name": "Sensor exit"
+         },
+         "key": 0.823413767769186,
+         "timestamp": 1445256999377
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.823413767769186},
+            "x": 100,
+            "y": 717,
+            "z": 0
+         },
+         "key": 0.5780412231131109,
+         "timestamp": 1445256999391
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.ReferencePort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.823413767769186},
+            "portImplementation": {"key": 0.5479513351916233},
+            "outgoingStaticChannels": []
+         },
+         "key": 0.7387274640998255,
+         "timestamp": 1445257005091
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.ReferencePort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.823413767769186},
+            "portImplementation": {"key": 0.8529614561312003},
+            "outgoingStaticChannels": [{"key": 0.23718993089444051}]
+         },
+         "key": 0.8022186331975207,
+         "timestamp": 1445257005098
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.5941270056346233},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.13422734268851932}
+         },
+         "key": 0.16743587462944787,
+         "timestamp": 1445257022348
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.16743587462944787},
+            "x": -50,
+            "y": 10,
+            "z": 0
+         },
+         "key": 0.13422734268851932,
+         "timestamp": 1445257022353
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.823413767769186},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.9649258053475221}
+         },
+         "key": 0.412368526640158,
+         "timestamp": 1445257025337
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.412368526640158},
+            "x": 50,
+            "y": 10,
+            "z": 0
+         },
+         "key": 0.9649258053475221,
+         "timestamp": 1445257025338
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.DefinitionComponent",
+         "fields": {
+            "cameraAngleY": 310.6000000000006,
+            "cameraAngleX": 319.2000000000005,
+            "parent": {"key": 0.420955492001686},
+            "requirements": [],
+            "components": [],
+            "behaviors": [{"key": 0.5440611410648996}],
+            "transforms": [],
+            "description": null,
+            "scenarios": [],
+            "ports": [
+               {"key": 0.4363392775553796},
+               {"key": 0.1690583937520972},
+               {"key": 0.5062524560947558}
+            ],
+            "cameraDistance": -80,
+            "cameraTranslateY": 0,
+            "point": {"key": 0.38517450201539705},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 0,
+            "parts": [],
+            "name": "Controller",
+            "properties": [],
+            "monitors": []
+         },
+         "key": 0.5892828598139613,
+         "timestamp": 1445257061115
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.5892828598139613},
+            "x": 187,
+            "y": 234,
+            "z": 0
+         },
+         "key": 0.38517450201539705,
+         "timestamp": 1445257061147
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.DataPort",
+         "fields": {
+            "incomingStaticChannels": [{"key": 0.8815027468884183}],
+            "parent": {"key": 0.5892828598139613},
+            "default": {"key": 0.8082476036507247},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Present entry",
+            "description": null,
+            "readType": {"type": "java.lang.Boolean"},
+            "outgoingStaticChannels": [],
+            "direction": 0
+         },
+         "key": 0.4363392775553796,
+         "timestamp": 1445257073404
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.DataPort",
+         "fields": {
+            "incomingStaticChannels": [{"key": 0.23718993089444051}],
+            "parent": {"key": 0.5892828598139613},
+            "default": {"key": 0.6105944762372942},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Present exit",
+            "description": null,
+            "readType": {"type": "java.lang.Boolean"},
+            "outgoingStaticChannels": [],
+            "direction": 0
+         },
+         "key": 0.1690583937520972,
+         "timestamp": 1445257083577
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.DataPort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.5892828598139613},
+            "default": {"key": 0.24997856445933808},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Active",
+            "description": null,
+            "readType": {"type": "java.lang.Boolean"},
+            "outgoingStaticChannels": [{"key": 0.33117790388819657}],
+            "direction": 1
+         },
+         "key": 0.5062524560947558,
+         "timestamp": 1445257093849
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.4363392775553796},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.8082476036507247,
+         "timestamp": 1445257103505
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.1690583937520972},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.6105944762372942,
+         "timestamp": 1445257106484
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.5062524560947558},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.24997856445933808,
+         "timestamp": 1445257109241
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.channels.StaticChannel",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "name": "Present",
+            "description": null,
+            "source": {"key": 0.2708858943169319},
+            "target": {"key": 0.4363392775553796}
+         },
+         "key": 0.8815027468884183,
+         "timestamp": 1445257118317
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.channels.StaticChannel",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "name": "Present",
+            "description": null,
+            "source": {"key": 0.8022186331975207},
+            "target": {"key": 0.1690583937520972}
+         },
+         "key": 0.23718993089444051,
+         "timestamp": 1445257120933
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Behavior",
+         "fields": {
+            "parent": {"key": 0.5892828598139613},
+            "variables": [],
+            "initialLabel": {"key": 0.3117194025137979},
+            "name": "Default behavior",
+            "description": null,
+            "transitions": [
+               {"key": 0.14821513225992933},
+               {"key": 0.562438571358683}
+            ],
+            "labels": [
+               {"key": 0.3117194025137979},
+               {"key": 0.20316990946905067}
+            ]
+         },
+         "key": 0.5440611410648996,
+         "timestamp": 1445257134734
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.State",
+         "fields": {
+            "parent": {"key": 0.5440611410648996},
+            "parts": [],
+            "name": "Inactive",
+            "description": null,
+            "actions": [{"key": 0.6569970921943952}],
+            "properties": [],
+            "point": {"key": 0.21557310585604628}
+         },
+         "key": 0.3117194025137979,
+         "timestamp": 1445257143110
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.3117194025137979},
+            "x": 347,
+            "y": 241,
+            "z": 0
+         },
+         "key": 0.21557310585604628,
+         "timestamp": 1445257143114
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.State",
+         "fields": {
+            "parent": {"key": 0.5440611410648996},
+            "parts": [],
+            "name": "Active",
+            "description": null,
+            "actions": [{"key": 0.9474990814461175}],
+            "properties": [],
+            "point": {"key": 0.9816494785213322}
+         },
+         "key": 0.20316990946905067,
+         "timestamp": 1445257152374
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.20316990946905067},
+            "x": 356,
+            "y": 517,
+            "z": 0
+         },
+         "key": 0.9816494785213322,
+         "timestamp": 1445257152379
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Transition",
+         "fields": {
+            "parent": {"key": 0.5440611410648996},
+            "sourceLabel": {"key": 0.3117194025137979},
+            "guard": {"key": 0.9483925936946559},
+            "targetLabel": {"key": 0.20316990946905067},
+            "name": "Inactive -> active",
+            "description": null,
+            "actions": [{"key": 0.9899565399475652}]
+         },
+         "key": 0.14821513225992933,
+         "timestamp": 1445257160550
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Transition",
+         "fields": {
+            "parent": {"key": 0.5440611410648996},
+            "sourceLabel": {"key": 0.20316990946905067},
+            "guard": {"key": 0.9380118381732031},
+            "targetLabel": {"key": 0.3117194025137979},
+            "name": "Active -> inactive",
+            "description": null,
+            "actions": [{"key": 0.3327927907506846}]
+         },
+         "key": 0.562438571358683,
+         "timestamp": 1445257173558
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.3117194025137979},
+            "expression": {"key": 0.9322516837715366},
+            "observation": {"key": 0.5062524560947558},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.6569970921943952,
+         "timestamp": 1445257187581
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.20316990946905067},
+            "expression": {"key": 0.019956988345728566},
+            "observation": {"key": 0.5062524560947558},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.9474990814461175,
+         "timestamp": 1445257189678
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.6569970921943952},
+            "type": {"type": "java.lang.Boolean"},
+            "value": false
+         },
+         "key": 0.9322516837715366,
+         "timestamp": 1445257202433
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.9474990814461175},
+            "type": {"type": "java.lang.Boolean"},
+            "value": true
+         },
+         "key": 0.019956988345728566,
+         "timestamp": 1445257207024
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Guard",
+         "fields": {
+            "parent": {"key": 0.14821513225992933},
+            "expression": {"key": 0.5856198531321535},
+            "name": "New guard",
+            "description": null
+         },
+         "key": 0.9483925936946559,
+         "timestamp": 1445257218693
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Guard",
+         "fields": {
+            "parent": {"key": 0.562438571358683},
+            "expression": {"key": 0.6260140690585996},
+            "name": "New guard",
+            "description": null
+         },
+         "key": 0.9380118381732031,
+         "timestamp": 1445257220893
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.ObservationExpression",
+         "fields": {
+            "parent": {"key": 0.9483925936946559},
+            "delay": 0,
+            "observation": {"key": 0.4363392775553796},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.5856198531321535,
+         "timestamp": 1445257231459
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.ObservationExpression",
+         "fields": {
+            "parent": {"key": 0.9380118381732031},
+            "delay": 0,
+            "observation": {"key": 0.1690583937520972},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.6260140690585996,
+         "timestamp": 1445257240467
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.14821513225992933},
+            "expression": {"key": 0.873837221820049},
+            "observation": {"key": 0.5062524560947558},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.9899565399475652,
+         "timestamp": 1445257246046
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.562438571358683},
+            "expression": {"key": 0.22936644913269122},
+            "observation": {"key": 0.5062524560947558},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.3327927907506846,
+         "timestamp": 1445257247813
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.9899565399475652},
+            "type": {"type": "java.lang.Boolean"},
+            "value": true
+         },
+         "key": 0.873837221820049,
+         "timestamp": 1445257260610
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean",
+         "fields": {
+            "parent": {"key": 0.3327927907506846},
+            "type": {"type": "java.lang.Boolean"},
+            "value": false
+         },
+         "key": 0.22936644913269122,
+         "timestamp": 1445257266425
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.components.DefinitionComponent",
+         "fields": {
+            "cameraAngleY": 310.6000000000006,
+            "cameraAngleX": 319.2000000000005,
+            "parent": {"key": 0.420955492001686},
+            "requirements": [],
+            "components": [],
+            "behaviors": [{"key": 0.885363382817791}],
+            "transforms": [{"key": 0.12330259862503534}],
+            "description": null,
+            "scenarios": [],
+            "ports": [
+               {"key": 0.014533641442260103},
+               {"key": 0.35420078760958174}
+            ],
+            "cameraDistance": -80,
+            "cameraTranslateY": 0,
+            "point": {"key": 0.7824404616369603},
+            "cameraTranslateZ": 0,
+            "cameraTranslateX": 0,
+            "parts": [],
+            "name": "Actuator",
+            "properties": [],
+            "monitors": []
+         },
+         "key": 0.9914834229262323,
+         "timestamp": 1445257284281
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.9914834229262323},
+            "x": 369,
+            "y": 441,
+            "z": 0
+         },
+         "key": 0.7824404616369603,
+         "timestamp": 1445257284307
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.DataPort",
+         "fields": {
+            "incomingStaticChannels": [{"key": 0.33117790388819657}],
+            "parent": {"key": 0.9914834229262323},
+            "default": {"key": 0.5791986809005475},
+            "writeType": [{"type": "java.lang.Boolean"}],
+            "name": "Active",
+            "description": null,
+            "readType": {"type": "java.lang.Boolean"},
+            "outgoingStaticChannels": [],
+            "direction": 0
+         },
+         "key": 0.014533641442260103,
+         "timestamp": 1445257308983
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.014533641442260103},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.5791986809005475,
+         "timestamp": 1445257318267
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.ports.KinematicEnergyPort",
+         "fields": {
+            "incomingStaticChannels": [],
+            "parent": {"key": 0.9914834229262323},
+            "transform": {"key": 0.8676774854933235},
+            "default": {"key": 0.7790429543277368},
+            "writeType": [
+               {"type": "java.lang.Number"},
+               {"type": "org.apache.commons.math3.linear.RealMatrix"}
+            ],
+            "name": "Energy",
+            "description": null,
+            "readType": {"type": "org.apache.commons.math3.linear.RealMatrix"},
+            "outgoingStaticChannels": [{"key": 0.564795417538168}],
+            "direction": 1
+         },
+         "key": 0.35420078760958174,
+         "timestamp": 1445257323480
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.NullExpression",
+         "fields": {
+            "parent": {"key": 0.35420078760958174},
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.7790429543277368,
+         "timestamp": 1445257334802
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.35420078760958174},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.9198022876855836}
+         },
+         "key": 0.8676774854933235,
+         "timestamp": 1445257337844
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.8676774854933235},
+            "x": 10,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.9198022876855836,
+         "timestamp": 1445257337847
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Behavior",
+         "fields": {
+            "parent": {"key": 0.9914834229262323},
+            "variables": [],
+            "initialLabel": {"key": 0.027123986736192096},
+            "name": "Default behavior",
+            "description": null,
+            "transitions": [
+               {"key": 0.4879499996599884},
+               {"key": 0.45014892207366697}
+            ],
+            "labels": [
+               {"key": 0.027123986736192096},
+               {"key": 0.5294191909375016}
+            ]
+         },
+         "key": 0.885363382817791,
+         "timestamp": 1445257359189
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.State",
+         "fields": {
+            "parent": {"key": 0.885363382817791},
+            "parts": [],
+            "name": "Inactive",
+            "description": null,
+            "actions": [{"key": 0.33141166175296943}],
+            "properties": [],
+            "point": {"key": 0.5395857720014958}
+         },
+         "key": 0.027123986736192096,
+         "timestamp": 1445257368837
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.027123986736192096},
+            "x": 348,
+            "y": 210,
+            "z": 0
+         },
+         "key": 0.5395857720014958,
+         "timestamp": 1445257368842
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.State",
+         "fields": {
+            "parent": {"key": 0.885363382817791},
+            "parts": [],
+            "name": "Active",
+            "description": null,
+            "actions": [{"key": 0.8572834823839626}],
+            "properties": [],
+            "point": {"key": 0.8936618963292131}
+         },
+         "key": 0.5294191909375016,
+         "timestamp": 1445257380437
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.5294191909375016},
+            "x": 350,
+            "y": 465,
+            "z": 0
+         },
+         "key": 0.8936618963292131,
+         "timestamp": 1445257380444
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Transition",
+         "fields": {
+            "parent": {"key": 0.885363382817791},
+            "sourceLabel": {"key": 0.027123986736192096},
+            "guard": {"key": 0.7197101995098374},
+            "targetLabel": {"key": 0.5294191909375016},
+            "name": "Inactive -> active",
+            "description": null,
+            "actions": [{"key": 0.150303322373888}]
+         },
+         "key": 0.4879499996599884,
+         "timestamp": 1445257392860
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.behaviors.Transition",
+         "fields": {
+            "parent": {"key": 0.885363382817791},
+            "sourceLabel": {"key": 0.5294191909375016},
+            "guard": {"key": 0.05110907659848252},
+            "targetLabel": {"key": 0.027123986736192096},
+            "name": "Active -> inactive",
+            "description": null,
+            "actions": [{"key": 0.3407631395520829}]
+         },
+         "key": 0.45014892207366697,
+         "timestamp": 1445257394733
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.027123986736192096},
+            "expression": {"key": 0.23383734961440694},
+            "observation": {"key": 0.35420078760958174},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.33141166175296943,
+         "timestamp": 1445257416501
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.5294191909375016},
+            "expression": {"key": 0.2890640500664763},
+            "observation": {"key": 0.35420078760958174},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.8572834823839626,
+         "timestamp": 1445257421004
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.33141166175296943},
+            "doubleValue": 0,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.23383734961440694,
+         "timestamp": 1445257428608
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.8572834823839626},
+            "doubleValue": 0.5,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.2890640500664763,
+         "timestamp": 1445257435914
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Guard",
+         "fields": {
+            "parent": {"key": 0.4879499996599884},
+            "expression": {"key": 0.4303141573260929},
+            "name": "New guard",
+            "description": null
+         },
+         "key": 0.7197101995098374,
+         "timestamp": 1445257450693
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Guard",
+         "fields": {
+            "parent": {"key": 0.45014892207366697},
+            "expression": {"key": 0.10683797042320253},
+            "name": "New guard",
+            "description": null
+         },
+         "key": 0.05110907659848252,
+         "timestamp": 1445257451964
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.ObservationExpression",
+         "fields": {
+            "parent": {"key": 0.7197101995098374},
+            "delay": 0,
+            "observation": {"key": 0.014533641442260103},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.4303141573260929,
+         "timestamp": 1445257457234
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.booleans.NotExpression",
+         "fields": {
+            "parent": {"key": 0.05110907659848252},
+            "argument": {"key": 0.5189133148035694},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.10683797042320253,
+         "timestamp": 1445257469376
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.ObservationExpression",
+         "fields": {
+            "parent": {"key": 0.10683797042320253},
+            "delay": 0,
+            "observation": {"key": 0.014533641442260103},
+            "type": {"type": "java.lang.Boolean"}
+         },
+         "key": 0.5189133148035694,
+         "timestamp": 1445257474760
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.4879499996599884},
+            "expression": {"key": 0.6249108482075642},
+            "observation": {"key": 0.35420078760958174},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.150303322373888,
+         "timestamp": 1445257482796
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.executables.Action",
+         "fields": {
+            "parent": {"key": 0.45014892207366697},
+            "expression": {"key": 0.9017973260616763},
+            "observation": {"key": 0.35420078760958174},
+            "name": "New action",
+            "description": null
+         },
+         "key": 0.3407631395520829,
+         "timestamp": 1445257485180
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.150303322373888},
+            "doubleValue": 0.5,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.6249108482075642,
+         "timestamp": 1445257495056
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber",
+         "fields": {
+            "parent": {"key": 0.3407631395520829},
+            "doubleValue": 0,
+            "type": {"type": "java.lang.Number"}
+         },
+         "key": 0.9017973260616763,
+         "timestamp": 1445257502994
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.channels.StaticChannel",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "name": "Active",
+            "description": null,
+            "source": {"key": 0.5062524560947558},
+            "target": {"key": 0.014533641442260103}
+         },
+         "key": 0.33117790388819657,
+         "timestamp": 1445257520812
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.channels.StaticChannel",
+         "fields": {
+            "parent": {"key": 0.420955492001686},
+            "name": "Energy",
+            "description": null,
+            "source": {"key": 0.35420078760958174},
+            "target": {"key": 0.42791246634462565}
+         },
+         "key": 0.564795417538168,
+         "timestamp": 1445257522492
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.8042001871762955},
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.6515948285062203}],
+            "name": "Base plate",
+            "description": null
+         },
+         "key": 0.9060235685439912,
+         "timestamp": 1445257674508
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 102,
+            "parent": {"key": 0.9060235685439912},
+            "depth": 60,
+            "green": 153,
+            "blue": 102,
+            "width": 130,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.8042001871762955,
+         "timestamp": 1445257686947
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.9060235685439912},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.8781405430841569}
+         },
+         "key": 0.6515948285062203,
+         "timestamp": 1445257710558
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.6515948285062203},
+            "x": 0,
+            "y": -2.5,
+            "z": 0
+         },
+         "key": 0.8781405430841569,
+         "timestamp": 1445257710559
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.8101425835208691},
+            "parent": {"key": 0.420955492001686},
+            "transforms": [],
+            "name": "Belt",
+            "description": null
+         },
+         "key": 0.2300586755415457,
+         "timestamp": 1445257755299
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.CompositeVolume",
+         "fields": {
+            "parent": {"key": 0.2300586755415457},
+            "volumes": [
+               {"key": 0.6933971382861572},
+               {"key": 0.3122364774681997},
+               {"key": 0.8533706013000776}
+            ],
+            "transforms": [],
+            "name": "New composite volume",
+            "description": null
+         },
+         "key": 0.8101425835208691,
+         "timestamp": 1445257771791
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 255,
+            "parent": {"key": 0.8101425835208691},
+            "depth": 20,
+            "green": 102,
+            "blue": 102,
+            "width": 110,
+            "transforms": [{"key": 0.06841061730946718}],
+            "name": "Box",
+            "description": null,
+            "height": 5
+         },
+         "key": 0.6933971382861572,
+         "timestamp": 1445257778473
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.6933971382861572},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.4821625733932189}
+         },
+         "key": 0.06841061730946718,
+         "timestamp": 1445257830575
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.06841061730946718},
+            "x": 0,
+            "y": 2.5,
+            "z": 0
+         },
+         "key": 0.4821625733932189,
+         "timestamp": 1445257830577
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.CylinderVolume",
+         "fields": {
+            "red": 255,
+            "parent": {"key": 0.8101425835208691},
+            "green": 102,
+            "blue": 102,
+            "transforms": [
+               {"key": 0.42808271690367394},
+               {"key": 0.8983412192448913}
+            ],
+            "name": "Cylinder entry",
+            "description": null,
+            "radius": 2.5,
+            "height": 20
+         },
+         "key": 0.3122364774681997,
+         "timestamp": 1445257864526
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.CylinderVolume",
+         "fields": {
+            "red": 255,
+            "parent": {"key": 0.8101425835208691},
+            "green": 102,
+            "blue": 102,
+            "transforms": [
+               {"key": 0.03070161197210619},
+               {"key": 0.6349839056430832}
+            ],
+            "name": "Cylinder exit",
+            "description": null,
+            "radius": 2.5,
+            "height": 20
+         },
+         "key": 0.8533706013000776,
+         "timestamp": 1445257873655
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.3122364774681997},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.6651460810001365}
+         },
+         "key": 0.42808271690367394,
+         "timestamp": 1445257907142
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.42808271690367394},
+            "x": 55,
+            "y": 2.5,
+            "z": 0
+         },
+         "key": 0.6651460810001365,
+         "timestamp": 1445257907143
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.8533706013000776},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.9510318341896917}
+         },
+         "key": 0.03070161197210619,
+         "timestamp": 1445257909928
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.03070161197210619},
+            "x": -55,
+            "y": 2.5,
+            "z": 0
+         },
+         "key": 0.9510318341896917,
+         "timestamp": 1445257909931
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.RotationTransform",
+         "fields": {
+            "parent": {"key": 0.8533706013000776},
+            "rotationAxe": {"key": 0.9570939448665872},
+            "name": "New rotation transform",
+            "angle": 90,
+            "description": null
+         },
+         "key": 0.6349839056430832,
+         "timestamp": 1445257938070
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.6349839056430832},
+            "x": 1,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.9570939448665872,
+         "timestamp": 1445257938073
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.RotationTransform",
+         "fields": {
+            "parent": {"key": 0.3122364774681997},
+            "rotationAxe": {"key": 0.620425324450867},
+            "name": "New rotation transform",
+            "angle": 90,
+            "description": null
+         },
+         "key": 0.8983412192448913,
+         "timestamp": 1445257942539
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.8983412192448913},
+            "x": 1,
+            "y": 0,
+            "z": 0
+         },
+         "key": 0.620425324450867,
+         "timestamp": 1445257942544
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.2455396305052484},
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.04106368090443768}],
+            "name": "Sensor entry mount left",
+            "description": null
+         },
+         "key": 0.4096785971771675,
+         "timestamp": 1445258030722
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.765878624843745},
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.32536760049783087}],
+            "name": "Sensor entry mount right",
+            "description": null
+         },
+         "key": 0.6791876564104367,
+         "timestamp": 1445258046169
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 102,
+            "parent": {"key": 0.4096785971771675},
+            "depth": 5,
+            "green": 128,
+            "blue": 230,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 7.5
+         },
+         "key": 0.2455396305052484,
+         "timestamp": 1445258057278
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 102,
+            "parent": {"key": 0.6791876564104367},
+            "depth": 5,
+            "green": 128,
+            "blue": 230,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 7.5
+         },
+         "key": 0.765878624843745,
+         "timestamp": 1445258060694
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.4096785971771675},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.4441435017607398}
+         },
+         "key": 0.04106368090443768,
+         "timestamp": 1445258093336
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.04106368090443768},
+            "x": -50,
+            "y": 3.73,
+            "z": -12.5
+         },
+         "key": 0.4441435017607398,
+         "timestamp": 1445258093338
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.6791876564104367},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.4053588628752747}
+         },
+         "key": 0.32536760049783087,
+         "timestamp": 1445258096085
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.32536760049783087},
+            "x": -50,
+            "y": 3.73,
+            "z": 12.5
+         },
+         "key": 0.4053588628752747,
+         "timestamp": 1445258096086
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.3774345386357536},
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.9947903032495843}],
+            "name": "Sensor exit mount left",
+            "description": null
+         },
+         "key": 0.8683586561658138,
+         "timestamp": 1445258216578
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.Part",
+         "fields": {
+            "volume": {"key": 0.2741408806396921},
+            "parent": {"key": 0.420955492001686},
+            "transforms": [{"key": 0.18400929024435275}],
+            "name": "Sensor exit mount right",
+            "description": null
+         },
+         "key": 0.09772336146108551,
+         "timestamp": 1445258225745
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 102,
+            "parent": {"key": 0.8683586561658138},
+            "depth": 5,
+            "green": 128,
+            "blue": 230,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 7.5
+         },
+         "key": 0.3774345386357536,
+         "timestamp": 1445258238583
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.volumes.BoxVolume",
+         "fields": {
+            "red": 102,
+            "parent": {"key": 0.09772336146108551},
+            "depth": 5,
+            "green": 128,
+            "blue": 230,
+            "width": 5,
+            "transforms": [],
+            "name": "New box volume",
+            "description": null,
+            "height": 7.5
+         },
+         "key": 0.2741408806396921,
+         "timestamp": 1445258242173
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.8683586561658138},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.12534592598257166}
+         },
+         "key": 0.9947903032495843,
+         "timestamp": 1445258263845
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.9947903032495843},
+            "x": 50,
+            "y": 3.73,
+            "z": -12.5
+         },
+         "key": 0.12534592598257166,
+         "timestamp": 1445258263847
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.09772336146108551},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.32419438568253045}
+         },
+         "key": 0.18400929024435275,
+         "timestamp": 1445258266910
+      },
+      {
+         "client": 0.40764923451734736,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.18400929024435275},
+            "x": 50,
+            "y": 3.73,
+            "z": 12.5
+         },
+         "key": 0.32419438568253045,
+         "timestamp": 1445258266912
+      },
+      {
+         "client": 0.8838713164087522,
+         "type": "de.tum.imomesa.model.transforms.TranslationTransform",
+         "fields": {
+            "parent": {"key": 0.9914834229262323},
+            "name": "New translation transform",
+            "description": null,
+            "vector": {"key": 0.715235590490924}
+         },
+         "key": 0.12330259862503534,
+         "timestamp": 1445593462012
+      },
+      {
+         "client": 0.8838713164087522,
+         "type": "de.tum.imomesa.model.commons.Point",
+         "fields": {
+            "parent": {"key": 0.12330259862503534},
+            "x": 0,
+            "y": 10,
+            "z": 0
+         },
+         "key": 0.715235590490924,
+         "timestamp": 1445593462021
+      }
+   ],
+   "version": "0.1"
+}

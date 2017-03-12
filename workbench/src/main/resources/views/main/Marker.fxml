@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TableView?>
+<?import de.tum.imomesa.workbench.commons.nodes.PTableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+
+<Tab xmlns:fx="de.tum.imomesa" text="Issues" closable="false" fx:controller="de.tum.imomesa.workbench.controllers.main.MarkerController">
+	<graphic>
+		<ImageView>
+			<image>
+				<Image url="icons/tabs/marker.png"/>
+			</image>
+		</ImageView>
+	</graphic>
+	<content>
+		<BorderPane>
+			<top>
+				<ToolBar>
+					<items>
+						<Button text="" visible="false" />
+					</items>
+				</ToolBar>
+			</top>
+			<center>
+				<TableView fx:id="table">
+					<columns>
+						<PTableColumn text="Syntactic issue type" percentageWidth="0.25" fx:id="columnType">
+							<cellValueFactory>
+								<PropertyValueFactory property="message" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Associated element type" percentageWidth="0.25">
+							<cellValueFactory>
+								<PropertyValueFactory property="scope" />
+							</cellValueFactory>
+						</PTableColumn>
+						<PTableColumn text="Associated element path" percentageWidth="0.50" fx:id="columnPath">
+							<cellValueFactory>
+								<PropertyValueFactory property="path" />
+							</cellValueFactory>
+						</PTableColumn>
+					</columns>
+				</TableView>
+			</center>
+		</BorderPane>
+	</content>
+</Tab>

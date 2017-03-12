@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane xmlns:fx="de.tum.imomesa" fx:id="borderPane" fx:controller="de.tum.imomesa.workbench.controllers.simulation.editors.BehaviorController">
+	<top>
+		<ToolBar fx:id="topToolBar">
+			<items>
+				<Button text="" visible="false" />
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<Text text="Behavior"/>
+	</center>
+</BorderPane>

@@ -1,0 +1,9 @@
+digraph {
+	"Thread[[Pick and place unit, Material white, Exit],5,main]" [label = "PortThread\n\nPick and place unit\nMaterial white\nExit", shape = box, style = filled, fillcolor = gray];
+	"Thread[[Pick and place unit, Material white],5,main]" [label = "ScenarioThread\n\nPick and place unit\nMaterial white", shape = box, style = filled, fillcolor = yellow];
+	"[Pick and place unit, Material white, Exit]" [label = "ExitLifeMaterialPort\n\nPick and place unit\nMaterial white\nExit", shape = ellipse, style = filled, color = pink];
+	"Thread[[Pick and place unit, Material white],5,main]" -> "Thread[[Pick and place unit, Material white, Exit],5,main]" [];
+	"Thread[[Pick and place unit, Material white, Exit],5,main]" -> "[Pick and place unit, Material white, Exit]" [style = dashed];
+	"[Pick and place unit, Material white, Exit]" -> "Thread[[Pick and place unit, Material white],5,main]" [];
+	"Thread[[Pick and place unit, Material white],5,main]" -> "[Pick and place unit, Material white, Exit]" [style = dashed];
+}

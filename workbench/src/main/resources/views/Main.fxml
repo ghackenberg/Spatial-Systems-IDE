@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL ?>
+
+<BorderPane xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.MainController">
+	<stylesheets>
+		<URL value="@../styles/Main.css"/>
+	</stylesheets>
+	<top>
+		<ToolBar>
+			<items>
+				<Label text="Layout"/>
+				<Button text="Large screen" disable="true" onAction="#layoutOne" fx:id="buttonLayoutOne">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/layouts/layout_one.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button text="Medium screen" onAction="#layoutTwo" fx:id="buttonLayoutTwo">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/layouts/layout_two.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button text="Small screen" onAction="#layoutThree" fx:id="buttonLayoutThree">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/layouts/layout_three.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Separator/>
+				<Label text="About"/>
+				<Button text="Manual" disable="false">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/buttons/manual.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button text="Credit" disable="false">
+					<graphic>
+						<ImageView>
+							<image>
+								<Image url="icons/buttons/credits.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<GridPane hgap="1" vgap="1" fx:id="gridPane">
+			<padding>
+				<!--  <Insets top="5" left="5" right="5" bottom="5"/> -->
+			</padding>
+			<columnConstraints>
+				<ColumnConstraints percentWidth="16"/>
+				<ColumnConstraints percentWidth="34"/>
+				<ColumnConstraints percentWidth="34"/>
+				<ColumnConstraints percentWidth="16"/>
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints percentHeight="70"/>
+				<RowConstraints percentHeight="30"/>
+			</rowConstraints>
+			<children>
+				<TabPane GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" fx:id="tabPaneExplorer" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="main/Explorer.fxml"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="tabPaneEditor" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="main/Editor.fxml"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="tabPaneScene" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="main/Scene.fxml"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="tabPaneMarker" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="main/Marker.fxml"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="tabPaneChange" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="main/Change.fxml"/>
+					</tabs>
+				</TabPane>
+				<TabPane GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.rowSpan="2" fx:id="tabPaneAttribute" style="-fx-background-color: linear-gradient(#666, #888);">
+					<tabs>
+						<fx:include source="main/Attribute.fxml"/>
+					</tabs>
+				</TabPane>
+			</children>
+		</GridPane>
+	</center>
+	<bottom>
+		<ToolBar>
+			<items>
+				<Label text="Copyright 2015, Georg Hackenberg and Thomas Stocker, Lehrstuhl für Software and Systems Engineering, Technische Universität München" />
+			</items>
+		</ToolBar>
+	</bottom>
+</BorderPane>

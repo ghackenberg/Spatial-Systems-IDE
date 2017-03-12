@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+
+<Tab xmlns:fx="de.tum.imomesa" text="Explorer" closable="false" fx:controller="de.tum.imomesa.workbench.controllers.main.ExplorerController">
+	<graphic>
+		<ImageView>
+			<image>
+				<Image url="icons/tabs/explorer.png"/>
+			</image>
+		</ImageView>
+	</graphic>
+	<content>
+		<BorderPane fx:id="borderPane">
+			<top>
+				<ToolBar fx:id="topToolBar">
+					<items>
+						<TextField text="Search ..." onMouseClicked="#handleSearchClick" fx:id="searchTextField"/>
+					</items>
+				</ToolBar>
+			</top>
+			<left>
+				<ToolBar fx:id="leftToolBar" orientation="VERTICAL">
+					<items>
+						<Label text="Filter"/>
+						<ToggleButton fx:id="requirements" selected="true">
+							<tooltip>
+								<Tooltip text="Requirements"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/requirement.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="ports" selected="true">
+							<tooltip>
+								<Tooltip text="Ports"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/port.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="properties" selected="true">
+							<tooltip>
+								<Tooltip text="Properties"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/property.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="scenarios" selected="true">
+							<tooltip>
+								<Tooltip text="Scenarios"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/scenario.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="monitors" selected="true">
+							<tooltip>
+								<Tooltip text="Monitors"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/monitor.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="components" selected="true">
+							<tooltip>
+								<Tooltip text="Components"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/component.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="channels" selected="true">
+							<tooltip>
+								<Tooltip text="Channels"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/channel.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="behaviors" selected="true">
+							<tooltip>
+								<Tooltip text="Behaviors"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/behavior.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="parts" selected="true">
+							<tooltip>
+								<Tooltip text="Parts"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/part.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+						<ToggleButton fx:id="transforms" selected="true">
+							<tooltip>
+								<Tooltip text="Transforms"/>
+							</tooltip>
+							<graphic>
+								<ImageView fitWidth="16" fitHeight="16">
+									<image>
+										<Image url="icons/elements/transform.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</ToggleButton>
+					</items>
+				</ToolBar>
+			</left>
+			<center>
+				<TreeView fx:id="tree" />
+			</center>
+		</BorderPane>
+	</content>
+</Tab>
