@@ -21,25 +21,26 @@ public class PortThread extends AbstractThread<Port> {
 		try {
 			// Get proxy
 			ReferencePort proxy = Utils.getPortProxy(context, element);
+			
 			// Join material binding port threads
-			ThreadManager.getInstance().joinThreads(this,
-					Utils.getMaterialBindingPortThreads(context, element, memory, step));
+			ThreadManager.getInstance().joinThreads(this, Utils.getMaterialBindingPortThreads(context, element, memory, step));
+			
 			// Check validity
 			if (Utils.getMaterialBindingPortThreads(context, element, memory, step).size() > 0) {
 				throw new IllegalStateException();
 			}
+			
 			// Join writing threads
-			ThreadManager.getInstance().joinThreads(this,
-					Utils.getWritingExecutableThreads(context, element, memory, step));
+			ThreadManager.getInstance().joinThreads(this, Utils.getWritingExecutableThreads(context, element, memory, step));
+			
 			// Check proxy
 			if (proxy != null) {
 				// Join writing threads
-				ThreadManager.getInstance().joinThreads(this,
-						Utils.getWritingExecutableThreads(context.subList(0, context.size() - 1), proxy, memory, step));
+				ThreadManager.getInstance().joinThreads(this, Utils.getWritingExecutableThreads(context.subList(0, context.size() - 1), proxy, memory, step));
 			}
+			
 			// Check channel
-			if (Utils.getIncomingChannelsForContext(context, element).size() == 0 && (proxy == null || Utils
-					.getIncomingChannelsForContext(context.subList(0, context.size() - 1), proxy).size() == 0)) {
+			if (Utils.getIncomingChannelsForContext(context, element).size() == 0 && (proxy == null || Utils.getIncomingChannelsForContext(context.subList(0, context.size() - 1), proxy).size() == 0)) {
 				// Check value
 				if (!memory.hasValue(element.append(context), step)) {
 					// Set port to null

@@ -35,6 +35,7 @@ public class MaterialBindingPortThread extends AbstractThread<InteractionMateria
 		try {
 			// Join writing executables
 			ThreadManager.getInstance().joinThreads(this, Utils.getWritingExecutableThreads(context, element, memory, step));
+			
 			// Check value
 			if (!memory.hasValue(element.append(context), step)) {
 				// Set material binding port to null
@@ -53,6 +54,7 @@ public class MaterialBindingPortThread extends AbstractThread<InteractionMateria
 					}
 				}
 			}
+			
 			// if bound correctly
 			else if (value instanceof Set) {
 				Set<?> set = (Set<?>) value;

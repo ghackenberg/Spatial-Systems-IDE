@@ -38,19 +38,6 @@ public class ScenarioEvaluator extends ExecutableEvaluator<Step, Transition, Sce
 	}
 	
 	@Override
-	public void initialize() throws InterruptedException {
-		super.initialize();
-		
-		for (PortEvaluator<LifeMaterialPort> port : ports) {
-			port.initialize();
-		}
-		
-		// set step
-		memory.setLabel(element.append(context), step, element.getInitialLabel());
-		memory.setTransition(element.append(context), step, null);
-	}
-	
-	@Override
 	public void createThread() {
 		super.createThread();
 		

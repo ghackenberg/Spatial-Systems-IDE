@@ -50,8 +50,7 @@ public class Utils {
 
 		for (MaterialBindingPortThread thread : intermediate) {
 			// Port parent might be colliding component
-			Set<List<Element>> collisions = memory.getCollision(thread.getElement().append(thread.getContext()),
-					step - 1);
+			Set<List<Element>> collisions = memory.getCollision(thread.getElement().append(thread.getContext()), step);
 			for (List<Element> collision : collisions) {
 				if (context.equals(collision)) {
 					result.add(thread);
@@ -117,7 +116,7 @@ public class Utils {
 			if (thread.getContext().equals(context)
 					|| thread.getContext().equals(context.subList(0, context.size() - 1))) {
 				// Get active label
-				Label label = memory.getLabel(executable.append(thread.getContext()), step - 1);
+				Label label = memory.getLabel(executable.append(thread.getContext()), step);
 				// Check active label
 				if (label != null) {
 					// Iterate actions
@@ -176,7 +175,7 @@ public class Utils {
 			if (thread.getContext().equals(context)
 					|| thread.getContext().equals(context.subList(0, context.size() - 1))) {
 				// Get active label
-				Label label = memory.getLabel(executable.append(thread.getContext()), step - 1);
+				Label label = memory.getLabel(executable.append(thread.getContext()), step);
 				// Iterate actions
 				for (Action action : label.getActions()) {
 					if (action != null && action.getObservation() != null && action.getObservation().equals(port)) {
@@ -227,22 +226,20 @@ public class Utils {
 						// Create proxy
 						ReferenceComponent proxy = (ReferenceComponent) intermediate;
 						// Remember proxy
-						memory.getProxy(step).add(proxy);
+						memory.getAddedProxy(step).add(proxy);
+						
 						// Initialize transforms
 						if (context.get(context.size() - 1) instanceof Scenario) {
-							proxy.getTransforms().add(new RawTransform(
-									memory.getTransform(context.subList(0, context.size() - 1), step)));
+							proxy.getTransforms().add(new RawTransform(memory.getTransform(context.subList(0, context.size() - 1), step)));
 						} else if (context.get(context.size() - 1) instanceof Component) {
 							proxy.getTransforms().add(new RawTransform(memory.getTransform(context, step)));
 						} else {
 							throw new IllegalStateException();
 						}
 						proxy.getTransforms().addAll(((EntryLifeMaterialPort) port).getVolume().getTransforms());
+						
 						// Initialize proxy
-						ReferenceComponentEvaluator evaluator = new ReferenceComponentEvaluator(new ArrayList<>(),
-								proxy, memory, step);
-						evaluator.prepare();
-						evaluator.initialize();
+						new ReferenceComponentEvaluator(new ArrayList<>(), proxy, memory, step + 1).prepare();
 						// Publish event
 						EventBus.getInstance().publish(new CreateComponentEvent(context, port, step, proxy));
 					} else {
@@ -269,9 +266,8 @@ public class Utils {
 						if (list.size() > 0) {
 							Object first = list.get(0);
 							if (first instanceof Element) {
-								memory.getProxy(step).remove(first);
-								EventBus.getInstance().publish(
-										new DeleteComponentEvent(context, port, step, (ReferenceComponent) first));
+								memory.getRemovedProxy(step).remove(first);
+								EventBus.getInstance().publish(new DeleteComponentEvent(context, port, step, (ReferenceComponent) first));
 							} else {
 								throw new IllegalStateException("Element required!");
 							}
@@ -327,14 +323,14 @@ public class Utils {
 	public static RealMatrix calcTransforms(Component<?> c, List<Element> context, Memory memory, int step)
 			throws InterruptedException {
 
-		if (!memory.hasTransform(context, step)) {
+		if (!memory.hasTransform(context, step + 1)) {
 			List<Port> kinematicPorts = new ArrayList<>();
 			List<List<Element>> contextForPorts = new ArrayList<>();
 
 			// fill lists with kinematic ports and context
 			calcAffectingEnergyPorts(context, memory, step, kinematicPorts, contextForPorts);
 
-			RealMatrix m = memory.getTransform(context, step - 1);
+			RealMatrix m = memory.getTransform(context, step);
 
 			// get all transforms for the last steps
 			for (int i = 0; i < kinematicPorts.size(); i++) {
@@ -349,10 +345,10 @@ public class Utils {
 				}
 			}
 
-			memory.setTransform(context, step, m);
+			memory.setTransform(context, step + 1, m);
 		}
 
-		return memory.getTransform(context, step);
+		return memory.getTransform(context, step + 1);
 	}
 
 	private static void calcAffectingEnergyPorts(List<Element> context, Memory memory, int step,

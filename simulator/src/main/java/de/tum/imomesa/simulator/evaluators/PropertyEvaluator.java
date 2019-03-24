@@ -5,8 +5,6 @@ import java.util.List;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.properties.Property;
 import de.tum.imomesa.simulator.Memory;
-import de.tum.imomesa.simulator.dispatchers.ExpressionDispatcher;
-import de.tum.imomesa.simulator.dispatchers.ObservationDispatcher;
 import de.tum.imomesa.simulator.threads.PropertyThread;
 
 public class PropertyEvaluator extends AbstractEvaluator<Property> {
@@ -20,14 +18,12 @@ public class PropertyEvaluator extends AbstractEvaluator<Property> {
 	@Override
 	public void prepare() throws InterruptedException {
 		memory.initValue(element.append(context), step);
-	}
-
-	@Override
-	public void initialize() throws InterruptedException {
+		/*
 		// Evaluate expression
 		Object value = ExpressionDispatcher.getInstance().dispatch(null, element.append(context), element.getDefault(), memory, step);
 		// Remember value
 		ObservationDispatcher.getInstance().dispatch(null, context, element, memory, step, value);
+		*/
 	}
 
 	@Override

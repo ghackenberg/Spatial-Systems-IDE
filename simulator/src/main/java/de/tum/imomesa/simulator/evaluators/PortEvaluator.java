@@ -4,11 +4,7 @@ import java.util.List;
 
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.ports.Port;
-import de.tum.imomesa.model.ports.ReferencePort;
 import de.tum.imomesa.simulator.Memory;
-import de.tum.imomesa.simulator.Utils;
-import de.tum.imomesa.simulator.dispatchers.ExpressionDispatcher;
-import de.tum.imomesa.simulator.dispatchers.ObservationDispatcher;
 import de.tum.imomesa.simulator.threads.PortThread;
 
 public class PortEvaluator<T extends Port> extends AbstractEvaluator<T> {
@@ -22,10 +18,7 @@ public class PortEvaluator<T extends Port> extends AbstractEvaluator<T> {
 	@Override
 	public void prepare() throws InterruptedException {
 		memory.initValue(element.append(context), step);
-	}
-
-	@Override
-	public void initialize() throws InterruptedException {
+		/*
 		// Get potential proxy
 		ReferencePort proxy = Utils.getPortProxy(context, element);
 		// Check if the port does not have any incoming ports
@@ -39,6 +32,7 @@ public class PortEvaluator<T extends Port> extends AbstractEvaluator<T> {
 			// Set the port value
 			ObservationDispatcher.getInstance().dispatch(null, context, element, memory, step, value);
 		}
+		*/
 	}
 
 	@Override

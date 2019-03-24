@@ -216,7 +216,7 @@ public class SimulationController implements EventHandler {
 		animation.start();
 
 		// bind slider to step property
-		sStep.maxProperty().bind(simulator.stepProperty());
+		sStep.maxProperty().bind(Bindings.max(0, simulator.stepProperty()));
 
 		// bind backward and forward buttons on step count and executing
 		// property

@@ -28,7 +28,7 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 		try {
 			// Get active label
 			
-			L label = (L) memory.getLabel(element.append(context), step - 1);
+			L label = (L) memory.getLabel(element.append(context), step);
 			
 			// Select enabled transitions
 			
@@ -51,10 +51,10 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 			if (enabled.size() == 0) {
 				// Obtain actions
 				actions = label != null ? label.getActions() : new ArrayList<>();
-				// Update active state
-				memory.setLabel(element.append(context), step, label);
 				// Update active transition
 				memory.setTransition(element.append(context), step, null);
+				// Update active state
+				memory.setLabel(element.append(context), step + 1, label);
 			}
 			else {
 				// warning if more than one transition available
@@ -66,10 +66,10 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 				T selected = enabled.get((int) Math.floor(Math.random() * enabled.size()));
 				// Obtain actions
 				actions = selected.getActions();
-				// Update active state
-				memory.setLabel(element.append(context), step, getTargetLabel(selected));
 				// Update active transition
 				memory.setTransition(element.append(context), step, selected);
+				// Update active state
+				memory.setLabel(element.append(context), step + 1, getTargetLabel(selected));
 			}
 			
 			// Calculate actions

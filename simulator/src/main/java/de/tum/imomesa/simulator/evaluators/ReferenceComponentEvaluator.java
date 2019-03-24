@@ -23,12 +23,6 @@ public class ReferenceComponentEvaluator extends ComponentEvaluator<ReferenceCom
 	}
 
 	@Override
-	public void initialize() throws InterruptedException {
-		super.initialize();
-		template.initialize();
-	}
-
-	@Override
 	public void createThread() {
 		template.createThread();
 	}

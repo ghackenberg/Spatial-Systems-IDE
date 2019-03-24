@@ -10,7 +10,6 @@ import java.util.Set;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.Executable;
 import de.tum.imomesa.model.executables.Label;
-import de.tum.imomesa.model.executables.monitors.Monitor;
 import de.tum.imomesa.model.expressions.Expression;
 import de.tum.imomesa.model.expressions.IfClauseExpression;
 import de.tum.imomesa.model.expressions.NullExpression;
@@ -279,15 +278,7 @@ public class ExpressionDispatcher
 			}
 			
 			// get active label of executable out of memory
-			Label current_label = null;
-			if(executable instanceof Monitor) {
-				// current label can be used as the properties depend on this
-				current_label = memory.getLabel(context, step);
-			}
-			else {
-				current_label = memory.getLabel(context, step - 1);
-			}
-			
+			Label current_label = memory.getLabel(context, step);
 			
 			// check for how long this label has been active
 			double counter = 0.;

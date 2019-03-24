@@ -23,6 +23,8 @@ import de.tum.imomesa.simulator.threads.AbstractThread;
 import de.tum.imomesa.utilities.managers.StorageManager;
 
 public class Memory {
+	
+	// Proxies
 
 	private CopyOnWriteArrayList<CopyOnWriteArraySet<ReferenceComponent>> proxies = new CopyOnWriteArrayList<>();
 
@@ -42,6 +44,50 @@ public class Memory {
 		}
 
 		return proxies.get(step);
+	}
+	
+	// Added proxies
+
+	private CopyOnWriteArrayList<CopyOnWriteArraySet<ReferenceComponent>> addedProxies = new CopyOnWriteArrayList<>();
+
+	public void setAddedProxy(int step, CopyOnWriteArraySet<ReferenceComponent> set) {
+		if (addedProxies.size() == step) {
+			addedProxies.add(set);
+		} else if (addedProxies.size() > step) {
+			addedProxies.add(step, set);
+		} else {
+			throw new IllegalStateException("Step is in the future!");
+		}
+	}
+
+	public CopyOnWriteArraySet<ReferenceComponent> getAddedProxy(int step) {
+		if (step >= addedProxies.size()) {
+			throw new IllegalStateException("Step is in the future!");
+		}
+
+		return addedProxies.get(step);
+	}
+	
+	// Removed proxies
+
+	private CopyOnWriteArrayList<CopyOnWriteArraySet<ReferenceComponent>> removedProxies = new CopyOnWriteArrayList<>();
+
+	public void setRemovedProxy(int step, CopyOnWriteArraySet<ReferenceComponent> set) {
+		if (removedProxies.size() == step) {
+			removedProxies.add(set);
+		} else if (removedProxies.size() > step) {
+			removedProxies.add(step, set);
+		} else {
+			throw new IllegalStateException("Step is in the future!");
+		}
+	}
+
+	public CopyOnWriteArraySet<ReferenceComponent> getRemovedProxy(int step) {
+		if (step >= removedProxies.size()) {
+			throw new IllegalStateException("Step is in the future!");
+		}
+
+		return removedProxies.get(step);
 	}
 
 	// Values
@@ -333,6 +379,10 @@ public class Memory {
 
 		// System.out.println("getTransform(" + getPathReadable(context) + ", "
 		// + step + ") = " + transforms.get(step));
+		
+		if (transforms.size() <= step) {
+			System.out.println(getPathReadable(context) + " does not have transform " + step + " (length = " + transforms.size() + ")");
+		}
 
 		return transforms.get(step);
 	}

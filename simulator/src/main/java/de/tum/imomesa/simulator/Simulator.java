@@ -62,7 +62,7 @@ public class Simulator extends Thread {
 		setComponent(component);
 		setScenario(scenario);
 		setMemory(new Memory());
-		setStep(0);
+		setStep(-1);
 		setRunning(true);
 		setFinished(false);
 		
@@ -70,18 +70,6 @@ public class Simulator extends Thread {
 		Context.getInstance().setScenario(scenario);
 		
 		MarkerManager.get().init();
-		
-		try {
-			memory.setProxy(0, new CopyOnWriteArraySet<ReferenceComponent>());
-			// Initialize component
-			DefinitionComponentEvaluator comp_eval = new DefinitionComponentEvaluator(new ArrayList<>(), component, memory, 0);
-			comp_eval.initialize();
-			// Initialize scenario
-			ScenarioEvaluator scen_eval = new ScenarioEvaluator(component.append(new ArrayList<>()), scenario, memory, 0);
-			scen_eval.initialize();
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 	
 	// component
@@ -169,61 +157,61 @@ public class Simulator extends Thread {
 			// Reset the entry material port count
 			// TODO Fix here to enable multiple parallel simulations!
 			ObservationDispatcher.getInstance().reset();
-			
+
+			// Measure
 			starttime = System.currentTimeMillis();
 			
+			// Prepare
+			memory.setProxy(0, new CopyOnWriteArraySet<ReferenceComponent>());
+			memory.setAddedProxy(0, new CopyOnWriteArraySet<ReferenceComponent>());
+			memory.setRemovedProxy(0, new CopyOnWriteArraySet<ReferenceComponent>());
+			
+			new DefinitionComponentEvaluator(new ArrayList<>(), component, memory, 0).prepare();
+			new ScenarioEvaluator(component.append(new ArrayList<>()), scenario, memory, 0).prepare();
+			
+			// Loop
 			while(getRunning() && (currenttime = (System.currentTimeMillis() - starttime)) <= maxtime) {
-				//System.out.println("Step: " + (getStep() + 1));
-				
-				// ***********************************************************************************
-				// Initialize
-				// ***********************************************************************************
-				
 				ThreadManager.getInstance().setRunning(true);
 				
-				// ***********************************************************************************
-				// Collision Detection
-				// ***********************************************************************************
-				
-				//System.out.println("Processing collisions");
-				
-				CollisionDetector.process(component, scenario, memory, getStep());
-				
-				// ***********************************************************************************
-				// Start
-				// ***********************************************************************************
-				
-				//System.out.println("Starting evaluators");
-				
-				// execute scenario
-				ScenarioEvaluator scen_eval = new ScenarioEvaluator(component.append(new ArrayList<>()), scenario, memory, getStep() + 1);
-				// Execute main component
-				DefinitionComponentEvaluator comp_eval = new DefinitionComponentEvaluator(new ArrayList<>(), component, memory, getStep() + 1);
-				// Execute generated components
+				ScenarioEvaluator scen_eval;
+				DefinitionComponentEvaluator comp_eval;
 				List<ReferenceComponentEvaluator> prox_evals = new ArrayList<>();
-				for (ReferenceComponent proxy : memory.getProxy(getStep())) {
+				
+				// Creating evaluators
+				System.out.println("Step " + (getStep() + 1) + ": Creating evaluators");
+				
+				scen_eval = new ScenarioEvaluator(component.append(new ArrayList<>()), scenario, memory, getStep() + 1);
+				comp_eval = new DefinitionComponentEvaluator(new ArrayList<>(), component, memory, getStep() + 1);
+				for (ReferenceComponent proxy : memory.getProxy(getStep() + 1)) {
 					prox_evals.add(new ReferenceComponentEvaluator(new ArrayList<>(), proxy, memory, getStep() + 1));
 				}
+
+				// Processing collisions
+				System.out.println("Step " + (getStep() + 1) + ": Processing collisions");
 				
-				// Create thread
+				CollisionDetector.process(component, scenario, memory, getStep() + 1);
+				
+				// Creating threads
+				System.out.println("Step " + (getStep() + 1) + ": Creating threads");
+				
 				scen_eval.createThread();
 				comp_eval.createThread();
 				for (ReferenceComponentEvaluator prox_eval : prox_evals) {
 					prox_eval.createThread();
 				}
 				
-				// Start thread
+				// Starting threads
+				System.out.println("Step " + (getStep() + 1) + ": Starting threads");
+				
 				scen_eval.startThread();
 				comp_eval.startThread();
 				for (ReferenceComponentEvaluator prox_eval : prox_evals) {
 					prox_eval.startThread();
 				}
 				
-				// ***********************************************************************************
-				// Detect deadlocks
-				// ***********************************************************************************
 				
-				//System.out.println("Detecting deadlocks");
+				// Detecting deadlocks
+				System.out.println("Step " + (getStep() + 1) + ": Detecting deadlocks");
 				
 				// Join unblocked threads
 				ThreadManager.getInstance().join();
@@ -265,55 +253,53 @@ public class Simulator extends Thread {
 					memory.notifyAll();
 				}
 				
-				// ***********************************************************************************
-				// Join
-				// ***********************************************************************************
 				
-				//System.out.println("Joining evaluators");
+				// Joining threads
+				System.out.println("Step " + (getStep() + 1) + ": Joining evaluators");
 				
-				// join evaluators
 				comp_eval.joinThread();
 				scen_eval.joinThread();
 				for (ReferenceComponentEvaluator prox_eval : prox_evals) {
 					prox_eval.joinThread();
 				}
 				
-				// ***********************************************************************************
-				// Finalize
-				// ***********************************************************************************
+				// Cleaning up
+				System.out.println("Step " + (getStep() + 1) + ": Cleaning up");
 				
-				//System.out.println("Finalizing evaluators");
-		
-				// set new array list of "unbound" components for next step
-				memory.setProxy(getStep() + 1, new CopyOnWriteArraySet<>(memory.getProxy(getStep())));
-				
-				// finalize evaluators
 				comp_eval.cleanup();
 				scen_eval.cleanup();
 				for (ReferenceComponentEvaluator prox_eval : prox_evals) {
 					prox_eval.cleanup();
 				}
 		
-				// ***********************************************************************************
-				// Evaluation
-				// ***********************************************************************************
+				// Checking status
+				System.out.println("Step " + (getStep() + 1) + ": Checking status");
 				
-				//System.out.println("Checking finished");
-				
-				// simulation can be finished
-				// - when an error occured
-				// - when the final state is reached
-		
-				// check if an error occured
-				if(MarkerManager.get().containsErrorMarker() == true || (scenario.getFinalLabel() != null && scenario.getFinalLabel().equals(memory.getLabel(scenario.append(component.append(new ArrayList<>())), getStep() + 1)))) {
+				if(MarkerManager.get().containsErrorMarker() == true || (scenario.getFinalLabel() != null && scenario.getFinalLabel().equals(memory.getLabel(scenario.append(component.append(new ArrayList<>())), getStep() + 2)))) {
 					// error occured
 					setFinished(true);
 					// Disable running flag
 					setRunning(false);
-					// Syso
-					// System.out.println("Finished: " + (getStep() + 1));
 				}
-					
+				
+				// set new array list of "unbound" components for next step
+				CopyOnWriteArraySet<ReferenceComponent> proxies = new CopyOnWriteArraySet<ReferenceComponent>();
+				
+				for (ReferenceComponent proxy : memory.getProxy(getStep() + 1)) {
+					if (!memory.getRemovedProxy(getStep() + 1).contains(proxy)) {
+						proxies.add(proxy);
+					}
+				}
+				for (ReferenceComponent proxy : memory.getAddedProxy(getStep() + 1)) {
+					if (!memory.getRemovedProxy(getStep() + 1).contains(proxy)) {
+						proxies.add(proxy);
+					}
+				}
+				
+				memory.setProxy(getStep() + 2, proxies);
+				memory.setAddedProxy(getStep() + 2, new CopyOnWriteArraySet<ReferenceComponent>());
+				memory.setRemovedProxy(getStep() + 2, new CopyOnWriteArraySet<ReferenceComponent>());
+				
 				// Update step
 				setStep(getStep() + 1);
 			}

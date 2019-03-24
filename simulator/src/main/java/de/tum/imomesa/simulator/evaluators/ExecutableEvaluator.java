@@ -37,16 +37,11 @@ public abstract class ExecutableEvaluator<L extends Label, T extends Transition<
 		for (VariableEvaluator evaluator : variables) {
 			evaluator.prepare();
 		}
-	}
-	
-	@Override
-	public void initialize() throws InterruptedException {
-		for (VariableEvaluator evaluator : variables) {
-			evaluator.initialize();
-		}
-		for (PropertyEvaluator evaluator : properties) {
-			evaluator.initialize();
-		}
+			
+		memory.initLabel(element.append(context), step);
+		memory.initTransition(element.append(context), step);
+		
+		memory.setLabel(element.append(context), step, element.getInitialLabel());
 	}
 	
 	@Override

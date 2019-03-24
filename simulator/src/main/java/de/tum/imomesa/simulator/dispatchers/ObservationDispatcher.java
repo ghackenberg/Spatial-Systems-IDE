@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.math3.linear.DiagonalMatrix;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 
@@ -21,8 +20,8 @@ import de.tum.imomesa.model.ports.ExitLifeMaterialPort;
 import de.tum.imomesa.model.ports.InteractionMaterialPort;
 import de.tum.imomesa.model.ports.KinematicEnergyPort;
 import de.tum.imomesa.model.ports.Port;
-import de.tum.imomesa.model.ports.ReferencePort;
 import de.tum.imomesa.model.ports.Port.Direction;
+import de.tum.imomesa.model.ports.ReferencePort;
 import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.simulator.Utils;
 import de.tum.imomesa.simulator.managers.MarkerManager;
@@ -164,16 +163,12 @@ public class ObservationDispatcher {
 	
 	protected void set(AbstractThread<?> thread, List<Element> context, InteractionMaterialPort port, Memory memory, Integer step, Object object, Boolean forward) throws InterruptedException {
 		if (port.getAlwaysActive()) {
-			if (step > 0) {
-				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step - 1), forward);
-			} else {
-				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<List<Element>>(), forward);
-			}
+			set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step), forward);
 		} else if(object == null) {
 			set(thread, context, (DefinitionPort) port, memory, step, object, forward);
 		} else if(object instanceof Boolean) {
-			if(object.equals(true) && step > 0) {
-				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step - 1), forward);
+			if(object.equals(true)) {
+				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step), forward);
 			} else {
 				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<List<Element>>(), forward);
 			}
@@ -218,8 +213,8 @@ public class ObservationDispatcher {
 		if (object == null) {
 			set(thread, context, (DefinitionPort) port, memory, step, null, forward);	
 		} else if (object instanceof Boolean) {
-			if ((Boolean) object == true && step > 0) {
-				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step - 1), forward);
+			if ((Boolean) object) {
+				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step), forward);
 			} else {
 				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<>(), forward);
 			}
@@ -240,10 +235,7 @@ public class ObservationDispatcher {
 					
 					// calculate transform
 					RealMatrix matrix = port.getTransform().multiplyTransform(multiplicator).toRealMatrix();
-					RealMatrix parent = new DiagonalMatrix(new double[] {1,1,1,1});
-					if (step > 0) {
-						parent = memory.getTransform(context, step - 1);
-					}
+					RealMatrix parent = memory.getTransform(context, step);
 					RealMatrix invers = new LUDecomposition(parent).getSolver().getInverse();
 		
 					set(thread, context, (DefinitionPort) port, memory, step, parent.multiply(matrix.multiply(invers)), forward);

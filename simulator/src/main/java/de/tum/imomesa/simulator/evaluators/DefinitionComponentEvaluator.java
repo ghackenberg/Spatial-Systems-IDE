@@ -85,29 +85,6 @@ public class DefinitionComponentEvaluator extends ComponentEvaluator<DefinitionC
 	}
 	
 	@Override
-	public void initialize() throws InterruptedException {
-		super.initialize();
-		
-		memory.setBinding(element.append(context), step, new CopyOnWriteArraySet<>());
-		
-		for (ComponentEvaluator<?> evaluator : components) {
-			evaluator.initialize();
-		}
-		for (MonitorEvaluator evaluator : monitors) {
-			evaluator.initialize();
-		}
-		for (BehaviorEvaluator evaluator : behaviors) {
-			evaluator.initialize();
-		}
-		for (PropertyEvaluator evaluator : properties) {
-			evaluator.initialize();
-		}
-		for (PortEvaluator<?> evaluator : ports) {
-			evaluator.initialize();
-		}
-	}
-	
-	@Override
 	public void createThread() {
 		memory.setBinding(element.append(context), step, new CopyOnWriteArraySet<>());
 		

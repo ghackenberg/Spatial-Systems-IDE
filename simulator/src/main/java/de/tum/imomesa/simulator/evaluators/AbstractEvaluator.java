@@ -24,7 +24,6 @@ public abstract class AbstractEvaluator<T extends Element> {
 	}
 	
 	public abstract void prepare() throws InterruptedException;
-	public abstract void initialize() throws InterruptedException;
 	public abstract void createThread();
 	public abstract void startThread();
 	public abstract void joinThread() throws InterruptedException;

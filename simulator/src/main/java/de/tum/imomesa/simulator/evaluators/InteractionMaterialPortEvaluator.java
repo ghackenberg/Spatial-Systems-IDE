@@ -33,15 +33,6 @@ public class InteractionMaterialPortEvaluator extends PortEvaluator<InteractionM
 	}
 	
 	@Override
-	public void initialize() throws InterruptedException {
-		super.initialize();
-		
-		for (PortEvaluator<DefinitionPort> evaluator : ports) {
-			evaluator.initialize();
-		}
-	}
-	
-	@Override
 	public void createThread() {
 		super.createThread();
 		

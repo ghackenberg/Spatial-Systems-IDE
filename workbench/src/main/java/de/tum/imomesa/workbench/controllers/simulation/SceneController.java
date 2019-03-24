@@ -18,7 +18,6 @@ import de.tum.imomesa.model.ports.DefinitionPort;
 import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.simulator.Simulator;
-import de.tum.imomesa.simulator.Utils;
 import de.tum.imomesa.workbench.commons.events.SimulationSelectionEvent;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
 import de.tum.imomesa.workbench.controllers.AbstractSceneController;
@@ -92,10 +91,12 @@ public class SceneController extends AbstractSceneController implements EventHan
 			translateDistance.zProperty().bindBidirectional(data.cameraDistanceProperty());
 			// Paint components
 			try {
-				paintComponent(data, context, memory, step);
-				// if (context.size() == 1) {
-				for (ReferenceComponent proxy : memory.getProxy(step)) {
-					paintComponent(proxy, proxy.append(new ArrayList<>()), memory, step);
+				if (step >= 0) {
+					paintComponent(data, context, memory, step);
+					// if (context.size() == 1) {
+					for (ReferenceComponent proxy : memory.getProxy(step)) {
+						paintComponent(proxy, proxy.append(new ArrayList<>()), memory, step);
+					}
 				}
 				// }
 			} catch (InterruptedException e) {
@@ -151,7 +152,7 @@ public class SceneController extends AbstractSceneController implements EventHan
 			}
 
 			// transform component
-			RealMatrix matrix = Utils.calcTransforms(component, context, memory, step);
+			RealMatrix matrix = memory.getTransform(context, step); //Utils.calcTransforms(component, context, memory, step);
 
 			group.getTransforms()
 					.add(new Affine(matrix.getEntry(0, 0), matrix.getEntry(0, 1), matrix.getEntry(0, 2),

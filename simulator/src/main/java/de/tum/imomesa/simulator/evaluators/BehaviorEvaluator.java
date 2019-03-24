@@ -18,18 +18,6 @@ public class BehaviorEvaluator extends ExecutableEvaluator<State, Transition, Be
 	}
 	
 	@Override
-	public void initialize() throws InterruptedException {
-		// call super method for variables and properties in labels
-		super.initialize();
-		
-		memory.initLabel(element.append(context), step);
-		memory.initTransition(element.append(context), step);
-		
-		memory.setLabel(element.append(context), step, element.getInitialLabel());
-		memory.setTransition(element.append(context), step, null);
-	}
-	
-	@Override
 	public void createThread() {
 		super.createThread();
 		

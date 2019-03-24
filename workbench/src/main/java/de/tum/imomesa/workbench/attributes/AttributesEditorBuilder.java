@@ -19,6 +19,12 @@ import de.tum.imomesa.model.executables.Action;
 import de.tum.imomesa.model.executables.Guard;
 import de.tum.imomesa.model.executables.Transition;
 import de.tum.imomesa.model.executables.Variable;
+import de.tum.imomesa.model.executables.behaviors.Behavior;
+import de.tum.imomesa.model.executables.behaviors.State;
+import de.tum.imomesa.model.executables.monitors.Activity;
+import de.tum.imomesa.model.executables.monitors.Monitor;
+import de.tum.imomesa.model.executables.scenarios.Scenario;
+import de.tum.imomesa.model.executables.scenarios.Step;
 import de.tum.imomesa.model.expressions.CompositeExpression;
 import de.tum.imomesa.model.expressions.Expression;
 import de.tum.imomesa.model.expressions.ObservationExpression;
@@ -642,6 +648,28 @@ public class AttributesEditorBuilder {
 			lExpressionString.setFont(Font.font("System", FontPosture.ITALIC, 12));
 		}
 		grid.addProperty("Expression:", lExpressionString);
+	}
+	
+	public static void addProperties(AttributesGrid grid, Scenario scenario) {
+		ComboBox<Step> initialComboBox = new ComboBox<>(scenario.labelsProperty());
+		initialComboBox.valueProperty().bindBidirectional(scenario.initialLabelProperty());
+		grid.addProperty("Intial step:", initialComboBox);
+		
+		ComboBox<Step> finalComboBox = new ComboBox<>(scenario.labelsProperty());
+		finalComboBox.valueProperty().bindBidirectional(scenario.finalLabelProperty());
+		grid.addProperty("Final step:", finalComboBox);
+	}
+	
+	public static void addProperties(AttributesGrid grid, Monitor monitor) {
+		ComboBox<Activity> comboBox = new ComboBox<>(monitor.labelsProperty());
+		comboBox.valueProperty().bindBidirectional(monitor.initialLabelProperty());
+		grid.addProperty("Intial activity:", comboBox);
+	}
+	
+	public static void addProperties(AttributesGrid grid, Behavior behavior) {
+		ComboBox<State> comboBox = new ComboBox<>(behavior.labelsProperty());
+		comboBox.valueProperty().bindBidirectional(behavior.initialLabelProperty());
+		grid.addProperty("Intial state:", comboBox);
 	}
 
 	public static void addProperties(AttributesGrid grid, de.tum.imomesa.model.executables.Label label) {

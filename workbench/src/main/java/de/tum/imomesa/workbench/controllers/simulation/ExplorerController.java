@@ -261,14 +261,14 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 				rootItem.getChildren().add(monitsItem);
 			}
 
-			if (!def.getComponents().isEmpty()) {
+			//if (!def.getComponents().isEmpty()) {
 				TreeItem<Element> compsItem = new TreeItem<>(new OverviewElement<>(def, Component.class, "Components"),
 						ImageHelper.getFolderIcon(Component.class));
 				for (Component<?> comp : def.getComponents()) {
 					compsItem.getChildren().add(getTreeItem(comp));
 				}
 				rootItem.getChildren().add(compsItem);
-			}
+			//}
 
 			if (!def.getBehaviors().isEmpty()) {
 				TreeItem<Element> behavItem = new TreeItem<>(new OverviewElement<>(def, Behavior.class, "Behaviors"),

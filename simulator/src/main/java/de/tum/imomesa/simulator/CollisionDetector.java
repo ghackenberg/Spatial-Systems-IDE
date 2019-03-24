@@ -78,24 +78,36 @@ public class CollisionDetector {
 		BroadphaseInterface broadphase = new AxisSweep3(worldAabbMin, worldAabbMax, HANDLES, pairCache);
 		
 		CollisionWorld world = new CollisionWorld(dispatcher, broadphase, config);
-				
+		
+		// Adding
+		System.out.println("Adding");
+		
 		Map<CollisionObject, List<Element>> map = new HashMap<>();
+		
+		// add main component
+		System.out.println("Adding main component");
 		add(world, new ArrayList<>(), map, mainComp, memory, step);
 		
 		// add material ports of scenario
+		System.out.println("Adding scenario");
 		add(world, mainComp.append(new ArrayList<>()), map, scenario, memory, step);
 		
 		// add component proxies
+		System.out.println("Adding generated components");
 		for (ReferenceComponent proxy : memory.getProxy(step)) {
 			add(world, new ArrayList<>(), map, proxy, memory, step);
 		}
 		
-		// Detect collisions
+		// Calculating
+		System.out.println("Calculating");
+		
 		world.performDiscreteCollisionDetection();
 
-		// Process collisions
+		// Processing
+		System.out.println("Processing");
+		
 		for(int i = 0; i < world.getDispatcher().getNumManifolds(); i++) {
-
+			
 			PersistentManifold manifold = world.getDispatcher().getManifoldByIndexInternal(i);
 
 			// Check for penetration
@@ -111,6 +123,13 @@ public class CollisionDetector {
 	
 				List<Element> listA = map.get(objA);
 				List<Element> listB = map.get(objB);
+				
+				Element first = listA.get(listA.size() - 1);
+				Element second = listB.get(listB.size() - 1);
+				
+				System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get() + " with " + distance);
+				// System.out.println(first.getElementPath().get() + ": " + (first instanceof Component ? memory.getTransform(listA, step) : memory.getTransform(listA.subList(0, listA.size() - 1), step)));
+				// System.out.println(second.getElementPath().get() + ": " + (second instanceof Component ? memory.getTransform(listB, step) : memory.getTransform(listB.subList(0, listB.size() - 1), step)));
 	
 				evaluateCollision(listA, listB, memory, step);
 				evaluateCollision(listB, listA, memory, step);
@@ -233,6 +252,8 @@ public class CollisionDetector {
 	}
 	
 	private static void add(CollisionWorld world, List<Element> context, Map<CollisionObject, List<Element>> map, Component<?> component, Memory memory, int step) throws InterruptedException {
+		// System.out.println("Adding component: " + component.getElementPath().get());
+		
 		if (component instanceof DefinitionComponent) {
 			DefinitionComponent c = (DefinitionComponent) component;
 			
