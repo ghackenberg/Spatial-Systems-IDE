@@ -64,7 +64,7 @@ public class Client {
 
 			//System.out.print(getType(type).getName() + " (" + key + "): ");
 			
-			Object instance = type.newInstance();
+			Object instance = type.getConstructor().newInstance();
 			objects.put(key, instance);
 			keys.put(instance, key);
 			

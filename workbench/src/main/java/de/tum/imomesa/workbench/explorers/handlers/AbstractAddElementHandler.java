@@ -55,7 +55,7 @@ public abstract class AbstractAddElementHandler<T extends Element, S extends Pro
 		}
 		else {
 			try {
-				element = type.newInstance();
+				element = type.getConstructor().newInstance();
 			}
 			catch (Exception e) {
 				throw new IllegalStateException(e);

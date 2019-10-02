@@ -104,7 +104,7 @@ public class StorageManager {
 			return client.getKey(element);
 		}
 		else {
-			return new Integer(element.hashCode()).doubleValue();
+			return Integer.valueOf(element.hashCode()).doubleValue();
 		}
 	}
 	

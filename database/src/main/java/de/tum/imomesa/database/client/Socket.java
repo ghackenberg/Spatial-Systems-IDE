@@ -89,7 +89,7 @@ public class Socket {
 						// Obtain type
 						Class<?> type = Class.forName(json.getString("type"));
 						// Create instance
-						Object instance = type.newInstance();
+						Object instance = type.getConstructor().newInstance();
 						// Remember instance
 						client.addObject(instance, key);
 					} else {

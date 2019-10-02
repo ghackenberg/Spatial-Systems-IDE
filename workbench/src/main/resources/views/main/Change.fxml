@@ -9,7 +9,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Button?>
 <?import de.tum.imomesa.workbench.commons.nodes.PTableColumn?>
-<?import de.tum.imomesa.workbench.commons.nodes.ElementCellFactory?>
+<?import de.tum.imomesa.workbench.commons.nodes.DefaultCellFactory?>
 
 <Tab xmlns:fx="de.tum.imomesa" text="Changes" closable="false" fx:controller="de.tum.imomesa.workbench.controllers.main.ChangeController">
 	<graphic>
@@ -33,7 +33,7 @@
 					<columns>
 						<PTableColumn text="Message" percentageWidth="0.55">
 							<cellFactory>
-								<ElementCellFactory />
+								<DefaultCellFactory />
 							</cellFactory>
 							<cellValueFactory>
 								<PropertyValueFactory property="message" />

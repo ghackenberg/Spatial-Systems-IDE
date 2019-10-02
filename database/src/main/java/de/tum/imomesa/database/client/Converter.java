@@ -94,7 +94,7 @@ public class Converter {
 			} else {
 				try {
 					Class<?> clazz = Class.forName(object.getString("type"));
-					Object instance = clazz.newInstance();
+					Object instance = clazz.getConstructor().newInstance();
 					
 					cache.put(object.getInt("hash"), instance);
 

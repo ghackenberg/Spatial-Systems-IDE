@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import de.tum.imomesa.workbench.commons.nodes.ElementCellFactory?>
+<?import de.tum.imomesa.workbench.commons.nodes.DefaultCellFactory?>
 <?import de.tum.imomesa.workbench.commons.nodes.PTableColumn?>
 
 <BorderPane xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.main.editors.component.PortsController">
@@ -26,7 +26,7 @@
 					<columns>
 						<PTableColumn text="Class" percentageWidth="0.2">
 							<cellFactory>
-								<ElementCellFactory />
+								<DefaultCellFactory />
 							</cellFactory>
 							<cellValueFactory>
 								<PropertyValueFactory property="className" />
