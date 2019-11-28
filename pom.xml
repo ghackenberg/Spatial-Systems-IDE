@@ -42,7 +42,7 @@
 		      <configuration>
 		        <archive>
 		          <manifest>
-		            <mainClass>de.tum.imomesa.Main</mainClass>
+		            <mainClass>de.tum.imomesa.workbench.Main</mainClass>
 		          </manifest>
 		        </archive>
 		        <descriptorRefs>
