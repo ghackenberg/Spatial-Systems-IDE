@@ -39,6 +39,7 @@ import de.tum.imomesa.model.expressions.sets.SetConstructorExpression;
 import de.tum.imomesa.model.expressions.sets.UnionExpression;
 import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.simulator.managers.MarkerManager;
+import de.tum.imomesa.simulator.markers.errors.ObservationExpressionDelayError;
 import de.tum.imomesa.simulator.markers.errors.WrongUseOfDurationExpressionError;
 import de.tum.imomesa.simulator.threads.AbstractThread;
 
@@ -88,8 +89,20 @@ public class ExpressionDispatcher
 		try {
 			// Obtain context
 			List<Element> temp = expression.getObservation().resolve(context);
-			// Obtain value
-			return memory.getValue(thread, expression.getObservation().append(temp), step - expression.getDelay());
+			// Obtain delay
+			int delay = expression.getDelay();
+			// Obtain timepoint
+			int timepoint = step - delay;
+			// Check timepoint
+			if (timepoint < 0) {
+				// Add marker
+				MarkerManager.get().addMarker(new ObservationExpressionDelayError(context, step, delay));
+				// Return null
+				return null;
+			} else {
+				// Obtain value
+				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	
+			}
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}

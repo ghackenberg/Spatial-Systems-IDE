@@ -196,10 +196,14 @@ public class SimulationController implements EventHandler {
 	public void setElement(Scenario scenario) {
 		DefinitionComponent component = (DefinitionComponent) scenario.getParent();
 
-		// Create simulator and animator
+		// Create simulator
 		simulator = new Simulator(component, scenario, Main.SESSION_PATH);
+		simulator.start();
+		
+		// Create animator
 		animation = new AnimationThread(simulator, sStep, spIdleTime);
-
+		animation.start();
+		
 		// Propagate simulator
 		embeddedExplorerController.setSimulator(simulator);
 		embeddedEditorController.setSimulator(simulator);
@@ -210,10 +214,6 @@ public class SimulationController implements EventHandler {
 
 		// init tree view
 		embeddedExplorerController.setElement(component);
-		
-		// Start simulator and animator
-		simulator.start();
-		animation.start();
 
 		// bind slider to step property
 		sStep.maxProperty().bind(Bindings.max(0, simulator.stepProperty()));
