@@ -2,6 +2,7 @@ package de.tum.imomesa.checker.helpers;
 
 import java.util.List;
 
+import de.tum.imomesa.checker.listeners.ChangeListenerMarkerExpressionDelay;
 import de.tum.imomesa.checker.listeners.ChangeListenerMarkerExpressionNary;
 import de.tum.imomesa.checker.listeners.ChangeListenerMarkerExpressionObservation;
 import de.tum.imomesa.checker.listeners.ChangeListenerMarkerExpressionObservationType;
@@ -45,11 +46,12 @@ public class HelperEvaluateExpression {
 		ListenerRemover.getListenerManager().addListener(parent.argumentsProperty(), new ChangeListenerMarkerExpressionNary(parent, marker));
 	}
 
-	public static void evaluateExpressionInit(ObservationExpression parent, SyntacticMarker marker) {
+	public static void evaluateExpressionInit(ObservationExpression parent, SyntacticMarker marker, SyntacticMarker delay) {
 		if(parent.getObservation() != null) {
 			HelperEvaluateType.evaluateType(parent.getType(), parent.getObservation().getReadType(), marker);
 			ListenerRemover.getListenerManager().addListener(parent.getObservation().readTypeProperty(), new ChangeListenerMarkerExpressionObservationType(parent.getType(), marker));
 		}
 		ListenerRemover.getListenerManager().addListener(parent.observationProperty(), new ChangeListenerMarkerExpressionObservation(parent, marker));
+		ListenerRemover.getListenerManager().addListener(parent.delayProperty(), new ChangeListenerMarkerExpressionDelay(delay));
 	}
 }

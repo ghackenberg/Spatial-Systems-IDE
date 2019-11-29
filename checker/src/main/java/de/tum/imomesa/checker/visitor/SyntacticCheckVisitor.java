@@ -26,6 +26,7 @@ import de.tum.imomesa.checker.markers.object.ErrorNoTemplate;
 import de.tum.imomesa.checker.markers.object.ErrorNoTransformForKinematic;
 import de.tum.imomesa.checker.markers.object.ErrorNoVolume;
 import de.tum.imomesa.checker.markers.object.WarningNoComponent;
+import de.tum.imomesa.checker.markers.size.ErrorNegativeDelay;
 import de.tum.imomesa.checker.markers.size.ErrorNoVolumes;
 import de.tum.imomesa.checker.markers.size.ErrorNotEnoughArgumentsInExpression;
 import de.tum.imomesa.checker.markers.size.ErrorTooManyIncomingChannels;
@@ -207,10 +208,11 @@ public class SyntacticCheckVisitor extends MultipleMethodVisitor {
 		// Step 1: create error and warning objects
 		SyntacticError errorObservationIsNull = new ErrorNoObservation(exp);
 		SyntacticError errorObservationHasWrongType = new ErrorWrongTypeOfObservation(exp);
+		SyntacticError errorDelay = new ErrorNegativeDelay(exp);
 
 		// Step 2: initial evaluation and add listener
 		HelperEvaluateObject.evaluateObjectInit(exp.observationProperty(), errorObservationIsNull);
-		HelperEvaluateExpression.evaluateExpressionInit(exp, errorObservationHasWrongType);
+		HelperEvaluateExpression.evaluateExpressionInit(exp, errorObservationHasWrongType, errorDelay);
 	}
 
 	public void visit(UnaryExpression exp) {

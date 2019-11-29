@@ -1,5 +1,8 @@
 package de.tum.imomesa.workbench.commons.helpers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.Group;
@@ -106,7 +109,12 @@ public class ImageHelper {
 		return view;
 	}
 	
+	private static Map<String, Image> CACHE = new HashMap<>();
+	
 	private static ImageView loadImage(String path) {
-		return new ImageView(new Image(path));
+		if (!CACHE.containsKey(path)) {
+			CACHE.put(path, new Image(path));
+		}
+		return new ImageView(CACHE.get(path));
 	}
 }
