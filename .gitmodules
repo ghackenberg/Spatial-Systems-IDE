@@ -1,0 +1,6 @@
+[submodule "jcsg"]
+	path = jcsg
+	url = git@gitlab.com:georg-hackenberg/fhooe/programme/jcsg.git
+[submodule "vvecmath"]
+	path = vvecmath
+	url = git@gitlab.com:georg-hackenberg/fhooe/programme/vvecmath.git

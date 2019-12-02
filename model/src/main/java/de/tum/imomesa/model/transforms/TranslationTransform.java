@@ -12,9 +12,13 @@ import javafx.beans.property.SimpleObjectProperty;
 public class TranslationTransform extends Transform {
 
 	public TranslationTransform() {
-		// create elements
-		Point p = new Point(this);
-		this.setVector(p);
+		vector.addListener(this::handleVectorChange);
+		
+		getVector().xProperty().addListener(this::handleNumberChange);
+		getVector().yProperty().addListener(this::handleNumberChange);
+		getVector().zProperty().addListener(this::handleNumberChange);
+		
+		setTransform(toVVecMathTransform());
 	}
 
 	public void accept(Visitor visitor) {
@@ -45,7 +49,7 @@ public class TranslationTransform extends Transform {
 	}
 
 	// Move vector
-	private ObjectProperty<Point> vector = new SimpleObjectProperty<>();
+	private ObjectProperty<Point> vector = new SimpleObjectProperty<>(new Point(this));
 
 	public Point getVector() {
 		return vector.get();
@@ -59,4 +63,5 @@ public class TranslationTransform extends Transform {
 	public ObjectProperty<Point> vectorProperty() {
 		return vector;
 	}
+	
 }

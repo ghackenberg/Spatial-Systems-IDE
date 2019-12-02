@@ -23,9 +23,14 @@
 			<version>0.0.1</version>
 		</dependency>
 		<dependency>
-		    <groupId>cz.advel.jbullet</groupId>
-		    <artifactId>jbullet</artifactId>
-		    <version>20101010-1</version>
+			<groupId>de.tum.imomesa</groupId>
+			<artifactId>de.tum.imomesa.vvecmath</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tum.imomesa</groupId>
+			<artifactId>de.tum.imomesa.jcsg</artifactId>
+			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
 	

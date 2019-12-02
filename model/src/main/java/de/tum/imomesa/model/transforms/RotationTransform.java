@@ -16,9 +16,15 @@ import javafx.beans.property.SimpleObjectProperty;
 public class RotationTransform extends Transform {
 
 	public RotationTransform() {
-		// create elements
-		Point p = new Point(this);
-		this.setRotationAxe(p);
+		this.rotationAxe.addListener(this::handleVectorChange);
+		
+		this.getRotationAxe().xProperty().addListener(this::handleNumberChange);
+		this.getRotationAxe().yProperty().addListener(this::handleNumberChange);
+		this.getRotationAxe().zProperty().addListener(this::handleNumberChange);
+		
+		this.angle.addListener(this::handleNumberChange);
+		
+		setTransform(toVVecMathTransform());
 	}
 
 	public void accept(Visitor visitor) {
@@ -56,7 +62,7 @@ public class RotationTransform extends Transform {
 	}
 
 	// rotation axe
-	private ObjectProperty<Point> rotationAxe = new SimpleObjectProperty<>();
+	private ObjectProperty<Point> rotationAxe = new SimpleObjectProperty<>(new Point(this));
 
 	public Point getRotationAxe() {
 		return rotationAxe.get();
@@ -85,4 +91,5 @@ public class RotationTransform extends Transform {
 	public DoubleProperty angleProperty() {
 		return angle;
 	}
+	
 }

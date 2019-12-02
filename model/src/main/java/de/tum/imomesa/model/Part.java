@@ -2,26 +2,20 @@ package de.tum.imomesa.model;
 
 import java.util.List;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import de.tum.imomesa.database.annotations.Cascading;
 import de.tum.imomesa.model.transforms.Transform;
 import de.tum.imomesa.model.volumes.Volume;
 import de.tum.imomesa.utilities.visitors.Visitor;
+import eu.mihosoft.jcsg.CSG;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 
-public class Part extends NamedElement
-{
-	// ########################################################################
-	// Constructors
-	// ########################################################################
-
-	
-	// ########################################################################
-	// Methods
-	// ########################################################################
+public class Part extends NamedElement {
 	
 	public void accept(Visitor visitor) {
 		super.accept(visitor);
@@ -34,10 +28,53 @@ public class Part extends NamedElement
 		}
 	}
 
+	// Red
+	private IntegerProperty red = new SimpleIntegerProperty();
 	
-	// ########################################################################
-	// Properties
-	// ########################################################################
+	public Integer getRed()
+	{
+		return red.get();
+	}
+	public void setRed(int red)
+	{
+		this.red.set(red);
+	}
+	public IntegerProperty redProperty()
+	{
+		return red;
+	}
+
+	// Green
+	private IntegerProperty green = new SimpleIntegerProperty();
+	
+	public Integer getGreen()
+	{
+		return green.get();
+	}
+	public void setGreen(int green)
+	{
+		this.green.set(green);
+	}
+	public IntegerProperty greenProperty()
+	{
+		return green;
+	}
+
+	// Blue
+	private IntegerProperty blue = new SimpleIntegerProperty();
+	
+	public Integer getBlue()
+	{
+		return blue.get();
+	}
+	public void setBlue(int blue)
+	{
+		this.blue.set(blue);
+	}
+	public IntegerProperty blueProperty()
+	{
+		return blue;
+	}
 
 	// Volume
 	private ObjectProperty<Volume> volume = new SimpleObjectProperty<>();
@@ -72,4 +109,9 @@ public class Part extends NamedElement
 	{
 		return transforms;
 	}
+	
+	public CSG toCSG() {
+		return getVolume().getCSG().transformed(Transform.toVVecMathTransform(getTransforms()));
+	}
+	
 }

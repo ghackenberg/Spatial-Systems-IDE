@@ -3,48 +3,72 @@ package de.tum.imomesa.workbench.scenes.helpers;
 import java.util.List;
 
 import de.tum.imomesa.model.Element;
-import de.tum.imomesa.model.volumes.AtomicVolume;
-import de.tum.imomesa.model.volumes.BoxVolume;
-import de.tum.imomesa.model.volumes.CompositeVolume;
-import de.tum.imomesa.model.volumes.CylinderVolume;
-import de.tum.imomesa.model.volumes.SphereVolume;
+import de.tum.imomesa.model.Part;
+import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.model.volumes.Volume;
 import de.tum.imomesa.workbench.scenes.Configuration;
+import eu.mihosoft.jcsg.MeshContainer;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.DrawMode;
 
 public class HelperVolume {
 
-	public static Node paintVolume(List<Element> context, Volume volume, Color color, Configuration config) {
+	public static Node paintVolume(List<Element> context, Volume volume, Material material, Configuration config, boolean selected) {
 		if (volume == null) {
 			return null;
-		} else if (volume instanceof AtomicVolume) {
-			if (volume instanceof BoxVolume) {
-				return HelperBox.addBox(context, (BoxVolume) volume, color, config);
-			} else if (volume instanceof CylinderVolume) {
-				return HelperCylinder.addCylinder(context, (CylinderVolume) volume, color, config);
-			} else if (volume instanceof SphereVolume) {
-				return HelperSphere.addSphere(context, (SphereVolume) volume, color, config);
-			} else {
-				throw new IllegalStateException("Volume type not supported: " + volume.getClass().getName());
-			}
-		} else if (volume instanceof CompositeVolume) {
-			// is composite volume
-			CompositeVolume composite = (CompositeVolume) volume;
-
-			Group group = new Group();
-
-			// call method for each child
-			for (Volume vPart : composite.getVolumes()) {
-				group.getChildren().add(paintVolume(composite.append(context), vPart, color, config));
-			}
-
-			HelperTransform.addTransforms(group, composite.getTransforms());
-
-			return group;
 		} else {
-			throw new IllegalStateException("Volume type not supported: " + volume.getClass().getName());
+			Group fillGroup = new Group();
+			Group lineGroup = new Group();
+			
+			if (volume.getFirstAncestorByType(Part.class) != null) {
+				updateGroup(volume.meshesProperty(), fillGroup, material, DrawMode.FILL, CullFace.NONE);
+				updateGroup(volume.meshesProperty(), lineGroup, Color.BLACK, DrawMode.LINE, CullFace.FRONT);
+				
+				lineGroup.visibleProperty().bind(config.showOutlineProperty());
+			} else if (volume.getFirstAncestorByType(Port.class) != null) {
+				updateGroup(volume.meshesProperty(), fillGroup, material, DrawMode.FILL, CullFace.NONE);
+				updateGroup(volume.meshesProperty(), lineGroup, Color.BLACK, DrawMode.LINE, selected ? CullFace.FRONT : CullFace.BACK);
+
+				fillGroup.setVisible(selected);
+			} else {
+				throw new IllegalStateException();
+			}
+			
+			Group group = new Group();
+			
+			group.getChildren().addAll(fillGroup, lineGroup);
+			
+			return group;
 		}
 	}
+	
+	private static void updateGroup(ObjectProperty<MeshContainer> container, Group group, Color color, DrawMode mode, CullFace cull) {
+		updateGroup(container, group, new PhongMaterial(color), mode, cull);
+	}
+	
+	private static void updateGroup(ObjectProperty<MeshContainer> container, Group group, Material material, DrawMode mode, CullFace cull) {
+		container.addListener((property, oldValue, newValue) -> {
+			updateGroup(newValue, group, material, mode, cull);
+		});
+		updateGroup(container.get(), group, material, mode, cull);
+	}
+	
+	private static void updateGroup(MeshContainer container, Group group, Material material, DrawMode mode, CullFace cull) {
+		group.getChildren().clear();
+		
+		container.getAsMeshViews().forEach(meshView -> {
+			group.getChildren().add(meshView);
+			
+			meshView.setMaterial(material);
+			meshView.setDrawMode(mode);
+			meshView.setCullFace(cull);
+		});
+	}
+	
 }

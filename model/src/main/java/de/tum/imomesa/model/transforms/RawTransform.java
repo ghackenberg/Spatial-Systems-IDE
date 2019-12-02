@@ -9,7 +9,7 @@ public class RawTransform extends Transform {
 	private RealMatrix matrix;
 
 	public RawTransform() {
-		
+		setTransform(toVVecMathTransform());
 	}
 	
 	public RawTransform(RealMatrix matrix) {
@@ -25,5 +25,5 @@ public class RawTransform extends Transform {
 	public RealMatrix toRealMatrix() {
 		return matrix;
 	}
-
+	
 }

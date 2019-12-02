@@ -1,61 +1,67 @@
 package de.tum.imomesa.model.volumes;
 
+import eu.mihosoft.jcsg.CSG;
+import eu.mihosoft.jcsg.Cylinder;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
-public class CylinderVolume extends AtomicVolume
-{
-	
-	// ########################################################################
-	// Constructors
-	// ########################################################################
-	
+public class CylinderVolume extends AtomicVolume {
+
 	public CylinderVolume() {
-		super();
-		
-		setRadius(0);
-		setHeight(0);
+		radius.addListener(this::updateCSG);
+		height.addListener(this::updateCSG);
+		slices.addListener(this::updateCSG);
 	}
-	
-	// ########################################################################
-	// Methods
-	// ########################################################################
-	
-	
-	// ########################################################################
-	// Properties
-	// ########################################################################
 
 	// Radius
-	private DoubleProperty radius = new SimpleDoubleProperty();
-	
-	public double getRadius()
-	{
+	private final DoubleProperty radius = new SimpleDoubleProperty(0);
+
+	public double getRadius() {
 		return radius.get();
 	}
-	public void setRadius(double radius)
-	{
+
+	public void setRadius(double radius) {
 		this.radius.set(radius);
 	}
-	public DoubleProperty radiusProperty()
-	{
+
+	public DoubleProperty radiusProperty() {
 		return radius;
 	}
 
 	// Height
-	private DoubleProperty height = new SimpleDoubleProperty();
-	
-	public double getHeight()
-	{
+	private final DoubleProperty height = new SimpleDoubleProperty(0);
+
+	public double getHeight() {
 		return height.get();
 	}
-	public void setHeight(double height)
-	{
+
+	public void setHeight(double height) {
 		this.height.set(height);
 	}
-	public DoubleProperty heightProperty()
-	{
+
+	public DoubleProperty heightProperty() {
 		return height;
+	}
+
+	// Slices
+	private final IntegerProperty slices = new SimpleIntegerProperty(50);
+
+	public int getSlices() {
+		return slices.get();
+	}
+	
+	public void setSlices(int slices) {
+		this.slices.set(slices);
+	}
+	
+	public IntegerProperty slicesProperty() {
+		return slices;
+	}
+
+	protected CSG toCSG() {
+		return new Cylinder(getRadius(), getHeight(), getSlices()).toCSG().transformed(getTransform());
 	}
 
 }

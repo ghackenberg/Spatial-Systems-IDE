@@ -9,6 +9,7 @@ import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.NamedElement;
 import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.ObservedElement;
+import de.tum.imomesa.model.Part;
 import de.tum.imomesa.model.Project;
 import de.tum.imomesa.model.channels.StaticChannel;
 import de.tum.imomesa.model.commons.Point;
@@ -41,8 +42,8 @@ import de.tum.imomesa.model.ports.Port.Direction;
 import de.tum.imomesa.model.properties.Property;
 import de.tum.imomesa.model.transforms.RotationTransform;
 import de.tum.imomesa.model.transforms.TranslationTransform;
-import de.tum.imomesa.model.volumes.AtomicVolume;
 import de.tum.imomesa.model.volumes.BoxVolume;
+import de.tum.imomesa.model.volumes.CompositeVolume;
 import de.tum.imomesa.model.volumes.CylinderVolume;
 import de.tum.imomesa.model.volumes.SphereVolume;
 import de.tum.imomesa.utilities.managers.StorageManager;
@@ -367,16 +368,16 @@ public class AttributesEditorBuilder {
 		grid.addProperty("Template:", cbComponent);
 	}
 
-	public static void addProperties(AttributesGrid grid, AtomicVolume v) {
+	public static void addProperties(AttributesGrid grid, Part part) {
 		// color
 		ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setValue(Color.rgb(v.getRed(), v.getGreen(), v.getBlue()));
+		colorPicker.setValue(Color.rgb(part.getRed(), part.getGreen(), part.getBlue()));
 		colorPicker.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				v.setRed((int) (colorPicker.getValue().getRed() * 255));
-				v.setGreen((int) (colorPicker.getValue().getGreen() * 255));
-				v.setBlue((int) (colorPicker.getValue().getBlue() * 255));
+				part.setRed((int) (colorPicker.getValue().getRed() * 255));
+				part.setGreen((int) (colorPicker.getValue().getGreen() * 255));
+				part.setBlue((int) (colorPicker.getValue().getBlue() * 255));
 			}
 		});
 		grid.addProperty("Color:", colorPicker);
@@ -387,12 +388,10 @@ public class AttributesEditorBuilder {
 		NumberField dtfWidth = new NumberField();
 		dtfWidth.textProperty().bindBidirectional(v.widthProperty(), new NumberConverter());
 		grid.addProperty("Width:", dtfWidth);
-
 		// height
 		NumberField dtfHeight = new NumberField();
 		dtfHeight.textProperty().bindBidirectional(v.heightProperty(), new NumberConverter());
 		grid.addProperty("Height:", dtfHeight);
-
 		// depth
 		NumberField dtfDepth = new NumberField();
 		dtfDepth.textProperty().bindBidirectional(v.depthProperty(), new NumberConverter());
@@ -404,11 +403,14 @@ public class AttributesEditorBuilder {
 		NumberField dtfRadius = new NumberField();
 		Bindings.bindBidirectional(dtfRadius.textProperty(), v.radiusProperty(), new NumberConverter());
 		grid.addProperty("Radius:", dtfRadius);
-
 		// height
 		NumberField dtfHeight = new NumberField();
 		Bindings.bindBidirectional(dtfHeight.textProperty(), v.heightProperty(), new NumberConverter());
 		grid.addProperty("Height:", dtfHeight);
+		// slices
+		NumberField dtfSlices = new NumberField();
+		Bindings.bindBidirectional(dtfSlices.textProperty(), v.slicesProperty(), new NumberConverter());
+		grid.addProperty("Slices:", dtfSlices);
 	}
 	
 	public static void addProperties(AttributesGrid grid, SphereVolume v) {
@@ -416,6 +418,22 @@ public class AttributesEditorBuilder {
 		NumberField dtfRadius = new NumberField();
 		Bindings.bindBidirectional(dtfRadius.textProperty(), v.radiusProperty(), new NumberConverter());
 		grid.addProperty("Radius:", dtfRadius);
+		// slices
+		NumberField dtfSlices = new NumberField();
+		Bindings.bindBidirectional(dtfSlices.textProperty(), v.slicesProperty(), new NumberConverter());
+		grid.addProperty("Slices:", dtfSlices);
+		// slices
+		NumberField dtfStacks = new NumberField();
+		Bindings.bindBidirectional(dtfStacks.textProperty(), v.stacksProperty(), new NumberConverter());
+		grid.addProperty("Stacks:", dtfStacks);
+	}
+	
+	public static void addProperties(AttributesGrid grid, CompositeVolume v) {
+		// operator
+		ComboBox<String> dtfOperator = new ComboBox<>(FXCollections.observableArrayList("Union", "Intersection", "Difference"));
+		dtfOperator.getSelectionModel().clearAndSelect(v.getOperator());
+		v.operatorProperty().bind(dtfOperator.getSelectionModel().selectedIndexProperty());
+		grid.addProperty("Operator:", dtfOperator);
 	}
 
 	public static void addProperties(AttributesGrid grid, RotationTransform t) {

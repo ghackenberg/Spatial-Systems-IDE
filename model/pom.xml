@@ -23,6 +23,16 @@
 			<version>0.0.1</version>
 		</dependency>
 		<dependency>
+			<groupId>de.tum.imomesa</groupId>
+			<artifactId>de.tum.imomesa.jcsg</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tum.imomesa</groupId>
+			<artifactId>de.tum.imomesa.vvecmath</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>3.3</version>

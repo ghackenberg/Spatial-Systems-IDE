@@ -1,33 +1,21 @@
 package de.tum.imomesa.model.volumes;
 
+import eu.mihosoft.jcsg.CSG;
+import eu.mihosoft.jcsg.Cube;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 public class BoxVolume extends AtomicVolume
 {
-	// ########################################################################
-	// Constructors
-	// ########################################################################
 	
 	public BoxVolume() {
-		super();
-		
-		setWidth(0.);
-		setHeight(0.);
-		setDepth(0.);
+		width.addListener(this::updateCSG);
+		height.addListener(this::updateCSG);
+		depth.addListener(this::updateCSG);
 	}
 	
-	// ########################################################################
-	// Methods
-	// ########################################################################
-	
-	
-	// ########################################################################
-	// Properties
-	// ########################################################################
-	
 	// Width
-	private DoubleProperty width = new SimpleDoubleProperty();
+	private DoubleProperty width = new SimpleDoubleProperty(0);
 	
 	public Double getWidth()
 	{
@@ -43,7 +31,7 @@ public class BoxVolume extends AtomicVolume
 	}
 	
 	// Height
-	private DoubleProperty height = new SimpleDoubleProperty();
+	private DoubleProperty height = new SimpleDoubleProperty(0);
 	
 	public Double getHeight()
 	{
@@ -59,7 +47,7 @@ public class BoxVolume extends AtomicVolume
 	}
 	
 	// Depth
-	private DoubleProperty depth = new SimpleDoubleProperty();
+	private DoubleProperty depth = new SimpleDoubleProperty(0);
 	
 	public Double getDepth()
 	{
@@ -73,4 +61,9 @@ public class BoxVolume extends AtomicVolume
 	{
 		return depth;
 	}
+	
+	protected CSG toCSG() {
+		return new Cube(getWidth(), getHeight(), getDepth()).toCSG().transformed(getTransform());
+	}
+	
 }
