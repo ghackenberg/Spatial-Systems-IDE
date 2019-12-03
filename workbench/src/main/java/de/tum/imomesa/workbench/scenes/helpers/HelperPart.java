@@ -15,11 +15,25 @@ public class HelperPart {
 
 	public static Node paintPart(List<Element> context, Part part, Configuration config) {
 		
-		Group g = new Group();
+		final boolean selected = config.isElementSelected(context, part);
+		
+		final Group group = new Group();
+		
+		part.volumeProperty().addListener((property, oldValue, newValue) -> {
+			updateVolume(context, part, config, group, selected);
+		});
+		
+		updateVolume(context, part, config, group, selected);
 
+		HelperTransform.addTransforms(group, part.getTransforms());
+
+		return group;
+	}
+	
+	private static void updateVolume(List<Element> context, Part part, Configuration config, Group group, boolean selected) {
+		group.getChildren().clear();
+		
 		if (part.getVolume() != null) {
-			
-			boolean selected = config.isElementSelected(context, part);
 
 			PhongMaterial material = new PhongMaterial();
 			
@@ -38,12 +52,8 @@ public class HelperPart {
 			
 			updateColor(part, material, config, selected);
 			
-			g.getChildren().add(HelperVolume.paintVolume(part.append(context), part.getVolume(), material, config, selected));
-
-			HelperTransform.addTransforms(g, part.getTransforms());
+			group.getChildren().add(HelperVolume.paintVolume(part.append(context), part.getVolume(), material, config, selected));
 		}
-
-		return g;
 	}
 	
 	private static void updateColor(Part part, PhongMaterial material, Configuration config, boolean selected) {

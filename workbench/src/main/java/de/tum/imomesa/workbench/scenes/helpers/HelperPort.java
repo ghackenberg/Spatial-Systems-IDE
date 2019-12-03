@@ -57,6 +57,8 @@ public class HelperPort {
 			selected = selected || (config.getSelectedElement().getPath().contains(scenario) && config.getSelectedElement().getFirstAncestorByType(Port.class) == null);
 		}
 		
+		final boolean finalSelected = selected;
+		
 		Group group = new Group();
 		
 		int r = 0, g = 0, b = 0;
@@ -71,17 +73,27 @@ public class HelperPort {
 			throw new IllegalStateException("Port type not supported: " + port.getClass().getName());
 		}
 		
-		Color color = Color.rgb(r, g, b);
+		final Color color = Color.rgb(r, g, b);
 		
 		PhongMaterial material = new PhongMaterial();
 		
 		material.diffuseColorProperty().bind(Bindings.when(config.highlightSelectedProperty()).then(selected ? color : color.darker()).otherwise(color));
 
+		port.volumeProperty().addListener((property, oldValue, newValue) -> {
+			updateVolume(context, port, config, group, material, finalSelected);
+		});
+		
+		updateVolume(context, port, config, group, material, finalSelected);
+
+		return group;
+	}
+	
+	private static void updateVolume(List<Element> context, MaterialPort port, Configuration config, Group group, PhongMaterial material, boolean selected) {
+		group.getChildren().clear();
+		
 		if (port.getVolume() != null) {
 			group.getChildren().add(HelperVolume.paintVolume(port.append(context), port.getVolume(), material, config, selected));
 		}
-
-		return group;
 	}
 
 	private static Node paintPort(List<Element> context, KinematicEnergyPort port, Configuration config) {
