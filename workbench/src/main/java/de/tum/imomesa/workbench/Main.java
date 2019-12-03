@@ -7,6 +7,7 @@ import java.util.Date;
 
 import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.core.events.EventBus;
+import de.tum.imomesa.model.volumes.Volume;
 import de.tum.imomesa.utilities.managers.StorageManager;
 import de.tum.imomesa.workbench.FadeApp.InitCompletionHandler;
 import de.tum.imomesa.workbench.commons.events.ProgramEndEvent;
@@ -75,6 +76,8 @@ public class Main extends Application {
 		// initialize log hander
 		EventBus.getInstance().subscribe(new LogHandler(logFile));
 		EventBus.getInstance().publish(new ProgramStartEvent());
+		// Update thread
+		Volume.UPDATE_THREAD.start();
 		// initialize splash screen
 		splashScreen = new SplashScreenCreator();
 		splashScreen.init();
@@ -134,6 +137,8 @@ public class Main extends Application {
 					StorageManager.getInstance().close();
 					// log program end
 					EventBus.getInstance().publish(new ProgramEndEvent());
+					// stop update thread
+					Volume.UPDATE_THREAD.interrupt();
 				}
 			});
 

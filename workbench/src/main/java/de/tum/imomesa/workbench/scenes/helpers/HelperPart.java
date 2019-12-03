@@ -14,35 +14,42 @@ import javafx.scene.paint.PhongMaterial;
 public class HelperPart {
 
 	public static Node paintPart(List<Element> context, Part part, Configuration config) {
-		boolean selected = config.isElementSelected(context, part);
-
-		PhongMaterial material = new PhongMaterial();
-		
-		part.redProperty().addListener((property, oldValue, newValue) -> {
-			updateColor(part, material, config, selected);
-		});
-		part.greenProperty().addListener((property, oldValue, newValue) -> {
-			updateColor(part, material, config, selected);
-		});
-		part.blueProperty().addListener((property, oldValue, newValue) -> {
-			updateColor(part, material, config, selected);
-		});
-		
-		updateColor(part, material, config, selected);
 		
 		Group g = new Group();
 
 		if (part.getVolume() != null) {
-			g.getChildren().add(HelperVolume.paintVolume(part.append(context), part.getVolume(), material, config, selected));
-		}
+			
+			boolean selected = config.isElementSelected(context, part);
 
-		HelperTransform.addTransforms(g, part.getTransforms());
+			PhongMaterial material = new PhongMaterial();
+			
+			part.redProperty().addListener((property, oldValue, newValue) -> {
+				updateColor(part, material, config, selected);
+			});
+			part.greenProperty().addListener((property, oldValue, newValue) -> {
+				updateColor(part, material, config, selected);
+			});
+			part.blueProperty().addListener((property, oldValue, newValue) -> {
+				updateColor(part, material, config, selected);
+			});
+			part.getVolume().dirtyProperty().addListener((property, oldValue, newValue) -> {
+				updateColor(part, material, config, selected);
+			});
+			
+			updateColor(part, material, config, selected);
+			
+			g.getChildren().add(HelperVolume.paintVolume(part.append(context), part.getVolume(), material, config, selected));
+
+			HelperTransform.addTransforms(g, part.getTransforms());
+		}
 
 		return g;
 	}
 	
 	private static void updateColor(Part part, PhongMaterial material, Configuration config, boolean selected) {
-		Color color = Color.rgb(part.getRed(), part.getGreen(), part.getBlue());
+		// Define color
+		Color color = Color.rgb(part.getRed(), part.getGreen(), part.getBlue(), part.getVolume().getDirty() ? 0.5 : 1.0);
+		// Bind color
 		material.diffuseColorProperty().bind(Bindings.when(config.highlightSelectedProperty()).then(selected ? color : color.darker()).otherwise(color));
 	}
 

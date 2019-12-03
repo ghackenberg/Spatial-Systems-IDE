@@ -12,14 +12,13 @@ import javafx.beans.property.ObjectProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 
 public class HelperVolume {
 
-	public static Node paintVolume(List<Element> context, Volume volume, Material material, Configuration config, boolean selected) {
+	public static Node paintVolume(List<Element> context, Volume volume, PhongMaterial material, Configuration config, boolean selected) {
 		if (volume == null) {
 			return null;
 		} else {
@@ -52,14 +51,14 @@ public class HelperVolume {
 		updateGroup(container, group, new PhongMaterial(color), mode, cull);
 	}
 	
-	private static void updateGroup(ObjectProperty<MeshContainer> container, Group group, Material material, DrawMode mode, CullFace cull) {
+	private static void updateGroup(ObjectProperty<MeshContainer> container, Group group, PhongMaterial material, DrawMode mode, CullFace cull) {
 		container.addListener((property, oldValue, newValue) -> {
 			updateGroup(newValue, group, material, mode, cull);
 		});
 		updateGroup(container.get(), group, material, mode, cull);
 	}
 	
-	private static void updateGroup(MeshContainer container, Group group, Material material, DrawMode mode, CullFace cull) {
+	private static void updateGroup(MeshContainer container, Group group, PhongMaterial material, DrawMode mode, CullFace cull) {
 		group.getChildren().clear();
 		
 		container.getAsMeshViews().forEach(meshView -> {

@@ -1,6 +1,8 @@
 package de.tum.imomesa.model.volumes;
 
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import de.tum.imomesa.database.annotations.Cascading;
 import de.tum.imomesa.database.annotations.Transient;
@@ -9,8 +11,11 @@ import de.tum.imomesa.model.transforms.Transform;
 import de.tum.imomesa.utilities.visitors.Visitor;
 import eu.mihosoft.jcsg.CSG;
 import eu.mihosoft.jcsg.MeshContainer;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -73,7 +78,7 @@ public abstract class Volume extends Element {
 	}
 	
 	// Transform
-	private ObjectProperty<eu.mihosoft.vvecmath.Transform> transform = new SimpleObjectProperty<>(eu.mihosoft.vvecmath.Transform.unity());
+	private final ObjectProperty<eu.mihosoft.vvecmath.Transform> transform = new SimpleObjectProperty<>(eu.mihosoft.vvecmath.Transform.unity());
 	
 	protected void setTransform(eu.mihosoft.vvecmath.Transform transform) {
 		this.transform.set(transform);
@@ -89,7 +94,7 @@ public abstract class Volume extends Element {
 	}
 	
 	// CSG
-	private ObjectProperty<CSG> csg = new SimpleObjectProperty<>(CSG.fromPolygons());
+	private final ObjectProperty<CSG> csg = new SimpleObjectProperty<>(CSG.fromPolygons());
 	
 	protected void setCSG(CSG csg) {
 		this.csg.set(csg);
@@ -105,7 +110,7 @@ public abstract class Volume extends Element {
 	}
 	
 	// Meshes
-	public ObjectProperty<MeshContainer> meshes = new SimpleObjectProperty<>();
+	private final ObjectProperty<MeshContainer> meshes = new SimpleObjectProperty<>();
 	
 	private void setMeshes(MeshContainer meshes) {
 		this.meshes.set(meshes);
@@ -120,13 +125,59 @@ public abstract class Volume extends Element {
 		return meshes;
 	}
 	
+	// Dirty
+	private final BooleanProperty dirty = new SimpleBooleanProperty(true);
+	
+	private void setDirty(boolean dirty) {
+		this.dirty.set(dirty);
+	}
+	
+	public boolean getDirty() {
+		return dirty.get();
+	}
+	
+	@Transient
+	public BooleanProperty dirtyProperty() {
+		return dirty;
+	}
+	
+	public static final Thread UPDATE_THREAD = new Thread(Volume::updateLoop);
+	
+	private static final BlockingQueue<Volume> UPDATE_QUEUE = new LinkedBlockingDeque<>();
+	
+	private static void updateLoop() {
+		try {
+			while (true) {
+				Volume volume = UPDATE_QUEUE.take();
+				
+				if (volume.getDirty()) {
+					CSG csg = volume.toCSG();
+					MeshContainer container = csg.toJavaFXMesh();
+					
+					Platform.runLater(() -> {
+						volume.setCSG(csg);
+						volume.setMeshes(container);
+						volume.setDirty(false);
+					});
+				}
+			}
+		} catch (InterruptedException e) {
+			//e.printStackTrace();
+		}
+	}
+	
 	protected <T> void updateTransform(ObservableValue<? extends T> property, T oldValue, T newValue) {
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
 	
 	protected <T> void updateCSG(ObservableValue<? extends T> property, T oldValue, T newValue) {
-		setCSG(toCSG());
-		setMeshes(getCSG().toJavaFXMesh());
+		try {
+			setDirty(true);
+			
+			UPDATE_QUEUE.put(this);
+		} catch (InterruptedException e) {
+			//e.printStackTrace();
+		}
 	}
 	
 	protected abstract CSG toCSG();
