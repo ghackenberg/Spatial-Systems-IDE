@@ -61,13 +61,15 @@ public class HelperVolume {
 	private static void updateGroup(MeshContainer container, Group group, PhongMaterial material, DrawMode mode, CullFace cull) {
 		group.getChildren().clear();
 		
-		container.getAsMeshViews().forEach(meshView -> {
-			group.getChildren().add(meshView);
-			
-			meshView.setMaterial(material);
-			meshView.setDrawMode(mode);
-			meshView.setCullFace(cull);
-		});
+		if (container != null) {
+			container.getAsMeshViews().forEach(meshView -> {
+				group.getChildren().add(meshView);
+				
+				meshView.setMaterial(material);
+				meshView.setDrawMode(mode);
+				meshView.setCullFace(cull);
+			});
+		}
 	}
 	
 }
