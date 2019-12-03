@@ -284,6 +284,10 @@ public class Simulator extends Thread {
 				
 				// set new array list of "unbound" components for next step
 				CopyOnWriteArraySet<ReferenceComponent> proxies = new CopyOnWriteArraySet<ReferenceComponent>();
+
+				//System.out.println("Step " + (getStep() + 1) + ": Proxies = " + memory.getProxy(getStep() + 1));
+				//System.out.println("Step " + (getStep() + 1) + ": Added proxies = " + memory.getAddedProxy(getStep() + 1));
+				//System.out.println("Step " + (getStep() + 1) + ": Removed proxies = " + memory.getRemovedProxy(getStep() + 1));
 				
 				for (ReferenceComponent proxy : memory.getProxy(getStep() + 1)) {
 					if (!memory.getRemovedProxy(getStep() + 1).contains(proxy)) {

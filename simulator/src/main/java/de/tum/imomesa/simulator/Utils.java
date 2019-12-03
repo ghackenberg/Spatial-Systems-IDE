@@ -265,11 +265,11 @@ public class Utils {
 						List<?> list = (List<?>) current;
 						if (list.size() > 0) {
 							Object first = list.get(0);
-							if (first instanceof Element) {
-								memory.getRemovedProxy(step).remove(first);
+							if (first instanceof ReferenceComponent) {
+								memory.getRemovedProxy(step).add((ReferenceComponent) first);
 								EventBus.getInstance().publish(new DeleteComponentEvent(context, port, step, (ReferenceComponent) first));
 							} else {
-								throw new IllegalStateException("Element required!");
+								throw new IllegalStateException("Reference component required!");
 							}
 						} else {
 							throw new IllegalStateException("Size greater zero required!");
