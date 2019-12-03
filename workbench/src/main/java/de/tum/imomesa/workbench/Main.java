@@ -59,6 +59,8 @@ public class Main extends Application {
 	private SplashScreenCreator splashScreen;
 
 	private Stage mainStage;
+	
+	public static Stage PRIMARY_STAGE;
 
 	@Override
 	public void init() {
@@ -141,6 +143,8 @@ public class Main extends Application {
 					Volume.UPDATE_THREAD.interrupt();
 				}
 			});
+			
+			PRIMARY_STAGE = mainStage;
 
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

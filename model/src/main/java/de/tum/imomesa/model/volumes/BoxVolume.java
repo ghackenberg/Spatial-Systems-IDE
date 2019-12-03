@@ -5,8 +5,7 @@ import eu.mihosoft.jcsg.Cube;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class BoxVolume extends AtomicVolume
-{
+public class BoxVolume extends AtomicVolume {
 	
 	public BoxVolume() {
 		width.addListener(this::updateCSG);

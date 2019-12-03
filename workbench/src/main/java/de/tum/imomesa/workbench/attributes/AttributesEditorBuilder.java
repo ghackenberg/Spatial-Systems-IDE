@@ -1,5 +1,6 @@
 package de.tum.imomesa.workbench.attributes;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +46,10 @@ import de.tum.imomesa.model.transforms.TranslationTransform;
 import de.tum.imomesa.model.volumes.BoxVolume;
 import de.tum.imomesa.model.volumes.CompositeVolume;
 import de.tum.imomesa.model.volumes.CylinderVolume;
+import de.tum.imomesa.model.volumes.STLVolume;
 import de.tum.imomesa.model.volumes.SphereVolume;
 import de.tum.imomesa.utilities.managers.StorageManager;
+import de.tum.imomesa.workbench.Main;
 import de.tum.imomesa.workbench.attributes.listeners.ChangeListenerComponentProxyTemplate;
 import de.tum.imomesa.workbench.attributes.listeners.ChangeListenerObservationType;
 import de.tum.imomesa.workbench.attributes.listeners.ChangeListenerPortDirection;
@@ -65,15 +68,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class AttributesEditorBuilder {
 
@@ -426,6 +433,30 @@ public class AttributesEditorBuilder {
 		NumberField dtfStacks = new NumberField();
 		Bindings.bindBidirectional(dtfStacks.textProperty(), v.stacksProperty(), new NumberConverter());
 		grid.addProperty("Stacks:", dtfStacks);
+	}
+	
+	public static void addProperties(AttributesGrid grid, STLVolume v) {
+		TextField dtfFilePath = new TextField();
+		dtfFilePath.setDisable(true);
+		dtfFilePath.textProperty().bind(v.filePathProperty());
+		
+		Button dtfChooseButton = new Button("Choose");
+		dtfChooseButton.setOnAction((event) -> {
+			FileChooser chooser = new FileChooser();
+			chooser.setTitle("Choose STL file");
+			chooser.getExtensionFilters().add(new ExtensionFilter("STL file", "*.stl"));
+			
+			File file = chooser.showOpenDialog(Main.PRIMARY_STAGE);
+			if (file != null) {
+				v.setFilePath(file.getAbsolutePath());
+			}
+		});
+		
+		GridPane pane = new GridPane();
+		pane.add(dtfFilePath, 0, 0);
+		pane.add(dtfChooseButton, 1, 0);
+		
+		grid.addProperty("File path:", pane);
 	}
 	
 	public static void addProperties(AttributesGrid grid, CompositeVolume v) {

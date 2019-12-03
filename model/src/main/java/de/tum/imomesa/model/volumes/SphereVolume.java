@@ -7,8 +7,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class SphereVolume extends AtomicVolume
-{
+public class SphereVolume extends AtomicVolume {
 	
 	public SphereVolume() {
 		radius.addListener(this::updateCSG);

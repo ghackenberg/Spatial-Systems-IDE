@@ -163,12 +163,12 @@ public class ObservationDispatcher {
 	
 	protected void set(AbstractThread<?> thread, List<Element> context, InteractionMaterialPort port, Memory memory, Integer step, Object object, Boolean forward) throws InterruptedException {
 		if (port.getAlwaysActive()) {
-			set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step), forward);
+			set(thread, context, (DefinitionPort) port, memory, step, memory.getCollisions(port.append(context), step), forward);
 		} else if(object == null) {
 			set(thread, context, (DefinitionPort) port, memory, step, object, forward);
 		} else if(object instanceof Boolean) {
 			if(object.equals(true)) {
-				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step), forward);
+				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollisions(port.append(context), step), forward);
 			} else {
 				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<List<Element>>(), forward);
 			}
@@ -214,7 +214,7 @@ public class ObservationDispatcher {
 			set(thread, context, (DefinitionPort) port, memory, step, null, forward);	
 		} else if (object instanceof Boolean) {
 			if ((Boolean) object) {
-				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollision(port.append(context), step), forward);
+				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollisions(port.append(context), step), forward);
 			} else {
 				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<>(), forward);
 			}

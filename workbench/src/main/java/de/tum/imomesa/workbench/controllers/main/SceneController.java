@@ -23,6 +23,7 @@ import de.tum.imomesa.workbench.scenes.helpers.HelperPort;
 import de.tum.imomesa.workbench.scenes.helpers.HelperTransform;
 import de.tum.imomesa.workbench.scenes.managers.ListenerManager;
 import javafx.scene.Group;
+import javafx.scene.Node;
 
 public class SceneController extends AbstractSceneController {
 
@@ -112,8 +113,8 @@ public class SceneController extends AbstractSceneController {
 			if (component == data) {
 				for (Scenario scenario : definition.getScenarios()) {
 					for (Port port : scenario.getPorts()) {
-						group.getChildren()
-								.add(HelperPort.processPort(scenario.append(component.append(context)), port, config));
+						List<Element> portCtx = scenario.append(component.append(context));
+						group.getChildren().add(HelperPort.processPort(portCtx, port, config));
 					}
 				}
 			}
@@ -130,25 +131,27 @@ public class SceneController extends AbstractSceneController {
 					if (selected.get().getPath().contains(state)) {
 						found = true;
 						for (Part part : state.getParts()) {
-							group.getChildren().add(HelperPart
-									.paintPart(state.append(behavior.append(component.append(context))), part, config));
+							List<Element> partCtx = state.append(behavior.append(component.append(context)));
+							Node partNode = HelperPart.paintPart(partCtx, part, config, null, 0, componentVisualization);
+							group.getChildren().add(partNode);
 						}
 						break;
 					}
 				}
 				if (!found && behavior.getInitialLabel() != null) {
 					for (Part part : behavior.getInitialLabel().getParts()) {
-						group.getChildren()
-								.add(HelperPart.paintPart(
-										behavior.getInitialLabel().append(behavior.append(component.append(context))),
-										part, config));
+						List<Element> partCtx = behavior.getInitialLabel().append(behavior.append(component.append(context)));
+						Node partNode = HelperPart.paintPart(partCtx, part, config, null, 0, componentVisualization); 
+						group.getChildren().add(partNode);
 					}
 				}
 			}
 
 			// get parts from component
 			for (Part part : definition.getParts()) {
-				group.getChildren().add(HelperPart.paintPart(component.append(context), part, config));
+				List<Element> partCtx = component.append(context);
+				Node partNode = HelperPart.paintPart(partCtx, part, config, null, 0, componentVisualization);
+				group.getChildren().add(partNode);
 			}
 
 			HelperTransform.addTransforms(group, definition.getTransforms());

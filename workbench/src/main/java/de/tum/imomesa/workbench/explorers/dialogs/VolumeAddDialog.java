@@ -3,6 +3,7 @@ package de.tum.imomesa.workbench.explorers.dialogs;
 import de.tum.imomesa.model.volumes.BoxVolume;
 import de.tum.imomesa.model.volumes.CompositeVolume;
 import de.tum.imomesa.model.volumes.CylinderVolume;
+import de.tum.imomesa.model.volumes.STLVolume;
 import de.tum.imomesa.model.volumes.SphereVolume;
 import de.tum.imomesa.model.volumes.Volume;
 import javafx.collections.FXCollections;
@@ -25,7 +26,7 @@ public class VolumeAddDialog extends Dialog<Volume> {
 
 	// attributes
     private static ObservableList<String> options = FXCollections.observableArrayList("Atomic Volume", "Composite Volume");
-    private ObservableList<Volume> optionsAtomic = FXCollections.observableArrayList(new BoxVolume(), new CylinderVolume(), new SphereVolume() );
+    private ObservableList<Volume> optionsAtomic = FXCollections.observableArrayList(new BoxVolume(), new CylinderVolume(), new SphereVolume(), new STLVolume());
     
     // GUI elements
     private ToggleGroup group = new ToggleGroup();

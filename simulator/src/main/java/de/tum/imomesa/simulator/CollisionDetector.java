@@ -57,32 +57,68 @@ public class CollisionDetector {
 			add(new ArrayList<>(), map, proxy, memory, step);
 		}
 		
+		memory.setIntersections(step, new HashSet<>());
+		
 		// Calculating
 		System.out.println("Calculating");
-		for (Entry<CSG, List<Element>> outerEntry : map.entrySet()) {
-			for (Entry<CSG, List<Element>> innerEntry : map.entrySet()) {
-				CSG outerCSG = outerEntry.getKey();
-				CSG innerCSG = innerEntry.getKey();
-				
-				if(!outerCSG.intersect(innerCSG).getPolygons().isEmpty()) {
-					List<Element> listA = outerEntry.getValue();
-					List<Element> listB = innerEntry.getValue();
-					
-					Element first = listA.get(listA.size() - 1);
-					Element second = listB.get(listB.size() - 1);
-					
-					System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get());
-					// System.out.println(first.getElementPath().get() + ": " + (first instanceof Component ? memory.getTransform(listA, step) : memory.getTransform(listA.subList(0, listA.size() - 1), step)));
-					// System.out.println(second.getElementPath().get() + ": " + (second instanceof Component ? memory.getTransform(listB, step) : memory.getTransform(listB.subList(0, listB.size() - 1), step)));
 		
-					evaluateCollision(listA, listB, memory, step);
-					evaluateCollision(listB, listA, memory, step);
+		// Convert to ordered list
+		List<Entry<CSG, List<Element>>> entries = new ArrayList<>(map.entrySet());
+		// Outer iteration
+		for (int outerIndex = 0; outerIndex < entries.size(); outerIndex++) {
+			// Inner iteration
+			for (int innerIndex = outerIndex + 1; innerIndex < entries.size(); innerIndex++) {
+				Entry<CSG, List<Element>> outerEntry = entries.get(outerIndex);
+				Entry<CSG, List<Element>> innerEntry = entries.get(innerIndex);
+				
+				List<Element> listA = outerEntry.getValue();
+				List<Element> listB = innerEntry.getValue();
+				
+				boolean sameComponent = true;
+				
+				for (int index = 0; index < Math.min(listA.size(), listB.size()); index++) {
+					Element elementA = listA.get(index);
+					Element elementB = listB.get(index);
+					
+					if (elementA instanceof Component || elementB instanceof Component) {
+						if (!elementA.equals(elementB)) {
+							sameComponent = false;
+							break;
+						}
+					} else {
+						break;
+					}
+				}
+				 
+				if (!sameComponent) {
+					CSG outerCSG = outerEntry.getKey();
+					CSG innerCSG = innerEntry.getKey();
+					
+					CSG intersection = outerCSG.intersect(innerCSG);
+					
+					if(!intersection.getPolygons().isEmpty()) {
+						// Memorize intersection						
+						Element first = listA.get(listA.size() - 1);
+						Element second = listB.get(listB.size() - 1);
+						
+						System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get() + " with " + intersection.computeVolume());
+						// System.out.println(first.getElementPath().get() + ": " + (first instanceof Component ? memory.getTransform(listA, step) : memory.getTransform(listA.subList(0, listA.size() - 1), step)));
+						// System.out.println(second.getElementPath().get() + ": " + (second instanceof Component ? memory.getTransform(listB, step) : memory.getTransform(listB.subList(0, listB.size() - 1), step)));
+			
+						evaluateCollision(outerEntry, innerEntry, memory, step, intersection);
+						evaluateCollision(innerEntry, outerEntry, memory, step, intersection);
+					}
 				}
 			}
 		}
+		
+		System.out.println("Intersections: " + memory.getIntersections(step).size());
 	}
 	
-	private static void evaluateCollision(List<Element> contextA, List<Element> contextB, Memory memory, int step) throws InterruptedException {
+	private static void evaluateCollision(Entry<CSG, List<Element>> entryA, Entry<CSG, List<Element>> entryB, Memory memory, int step, CSG intersection) throws InterruptedException {
+		List<Element> contextA = entryA.getValue();
+		List<Element> contextB = entryB.getValue();
+		
 		// get objects
 		Element first = contextA.get(contextA.size() - 1);
 		Element second = contextB.get(contextB.size() - 1);
@@ -104,6 +140,31 @@ public class CollisionDetector {
 
 			if(first instanceof Part && second instanceof Part) {
 				MarkerManager.get().addMarker(new PartCollisionError(contextA, contextB, step));
+				
+				memory.getIntersections(step).add(intersection);
+				
+				CSG bodyA = entryA.getKey();
+				CSG bodyB = entryB.getKey();
+				
+				CSG differenceA = bodyA;
+				CSG differenceB = bodyB;
+				
+				if (memory.hasDifference(contextA, step) && memory.getDifference(contextA, step) != null) {
+					differenceA = memory.getDifference(contextA, step);
+				}
+				if (memory.hasDifference(contextB, step) && memory.getDifference(contextB, step) != null) {
+					differenceB = memory.getDifference(contextB, step);
+				}
+				
+				differenceA = differenceA.difference(bodyB);
+				differenceB = differenceB.difference(bodyA);
+				
+				memory.setDifference(contextA, step, differenceA);
+				memory.setDifference(contextB, step, differenceB);
+				
+				memory.getCollisions(contextA, step).add(contextB);
+				memory.getCollisions(contextB, step).add(contextA);
+				
 				combinationPart1.add(contextA);
 				combinationPart2.add(contextB);
 			}
@@ -145,7 +206,7 @@ public class CollisionDetector {
 			//System.out.println("MaterialBinding ObjB = " + contextCollidingObject);
 			
 			// add to port data
-			Set<List<Element>> components = memory.getCollision(port.append(contextPort.subList(0, contextPort.size() - 1)), step);
+			Set<List<Element>> components = memory.getCollisions(port.append(contextPort.subList(0, contextPort.size() - 1)), step);
 			components.add(contextCollidingObject);
 		}
 		else {
@@ -183,7 +244,7 @@ public class CollisionDetector {
 	private static void add(List<Element> context, Map<CSG, List<Element>> map, Scenario scenario, Memory memory, int step) throws InterruptedException {
 		for(LifeMaterialPort port : scenario.getPorts()) {
 			if(port instanceof ExitLifeMaterialPort) {
-				memory.setCollision(port.append(scenario.append(context)), step, new HashSet<List<Element>>());
+				memory.setCollisions(port.append(scenario.append(context)), step, new HashSet<List<Element>>());
 				
 				CSG object = port.getVolume().getCSG();
 				RealMatrix matrix = memory.getTransform(context, step);
@@ -207,7 +268,7 @@ public class CollisionDetector {
 			// Ports
 			for (Port port : c.getPorts()) {
 				if (port instanceof InteractionMaterialPort) {
-					memory.setCollision(port.append(component.append(context)), step, new HashSet<List<Element>>());
+					memory.setCollisions(port.append(component.append(context)), step, new HashSet<List<Element>>());
 					
 					CSG object = ((InteractionMaterialPort) port).getVolume().getCSG();
 					RealMatrix matrix = memory.getTransform(component.append(context), step);
@@ -215,7 +276,7 @@ public class CollisionDetector {
 					map.put(object.transformed(Transform.toVVecMathTransform(matrix)), port.append(component.append(context)));
 				}
 				if(port instanceof ExitLifeMaterialPort) {
-					memory.setCollision(port.append(component.append(context)), step, new HashSet<List<Element>>());
+					memory.setCollisions(port.append(component.append(context)), step, new HashSet<List<Element>>());
 					
 					CSG object = ((ExitLifeMaterialPort) port).getVolume().getCSG();
 					RealMatrix matrix = memory.getTransform(component.append(context), step);
@@ -230,6 +291,8 @@ public class CollisionDetector {
 				
 				if (s != null && s.getParts() != null) {
 					for(Part part : s.getParts()) {
+						memory.setCollisions(part.append(s.append(b.append(component.append(context)))), step, new HashSet<List<Element>>());
+						
 						CSG object = part.toCSG();
 						RealMatrix matrix = memory.getTransform(component.append(context), step);
 						
@@ -240,6 +303,8 @@ public class CollisionDetector {
 			
 			// Parts
 			for (Part part : c.getParts()) {
+				memory.setCollisions(part.append(component.append(context)), step, new HashSet<List<Element>>());
+				
 				CSG object = part.toCSG();
 				RealMatrix matrix = memory.getTransform(component.append(context), step);
 				

@@ -26,12 +26,12 @@ public class HelperVolume {
 			Group lineGroup = new Group();
 			
 			if (volume.getFirstAncestorByType(Part.class) != null) {
-				updateGroup(volume.meshesProperty(), fillGroup, material, DrawMode.FILL, CullFace.NONE);
+				updateGroup(volume.meshesProperty(), fillGroup, material, DrawMode.FILL, CullFace.BACK);
 				updateGroup(volume.meshesProperty(), lineGroup, Color.BLACK, DrawMode.LINE, CullFace.FRONT);
 				
 				lineGroup.visibleProperty().bind(config.showOutlineProperty());
 			} else if (volume.getFirstAncestorByType(Port.class) != null) {
-				updateGroup(volume.meshesProperty(), fillGroup, material, DrawMode.FILL, CullFace.NONE);
+				updateGroup(volume.meshesProperty(), fillGroup, material, DrawMode.FILL, CullFace.BACK);
 				updateGroup(volume.meshesProperty(), lineGroup, Color.BLACK, DrawMode.LINE, selected ? CullFace.FRONT : CullFace.BACK);
 
 				fillGroup.setVisible(selected);

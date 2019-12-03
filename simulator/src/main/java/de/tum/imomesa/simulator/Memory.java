@@ -21,6 +21,7 @@ import de.tum.imomesa.simulator.managers.ThreadManager;
 import de.tum.imomesa.simulator.markers.errors.WritingValueMoreThanOnceError;
 import de.tum.imomesa.simulator.threads.AbstractThread;
 import de.tum.imomesa.utilities.managers.StorageManager;
+import eu.mihosoft.jcsg.CSG;
 
 public class Memory {
 	
@@ -215,6 +216,118 @@ public class Memory {
 		return values.size() > step;
 	}
 
+	// Intersections
+
+	private CopyOnWriteArrayList<Set<CSG>> intersections = new CopyOnWriteArrayList<>();
+
+	public void initIntersections(int step) {
+		while (intersections.size() < step) {
+			intersections.add(null);
+		}
+	}
+
+	public synchronized Set<CSG> getIntersections(int step) throws InterruptedException {
+		while (intersections.size() <= step && ThreadManager.getInstance().getRunning()) {
+			// System.out.println("getCollision(" + getPathReadable(context) +
+			// ", " + step + ") : start wait");
+			wait();
+			// System.out.println("getCollision(" + getPathReadable(context) +
+			// ", " + step + ") : end wait");
+		}
+
+		// System.out.println("getCollision(" + getPathReadable(context) + ", "
+		// + step + ") = " + values.get(step));
+
+		return intersections.get(step);
+	}
+
+	public synchronized void setIntersections(int step, Set<CSG> value) {
+		// System.out.println("setCollision(" + getPathReadable(context) + ", "
+		// + step + ", " + value + ")");
+
+		if (intersections.size() == step) {
+			intersections.add(value);
+		} else if (intersections.size() > step) {
+			intersections.set(step, value);
+		} else {
+			throw new IllegalStateException("Step is in the future!");
+		}
+
+		notifyAll();
+	}
+
+	public boolean hasIntersections(List<Element> context, int step) {
+		// System.out.println("hasCollision(" + getPathReadable(context) + ", "
+		// + step + ") = " + (values.size() > step));
+		return intersections.size() > step;
+	}
+	
+	// Differences
+
+	private ConcurrentMap<String, CopyOnWriteArrayList<CSG>> differences = new ConcurrentHashMap<>();
+
+	private CopyOnWriteArrayList<CSG> getDifferences(List<Element> context) {
+		CopyOnWriteArrayList<CSG> result = differences.get(getUniquePath(context));
+
+		if (result == null) {
+			result = new CopyOnWriteArrayList<>();
+			differences.put(getUniquePath(context), result);
+		}
+
+		return result;
+	}
+
+	public void initDifferences(List<Element> context, int step) {
+		CopyOnWriteArrayList<CSG> values = getDifferences(context);
+
+		while (values.size() < step) {
+			values.add(null);
+		}
+	}
+
+	public synchronized CSG getDifference(List<Element> context, int step) throws InterruptedException {
+		CopyOnWriteArrayList<CSG> values = getDifferences(context);
+		
+		// System.out.println("getCollision(" + getPathReadable(context) + ", " + step + ") = " + values.get(step));
+
+		while (values.size() <= step && ThreadManager.getInstance().getRunning()) {
+			// System.out.println("getCollision(" + getPathReadable(context) +
+			// ", " + step + ") : start wait");
+			wait();
+			// System.out.println("getCollision(" + getPathReadable(context) +
+			// ", " + step + ") : end wait");
+		}
+
+		return values.get(step);
+	}
+
+	public synchronized void setDifference(List<Element> context, int step, CSG value) {
+		// System.out.println("setCollision(" + getPathReadable(context) + ", "
+		// + step + ", " + value + ")");
+		if (!hasDifference(context, step)) {
+			initDifferences(context, step);
+		}
+
+		CopyOnWriteArrayList<CSG> values = getDifferences(context);
+
+		if (values.size() == step) {
+			values.add(value);
+		} else if (values.size() > step) {
+			values.set(step, value);
+		} else {
+			throw new IllegalStateException("Step is in the future!");
+		}
+
+		notifyAll();
+	}
+
+	public boolean hasDifference(List<Element> context, int step) {
+		CopyOnWriteArrayList<CSG> values = getDifferences(context);
+		// System.out.println("hasCollision(" + getPathReadable(context) + ", "
+		// + step + ") = " + (values.size() > step));
+		return values.size() > step;
+	}
+	
 	// Collisions
 
 	private ConcurrentMap<String, CopyOnWriteArrayList<Set<List<Element>>>> collisions = new ConcurrentHashMap<>();
@@ -230,7 +343,7 @@ public class Memory {
 		return result;
 	}
 
-	public void initCollision(List<Element> context, int step) {
+	public void initCollisions(List<Element> context, int step) {
 		CopyOnWriteArrayList<Set<List<Element>>> values = getCollisions(context);
 
 		while (values.size() < step) {
@@ -238,8 +351,10 @@ public class Memory {
 		}
 	}
 
-	public synchronized Set<List<Element>> getCollision(List<Element> context, int step) throws InterruptedException {
+	public synchronized Set<List<Element>> getCollisions(List<Element> context, int step) throws InterruptedException {
 		CopyOnWriteArrayList<Set<List<Element>>> values = getCollisions(context);
+		
+		// System.out.println("getCollision(" + getPathReadable(context) + ", " + step + ") = " + values.get(step));
 
 		while (values.size() <= step && ThreadManager.getInstance().getRunning()) {
 			// System.out.println("getCollision(" + getPathReadable(context) +
@@ -249,15 +364,15 @@ public class Memory {
 			// ", " + step + ") : end wait");
 		}
 
-		// System.out.println("getCollision(" + getPathReadable(context) + ", "
-		// + step + ") = " + values.get(step));
-
 		return values.get(step);
 	}
 
-	public synchronized void setCollision(List<Element> context, int step, Set<List<Element>> value) {
+	public synchronized void setCollisions(List<Element> context, int step, Set<List<Element>> value) {
 		// System.out.println("setCollision(" + getPathReadable(context) + ", "
 		// + step + ", " + value + ")");
+		if (!hasCollision(context, step)) {
+			initCollisions(context, step);
+		}
 
 		CopyOnWriteArrayList<Set<List<Element>>> values = getCollisions(context);
 

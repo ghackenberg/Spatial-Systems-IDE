@@ -24,7 +24,13 @@ import de.tum.imomesa.workbench.controllers.AbstractSceneController;
 import de.tum.imomesa.workbench.scenes.helpers.HelperPart;
 import de.tum.imomesa.workbench.scenes.helpers.HelperPort;
 import de.tum.imomesa.workbench.scenes.managers.ListenerManager;
+import eu.mihosoft.jcsg.CSG;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Affine;
 
 public class SceneController extends AbstractSceneController implements EventHandler {
@@ -92,13 +98,35 @@ public class SceneController extends AbstractSceneController implements EventHan
 			// Paint components
 			try {
 				if (step >= 0) {
+					// Intersections
+					for (CSG csg : memory.getIntersections(step)) {
+						Group group = new Group();
+						
+						csg.toJavaFXMesh().getAsMeshViews().forEach(meshView -> {
+							meshView.setMaterial(new PhongMaterial(Color.RED));
+							meshView.setDrawMode(DrawMode.FILL);
+							meshView.setCullFace(CullFace.BACK);
+							
+							group.getChildren().add(meshView);
+						});
+						
+						csg.toJavaFXMesh().getAsMeshViews().forEach(meshView -> {
+							meshView.setMaterial(new PhongMaterial(Color.BLACK));
+							meshView.setDrawMode(DrawMode.LINE);
+							meshView.setCullFace(CullFace.FRONT);
+							
+							group.getChildren().add(meshView);
+						});
+						
+						componentVisualization.getChildren().add(group);
+					}
+					// Selected component
 					paintComponent(data, context, memory, step);
-					// if (context.size() == 1) {
+					// Reference components
 					for (ReferenceComponent proxy : memory.getProxy(step)) {
 						paintComponent(proxy, proxy.append(new ArrayList<>()), memory, step);
 					}
 				}
-				// }
 			} catch (InterruptedException e) {
 				throw new IllegalStateException(e);
 			}
@@ -116,7 +144,8 @@ public class SceneController extends AbstractSceneController implements EventHan
 
 			// get material ports from component
 			for (DefinitionPort port : data.getPorts()) {
-				group.getChildren().add(HelperPort.processPort(component.append(context), port, config));
+				Node portNode = HelperPort.processPort(context, port, config);
+				group.getChildren().add(portNode);
 			}
 
 			// get material ports from scenario
@@ -124,8 +153,9 @@ public class SceneController extends AbstractSceneController implements EventHan
 				// only display material ports of current scenario
 				if (scenario.equals(simulator.getScenario())) {
 					for (Port port : scenario.getPorts()) {
-						group.getChildren()
-								.add(HelperPort.processPort(scenario.append(component.append(context)), port, config));
+						List<Element> portCtx = scenario.append(context);
+						Node portNode = HelperPort.processPort(portCtx, port, config);
+						group.getChildren().add(portNode);
 					}
 				}
 			}
@@ -134,8 +164,9 @@ public class SceneController extends AbstractSceneController implements EventHan
 			for (Behavior behavior : data.getBehaviors()) {
 				State state = (State) memory.getLabel(behavior.append(context), step);
 				for (Part part : state.getParts()) {
-					group.getChildren().add(HelperPart
-							.paintPart(state.append(behavior.append(component.append(context))), part, config));
+					List<Element> partCtx = state.append(behavior.append(context));
+					Node partNode = HelperPart.paintPart(partCtx, part, config, memory, step, componentVisualization);
+					group.getChildren().add(partNode);
 				}
 			}
 
@@ -148,7 +179,8 @@ public class SceneController extends AbstractSceneController implements EventHan
 			// add transform on those parts as transforms only affect the own
 			// parts
 			for (Part part : data.getParts()) {
-				group.getChildren().add(HelperPart.paintPart(component.append(context), part, config));
+				Node partNode = HelperPart.paintPart(context, part, config, memory, step, componentVisualization);
+				group.getChildren().add(partNode);
 			}
 
 			// transform component

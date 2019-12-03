@@ -50,7 +50,7 @@ public class Utils {
 
 		for (MaterialBindingPortThread thread : intermediate) {
 			// Port parent might be colliding component
-			Set<List<Element>> collisions = memory.getCollision(thread.getElement().append(thread.getContext()), step);
+			Set<List<Element>> collisions = memory.getCollisions(thread.getElement().append(thread.getContext()), step);
 			for (List<Element> collision : collisions) {
 				if (context.equals(collision)) {
 					result.add(thread);

@@ -19,7 +19,7 @@ public abstract class ComponentEvaluator<T extends Component<?>> extends Abstrac
 	@Override
 	public void prepare() throws InterruptedException {
 		memory.initTransform(element.append(context), step);
-		memory.initCollision(element.append(context), step);
+		memory.initCollisions(element.append(context), step);
 		
 		RealMatrix parentMatrix = new DiagonalMatrix(new double[]{1.,1.,1.,1.});
 		
