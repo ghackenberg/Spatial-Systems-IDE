@@ -4,18 +4,14 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import de.tum.imomesa.model.Element;
 
-public class Point extends Element
-{
-	// ########################################################################
-	// Constructors
-	// ########################################################################
+public class Point extends Element {
 	
 	public Point() {
-		// do nothing
+		
 	}
 	
 	public Point(Element parent) {
-		this.setParent(parent);
+		setParent(parent);
 	}
 	
 	public Point(double x, double y, double z) {
@@ -24,9 +20,13 @@ public class Point extends Element
 		setZ(z);
 	}
 	
-	// ########################################################################
-	// Methods
-	// ########################################################################
+	public Point(Element parent, double x, double y, double z) {
+		setParent(parent);
+		setX(x);
+		setY(y);
+		setZ(z);
+	}
+	
 	public Double dotProduct(Point p) {
 		return getX() * p.getX() + getY() * p.getY() + getZ() * p.getZ();
 	}
@@ -56,13 +56,9 @@ public class Point extends Element
 	public String toString() {
 		return "( " + x.getValue() + " | " + y.getValue() + " | " + z.getValue() + " )";
 	}
-
-	// ########################################################################
-	// Properties
-	// ########################################################################
 	
 	// X
-	private DoubleProperty x = new SimpleDoubleProperty();
+	private DoubleProperty x = new SimpleDoubleProperty(0);
 	
 	public double getX()
 	{
@@ -78,7 +74,7 @@ public class Point extends Element
 	}
 	
 	// Y
-	private DoubleProperty y = new SimpleDoubleProperty();
+	private DoubleProperty y = new SimpleDoubleProperty(0);
 	
 	public double getY()
 	{
@@ -94,7 +90,7 @@ public class Point extends Element
 	}
 	
 	// Z
-	private DoubleProperty z = new SimpleDoubleProperty();
+	private DoubleProperty z = new SimpleDoubleProperty(0);
 	
 	public double getZ()
 	{

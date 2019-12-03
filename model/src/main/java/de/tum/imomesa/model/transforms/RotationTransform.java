@@ -51,9 +51,19 @@ public class RotationTransform extends Transform {
 	@Override
 	public RealMatrix toRealMatrix() {
 
-		Rotation rot = new Rotation(
-				new Vector3D(getRotationAxe().getX(), getRotationAxe().getY(), getRotationAxe().getZ()),
-				getAngle() * 2 * Math.PI / 360);
+		double angle = getAngle();
+		
+		Vector3D vector;
+		
+		if (getRotationAxe().getX() == 0 && getRotationAxe().getY() == 0 && getRotationAxe().getZ() == 0) {
+			vector = new Vector3D(1, 0, 0);
+			angle = 0;
+		} else {
+			vector = new Vector3D(getRotationAxe().getX(), getRotationAxe().getY(), getRotationAxe().getZ());
+		}
+		
+		Rotation rot = new Rotation(vector, angle * 2 * Math.PI / 360);
+		
 		double[][] result = rot.getMatrix();
 
 		return new BlockRealMatrix(new double[][] { { result[0][0], result[0][1], result[0][2], 0 },
@@ -62,7 +72,7 @@ public class RotationTransform extends Transform {
 	}
 
 	// rotation axe
-	private ObjectProperty<Point> rotationAxe = new SimpleObjectProperty<>(new Point(this));
+	private ObjectProperty<Point> rotationAxe = new SimpleObjectProperty<>(new Point(this, 1, 0, 0));
 
 	public Point getRotationAxe() {
 		return rotationAxe.get();

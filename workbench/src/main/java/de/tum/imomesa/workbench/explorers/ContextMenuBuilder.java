@@ -1,5 +1,6 @@
 package de.tum.imomesa.workbench.explorers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +76,7 @@ public class ContextMenuBuilder {
 				
 				while (iterator != null) {
 					try {
+						
 						Method method = ContextMenuBuilder.class.getMethod("getContextMenu" + name, iterator, ListProperty.class);
 		    			
 		    			String[] parts = iterator.getSimpleName().split("(?=\\p{Upper})");
@@ -93,9 +95,19 @@ public class ContextMenuBuilder {
 						menu.getItems().addAll(0, Arrays.asList(items));
 						menu.getItems().add(0, item);
 					}
-					catch (Exception e) {
+					catch (NoSuchMethodException e) {
 						// ignore
 					}
+					catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					}
+					catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+					
 					iterator = iterator.getSuperclass();
 				}
 				
@@ -128,9 +140,19 @@ public class ContextMenuBuilder {
 		    	    	menu.getItems().addAll(0, Arrays.asList(items));
 		    	    	menu.getItems().add(0, item);
 					}
-		    		catch (Exception exp) {
+		    		catch (NoSuchMethodException e) {
 						// ignore
 					}
+					catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					}
+		    		catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+		    		
 					iterator = iterator.getSuperclass();
 		    	}
 				
