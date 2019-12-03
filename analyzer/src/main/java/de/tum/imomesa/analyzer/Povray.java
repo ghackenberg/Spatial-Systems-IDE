@@ -16,6 +16,9 @@ import de.tum.imomesa.model.components.ReferenceComponent;
 import de.tum.imomesa.model.executables.behaviors.Behavior;
 import de.tum.imomesa.model.executables.behaviors.State;
 import de.tum.imomesa.model.ports.DefinitionPort;
+import de.tum.imomesa.model.ports.EntryLifeMaterialPort;
+import de.tum.imomesa.model.ports.ExitLifeMaterialPort;
+import de.tum.imomesa.model.ports.InteractionMaterialPort;
 import de.tum.imomesa.model.ports.KinematicEnergyPort;
 import de.tum.imomesa.model.ports.MaterialPort;
 import de.tum.imomesa.model.ports.Port;
@@ -195,6 +198,16 @@ public class Povray {
 	}
 
 	protected static String convert(MaterialPort port, Integer indent) {
+		int red = 0, green = 0, blue = 0;
+		
+		if (port instanceof InteractionMaterialPort) {
+			blue = 255;
+		} if (port instanceof EntryLifeMaterialPort) {
+			green = 255;
+		} if (port instanceof ExitLifeMaterialPort) {
+			red = 255;
+		}
+		
 		String result = "";
 
 		// Start
@@ -202,6 +215,9 @@ public class Povray {
 		// Volume
 		result += indent(indent + 1) + "// Volume\n";
 		result += dispatch(port.getVolume(), indent + 1);
+		// Color
+		result += indent(indent + 1) + "// Color\n";
+		result += indent(indent + 1) + "pigment { color " + color(red, green, blue) + " }\n";
 		// End
 		result += indent(indent) + "}\n";
 
@@ -294,6 +310,10 @@ public class Povray {
 	}
 
 	protected static String convert(Part part, Integer indent) {
+		int red = part.getRed();
+		int green = part.getGreen();
+		int blue = part.getBlue();
+		
 		String result = "";
 
 		// Start
@@ -301,6 +321,9 @@ public class Povray {
 		// Volume
 		result += indent(indent + 1) + "// Volume\n";
 		result += dispatch(part.getVolume(), indent + 1);
+		// Color
+		result += indent(indent + 1) + "// Color\n";
+		result += indent(indent + 1) + "pigment { color " + color(red, green, blue) + " }\n";
 		// End
 		result += indent(indent) + "}\n";
 
@@ -326,10 +349,6 @@ public class Povray {
 	}
 
 	protected static String convert(BoxVolume volume, Integer indent) {
-		int red = volume.getRed();
-		int green = volume.getGreen();
-		int blue = volume.getBlue();
-
 		double width = volume.getWidth();
 		double height = volume.getHeight();
 		double depth = volume.getDepth();
@@ -342,55 +361,47 @@ public class Povray {
 				result += indent(indent) + "box {\n";
 				result += indent(indent + 1) + vector(-width / 2, -height / 2, -depth / 2) + ",\n";
 				result += indent(indent + 1) + vector(width / 2, height / 2, depth / 2) + "\n";
-				// Color
-				result += indent(indent + 1) + "// Color\n";
-				result += indent(indent + 1) + "pigment { color " + color(red, green, blue) + " }\n";
 				// Transforms
 				result += transform(volume.getTransforms(), indent + 1);
 				// End
 				result += indent(indent) + "}\n";
-
-				// Set the wire colors
-				red = 0;
-				green = 0;
-				blue = 0;
 			}
 
 			// Start
 			result += indent(indent) + "union {\n";
 			// Edges (unten)
 			result += cylinder(-width / 2, -height / 2, -depth / 2, width / 2, -height / 2, -depth / 2,
-					WIRE_LINE_RADIUS, red, green, blue, indent + 1);
+					WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			result += cylinder(-width / 2, -height / 2, depth / 2, width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			result += cylinder(-width / 2, -height / 2, -depth / 2, -width / 2, -height / 2, depth / 2,
-					WIRE_LINE_RADIUS, red, green, blue, indent + 1);
+					WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			result += cylinder(width / 2, -height / 2, -depth / 2, width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			// Edges (oben)
 			result += cylinder(-width / 2, height / 2, -depth / 2, width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			result += cylinder(-width / 2, height / 2, depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			result += cylinder(-width / 2, height / 2, -depth / 2, -width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			result += cylinder(width / 2, height / 2, -depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			// Edges (mitte)
 			result += cylinder(-width / 2, -height / 2, -depth / 2, -width / 2, height / 2, -depth / 2,
-					WIRE_LINE_RADIUS, red, green, blue, indent + 1);
+					WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			result += cylinder(-width / 2, -height / 2, depth / 2, -width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			result += cylinder(width / 2, -height / 2, -depth / 2, width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			result += cylinder(width / 2, -height / 2, depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					red, green, blue, indent + 1);
+					0, 0, 0, indent + 1);
 			// Corners (unten)
 			for (int x = -1; x <= 1; x += 2) {
 				for (int y = -1; y <= 1; y += 2) {
 					for (int z = -1; z <= 1; z += 2) {
-						result += sphere(x * width / 2, y * height / 2, z * depth / 2, WIRE_LINE_RADIUS, red, green,
-								blue, indent + 1);
+						result += sphere(x * width / 2, y * height / 2, z * depth / 2, WIRE_LINE_RADIUS, 0, 0,
+								0, indent + 1);
 					}
 				}
 			}
@@ -404,10 +415,6 @@ public class Povray {
 	}
 
 	protected static String convert(CylinderVolume volume, Integer indent) {
-		int red = volume.getRed();
-		int green = volume.getGreen();
-		int blue = volume.getBlue();
-
 		double height = volume.getHeight();
 		double radius = volume.getRadius();
 
@@ -420,18 +427,10 @@ public class Povray {
 				result += indent(indent + 1) + vector(0, -height / 2, 0) + ",\n";
 				result += indent(indent + 1) + vector(0, height / 2, 0) + ",\n";
 				result += indent(indent + 1) + FORMAT.format(radius) + "\n";
-				// Color
-				result += indent(indent + 1) + "// Color\n";
-				result += indent(indent + 1) + "pigment { color " + color(red, green, blue) + " }\n";
 				// Transforms
 				result += transform(volume.getTransforms(), indent + 1);
 				// End
 				result += indent(indent) + "}\n";
-
-				// Set the wire colors
-				red = 0;
-				green = 0;
-				blue = 0;
 			}
 
 			// Start
@@ -440,14 +439,14 @@ public class Povray {
 			for (int i = 0; i < WIRE_CYLINDER_CIRCLES; i++) {
 				double y = -height / 2 + height * i / (WIRE_CYLINDER_CIRCLES - 1.);
 
-				result += torus(radius, WIRE_LINE_RADIUS, y, red, green, blue, indent + 1);
+				result += torus(radius, WIRE_LINE_RADIUS, y, 0, 0, 0, indent + 1);
 			}
 			// Lines
 			for (int i = 0; i < WIRE_CYLINDER_LINES; i++) {
 				double x = Math.sin(Math.PI * 2 * i / WIRE_CYLINDER_LINES) * radius;
 				double z = Math.cos(Math.PI * 2 * i / WIRE_CYLINDER_LINES) * radius;
 
-				result += cylinder(x, -height / 2, z, x, height / 2, z, WIRE_LINE_RADIUS, red, green, blue, indent + 1);
+				result += cylinder(x, -height / 2, z, x, height / 2, z, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			}
 			// Transforms
 			result += transform(volume.getTransforms(), indent + 1);
@@ -459,10 +458,6 @@ public class Povray {
 	}
 
 	protected static String convert(SphereVolume volume, Integer indent) {
-		int red = volume.getRed();
-		int green = volume.getGreen();
-		int blue = volume.getBlue();
-
 		double radius = volume.getRadius();
 
 		String result = "";
@@ -473,18 +468,10 @@ public class Povray {
 				result += indent(indent) + "sphere {\n";
 				result += indent(indent + 1) + vector(0, 0, 0) + ",\n";
 				result += indent(indent + 1) + FORMAT.format(radius) + "\n";
-				// Color
-				result += indent(indent + 1) + "// Color\n";
-				result += indent(indent + 1) + "pigment { color " + color(red, green, blue) + " }\n";
 				// Transforms
 				result += transform(volume.getTransforms(), indent + 1);
 				// End
 				result += indent(indent) + "}\n";
-
-				// Set the wire colors
-				red = 0;
-				green = 0;
-				blue = 0;
 			}
 		}
 
