@@ -30,7 +30,7 @@ public class CompositeVolume extends Volume {
 		newValue.forEach(volume -> {
 			volume.csgProperty().addListener(this::updateCSG);
 		});
-		setCSG(toCSG());
+		this.updateCSG(null, null, null);
 	}
 
 	private void handleVolumesItemChange(ListChangeListener.Change<? extends Volume> change) {
@@ -42,7 +42,7 @@ public class CompositeVolume extends Volume {
 				volume.csgProperty().addListener(this::updateCSG);
 			});
 		}
-		setCSG(toCSG());
+		this.updateCSG(null, null, null);
 	}
 
 	public void accept(Visitor visitor) {

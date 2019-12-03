@@ -64,6 +64,10 @@ public abstract class Transform extends Element {
 		oldValue.yProperty().removeListener(this::handleNumberChange);
 		oldValue.zProperty().removeListener(this::handleNumberChange);
 		
+		newValue.xProperty().addListener(this::handleNumberChange);
+		newValue.yProperty().addListener(this::handleNumberChange);
+		newValue.zProperty().addListener(this::handleNumberChange);
+		
 		setTransform(toVVecMathTransform());
 	}
 	
