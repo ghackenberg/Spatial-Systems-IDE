@@ -39,8 +39,8 @@ import de.tum.imomesa.model.expressions.sets.SetConstructorExpression;
 import de.tum.imomesa.model.expressions.sets.UnionExpression;
 import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.simulator.managers.MarkerManager;
-import de.tum.imomesa.simulator.markers.errors.ObservationExpressionDelayError;
 import de.tum.imomesa.simulator.markers.errors.WrongUseOfDurationExpressionError;
+import de.tum.imomesa.simulator.markers.warnings.NegativeDelayWarning;
 import de.tum.imomesa.simulator.threads.AbstractThread;
 
 public class ExpressionDispatcher
@@ -96,9 +96,9 @@ public class ExpressionDispatcher
 			// Check timepoint
 			if (timepoint < 0) {
 				// Add marker
-				MarkerManager.get().addMarker(new ObservationExpressionDelayError(context, step, delay));
-				// Return null
-				return null;
+				MarkerManager.get().addMarker(new NegativeDelayWarning(context, expression, step, delay));
+				// Return default
+				return dispatch(thread, temp, expression.getObservation().getDefault(), memory, step);
 			} else {
 				// Obtain value
 				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	
