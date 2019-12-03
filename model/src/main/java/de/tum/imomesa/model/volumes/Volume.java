@@ -148,17 +148,25 @@ public abstract class Volume extends Element {
 	private static void updateLoop() {
 		try {
 			while (true) {
-				Volume volume = UPDATE_QUEUE.take();
-				
-				if (volume.getDirty()) {
-					CSG csg = volume.toCSG();
-					MeshContainer container = csg.toJavaFXMesh();
+				try {
+					Volume volume = UPDATE_QUEUE.take();
 					
-					Platform.runLater(() -> {
-						volume.setCSG(csg);
-						volume.setMeshes(container);
-						volume.setDirty(false);
-					});
+					if (volume.getDirty()) {
+						CSG csg = volume.toCSG();
+						MeshContainer container = csg.toJavaFXMesh();
+						
+						Platform.runLater(() -> {
+							volume.setCSG(csg);
+							volume.setMeshes(container);
+							volume.setDirty(false);
+						});
+					}
+				} catch (Exception e) {
+					if (e instanceof InterruptedException) {
+						throw e;
+					} else {
+						e.printStackTrace();
+					}
 				}
 			}
 		} catch (InterruptedException e) {
