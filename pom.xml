@@ -27,6 +27,7 @@
 		<module>sandbox</module>
 		<module>jcsg</module>
 		<module>vvecmath</module>
+		<module>renderer</module>
 	</modules>
 	
 	<dependencies>
