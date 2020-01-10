@@ -1,12 +1,10 @@
 package de.tum.imomesa.renderer;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import com.jme3.app.SimpleApplication;
+import com.jme3.app.DebugKeysAppState;
+import com.jme3.app.FlyCamAppState;
+import com.jme3.app.StatsAppState;
+import com.jme3.app.state.AppStateManager;
+import com.jme3.jfx.injfx.JmeToJfxApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
@@ -24,44 +22,28 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.scene.shape.Torus;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
-import com.jme3.system.AppSettings;
-import com.jme3.system.JmeCanvasContext;
 import com.jme3.texture.Texture;
 
-public class Main extends SimpleApplication {
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			AppSettings settings = new AppSettings(true);
-			settings.setWidth(640);
-			settings.setHeight(480);
+public class JMEApplication extends JmeToJfxApplication {
 
-			Main application = new Main();
-			application.setSettings(settings);
-			application.setDisplayFps(false);
-			application.setDisplayStatView(false);
-			application.createCanvas();
-			application.startCanvas();
-
-			JmeCanvasContext context = (JmeCanvasContext) application.getContext();
-			context.setSystemListener(application);
-
-			Canvas canvas = context.getCanvas();
-			canvas.setPreferredSize(new Dimension(640, 480));
-
-			JFrame frame = new JFrame();
-			frame.setTitle("My application");
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.add(canvas);
-			frame.pack();
-			frame.setVisible(true);
-		});
+	public JMEApplication() {
+		AppStateManager manager = getStateManager();
+		
+		if (!manager.detach(manager.getState(StatsAppState.class))) {
+			throw new IllegalStateException();
+		}
+		if (!manager.detach(manager.getState(DebugKeysAppState.class))) {
+			throw new IllegalStateException();
+		}
+		if (!manager.detach(manager.getState(FlyCamAppState.class))) {
+			throw new IllegalStateException();
+		}
 	}
-
+	
 	@Override
 	public void simpleInitApp() {
-		getFlyByCamera().setMoveSpeed(10f);
-
+		super.simpleInitApp();
+		
 		AmbientLight ambient = new AmbientLight();
 		ambient.setColor(ColorRGBA.White.mult(0.5f));
 
@@ -106,12 +88,8 @@ public class Main extends SimpleApplication {
 	}
 	
 	@Override
-	public void simpleUpdate(float tps) {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void simpleUpdate(float tpf) {
+		super.simpleUpdate(tpf);
 	}
 
 	private Geometry createBox(String name, float width, float height, float depth, float x, float y, float z, ColorRGBA color) {
