@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Button?>
+<?import de.tum.imomesa.renderer.nodes.JMECanvas?>
 
 <BorderPane xmlns:fx="de.tum.imomesa">
 	<top>
@@ -14,6 +15,6 @@
 		</ToolBar>
 	</top>
 	<center>
-		<Text text="Port"/>
+		<JMECanvas width="100" height="100"/>
 	</center>
 </BorderPane>

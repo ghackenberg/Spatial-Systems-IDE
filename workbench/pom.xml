@@ -24,6 +24,11 @@
 		</dependency>
 		<dependency>
 			<groupId>de.tum.imomesa</groupId>
+			<artifactId>de.tum.imomesa.renderer</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tum.imomesa</groupId>
 			<artifactId>de.tum.imomesa.checker</artifactId>
 			<version>0.0.1</version>
 		</dependency>
