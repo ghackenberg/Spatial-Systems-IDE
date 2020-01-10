@@ -1,11 +1,8 @@
 package de.tum.imomesa.renderer;
 
-import com.jme3.jfx.injfx.JmeToJfxIntegrator;
-import com.jme3.system.AppSettings;
-
+import de.tum.imomesa.renderer.nodes.JMECanvas;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -17,7 +14,7 @@ public class JFXApplication extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Canvas canvas = new Canvas();
+		JMECanvas canvas = new JMECanvas();
 		
 		StackPane pane = new StackPane();
 		pane.getChildren().add(canvas);
@@ -31,16 +28,6 @@ public class JFXApplication extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
         primaryStage.setOnCloseRequest(event -> System.exit(0));
-
-		AppSettings settings = JmeToJfxIntegrator.prepareSettings(new AppSettings(true), 60);
-		
-		JMEApplication jme = new JMEApplication();
-		jme.setSettings(settings);
-		jme.setShowSettings(false);
-		jme.setDisplayFps(false);
-		jme.setDisplayStatView(false);
-		
-		JmeToJfxIntegrator.startAndBindMainViewPort(jme, canvas, Thread::new);
 	}
 
 }
