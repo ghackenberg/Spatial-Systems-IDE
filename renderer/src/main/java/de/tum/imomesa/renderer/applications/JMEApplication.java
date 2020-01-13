@@ -110,14 +110,14 @@ public class JMEApplication extends JmeToJfxApplication {
 		cam.setLocation(new Vector3f(5f, 15f, 20f));
 		cam.lookAt(new Vector3f(7.5f, 0f, 0f), Vector3f.UNIT_Y);
 
-		DirectionalLightShadowRenderer renderer = new DirectionalLightShadowRenderer(getAssetManager(), 2048, 4);
+		DirectionalLightShadowRenderer renderer = new DirectionalLightShadowRenderer(getAssetManager(), 4096, 4);
 		renderer.setShadowIntensity(0.2f);
-		renderer.setRenderBackFacesShadows(false);
+		renderer.setRenderBackFacesShadows(true);
 		renderer.setLight(light);
 
-		DirectionalLightShadowFilter filter = new DirectionalLightShadowFilter(getAssetManager(), 2048, 4);
+		DirectionalLightShadowFilter filter = new DirectionalLightShadowFilter(getAssetManager(), 4096, 4);
 		filter.setShadowIntensity(0.2f);
-		filter.setRenderBackFacesShadows(false);
+		filter.setRenderBackFacesShadows(true);
 		filter.setLight(light);
 		filter.setEnabled(true);
 
@@ -224,7 +224,7 @@ public class JMEApplication extends JmeToJfxApplication {
 		material.setColor("Specular", ColorRGBA.Black);
 		material.setColor("Diffuse", ColorRGBA.White);
 		material.setBoolean("VertexLighting", true);
-		material.getAdditionalRenderState().setFaceCullMode(FaceCullMode.Off);
+		//material.getAdditionalRenderState().setFaceCullMode(FaceCullMode.Off);
 
 		return material;
 	}
