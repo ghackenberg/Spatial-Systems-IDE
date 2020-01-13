@@ -4,6 +4,16 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
+import com.jme3.math.Matrix4f;
+import com.jme3.math.Vector2f;
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Mesh;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import com.jme3.scene.VertexBuffer.Type;
+import com.jme3.util.BufferUtils;
+
 import de.tum.imomesa.database.annotations.Cascading;
 import de.tum.imomesa.database.annotations.Transient;
 import de.tum.imomesa.model.Element;
@@ -11,6 +21,8 @@ import de.tum.imomesa.model.transforms.Transform;
 import de.tum.imomesa.utilities.visitors.Visitor;
 import eu.mihosoft.jcsg.CSG;
 import eu.mihosoft.jcsg.MeshContainer;
+import eu.mihosoft.jcsg.Polygon;
+import eu.mihosoft.jcsg.Vertex;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
@@ -38,6 +50,7 @@ public abstract class Volume extends Element {
 		for (Transform transform : newValue) {
 			transform.transformProperty().addListener(this::updateTransform);
 		}
+		setMatrix(Transform.toMatrix(getTransforms()));
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
 	
@@ -50,6 +63,7 @@ public abstract class Volume extends Element {
 				transform.transformProperty().addListener(this::updateTransform);
 			}
 		}
+		setMatrix(Transform.toMatrix(getTransforms()));
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
 	
@@ -93,6 +107,22 @@ public abstract class Volume extends Element {
 		return transform;
 	}
 	
+	// Matrix
+	private final ObjectProperty<Matrix4f> matrix = new SimpleObjectProperty<>();
+	
+	protected void setMatrix(Matrix4f matrix) {
+		this.matrix.set(matrix);
+	}
+	
+	public Matrix4f getMatrix() {
+		return matrix.get();
+	}
+	
+	@Transient
+	public ObjectProperty<Matrix4f> matrixProperty() {
+		return matrix;
+	}
+	
 	// CSG
 	private final ObjectProperty<CSG> csg = new SimpleObjectProperty<>(CSG.fromPolygons());
 	
@@ -112,7 +142,7 @@ public abstract class Volume extends Element {
 	// Meshes
 	private final ObjectProperty<MeshContainer> meshes = new SimpleObjectProperty<>();
 	
-	private void setMeshes(MeshContainer meshes) {
+	protected void setMeshes(MeshContainer meshes) {
 		this.meshes.set(meshes);
 	}
 	
@@ -123,6 +153,22 @@ public abstract class Volume extends Element {
 	@Transient
 	public ObjectProperty<MeshContainer> meshesProperty() {
 		return meshes;
+	}
+	
+	// Mesh
+	private final ObjectProperty<Spatial> spatial = new SimpleObjectProperty<>();
+	
+	protected void setSpatial(Spatial spatial) {
+		this.spatial.set(spatial);
+	}
+	
+	public Spatial getSpatial() {
+		return spatial.get();
+	}
+	
+	@Transient
+	public ObjectProperty<Spatial> spatialProperty() {
+		return spatial;
 	}
 	
 	// Dirty
@@ -154,10 +200,12 @@ public abstract class Volume extends Element {
 					if (volume.getDirty()) {
 						CSG csg = volume.toCSG();
 						MeshContainer container = csg.toJavaFXMesh();
+						Spatial spatial = toSpatial(csg);
 						
 						Platform.runLater(() -> {
 							volume.setCSG(csg);
 							volume.setMeshes(container);
+							volume.setSpatial(spatial);
 							volume.setDirty(false);
 						});
 					}
@@ -175,6 +223,7 @@ public abstract class Volume extends Element {
 	}
 	
 	protected <T> void updateTransform(ObservableValue<? extends T> property, T oldValue, T newValue) {
+		setMatrix(Transform.toMatrix(getTransforms()));
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
 	
@@ -189,5 +238,55 @@ public abstract class Volume extends Element {
 	}
 	
 	protected abstract CSG toCSG();
+	
+	public static Spatial toSpatial(CSG csg) {
+		Node node = new Node();
+		
+		List<Polygon> polygons = csg.getPolygons();
+		
+		polygons.forEach(polygon -> {
+			List<Vertex> vertices = polygon.vertices;
+			
+			Vector3f[] positions = new Vector3f[vertices.size()];
+			
+			for (int index = 0; index < vertices.size(); index++) {
+				Vertex vertex = vertices.get(index);
+				
+				float x = (float) vertex.pos.getX();
+				float y = (float) vertex.pos.getY();
+				float z = (float) vertex.pos.getZ();
+				
+				positions[index] = new Vector3f(x, y, z);
+			}
+			
+			Vector2f[] texCoords = new Vector2f[vertices.size()];
+			
+			for (int index = 0; index < vertices.size(); index++) {
+				texCoords[index] = new Vector2f(0, 0);
+			}
+			
+			int[] indices = new int[(vertices.size() - 2) * 3];
+			
+			for (int index = 0; index < vertices.size() - 2; index++) {
+				indices[index * 3 + 0] = 0;
+				indices[index * 3 + 1] = index + 1;
+				indices[index * 3 + 2] = index + 2;
+			}
+			
+			Mesh mesh = new Mesh();
+			
+			mesh.setStatic();
+			mesh.setBuffer(Type.Position, 3, BufferUtils.createFloatBuffer(positions));
+			mesh.setBuffer(Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoords));
+			mesh.setBuffer(Type.Index, 3, BufferUtils.createIntBuffer(indices));
+			mesh.updateBound();
+			
+			Geometry geometry = new Geometry("mesh", mesh);
+			
+			node.attachChild(geometry);
+		});
+		
+		return node; 
+	}
 	
 }
