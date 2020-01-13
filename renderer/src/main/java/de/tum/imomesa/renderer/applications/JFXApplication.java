@@ -1,4 +1,4 @@
-package de.tum.imomesa.renderer;
+package de.tum.imomesa.renderer.applications;
 
 import de.tum.imomesa.renderer.nodes.JMECanvas;
 import javafx.application.Application;
@@ -14,7 +14,7 @@ public class JFXApplication extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		JMECanvas canvas = new JMECanvas();
+		JMECanvas canvas = JMECanvas.getInstance();
 		
 		StackPane pane = new StackPane();
 		pane.getChildren().add(canvas);

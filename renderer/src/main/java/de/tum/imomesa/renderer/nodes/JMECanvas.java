@@ -3,23 +3,36 @@ package de.tum.imomesa.renderer.nodes;
 import com.jme3.jfx.injfx.JmeToJfxIntegrator;
 import com.jme3.system.AppSettings;
 
-import de.tum.imomesa.renderer.JMEApplication;
+import de.tum.imomesa.renderer.applications.JMEApplication;
 import javafx.scene.canvas.Canvas;
 
 public class JMECanvas extends Canvas {
 
-	private JMEApplication jme;
+	private static JMECanvas INSTANCE;
 	
-	public JMECanvas() {
+	public static JMECanvas getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new JMECanvas();
+		}
+		return INSTANCE;
+	}
+	
+	private JMEApplication application;
+	
+	private JMECanvas() {
 		AppSettings settings = JmeToJfxIntegrator.prepareSettings(new AppSettings(true), 60);
 		
-		jme = new JMEApplication();
-		jme.setSettings(settings);
-		jme.setShowSettings(false);
-		jme.setDisplayFps(false);
-		jme.setDisplayStatView(false);
+		application = JMEApplication.getInstance();
+		application.setSettings(settings);
+		application.setShowSettings(false);
+		application.setDisplayFps(false);
+		application.setDisplayStatView(false);
 		
-		JmeToJfxIntegrator.startAndBindMainViewPort(jme, this, Thread::new);
+		JmeToJfxIntegrator.startAndBindMainViewPort(application, this, Thread::new);
+	}
+	
+	public JMEApplication getApplication() {
+		return application;
 	}
 	
 }
