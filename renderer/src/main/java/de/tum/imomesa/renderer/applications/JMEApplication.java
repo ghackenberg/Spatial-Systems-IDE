@@ -12,10 +12,12 @@ import com.jme3.jfx.injfx.JmeToJfxApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.FaceCullMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Matrix4f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.CartoonEdgeFilter;
@@ -26,9 +28,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.VertexBuffer.Type;
-import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Cylinder;
-import com.jme3.scene.shape.Sphere;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.texture.Texture;
@@ -42,11 +41,6 @@ import de.tum.imomesa.model.executables.scenarios.Scenario;
 import de.tum.imomesa.model.transforms.RawTransform;
 import de.tum.imomesa.model.transforms.RotationTransform;
 import de.tum.imomesa.model.transforms.TranslationTransform;
-import de.tum.imomesa.model.volumes.AtomicVolume;
-import de.tum.imomesa.model.volumes.BoxVolume;
-import de.tum.imomesa.model.volumes.CompositeVolume;
-import de.tum.imomesa.model.volumes.CylinderVolume;
-import de.tum.imomesa.model.volumes.SphereVolume;
 import de.tum.imomesa.model.volumes.Volume;
 import de.tum.imomesa.simulator.Memory;
 import eu.mihosoft.jcsg.CSG;
@@ -234,7 +228,8 @@ public class JMEApplication extends JmeToJfxApplication {
 	}
 	
 	private Spatial convert(Volume volume) {
-		// return convert(volume.getCSG());
+		return convert(volume.getCSG());
+		/*
 		if (volume instanceof CompositeVolume) {
 			return convert((CompositeVolume) volume);
 		} else if (volume instanceof AtomicVolume) {
@@ -242,8 +237,10 @@ public class JMEApplication extends JmeToJfxApplication {
 		} else {
 			throw new IllegalStateException();
 		}
+		*/
 	}
 	
+	/*
 	private Spatial convert(CompositeVolume volume) {
 		Node node = new Node();
 		
@@ -308,15 +305,17 @@ public class JMEApplication extends JmeToJfxApplication {
 		
 		return geometry;
 	}
+	*/
 	
 	private Spatial convert(CSG csg) {
 		Node node = new Node();
-		Mesh mesh = new Mesh();
 		
 		List<Polygon> polygons = csg.getPolygons();
 		
 		polygons.forEach(polygon -> {
 			List<Vertex> vertices = polygon.vertices;
+			
+			System.out.println(vertices.size());
 			
 			Vector3f[] positions = new Vector3f[vertices.size()];
 			
@@ -330,16 +329,27 @@ public class JMEApplication extends JmeToJfxApplication {
 				positions[index] = new Vector3f(x, y, z);
 			}
 			
+			Vector2f[] texCoords = new Vector2f[vertices.size()];
+			
+			for (int index = 0; index < vertices.size(); index++) {
+				texCoords[index] = new Vector2f(0, 0);
+			}
+			
 			int[] indices = new int[(vertices.size() - 2) * 3];
 			
 			for (int index = 0; index < vertices.size() - 2; index++) {
-				indices[index * 3 + 0] = index + 0;
+				indices[index * 3 + 0] = 0;
 				indices[index * 3 + 1] = index + 1;
 				indices[index * 3 + 2] = index + 2;
 			}
 			
+			Mesh mesh = new Mesh();
+			
+			mesh.setStatic();
 			mesh.setBuffer(Type.Position, 3, BufferUtils.createFloatBuffer(positions));
+			mesh.setBuffer(Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoords));
 			mesh.setBuffer(Type.Index, 3, BufferUtils.createIntBuffer(indices));
+			mesh.updateBound();
 			
 			Geometry geometry = new Geometry("mesh", mesh);
 			
@@ -439,6 +449,7 @@ public class JMEApplication extends JmeToJfxApplication {
 		material.setColor("Specular", ColorRGBA.Black);
 		material.setColor("Diffuse", ColorRGBA.White);
 		material.setBoolean("VertexLighting", true);
+		material.getAdditionalRenderState().setFaceCullMode(FaceCullMode.Off);
 
 		return material;
 	}

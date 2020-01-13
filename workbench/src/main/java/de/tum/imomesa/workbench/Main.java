@@ -9,7 +9,6 @@ import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.core.events.EventBus;
 import de.tum.imomesa.model.volumes.Volume;
 import de.tum.imomesa.renderer.applications.JMEApplication;
-import de.tum.imomesa.renderer.nodes.JMECanvas;
 import de.tum.imomesa.utilities.managers.StorageManager;
 import de.tum.imomesa.workbench.FadeApp.InitCompletionHandler;
 import de.tum.imomesa.workbench.commons.events.ProgramEndEvent;
