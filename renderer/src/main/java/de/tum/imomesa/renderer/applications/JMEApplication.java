@@ -8,13 +8,17 @@ import com.jme3.jfx.injfx.JmeToJfxApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
+import com.jme3.material.RenderState.FaceCullMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.CartoonEdgeFilter;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.Mesh.Mode;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
@@ -224,8 +228,9 @@ public class JMEApplication extends JmeToJfxApplication {
 		material.setColor("Specular", ColorRGBA.White);
 		material.setColor("Diffuse", ColorRGBA.White);
 		material.setBoolean("VertexLighting", true);
+		material.getAdditionalRenderState().setFaceCullMode(FaceCullMode.Off);
 
 		return material;
-	}	
+	}
 
 }
