@@ -224,6 +224,36 @@ public class AttributesEditorBuilder {
 		dtfTransZ.textProperty().bindBidirectional(component.cameraTranslateZProperty(), new NumberConverter());
 		grid.addProperty("Camera Translate Z:", dtfTransZ);
 
+		// camera focus x
+		NumberField dtfFocusTransX = new NumberField();
+		dtfFocusTransX.textProperty().bindBidirectional(component.focusTranslateXProperty(), new NumberConverter());
+		grid.addProperty("Focus Translate X:", dtfFocusTransX);
+
+		// camera focus y
+		NumberField dtfFocusTransY = new NumberField();
+		dtfFocusTransY.textProperty().bindBidirectional(component.focusTranslateYProperty(), new NumberConverter());
+		grid.addProperty("Focus Translate Y:", dtfFocusTransY);
+
+		// camera focus z
+		NumberField dtfFocusTransZ = new NumberField();
+		dtfFocusTransZ.textProperty().bindBidirectional(component.focusTranslateZProperty(), new NumberConverter());
+		grid.addProperty("Focus Translate Z:", dtfFocusTransZ);
+
+		// camera up x
+		NumberField dtfUpTransX = new NumberField();
+		dtfUpTransX.textProperty().bindBidirectional(component.upTranslateXProperty(), new NumberConverter());
+		grid.addProperty("Up Translate X:", dtfUpTransX);
+
+		// camera up y
+		NumberField dtfUpTransY = new NumberField();
+		dtfUpTransY.textProperty().bindBidirectional(component.upTranslateYProperty(), new NumberConverter());
+		grid.addProperty("Up Translate Y:", dtfUpTransY);
+
+		// camera up z
+		NumberField dtfUpTransZ = new NumberField();
+		dtfUpTransZ.textProperty().bindBidirectional(component.upTranslateZProperty(), new NumberConverter());
+		grid.addProperty("Up Translate Z:", dtfUpTransZ);
+
 		// camera angle X
 		NumberField dtfAngleX = new NumberField();
 		dtfAngleX.textProperty().bindBidirectional(component.cameraAngleXProperty(), new NumberConverter());

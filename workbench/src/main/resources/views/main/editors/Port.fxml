@@ -6,7 +6,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Button?>
 
-<BorderPane xmlns:fx="de.tum.imomesa" fx:id="borderPane" fx:controller="de.tum.imomesa.workbench.controllers.JMEController">
+<!-- <BorderPane xmlns:fx="de.tum.imomesa" fx:id="borderPane" fx:controller="de.tum.imomesa.workbench.controllers.JMEController"> -->
+<BorderPane xmlns:fx="de.tum.imomesa">
 	<top>
 		<ToolBar>
 			<items>
@@ -15,7 +16,7 @@
 		</ToolBar>
 	</top>
 	<center>
-		<Pane fx:id="pane"/>
-		<!-- <Text text="Port"/> -->
+		<!-- <Pane fx:id="pane"/> -->
+		<Text text="Port"/>
 	</center>
 </BorderPane>

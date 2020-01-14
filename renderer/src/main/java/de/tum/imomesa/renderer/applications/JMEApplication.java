@@ -8,9 +8,10 @@ import com.jme3.jfx.injfx.JmeToJfxApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
-import com.jme3.material.RenderState.BlendMode;
 import com.jme3.material.RenderState.FaceCullMode;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Matrix4f;
+import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.CartoonEdgeFilter;
@@ -18,7 +19,6 @@ import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.Mesh.Mode;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
@@ -133,8 +133,8 @@ public class JMEApplication extends JmeToJfxApplication {
 		processor.addFilter(cartoon);
 		
 		getViewPort().setBackgroundColor(new ColorRGBA(1, 1, 1, 0));
-		getViewPort().addProcessor(renderer);
-		getViewPort().addProcessor(processor);
+		//getViewPort().addProcessor(renderer);
+		//getViewPort().addProcessor(processor);
 	}
 	
 	@Override
@@ -151,10 +151,21 @@ public class JMEApplication extends JmeToJfxApplication {
 			float camZ = component.getCameraTranslateZ().floatValue();
 			
 			Vector3f from = new Vector3f(camX, camY, camZ);
-			Vector3f to = new Vector3f(0, 0, 0);
+			
+			float eyeX = component.getFocusTranslateX().floatValue();
+			float eyeY = component.getFocusTranslateY().floatValue();
+			float eyeZ = component.getFocusTranslateZ().floatValue();
+			
+			Vector3f to = new Vector3f(eyeX, eyeY, eyeZ);
+			
+			float upX = component.getUpTranslateX().floatValue();
+			float upY = component.getUpTranslateY().floatValue();
+			float upZ = component.getUpTranslateZ().floatValue();
+			
+			Vector3f up = new Vector3f(upX, upY, upZ);
 			
 			cam.setLocation(from);
-			cam.lookAt(to, Vector3f.UNIT_Y);
+			cam.lookAt(to, up);
 			
 			geometryNode.attachChild(convert(component));
 		}
@@ -196,33 +207,42 @@ public class JMEApplication extends JmeToJfxApplication {
 	private Spatial convert(Part part) {
 		Node node = new Node();
 
-		float r = part.getRed() / 255f;
-		float g = part.getGreen() / 255f;
-		float b = part.getBlue() / 255f;
-		float a = part.getVolume().getDirty() ? 0.5f : 1f;
+		if (part.getVolume() != null) {
+			float r = part.getRed() / 255f;
+			float g = part.getGreen() / 255f;
+			float b = part.getBlue() / 255f;
+			float a = part.getVolume().getDirty() ? 0.5f : 1f;
+			
+			ColorRGBA color = new ColorRGBA(r, g, b, a);
+			
+			Spatial volume = convert(part.getVolume());
+			
+			if (volume != null) {
+				volume.setMaterial(createMaterial(color));
+				
+				node.attachChild(volume);
+			}
+		}
 		
-		ColorRGBA color = new ColorRGBA(r, g, b, a);
-		
-		Spatial volume = convert(part.getVolume());
-		
-		volume.setMaterial(createMaterial(color));
-		
-		node.attachChild(volume);
 		node.setLocalTransform(de.tum.imomesa.model.transforms.Transform.toJMETransform(part.getTransforms()));
 		
 		return node;
 	}
 	
 	private Spatial convert(Volume volume) {
-		return volume.getSpatial();
+		if (volume != null) {
+			return volume.getSpatial();
+		} else {
+			return new Geometry();
+		}
 	}
 
 	private Material createMaterial(ColorRGBA color) {
-		Texture texture = assetManager.loadTexture("Textures/ColorRamp/toon.png");
+		//Texture texture = assetManager.loadTexture("Textures/ColorRamp/toon.png");
 
 		Material material = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
 
-		material.setTexture("ColorRamp", texture);
+		//material.setTexture("ColorRamp", texture);
 		material.setBoolean("UseMaterialColors", true);
 		material.setColor("Ambient", color);
 		material.setColor("Specular", ColorRGBA.White);

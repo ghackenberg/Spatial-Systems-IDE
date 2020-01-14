@@ -8,7 +8,6 @@ import java.util.Date;
 import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.core.events.EventBus;
 import de.tum.imomesa.model.volumes.Volume;
-import de.tum.imomesa.renderer.applications.JMEApplication;
 import de.tum.imomesa.utilities.managers.StorageManager;
 import de.tum.imomesa.workbench.FadeApp.InitCompletionHandler;
 import de.tum.imomesa.workbench.commons.events.ProgramEndEvent;
@@ -143,7 +142,7 @@ public class Main extends Application {
 					// stop update thread
 					Volume.UPDATE_THREAD.interrupt();
 					// stop JME application
-					JMEApplication.getInstance().stop(true);
+					//JMEApplication.getInstance().stop(true);
 				}
 			});
 			

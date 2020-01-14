@@ -237,4 +237,94 @@ public abstract class Component<T extends Port> extends NamedElement {
 		return cameraTranslateZ;
 	}
 
+	// Camera translate X
+	private DoubleProperty focusTranslateX = new SimpleDoubleProperty(0);
+
+	public Double getFocusTranslateX() {
+		return focusTranslateX.get();
+	}
+
+	public void setFocusTranslateX(Double cameraTranslateX) {
+		this.focusTranslateX.set(cameraTranslateX);
+	}
+
+	public DoubleProperty focusTranslateXProperty() {
+		return focusTranslateX;
+	}
+
+	// Camera translate Y
+	private DoubleProperty focusTranslateY = new SimpleDoubleProperty(0);
+
+	public Double getFocusTranslateY() {
+		return focusTranslateY.get();
+	}
+
+	public void setFocusTranslateY(Double cameraTranslateY) {
+		this.focusTranslateY.set(cameraTranslateY);
+	}
+
+	public DoubleProperty focusTranslateYProperty() {
+		return focusTranslateY;
+	}
+
+	// Camera translate Z
+	private DoubleProperty focusTranslateZ = new SimpleDoubleProperty(0);
+
+	public Double getFocusTranslateZ() {
+		return focusTranslateZ.get();
+	}
+
+	public void setFocusTranslateZ(Double cameraTranslateZ) {
+		this.focusTranslateZ.set(cameraTranslateZ);
+	}
+
+	public DoubleProperty focusTranslateZProperty() {
+		return focusTranslateZ;
+	}
+
+	// Camera translate X
+	private DoubleProperty upTranslateX = new SimpleDoubleProperty(0);
+
+	public Double getUpTranslateX() {
+		return upTranslateX.get();
+	}
+
+	public void setUpTranslateX(Double cameraTranslateX) {
+		this.upTranslateX.set(cameraTranslateX);
+	}
+
+	public DoubleProperty upTranslateXProperty() {
+		return upTranslateX;
+	}
+
+	// Camera translate Y
+	private DoubleProperty upTranslateY = new SimpleDoubleProperty(1);
+
+	public Double getUpTranslateY() {
+		return upTranslateY.get();
+	}
+
+	public void setUpTranslateY(Double cameraTranslateY) {
+		this.upTranslateY.set(cameraTranslateY);
+	}
+
+	public DoubleProperty upTranslateYProperty() {
+		return upTranslateY;
+	}
+
+	// Camera translate Z
+	private DoubleProperty upTranslateZ = new SimpleDoubleProperty(0);
+
+	public Double getUpTranslateZ() {
+		return upTranslateZ.get();
+	}
+
+	public void setUpTranslateZ(Double cameraTranslateZ) {
+		this.upTranslateZ.set(cameraTranslateZ);
+	}
+
+	public DoubleProperty upTranslateZProperty() {
+		return upTranslateZ;
+	}
+
 }
