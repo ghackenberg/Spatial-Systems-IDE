@@ -246,7 +246,7 @@ public abstract class Volume extends Element {
 		
 		polygons.forEach(polygon -> {
 			List<Vertex> vertices = polygon.vertices;
-			
+					
 			Vector3f[] positions = new Vector3f[vertices.size()];
 			
 			for (int index = 0; index < vertices.size(); index++) {
@@ -265,6 +265,16 @@ public abstract class Volume extends Element {
 				texCoords[index] = new Vector2f(0, 0);
 			}
 			
+			Vector3f[] normals = new Vector3f[vertices.size()];
+			
+			for (int index = 0; index < vertices.size(); index++) {
+				float x = (float) polygon.getPlane().getNormal().getX();
+				float y = (float) polygon.getPlane().getNormal().getY();
+				float z = (float) polygon.getPlane().getNormal().getZ();
+				
+				normals[index] = new Vector3f(x, y, z);
+			}
+			
 			int[] indices = new int[(vertices.size() - 2) * 3];
 			
 			for (int index = 0; index < vertices.size() - 2; index++) {
@@ -278,6 +288,7 @@ public abstract class Volume extends Element {
 			mesh.setStatic();
 			mesh.setBuffer(Type.Position, 3, BufferUtils.createFloatBuffer(positions));
 			mesh.setBuffer(Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoords));
+			mesh.setBuffer(Type.Normal, 3, BufferUtils.createFloatBuffer(normals));
 			mesh.setBuffer(Type.Index, 3, BufferUtils.createIntBuffer(indices));
 			mesh.updateBound();
 			

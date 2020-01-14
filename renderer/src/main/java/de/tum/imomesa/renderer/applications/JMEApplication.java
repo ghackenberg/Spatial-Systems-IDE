@@ -8,7 +8,6 @@ import com.jme3.jfx.injfx.JmeToJfxApplication;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
-import com.jme3.material.RenderState.FaceCullMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
@@ -45,6 +44,7 @@ public class JMEApplication extends JmeToJfxApplication {
 	private Memory memory;
 	private int step;
 	private Node geometryNode;
+	private FilterPostProcessor processor;
 
 	private JMEApplication() {
 		AppStateManager manager = getStateManager();
@@ -96,7 +96,7 @@ public class JMEApplication extends JmeToJfxApplication {
 		ambient.setColor(ColorRGBA.White.mult(0.5f));
 
 		DirectionalLight light = new DirectionalLight();
-		light.setDirection(new Vector3f(-3f, -5f, -2f));
+		light.setDirection(new Vector3f(-3f, -5f, -2f).normalize());
 		light.setColor(ColorRGBA.White.mult(0.5f));
 		
 		geometryNode = new Node();
@@ -115,20 +115,20 @@ public class JMEApplication extends JmeToJfxApplication {
 		renderer.setRenderBackFacesShadows(true);
 		renderer.setLight(light);
 
-		DirectionalLightShadowFilter filter = new DirectionalLightShadowFilter(getAssetManager(), 4096, 4);
-		filter.setShadowIntensity(0.2f);
-		filter.setRenderBackFacesShadows(true);
-		filter.setLight(light);
-		filter.setEnabled(true);
+		DirectionalLightShadowFilter shadow = new DirectionalLightShadowFilter(getAssetManager(), 4096, 4);
+		shadow.setShadowIntensity(0.2f);
+		shadow.setRenderBackFacesShadows(true);
+		shadow.setLight(light);
+		shadow.setEnabled(true);
 
 		CartoonEdgeFilter cartoon = new CartoonEdgeFilter();
-		cartoon.setEdgeColor(ColorRGBA.White);
+		cartoon.setEdgeColor(ColorRGBA.Black);
 
-		FilterPostProcessor processor = new FilterPostProcessor(getAssetManager());
-		processor.addFilter(filter);
+		processor = new FilterPostProcessor(getAssetManager());
+		processor.addFilter(shadow);
 		processor.addFilter(cartoon);
 		
-		getViewPort().setBackgroundColor(ColorRGBA.White);
+		getViewPort().setBackgroundColor(new ColorRGBA(1, 1, 1, 0));
 		getViewPort().addProcessor(renderer);
 		getViewPort().addProcessor(processor);
 	}
@@ -221,12 +221,11 @@ public class JMEApplication extends JmeToJfxApplication {
 		material.setTexture("ColorRamp", texture);
 		material.setBoolean("UseMaterialColors", true);
 		material.setColor("Ambient", color);
-		material.setColor("Specular", ColorRGBA.Black);
+		material.setColor("Specular", ColorRGBA.White);
 		material.setColor("Diffuse", ColorRGBA.White);
 		material.setBoolean("VertexLighting", true);
-		//material.getAdditionalRenderState().setFaceCullMode(FaceCullMode.Off);
 
 		return material;
-	}
+	}	
 
 }
