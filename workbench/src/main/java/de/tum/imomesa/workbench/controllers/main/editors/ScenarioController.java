@@ -12,10 +12,10 @@ import de.tum.imomesa.model.executables.scenarios.Transition;
 import de.tum.imomesa.workbench.Main;
 import de.tum.imomesa.workbench.commons.events.SimulationEndEvent;
 import de.tum.imomesa.workbench.commons.events.SimulationStartEvent;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import de.tum.imomesa.workbench.controllers.SimulationController;
-import de.tum.imomesa.workbench.controllers.main.AbstractElementController;
-import de.tum.imomesa.workbench.diagrams.ScenarioDiagramBehavior;
 import de.tum.imomesa.workbench.diagrams.ScenarioDiagram;
+import de.tum.imomesa.workbench.diagrams.ScenarioDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,7 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class ScenarioController implements AbstractElementController<Scenario> {
+public class ScenarioController implements AbstractEditorChildController<Scenario> {
 
 	@FXML
 	private Pane pane;
@@ -47,7 +47,7 @@ public class ScenarioController implements AbstractElementController<Scenario> {
 	private ScenarioDiagram diagram;
 
 	@Override
-	public void setElement(Scenario element) {
+	public void setRootElement(Scenario element) {
 		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
 
 		buttonSetInitialStep.setDisable(true);
@@ -62,6 +62,21 @@ public class ScenarioController implements AbstractElementController<Scenario> {
 				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
 			}
 		});
+	}
+	
+	@Override
+	public void setSelectedElement(Element element) {
+		Step label = element.getFirstAncestorByType(Step.class);
+		Transition transition = element.getFirstAncestorByType(Transition.class);
+		Scenario executable = element.getFirstAncestorByType(Scenario.class);
+		
+		if (label != null) {
+			diagram.setClickedElement(label);
+		} else if (transition != null) {
+			diagram.setClickedElement(transition);
+		} else if (executable != null) {
+			diagram.setClickedElement(executable);
+		}
 	}
 
 	@FXML

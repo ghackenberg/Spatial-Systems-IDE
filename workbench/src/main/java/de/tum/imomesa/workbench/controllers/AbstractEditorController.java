@@ -21,8 +21,10 @@ public abstract class AbstractEditorController {
 		this.prefix = prefix;
 	}
 
-	protected <T> T loadEditor(Element element) {
+	protected <T> T loadEditor(Element original) {
 		FXMLLoader content = null;
+		
+		Element element = original;
 
 		// Process overview elements
 		if (element instanceof OverviewElement) {
@@ -36,7 +38,11 @@ public abstract class AbstractEditorController {
 					String urlString = prefix + iterator.getSimpleName().toLowerCase() + "/" + name + ".fxml";
 					URL url = getClass().getResource(urlString);
 					if (url != null) {
+						// Load FXML file
 						content = loadEditor(url);
+						// Set root element
+						content.<AbstractEditorChildController<Element>>getController().setRootElement(parent);
+						// Stop iterating
 						break;
 					} else {
 						iterator = iterator.getSuperclass();
@@ -57,7 +63,11 @@ public abstract class AbstractEditorController {
 				String urlString = prefix + iterator.getSimpleName() + ".fxml";
 				URL url = EditorController.class.getResource(urlString);
 				if (url != null) {
+					// Load FXML file
 					content = loadEditor(url);
+					// Set root element
+					content.<AbstractEditorChildController<Element>>getController().setRootElement(element);
+					// Stop iterating
 					break;
 				} else {
 					iterator = iterator.getSuperclass();
@@ -70,7 +80,11 @@ public abstract class AbstractEditorController {
 
 		// Check whether content is available
 		if (content != null) {
+			// Set selected element
+			content.<AbstractEditorChildController<Element>>getController().setSelectedElement(original);
+			// Publish to tab
 			tab.setContent(content.getRoot());
+			// Return controller
 			return content.getController();
 		} else {
 			return null;

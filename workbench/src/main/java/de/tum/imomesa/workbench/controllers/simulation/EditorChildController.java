@@ -8,12 +8,13 @@ import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.components.Component;
 import de.tum.imomesa.simulator.Simulator;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 
-public abstract class AbstractElementController<T extends Element> implements EventHandler {
+public abstract class EditorChildController<T extends Element> implements AbstractEditorChildController<T>, EventHandler {
 
 	@FXML
 	protected BorderPane borderPane;
@@ -25,7 +26,7 @@ public abstract class AbstractElementController<T extends Element> implements Ev
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				EventBus.getInstance().subscribe(AbstractElementController.this);
+				EventBus.getInstance().subscribe(EditorChildController.this);
 			}
 		});
 	}
@@ -34,6 +35,7 @@ public abstract class AbstractElementController<T extends Element> implements Ev
 	protected List<Element> extendedContext;
 	protected List<Element> context;
 	protected T element;
+	protected Element selected;
 	protected Component<?> component;
 
 	public void setSimulator(Simulator simulator) {
@@ -48,8 +50,12 @@ public abstract class AbstractElementController<T extends Element> implements Ev
 		this.context = context;
 	}
 
-	public void setElement(T element) {
+	public void setRootElement(T element) {
 		this.element = element;
+	}
+	
+	public void setSelectedElement(Element selected) {
+		this.selected = selected;
 	}
 
 	public void setComponent(Component<?> component) {

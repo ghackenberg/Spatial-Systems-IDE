@@ -7,13 +7,14 @@ import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.expressions.AtomicExpression;
 import de.tum.imomesa.model.expressions.Expression;
 import de.tum.imomesa.model.expressions.NaryExpression;
 import de.tum.imomesa.model.expressions.TerniaryExpression;
 import de.tum.imomesa.model.expressions.UnaryExpression;
 import de.tum.imomesa.utilities.managers.StorageManager;
-import de.tum.imomesa.workbench.controllers.main.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -21,13 +22,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
-public class ExpressionController implements AbstractElementController<Expression> {
+public class ExpressionController implements AbstractEditorChildController<Expression> {
 
 	@FXML
 	private BorderPane borderPane;
 
 	@Override
-	public void setElement(Expression element) {
+	public void setRootElement(Expression element) {
 		try {
 			// Generate graph
 			FileWriter writer = new FileWriter("temp.dot");
@@ -63,6 +64,11 @@ public class ExpressionController implements AbstractElementController<Expressio
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void setSelectedElement(Element element) {
+		
 	}
 
 	private void render(Expression expression, Writer writer) {

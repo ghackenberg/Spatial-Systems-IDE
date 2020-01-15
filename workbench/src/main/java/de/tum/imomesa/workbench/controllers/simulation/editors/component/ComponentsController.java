@@ -11,7 +11,7 @@ import de.tum.imomesa.model.ports.InteractionMaterialPort;
 import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
-import de.tum.imomesa.workbench.controllers.simulation.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.simulation.EditorChildController;
 import de.tum.imomesa.workbench.diagrams.ComponentDiagram;
 import de.tum.imomesa.workbench.diagrams.DefaultDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.OverviewElement;
@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class ComponentsController extends AbstractElementController<OverviewElement<Component<?>>> {
+public class ComponentsController extends EditorChildController<OverviewElement<Component<?>>> {
 
 	private DefinitionComponent component;
 	private ComponentDiagram diagram;

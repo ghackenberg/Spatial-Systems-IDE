@@ -2,9 +2,9 @@ package de.tum.imomesa.workbench.controllers.simulation.editors;
 
 import de.tum.imomesa.model.properties.Property;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
-import de.tum.imomesa.workbench.controllers.simulation.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.simulation.EditorChildController;
 
-public class PropertyController extends AbstractElementController<Property> {
+public class PropertyController extends EditorChildController<Property> {
 
 	@Override
 	public void render() {

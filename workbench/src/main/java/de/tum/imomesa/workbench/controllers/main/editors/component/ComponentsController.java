@@ -3,7 +3,7 @@ package de.tum.imomesa.workbench.controllers.main.editors.component;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.channels.StaticChannel;
 import de.tum.imomesa.model.components.DefinitionComponent;
-import de.tum.imomesa.workbench.controllers.main.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import de.tum.imomesa.workbench.diagrams.ComponentDiagram;
 import de.tum.imomesa.workbench.diagrams.ComponentDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-public class ComponentsController implements AbstractElementController<DefinitionComponent> {
+public class ComponentsController implements AbstractEditorChildController<DefinitionComponent> {
 	
 	@FXML
 	private Pane pane;
@@ -23,7 +23,7 @@ public class ComponentsController implements AbstractElementController<Definitio
 	private ComponentDiagram diagram;
 
 	@Override
-	public void setElement(DefinitionComponent element) {
+	public void setRootElement(DefinitionComponent element) {
 		diagram = new ComponentDiagram(pane, element, new ComponentDiagramBehavior(), true);
 		
 		buttonRemoveStaticChannel.setDisable(true);
@@ -34,6 +34,11 @@ public class ComponentsController implements AbstractElementController<Definitio
 				buttonRemoveStaticChannel.setDisable(!(newValue instanceof StaticChannel));
 			}
 		});
+	}
+	
+	@Override
+	public void setSelectedElement(Element element) {
+		diagram.setClickedElement(element);
 	}
 	
 	@FXML

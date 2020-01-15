@@ -37,7 +37,7 @@ public class EditorController extends AbstractEditorController implements EventH
 		lastEvent = event;
 	}
 
-	private AbstractElementController<Element> lastController;
+	private EditorChildController<Element> lastController;
 
 	public void handle(SimulationSelectionEvent event) {
 		// check controller
@@ -60,8 +60,6 @@ public class EditorController extends AbstractEditorController implements EventH
 			lastController.setExtendedContext(event.getExtendedContext());
 			// set context
 			lastController.setContext(event.getContext());
-			// set element
-			lastController.setElement(event.getElement());
 			// set component
 			lastController.setComponent(event.getComponent());
 			// render

@@ -28,8 +28,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 
-public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>, E extends Executable<L, T>>
-		extends AbstractDiagram<E> {
+public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>, E extends Executable<L, T>> extends AbstractDiagram<E> {
 
 	protected static final double MARKER_PADDING = 5;
 

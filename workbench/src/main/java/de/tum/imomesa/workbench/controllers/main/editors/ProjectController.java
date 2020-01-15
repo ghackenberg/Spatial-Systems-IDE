@@ -5,16 +5,17 @@ import de.tum.imomesa.core.events.EventHandler;
 import de.tum.imomesa.integrator.Integrator;
 import de.tum.imomesa.integrator.events.ProgressChangeEvent;
 import de.tum.imomesa.integrator.reports.elements.ProjectReport;
+import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.Project;
 import de.tum.imomesa.workbench.commons.converters.ReportConverter;
-import de.tum.imomesa.workbench.controllers.main.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 
-public class ProjectController implements AbstractElementController<Project>, EventHandler {
+public class ProjectController implements AbstractEditorChildController<Project>, EventHandler {
 	
 	@FXML
 	private BorderPane borderPane;
@@ -26,8 +27,13 @@ public class ProjectController implements AbstractElementController<Project>, Ev
 	private Project project;
 
 	@Override
-	public void setElement(Project e) {
+	public void setRootElement(Project e) {
 		project = e;
+	}
+	
+	@Override
+	public void setSelectedElement(Element element) {
+		
 	}
 	
 	public void handle(ProgressChangeEvent event) {

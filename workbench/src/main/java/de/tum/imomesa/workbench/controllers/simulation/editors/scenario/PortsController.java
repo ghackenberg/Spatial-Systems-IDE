@@ -9,7 +9,7 @@ import de.tum.imomesa.model.executables.scenarios.Scenario;
 import de.tum.imomesa.model.ports.DefinitionPort;
 import de.tum.imomesa.model.ports.LifeMaterialPort;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
-import de.tum.imomesa.workbench.controllers.simulation.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.simulation.EditorChildController;
 import de.tum.imomesa.workbench.explorers.OverviewElement;
 import de.tum.imomesa.workbench.simulations.helpers.TimeChartHelper;
 import javafx.scene.chart.XYChart;
@@ -18,7 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public class PortsController extends AbstractElementController<OverviewElement<DefinitionPort>> {
+public class PortsController extends EditorChildController<OverviewElement<DefinitionPort>> {
 
 	private Scenario parent;
 	private Map<DefinitionPort, XYChart<?, ?>> charts = new HashMap<>();

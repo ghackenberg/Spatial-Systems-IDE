@@ -5,7 +5,7 @@ import de.tum.imomesa.model.executables.behaviors.Behavior;
 import de.tum.imomesa.model.executables.behaviors.State;
 import de.tum.imomesa.model.executables.behaviors.Transition;
 import de.tum.imomesa.workbench.diagrams.BehaviorDiagramBehavior;
-import de.tum.imomesa.workbench.controllers.main.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import de.tum.imomesa.workbench.diagrams.BehaviorDiagram;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-public class BehaviorController implements AbstractElementController<Behavior> {
+public class BehaviorController implements AbstractEditorChildController<Behavior> {
 
 	@FXML
 	private Pane pane;
@@ -26,7 +26,7 @@ public class BehaviorController implements AbstractElementController<Behavior> {
 	private BehaviorDiagram diagram;
 
 	@Override
-	public void setElement(Behavior element) {
+	public void setRootElement(Behavior element) {
 		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
 		
 		buttonSetInitialState.setDisable(true);
@@ -39,6 +39,21 @@ public class BehaviorController implements AbstractElementController<Behavior> {
 				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
 			}
 		});
+	}
+	
+	@Override
+	public void setSelectedElement(Element element) {
+		State label = element.getFirstAncestorByType(State.class);
+		Transition transition = element.getFirstAncestorByType(Transition.class);
+		Behavior executable = element.getFirstAncestorByType(Behavior.class);
+		
+		if (label != null) {
+			diagram.setClickedElement(label);
+		} else if (transition != null) {
+			diagram.setClickedElement(transition);
+		} else if (executable != null) {
+			diagram.setClickedElement(executable);
+		}
 	}
 	
 	@FXML

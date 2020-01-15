@@ -4,9 +4,9 @@ import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.monitors.Activity;
 import de.tum.imomesa.model.executables.monitors.Monitor;
 import de.tum.imomesa.model.executables.monitors.Transition;
-import de.tum.imomesa.workbench.diagrams.MonitorDiagramBehavior;
-import de.tum.imomesa.workbench.controllers.main.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import de.tum.imomesa.workbench.diagrams.MonitorDiagram;
+import de.tum.imomesa.workbench.diagrams.MonitorDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-public class MonitorController implements AbstractElementController<Monitor> {
+public class MonitorController implements AbstractEditorChildController<Monitor> {
 
 	@FXML
 	private Pane pane;
@@ -26,7 +26,7 @@ public class MonitorController implements AbstractElementController<Monitor> {
 	private MonitorDiagram diagram;
 
 	@Override
-	public void setElement(Monitor element) {
+	public void setRootElement(Monitor element) {
 		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
 
 		buttonSetInitialActivity.setDisable(true);
@@ -39,6 +39,21 @@ public class MonitorController implements AbstractElementController<Monitor> {
 				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
 			}
 		});
+	}
+	
+	@Override
+	public void setSelectedElement(Element element) {
+		Activity label = element.getFirstAncestorByType(Activity.class);
+		Transition transition = element.getFirstAncestorByType(Transition.class);
+		Monitor executable = element.getFirstAncestorByType(Monitor.class);
+		
+		if (label != null) {
+			diagram.setClickedElement(label);
+		} else if (transition != null) {
+			diagram.setClickedElement(transition);
+		} else if (executable != null) {
+			diagram.setClickedElement(executable);
+		}
 	}
 
 	@FXML

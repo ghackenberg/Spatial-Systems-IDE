@@ -2,7 +2,7 @@ package de.tum.imomesa.workbench.controllers.simulation.editors;
 
 import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
-import de.tum.imomesa.workbench.controllers.simulation.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.simulation.EditorChildController;
 import de.tum.imomesa.workbench.simulations.helpers.PieChartHelper;
 import de.tum.imomesa.workbench.simulations.helpers.TimeChartHelper;
 import javafx.scene.chart.PieChart;
@@ -12,7 +12,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public class ObservationController extends AbstractElementController<Port> {
+public class ObservationController extends EditorChildController<Port> {
 
 	private XYChart<?, ?> timeChart;
 	private PieChart pieChart;

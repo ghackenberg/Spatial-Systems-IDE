@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import de.tum.imomesa.model.executables.Executable;
 import de.tum.imomesa.model.executables.Variable;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
-import de.tum.imomesa.workbench.controllers.simulation.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.simulation.EditorChildController;
 import de.tum.imomesa.workbench.explorers.OverviewElement;
 import de.tum.imomesa.workbench.simulations.helpers.TimeChartHelper;
 import javafx.scene.chart.XYChart;
@@ -17,7 +17,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-public class VariablesController extends AbstractElementController<OverviewElement<Variable>> {
+public class VariablesController extends EditorChildController<OverviewElement<Variable>> {
 
 	private Executable<?, ?> parent;
 	private Map<Variable, XYChart<?, ?>> charts = new HashMap<>();

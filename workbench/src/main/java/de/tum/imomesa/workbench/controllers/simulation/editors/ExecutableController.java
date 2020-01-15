@@ -5,10 +5,10 @@ import de.tum.imomesa.model.executables.Label;
 import de.tum.imomesa.model.executables.Transition;
 import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.workbench.commons.events.SimulationStepEvent;
-import de.tum.imomesa.workbench.controllers.simulation.AbstractElementController;
+import de.tum.imomesa.workbench.controllers.simulation.EditorChildController;
 import de.tum.imomesa.workbench.diagrams.ExecutableDiagram;
 
-public abstract class ExecutableController<E extends Executable<?, ?>> extends AbstractElementController<E> {
+public abstract class ExecutableController<E extends Executable<?, ?>> extends EditorChildController<E> {
 
 	protected ExecutableDiagram<?, ?, ?> diagram;
 	
