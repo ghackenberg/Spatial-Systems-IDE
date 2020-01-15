@@ -18,7 +18,7 @@ public class LengthChangeListener implements ChangeListener<Number> {
 
 	@Override
 	public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-		target.setValue(originalPoint.getLenght());	
+		target.setValue(originalPoint.getLength());	
 	}
 
 }

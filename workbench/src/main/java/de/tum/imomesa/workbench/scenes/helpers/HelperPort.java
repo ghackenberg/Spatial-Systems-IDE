@@ -2,7 +2,6 @@ package de.tum.imomesa.workbench.scenes.helpers;
 
 import java.util.List;
 
-import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.executables.Action;
 import de.tum.imomesa.model.executables.monitors.Activity;
@@ -21,56 +20,58 @@ import de.tum.imomesa.model.ports.MaterialPort;
 import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.model.properties.Property;
 import de.tum.imomesa.workbench.scenes.Configuration;
+import de.tum.imomesa.workbench.scenes.paths.ModelPath;
+import de.tum.imomesa.workbench.scenes.paths.ScenePath;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 
 public class HelperPort {
 
-	public static Node processPort(List<Element> context, Port port, Configuration config) {
-		if (port instanceof MaterialPort) {
-			return paintPort(context, (MaterialPort) port, config);
-		} else if (port instanceof KinematicEnergyPort) {
-			return paintPort(context, (KinematicEnergyPort) port, config);
-		} else {
-			return new Group();
+	public static void processPort(ModelPath<Port> modelPath, Configuration config, ScenePath scenePath) {
+		if (modelPath.element instanceof MaterialPort) {
+			paintMaterialPort(modelPath.cast(MaterialPort.class), config, scenePath);
+		} else if (modelPath.element instanceof KinematicEnergyPort) {
+			paintKinematicEnergyPort(modelPath.cast(KinematicEnergyPort.class), config, scenePath);
 		}
 	}
 
-	private static Node paintPort(List<Element> context, MaterialPort port, Configuration config) {
+	private static void paintMaterialPort(ModelPath<MaterialPort> modelPath, Configuration config, ScenePath scenePath) {
 		boolean selected;
 
 		if (config.getSelectedElement().getFirstAncestorByType(Activity.class) != null) {
-			selected = containsActivity(config.getSelectedElement().getFirstAncestorByType(Activity.class), port);
+			selected = containsActivity(config.getSelectedElement().getFirstAncestorByType(Activity.class), modelPath.element);
 		} else if (config.getSelectedElement().getFirstAncestorByType(Transition.class) != null) {
-			selected = containsTransition(config.getSelectedElement().getFirstAncestorByType(Transition.class), port);
+			selected = containsTransition(config.getSelectedElement().getFirstAncestorByType(Transition.class), modelPath.element);
 		} else if (config.getSelectedElement().getFirstAncestorByType(Monitor.class) != null) {
-			selected = containsMonitor(config.getSelectedElement().getFirstAncestorByType(Monitor.class), port);
+			selected = containsMonitor(config.getSelectedElement().getFirstAncestorByType(Monitor.class), modelPath.element);
 		} else {
-			selected = config.getSelectedElement().getPath().contains(port);
+			selected = config.getSelectedElement().getPath().contains(modelPath.element);
 		}
 
-		if (port.getFirstAncestorByType(Scenario.class) != null) {
-			Scenario scenario = port.getFirstAncestorByType(Scenario.class);
+		if (modelPath.element.getFirstAncestorByType(Scenario.class) != null) {
+			Scenario scenario = modelPath.element.getFirstAncestorByType(Scenario.class);
 			selected = selected || (config.getSelectedElement().getPath().contains(scenario) && config.getSelectedElement().getFirstAncestorByType(Port.class) == null);
 		}
 		
 		final boolean finalSelected = selected;
 		
-		Group group = new Group();
+		final Group solidChild = new Group();
+		final Group alphaChild = new Group();
+		
+		final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 		
 		int r = 0, g = 0, b = 0;
 
-		if (port instanceof InteractionMaterialPort) {
+		if (modelPath.element instanceof InteractionMaterialPort) {
 			b = 255;
-		} else if (port instanceof EntryLifeMaterialPort) {
+		} else if (modelPath.element instanceof EntryLifeMaterialPort) {
 			g = 255;
-		} else if (port instanceof ExitLifeMaterialPort) {
+		} else if (modelPath.element instanceof ExitLifeMaterialPort) {
 			r = 255;
 		} else {
-			throw new IllegalStateException("Port type not supported: " + port.getClass().getName());
+			throw new IllegalStateException("Port type not supported: " + modelPath.element.getClass().getName());
 		}
 		
 		final Color color = Color.rgb(r, g, b);
@@ -79,32 +80,31 @@ public class HelperPort {
 		
 		material.diffuseColorProperty().bind(Bindings.when(config.highlightSelectedProperty()).then(selected ? color : color.darker()).otherwise(color));
 
-		port.volumeProperty().addListener((property, oldValue, newValue) -> {
-			updateVolume(context, port, config, group, material, finalSelected);
+		modelPath.element.volumeProperty().addListener((property, oldValue, newValue) -> {
+			updateVolume(modelPath, config, sceneChild, material, finalSelected);
 		});
 		
-		updateVolume(context, port, config, group, material, finalSelected);
-
-		return group;
+		updateVolume(modelPath, config, sceneChild, material, finalSelected);
 	}
 	
-	private static void updateVolume(List<Element> context, MaterialPort port, Configuration config, Group group, PhongMaterial material, boolean selected) {
-		group.getChildren().clear();
+	private static void updateVolume(ModelPath<MaterialPort> modelPath, Configuration config, ScenePath scenePath, PhongMaterial material, boolean selected) {
+		scenePath.solidParent.getChildren().clear();
+		scenePath.alphaParent.getChildren().clear();
 		
-		if (port.getVolume() != null) {
-			group.getChildren().add(HelperVolume.paintVolume(port.append(context), port.getVolume(), material, config, selected));
+		if (modelPath.element.getVolume() != null) {
+			HelperVolume.paintVolume(new ModelPath<>(modelPath, modelPath.element.getVolume()), material, config, selected, scenePath);
 		}
 	}
 
-	private static Node paintPort(List<Element> context, KinematicEnergyPort port, Configuration config) {
-		Group group = new Group();
+	private static void paintKinematicEnergyPort(ModelPath<KinematicEnergyPort> modelPath, Configuration config, ScenePath scenePath) {
+		final Group solidChild = new Group();
+		final Group alphaChild = new Group();
+		
+		final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 
-		if (port.getTransform() != null) {
-			group.getChildren().add(HelperTransform.paintTransform(port.append(context), port.getTransform(),
-					config.selectedElementProperty()));
+		if (modelPath.element.getTransform() != null) {
+			HelperTransform.paintTransform(new ModelPath<>(modelPath, modelPath.element.getTransform()), config.selectedElementProperty(), sceneChild);
 		}
-
-		return group;
 	}
 	
 	private static boolean containsExpression(Expression expression, Port port) {

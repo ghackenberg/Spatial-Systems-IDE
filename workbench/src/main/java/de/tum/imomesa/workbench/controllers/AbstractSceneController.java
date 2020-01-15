@@ -28,11 +28,14 @@ public abstract class AbstractSceneController implements de.tum.imomesa.core.eve
 
 	protected Component<?> data;
 
-	protected Group world;
+	private Group world;
+	private Group sceneRoot;
+	
 	protected Rotate rotationTransformX;
 	protected Rotate rotationTransformY;
 	protected Translate translateDistance;
-	protected Group componentVisualization;
+	protected Group solidRoot;
+	protected Group alphaRoot;
 
 	private boolean rotating = false;
 	private boolean translating = false;
@@ -87,8 +90,15 @@ public abstract class AbstractSceneController implements de.tum.imomesa.core.eve
 		world.getChildren().add(HelperCoordinateSystem.getCoordinates(coordinates.selectedProperty()));
 
 		// visualization
-		componentVisualization = new Group();
-		world.getChildren().add(componentVisualization);
+		solidRoot = new Group();
+		
+		alphaRoot = new Group();
+		
+		sceneRoot = new Group();
+		sceneRoot.getChildren().add(solidRoot);
+		sceneRoot.getChildren().add(alphaRoot);
+		
+		world.getChildren().add(sceneRoot);
 
 		// create and set scene
 		SubScene subScene = new SubScene(world, 600, 500, true, SceneAntialiasing.BALANCED);

@@ -1,8 +1,5 @@
 package de.tum.imomesa.workbench.controllers.main;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.Part;
 import de.tum.imomesa.model.Project;
@@ -22,8 +19,9 @@ import de.tum.imomesa.workbench.scenes.helpers.HelperPart;
 import de.tum.imomesa.workbench.scenes.helpers.HelperPort;
 import de.tum.imomesa.workbench.scenes.helpers.HelperTransform;
 import de.tum.imomesa.workbench.scenes.managers.ListenerManager;
+import de.tum.imomesa.workbench.scenes.paths.ModelPath;
+import de.tum.imomesa.workbench.scenes.paths.ScenePath;
 import javafx.scene.Group;
-import javafx.scene.Node;
 
 public class SceneController extends AbstractSceneController {
 
@@ -50,12 +48,14 @@ public class SceneController extends AbstractSceneController {
 			// Unbind transform values
 			rotationTransformX.angleProperty().unbindBidirectional(data.cameraAngleXProperty());
 			rotationTransformY.angleProperty().unbindBidirectional(data.cameraAngleYProperty());
+			
 			translateDistance.xProperty().unbindBidirectional(data.cameraTranslateXProperty());
 			translateDistance.yProperty().unbindBidirectional(data.cameraTranslateYProperty());
 			translateDistance.zProperty().unbindBidirectional(data.cameraDistanceProperty());
 			// Reset transform values
 			rotationTransformX.setAngle(-45);
 			rotationTransformY.setAngle(-45);
+			
 			translateDistance.setX(0);
 			translateDistance.setY(0);
 			translateDistance.setZ(-200);
@@ -74,7 +74,9 @@ public class SceneController extends AbstractSceneController {
 		}
 
 		// Clear scene
-		componentVisualization.getChildren().clear();
+		solidRoot.getChildren().clear();
+		alphaRoot.getChildren().clear();
+		
 		// Remove listeners
 		ListenerManager.getListenerRemover().removeAllListener();
 
@@ -82,93 +84,98 @@ public class SceneController extends AbstractSceneController {
 			// Initialize transforms
 			rotationTransformX.setAngle(data.getCameraAngleX());
 			rotationTransformY.setAngle(data.getCameraAngleY());
+			
 			translateDistance.setX(data.getCameraTranslateX());
 			translateDistance.setY(data.getCameraTranslateY());
 			translateDistance.setZ(data.getCameraDistance());
+			
 			// Bind transform values
 			rotationTransformX.angleProperty().bindBidirectional(data.cameraAngleXProperty());
 			rotationTransformY.angleProperty().bindBidirectional(data.cameraAngleYProperty());
+			
 			translateDistance.xProperty().bindBidirectional(data.cameraTranslateXProperty());
 			translateDistance.yProperty().bindBidirectional(data.cameraTranslateYProperty());
 			translateDistance.zProperty().bindBidirectional(data.cameraDistanceProperty());
+			
 			// Paint component
-			componentVisualization.getChildren().add(paintComponent(new ArrayList<>(), data));
+			paintComponent(new ModelPath<>(data), new ScenePath(solidRoot, alphaRoot));
 		}
 	}
 
-	private Group paintComponent(List<Element> context, Component<?> component) {
-		if (component == null) {
-			return new Group();
-		} else if (component instanceof DefinitionComponent) {
-			DefinitionComponent definition = (DefinitionComponent) component;
+	private void paintComponent(ModelPath<Component<?>> modelPath, ScenePath scenePath) {
+		if (modelPath.element == null) {
+			return;
+		} else if (modelPath.element instanceof DefinitionComponent) {
+			final DefinitionComponent definition = (DefinitionComponent) modelPath.element;
 
-			Group group = new Group();
+			final Group solidChild = new Group();
+			final Group alphaChild = new Group();
+			
+			final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 
 			// get material ports from component
 			for (Port port : definition.getPorts()) {
-				group.getChildren().add(HelperPort.processPort(component.append(context), port, config));
+				HelperPort.processPort(new ModelPath<>(modelPath, port), config, sceneChild);
 			}
 
 			// get material ports from scenarios
-			if (component == data) {
+			if (modelPath.element == data) {
 				for (Scenario scenario : definition.getScenarios()) {
+					final ModelPath<Scenario> scenarioPath = new ModelPath<>(modelPath, scenario);
 					for (Port port : scenario.getPorts()) {
-						List<Element> portCtx = scenario.append(component.append(context));
-						group.getChildren().add(HelperPort.processPort(portCtx, port, config));
+						HelperPort.processPort(new ModelPath<>(scenarioPath, port), config, sceneChild);
 					}
 				}
 			}
 
 			// get subcomponents
 			for (Component<?> subcomponent : definition.getComponents()) {
-				group.getChildren().add(paintComponent(component.append(context), subcomponent));
+				paintComponent(new ModelPath<>(modelPath, subcomponent), sceneChild);
 			}
 
 			// get behaviors
 			for (Behavior behavior : definition.getBehaviors()) {
+				final ModelPath<Behavior> behaviorPath = new ModelPath<>(modelPath, behavior);
 				boolean found = false;
 				for (State state : behavior.getLabels()) {
 					if (selected.get().getPath().contains(state)) {
+						final ModelPath<State> statePath = new ModelPath<>(behaviorPath, state);
 						found = true;
 						for (Part part : state.getParts()) {
-							List<Element> partCtx = state.append(behavior.append(component.append(context)));
-							Node partNode = HelperPart.paintPart(partCtx, part, config, null, 0, componentVisualization);
-							group.getChildren().add(partNode);
+							HelperPart.paintPart(new ModelPath<>(statePath, part), config, null, 0, sceneChild);
 						}
 						break;
 					}
 				}
 				if (!found && behavior.getInitialLabel() != null) {
+					final ModelPath<State> statePath = new ModelPath<>(behaviorPath, behavior.getInitialLabel());
 					for (Part part : behavior.getInitialLabel().getParts()) {
-						List<Element> partCtx = behavior.getInitialLabel().append(behavior.append(component.append(context)));
-						Node partNode = HelperPart.paintPart(partCtx, part, config, null, 0, componentVisualization); 
-						group.getChildren().add(partNode);
+						HelperPart.paintPart(new ModelPath<>(statePath, part), config, null, 0, sceneChild);
 					}
 				}
 			}
 
 			// get parts from component
 			for (Part part : definition.getParts()) {
-				List<Element> partCtx = component.append(context);
-				Node partNode = HelperPart.paintPart(partCtx, part, config, null, 0, componentVisualization);
-				group.getChildren().add(partNode);
+				HelperPart.paintPart(new ModelPath<>(modelPath, part), config, null, 0, sceneChild);
 			}
 
-			HelperTransform.addTransforms(group, definition.getTransforms());
+			HelperTransform.addTransforms(solidChild, definition.getTransforms());
+			HelperTransform.addTransforms(alphaChild, definition.getTransforms());
+		} else if (modelPath.element instanceof ReferenceComponent) {
+			final ReferenceComponent reference = (ReferenceComponent) modelPath.element;
 
-			return group;
-		} else if (component instanceof ReferenceComponent) {
-			ReferenceComponent reference = (ReferenceComponent) component;
+			final Group solidChild = new Group();
+			final Group alphaChild = new Group();
 
-			Group group = new Group();
+			final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 
-			group.getChildren().add(paintComponent(component.append(context), reference.getTemplate()));
+			paintComponent(new ModelPath<>(modelPath, reference.getTemplate()), sceneChild);
 
-			HelperTransform.addTransforms(group, component.getTransforms());
-
-			return group;
+			HelperTransform.addTransforms(solidChild, reference.getTransforms());
+			HelperTransform.addTransforms(alphaChild, reference.getTransforms());
 		} else {
-			throw new IllegalStateException("Component type not supported: " + component.getClass().getName());
+			throw new IllegalStateException("Component type not supported: " + modelPath.getClass().getName());
 		}
 	}
 }

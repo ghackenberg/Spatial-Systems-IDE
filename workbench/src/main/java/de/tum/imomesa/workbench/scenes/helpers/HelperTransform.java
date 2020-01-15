@@ -12,6 +12,8 @@ import de.tum.imomesa.workbench.scenes.listeners.LengthChangeListener;
 import de.tum.imomesa.workbench.scenes.listeners.PointChangeListener;
 import de.tum.imomesa.workbench.scenes.managers.ListenerManager;
 import de.tum.imomesa.workbench.scenes.nodes.Cone;
+import de.tum.imomesa.workbench.scenes.paths.ModelPath;
+import de.tum.imomesa.workbench.scenes.paths.ScenePath;
 import javafx.beans.property.ObjectProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
@@ -61,61 +63,66 @@ public class HelperTransform {
 		}
 	}
 
-	public static Node paintTransform(List<Element> context, Transform transform, ObjectProperty<Element> selected) {
-		if (transform instanceof TranslationTransform) {
-			TranslationTransform translation = (TranslationTransform) transform;
-			return paintVector(translation.append(context), translation.getVector(), selected);
-		} else if (transform instanceof RotationTransform) {
-			RotationTransform rotation = (RotationTransform) transform;
-			return paintVector(rotation.append(context), rotation.getRotationAxe(), selected);
+	public static void paintTransform(ModelPath<Transform> modelPath, ObjectProperty<Element> selected, ScenePath sceneParentCtx) {
+		if (modelPath.element instanceof TranslationTransform) {
+			paintTranslationTransform(modelPath.cast(TranslationTransform.class), selected, sceneParentCtx);
+		} else if (modelPath.element instanceof RotationTransform) {
+			paintRotationTransform(modelPath.cast(RotationTransform.class), selected, sceneParentCtx);
 		} else {
-			throw new IllegalStateException("Transform type not supported: " + transform.getClass().getName());
+			throw new IllegalStateException("Transform type not supported: " + modelPath.element.getClass().getName());
 		}
 	}
+	
+	private static void paintTranslationTransform(ModelPath<TranslationTransform> modelPath, ObjectProperty<Element> selected, ScenePath sceneParentCtx) {
+		paintVector(new ModelPath<>(modelPath, modelPath.element.getVector()), selected, sceneParentCtx);
+	}
+	
+	private static void paintRotationTransform(ModelPath<RotationTransform> modelPath, ObjectProperty<Element> selected, ScenePath scenePath) {
+		paintVector(new ModelPath<>(modelPath, modelPath.element.getRotationAxe()), selected, scenePath);
+	}
 
-	private static Node paintVector(List<Element> context, Point point, ObjectProperty<Element> selected) {
+	private static void paintVector(ModelPath<Point> modelPath, ObjectProperty<Element> selected, ScenePath scenePath) {
 		// calculate angle
-		double angleY = -point.getAngleDegree(new Point(0, 1, 0));
+		double angleY = -modelPath.element.getAngleDegree(new Point(0, 1, 0));
 
-		Point axe = point.crossProduct(new Point(0, 1, 0));
+		Point axe = modelPath.element.crossProduct(new Point(0, 1, 0));
 		Rotate rotation = new Rotate(angleY, new Point3D(axe.getX(), axe.getY(), axe.getZ()));
 
-		AngleChangeListener listenerAngleY = new AngleChangeListener(rotation, point, new Point(0, 1, 0));
+		AngleChangeListener listenerAngleY = new AngleChangeListener(rotation, modelPath.element, new Point(0, 1, 0));
 
-		ListenerManager.getListenerRemover().addListener(point.xProperty(), listenerAngleY);
-		ListenerManager.getListenerRemover().addListener(point.yProperty(), listenerAngleY);
-		ListenerManager.getListenerRemover().addListener(point.zProperty(), listenerAngleY);
+		ListenerManager.getListenerRemover().addListener(modelPath.element.xProperty(), listenerAngleY);
+		ListenerManager.getListenerRemover().addListener(modelPath.element.yProperty(), listenerAngleY);
+		ListenerManager.getListenerRemover().addListener(modelPath.element.zProperty(), listenerAngleY);
 
 		// Create group
 
-		Group group = new Group();
+		final Group solidChild = new Group();
 
-		group.getChildren().add(createArrowBody(context, point, rotation, DrawMode.FILL, CullFace.BACK, Color.WHITE, selected));
-		group.getChildren().add(createArrowHead(context, point, rotation, DrawMode.FILL, CullFace.BACK, Color.WHITE, selected));
+		solidChild.getChildren().add(createArrowBody(modelPath, rotation, DrawMode.FILL, CullFace.BACK, Color.WHITE, selected));
+		solidChild.getChildren().add(createArrowHead(modelPath, rotation, DrawMode.FILL, CullFace.BACK, Color.WHITE, selected));
 
-		group.getChildren().add(createArrowBody(context, point, rotation, DrawMode.LINE, CullFace.BACK, Color.BLACK, selected));
-		group.getChildren().add(createArrowHead(context, point, rotation, DrawMode.LINE, CullFace.BACK, Color.BLACK, selected));
-
-		return group;
+		solidChild.getChildren().add(createArrowBody(modelPath, rotation, DrawMode.LINE, CullFace.BACK, Color.BLACK, selected));
+		solidChild.getChildren().add(createArrowHead(modelPath, rotation, DrawMode.LINE, CullFace.BACK, Color.BLACK, selected));
+		
+		scenePath.solidParent.getChildren().add(solidChild);
 	}
 
-	private static Node createArrowBody(List<Element> context, Point point, Rotate rotation, DrawMode mode,
-			CullFace cull, Color color, ObjectProperty<Element> selected) {
-		if (!point.getPath().contains(selected.get())) {
+	private static Node createArrowBody(ModelPath<Point> modelPath, Rotate rotation, DrawMode mode, CullFace cull, Color color, ObjectProperty<Element> selected) {
+		if (!modelPath.path.contains(selected.get())) {
 			color = color.darker();
 		}
 
-		Cylinder shape = new Cylinder(0.5, point.getLenght(), 5);
+		Cylinder shape = new Cylinder(0.5, modelPath.element.getLength(), 5);
 
 		shape.setDrawMode(mode);
 		shape.setCullFace(cull);
 		shape.setMaterial(new PhongMaterial(color));
 
-		LengthChangeListener listener = new LengthChangeListener(point, shape.heightProperty());
+		LengthChangeListener listener = new LengthChangeListener(modelPath.element, shape.heightProperty());
 
-		ListenerManager.getListenerRemover().addListener(point.xProperty(), listener);
-		ListenerManager.getListenerRemover().addListener(point.yProperty(), listener);
-		ListenerManager.getListenerRemover().addListener(point.zProperty(), listener);
+		ListenerManager.getListenerRemover().addListener(modelPath.element.xProperty(), listener);
+		ListenerManager.getListenerRemover().addListener(modelPath.element.yProperty(), listener);
+		ListenerManager.getListenerRemover().addListener(modelPath.element.zProperty(), listener);
 
 		Translate translation = new Translate(0, 0, 0);
 
@@ -127,9 +134,8 @@ public class HelperTransform {
 		return shape;
 	}
 
-	private static Node createArrowHead(List<Element> context, Point point, Rotate rotation, DrawMode mode,
-			CullFace cull, Color color, ObjectProperty<Element> selected) {
-		if (!point.getPath().contains(selected.get())) {
+	private static Node createArrowHead(ModelPath<Point> modelPath, Rotate rotation, DrawMode mode, CullFace cull, Color color, ObjectProperty<Element> selected) {
+		if (!modelPath.path.contains(selected.get())) {
 			color = color.darker();
 		}
 
@@ -141,9 +147,9 @@ public class HelperTransform {
 
 		Translate translation = new Translate();
 
-		translation.xProperty().bind(point.xProperty());
-		translation.yProperty().bind(point.yProperty());
-		translation.zProperty().bind(point.zProperty());
+		translation.xProperty().bind(modelPath.element.xProperty());
+		translation.yProperty().bind(modelPath.element.yProperty());
+		translation.zProperty().bind(modelPath.element.zProperty());
 
 		shape.getTransforms().add(translation);
 		shape.getTransforms().add(rotation);

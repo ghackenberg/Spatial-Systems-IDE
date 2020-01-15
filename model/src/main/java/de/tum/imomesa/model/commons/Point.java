@@ -32,7 +32,7 @@ public class Point extends Element {
 	}
 	
 	public Double getAngleRadians(Point p) {
-		return Math.acos(dotProduct(p) / (getLenght() * p.getLenght()));
+		return Math.acos(dotProduct(p) / (getLength() * p.getLength()));
 	}
 	
 	public Double getAngleDegree(Point p) {
@@ -49,7 +49,7 @@ public class Point extends Element {
 		return result;
 	}
 	
-	public Double getLenght() {
+	public Double getLength() {
 		return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2) + Math.pow(getZ(), 2));
 	}
 	
