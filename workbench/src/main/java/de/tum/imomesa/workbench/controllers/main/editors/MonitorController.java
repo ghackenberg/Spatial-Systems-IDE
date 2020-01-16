@@ -1,5 +1,6 @@
 package de.tum.imomesa.workbench.controllers.main.editors;
 
+import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.monitors.Activity;
 import de.tum.imomesa.model.executables.monitors.Monitor;
@@ -17,6 +18,8 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 
 	@FXML
 	private Pane pane;
+	@FXML
+	private Button buttonCreateActivity;
 	@FXML
 	private Button buttonSetInitialActivity;
 	@FXML
@@ -52,7 +55,7 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 	}
 	
 	private <T extends Element> boolean checkObject(T object) {
-		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
+		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {
@@ -76,6 +79,17 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 		} else if (executable != null) {
 			diagram.setClickedElement(executable);
 		}
+	}
+	
+	@FXML
+	public void createActivity() {
+		Activity activity = new Activity();
+		activity.setName("New activity");
+		activity.setParent(diagram.getElement());
+		activity.accept(new SyntacticCheckVisitor());
+		
+		diagram.getElement().getLabels().add(activity);
+		diagram.setClickedElement(activity);
 	}
 
 	@FXML

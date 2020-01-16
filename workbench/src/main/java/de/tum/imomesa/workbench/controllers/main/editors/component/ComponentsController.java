@@ -19,6 +19,10 @@ public class ComponentsController implements AbstractEditorChildController<Defin
 	@FXML
 	private Pane pane;
 	@FXML
+	private Button buttonCreateComponent;
+	@FXML
+	private Button buttonCreatePort;
+	@FXML
 	private Button buttonRemoveComponent;
 	@FXML
 	private Button buttonRemovePort;
@@ -50,7 +54,7 @@ public class ComponentsController implements AbstractEditorChildController<Defin
 	}
 	
 	private <T extends Element> boolean checkObject(T object) {
-		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
+		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {
@@ -64,6 +68,16 @@ public class ComponentsController implements AbstractEditorChildController<Defin
 	@Override
 	public void setSelectedElement(Element element) {
 		diagram.setClickedElement(element);
+	}
+	
+	@FXML
+	public void createComponent() {
+		// TODO implement create component action
+	}
+	
+	@FXML
+	public void createPort() {
+		// TODO implement create port action
 	}
 	
 	@FXML

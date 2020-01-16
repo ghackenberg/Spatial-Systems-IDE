@@ -3,6 +3,7 @@ package de.tum.imomesa.workbench.controllers.main.editors;
 import java.io.IOException;
 
 import de.tum.imomesa.checker.manager.SyntacticMarkerManager;
+import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.core.events.EventBus;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.components.DefinitionComponent;
@@ -36,6 +37,8 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 
 	@FXML
 	private Pane pane;
+	@FXML
+	private Button buttonCreateStep;
 	@FXML
 	private Button buttonSetInitialStep;
 	@FXML
@@ -77,7 +80,7 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 	}
 	
 	private <T extends Element> boolean checkObject(T object) {
-		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
+		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {
@@ -101,6 +104,17 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 		} else if (executable != null) {
 			diagram.setClickedElement(executable);
 		}
+	}
+	
+	@FXML
+	public void createStep() {
+		Step step = new Step();
+		step.setName("New step");
+		step.setParent(diagram.getElement());
+		step.accept(new SyntacticCheckVisitor());
+		
+		diagram.getElement().getLabels().add(step);
+		diagram.setClickedElement(step);
 	}
 
 	@FXML

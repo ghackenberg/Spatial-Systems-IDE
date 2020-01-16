@@ -16,6 +16,15 @@
 	<top>
 		<ToolBar>
 			<items>
+				<Button fx:id="buttonCreateState" text="Create state" onAction="#createState">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/add.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 				<Button fx:id="buttonSetInitialState" text="Set initial state" onAction="#setInitialState">
 					<graphic>
 						<ImageView fitWidth="16" fitHeight="16">

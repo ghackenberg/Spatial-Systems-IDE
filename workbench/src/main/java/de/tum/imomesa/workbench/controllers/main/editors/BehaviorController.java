@@ -1,5 +1,6 @@
 package de.tum.imomesa.workbench.controllers.main.editors;
 
+import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.behaviors.Behavior;
 import de.tum.imomesa.model.executables.behaviors.State;
@@ -17,6 +18,8 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 
 	@FXML
 	private Pane pane;
+	@FXML
+	private Button buttonCreateState;
 	@FXML
 	private Button buttonSetInitialState;
 	@FXML
@@ -52,7 +55,7 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	}
 	
 	private <T extends Element> boolean checkObject(T object) {
-		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
+		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {
@@ -76,6 +79,17 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 		} else if (executable != null) {
 			diagram.setClickedElement(executable);
 		}
+	}
+	
+	@FXML
+	public void createState() {
+		State state = new State();
+		state.setName("New state");
+		state.setParent(diagram.getElement());
+		state.accept(new SyntacticCheckVisitor());
+		
+		diagram.getElement().getLabels().add(state);
+		diagram.setClickedElement(state);
 	}
 	
 	@FXML

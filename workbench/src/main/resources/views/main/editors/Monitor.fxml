@@ -16,6 +16,15 @@
 	<top>
 		<ToolBar>
 			<items>
+				<Button fx:id="buttonCreateActivity" text="Create activity" onAction="#createActivity">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/add.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 				<Button fx:id="buttonSetInitialActivity" text="Set initial activity" onAction="#setInitialActivity">
 					<graphic>
 						<ImageView fitWidth="16" fitHeight="16">

@@ -16,6 +16,24 @@
 	<top>
 		<ToolBar>
 			<items>
+				<Button fx:id="buttonCreateComponent" text="Create component" onAction="#createComponent">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/add.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonCreatePort" text="Create component" onAction="#createPort">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/add.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 				<Button fx:id="buttonRemoveComponent" text="Remove component" onAction="#removeComponent">
 					<graphic>
 						<ImageView fitWidth="16" fitHeight="16">

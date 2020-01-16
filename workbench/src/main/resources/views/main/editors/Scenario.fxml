@@ -16,6 +16,15 @@
 	<top>
 		<ToolBar>
 			<items>
+				<Button fx:id="buttonCreateStep" text="Create step" onAction="#createStep">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/add.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 				<Button fx:id="buttonSetInitialStep" text="Set initial step" onAction="#setInitialStep">
 					<graphic>
 						<ImageView fitWidth="16" fitHeight="16">
