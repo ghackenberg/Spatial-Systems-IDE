@@ -60,8 +60,8 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 		pane.getChildren().clear();
 
 		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
-			buttonSetInitialStep.setDisable(!checkType(Step.class));
-			buttonSetFinalStep.setDisable(!checkType(Step.class));
+			buttonSetInitialStep.setDisable(!checkType(Step.class) || checkObject(element.getInitialLabel()));
+			buttonSetFinalStep.setDisable(!checkType(Step.class) || checkObject(element.getFinalLabel()));
 			buttonRemoveStep.setDisable(!checkType(Step.class));
 			buttonRemoveTransition.setDisable(!checkType(Transition.class));
 		};
@@ -69,6 +69,12 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
+		element.initialLabelProperty().addListener(listener);
+		element.finalLabelProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkObject(T object) {
+		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {

@@ -38,7 +38,7 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 		pane.getChildren().clear();
 		
 		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
-			buttonSetInitialState.setDisable(!checkType(State.class));
+			buttonSetInitialState.setDisable(!checkType(State.class) || checkObject(element.getInitialLabel()));
 			buttonRemoveState.setDisable(!checkType(State.class));
 			buttonRemoveTransition.setDisable(!checkType(Transition.class));
 		};
@@ -46,6 +46,11 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
+		element.initialLabelProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkObject(T object) {
+		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {

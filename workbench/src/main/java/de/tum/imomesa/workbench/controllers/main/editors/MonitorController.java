@@ -38,7 +38,7 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 		pane.getChildren().clear();
 
 		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
-			buttonSetInitialActivity.setDisable(!checkType(Activity.class));
+			buttonSetInitialActivity.setDisable(!checkType(Activity.class) || checkObject(element.getInitialLabel()));
 			buttonRemoveActivity.setDisable(!checkType(Activity.class));
 			buttonRemoveTransition.setDisable(!checkType(Transition.class));
 		};
@@ -46,6 +46,11 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
+		element.initialLabelProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkObject(T object) {
+		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
 	}
 	
 	private <T extends Element> boolean checkType(Class<T> type) {
