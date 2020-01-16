@@ -46,6 +46,8 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
+		
+		// TODO Remove listener when not needed anymore!
 		element.initialLabelProperty().addListener(listener);
 	}
 	

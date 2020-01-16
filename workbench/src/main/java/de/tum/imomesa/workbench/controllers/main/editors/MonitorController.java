@@ -46,6 +46,8 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
+		
+		// TODO Remove listener when not needed anymore!
 		element.initialLabelProperty().addListener(listener);
 	}
 	

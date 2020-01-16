@@ -69,7 +69,10 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
+		
+		// TODO Remove listener when not needed anymore!
 		element.initialLabelProperty().addListener(listener);
+		// TODO Remove listener when not needed anymore!
 		element.finalLabelProperty().addListener(listener);
 	}
 	
