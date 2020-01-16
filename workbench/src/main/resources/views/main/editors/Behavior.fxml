@@ -9,14 +9,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <BorderPane xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.main.editors.BehaviorController">
 	<top>
 		<ToolBar>
 			<items>
-				<Button fx:id="buttonSetInitialState" text="Set initial state" onAction="#setInitialState" />
-				<Button fx:id="buttonRemoveState" text="Remove state" onAction="#removeState" />
-				<Button fx:id="buttonRemoveTransition" text="Remove transition" onAction="#removeTransition" />
+				<Button fx:id="buttonSetInitialState" text="Set initial state" onAction="#setInitialState">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/set.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonRemoveState" text="Remove state" onAction="#removeState">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonRemoveTransition" text="Remove transition" onAction="#removeTransition">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 			</items>
 		</ToolBar>
 	</top>

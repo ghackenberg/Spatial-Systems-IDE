@@ -9,14 +9,40 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <BorderPane xmlns:fx="de.tum.imomesa" fx:controller="de.tum.imomesa.workbench.controllers.main.editors.component.ComponentsController">
 	<top>
 		<ToolBar>
 			<items>
-				<Button fx:id="buttonRemoveComponent" text="Remove component" onAction="#removeComponent" />
-				<Button fx:id="buttonRemovePort" text="Remove port" onAction="#removePort" />
-				<Button fx:id="buttonRemoveChannel" text="Remove channel" onAction="#removeChannel" />
+				<Button fx:id="buttonRemoveComponent" text="Remove component" onAction="#removeComponent">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonRemovePort" text="Remove port" onAction="#removePort">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonRemoveChannel" text="Remove channel" onAction="#removeChannel">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 			</items>
 		</ToolBar>
 	</top>

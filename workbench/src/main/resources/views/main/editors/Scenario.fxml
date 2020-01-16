@@ -16,13 +16,45 @@
 	<top>
 		<ToolBar>
 			<items>
-				<Button fx:id="buttonSetInitialStep" text="Set initial step" onAction="#setInitialStep" />
-				<Button fx:id="buttonSetFinalStep" text="Set final step" onAction="#setFinalStep" />
-				<Button fx:id="buttonRemoveStep" text="Remove step" onAction="#removeStep" />
-				<Button fx:id="buttonRemoveTransition" text="Remove transition" onAction="#removeTransition" />
+				<Button fx:id="buttonSetInitialStep" text="Set initial step" onAction="#setInitialStep">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/set.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonSetFinalStep" text="Set final step" onAction="#setFinalStep">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/set.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonRemoveStep" text="Remove step" onAction="#removeStep">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button fx:id="buttonRemoveTransition" text="Remove transition" onAction="#removeTransition">
+					<graphic>
+						<ImageView fitWidth="16" fitHeight="16">
+							<image>
+								<Image url="icons/actions/delete.png"/>
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 				<Button text="Start simulation" onAction="#startSimulation">
 					<graphic>
-						<ImageView>
+						<ImageView fitWidth="16" fitHeight="16">
 							<image>
 								<Image url="icons/simulation.png"/>
 							</image>
