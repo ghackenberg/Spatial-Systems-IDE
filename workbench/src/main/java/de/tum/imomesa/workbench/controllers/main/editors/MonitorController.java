@@ -9,7 +9,6 @@ import de.tum.imomesa.workbench.diagrams.MonitorDiagram;
 import de.tum.imomesa.workbench.diagrams.MonitorDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -37,17 +36,24 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 	@Override
 	public void setRootElement(Monitor element) {
 		pane.getChildren().clear();
+
+		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
+			buttonSetInitialActivity.setDisable(!checkType(Activity.class));
+			buttonRemoveActivity.setDisable(!checkType(Activity.class));
+			buttonRemoveTransition.setDisable(!checkType(Transition.class));
+		};
 		
 		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
-
-		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
-			@Override
-			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
-				buttonSetInitialActivity.setDisable(!(newValue instanceof Activity));
-				buttonRemoveActivity.setDisable(!(newValue instanceof Activity));
-				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
-			}
-		});
+		diagram.clickedElementProperty().addListener(listener);
+		diagram.pressedElementProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkType(Class<T> type) {
+		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
+	}
+	
+	private <T extends Element> boolean checkType(Element element, Class<T> type) {
+		return element != null && type.isAssignableFrom(element.getClass()); 
 	}
 	
 	@Override

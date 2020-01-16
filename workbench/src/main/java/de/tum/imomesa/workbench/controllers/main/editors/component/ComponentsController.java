@@ -10,7 +10,6 @@ import de.tum.imomesa.workbench.diagrams.ComponentDiagram;
 import de.tum.imomesa.workbench.diagrams.ComponentDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -39,16 +38,27 @@ public class ComponentsController implements AbstractEditorChildController<Defin
 	public void setRootElement(DefinitionComponent element) {
 		pane.getChildren().clear();
 		
-		diagram = new ComponentDiagram(pane, element, new ComponentDiagramBehavior(), true);
+		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
+			buttonRemoveComponent.setDisable(!checkType(Component.class) || checkObject(element));
+			buttonRemovePort.setDisable(!checkType(Port.class));
+			buttonRemoveChannel.setDisable(!checkType(Channel.class));
+		};
 		
-		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
-			@Override
-			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
-				buttonRemoveComponent.setDisable(!(newValue instanceof Component<?>) || newValue == diagram.getElement());
-				buttonRemovePort.setDisable(!(newValue instanceof Port));
-				buttonRemoveChannel.setDisable(!(newValue instanceof Channel));
-			}
-		});
+		diagram = new ComponentDiagram(pane, element, new ComponentDiagramBehavior(), true);
+		diagram.clickedElementProperty().addListener(listener);
+		diagram.pressedElementProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkObject(T object) {
+		return diagram.getClickedElement() == object || diagram.getPressedElement() == object;
+	}
+	
+	private <T extends Element> boolean checkType(Class<T> type) {
+		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
+	}
+	
+	private <T extends Element> boolean checkType(Element element, Class<T> type) {
+		return element != null && type.isAssignableFrom(element.getClass()); 
 	}
 	
 	@Override

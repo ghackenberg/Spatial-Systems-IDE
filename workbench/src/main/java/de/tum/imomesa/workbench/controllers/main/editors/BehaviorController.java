@@ -9,7 +9,6 @@ import de.tum.imomesa.workbench.diagrams.BehaviorDiagram;
 import de.tum.imomesa.workbench.diagrams.BehaviorDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -38,16 +37,23 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	public void setRootElement(Behavior element) {
 		pane.getChildren().clear();
 		
-		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
+		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
+			buttonSetInitialState.setDisable(!checkType(State.class));
+			buttonRemoveState.setDisable(!checkType(State.class));
+			buttonRemoveTransition.setDisable(!checkType(Transition.class));
+		};
 		
-		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
-			@Override
-			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
-				buttonSetInitialState.setDisable(!(newValue instanceof State));
-				buttonRemoveState.setDisable(!(newValue instanceof State));
-				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
-			}
-		});
+		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
+		diagram.clickedElementProperty().addListener(listener);
+		diagram.pressedElementProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkType(Class<T> type) {
+		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
+	}
+	
+	private <T extends Element> boolean checkType(Element element, Class<T> type) {
+		return element != null && type.isAssignableFrom(element.getClass()); 
 	}
 	
 	@Override

@@ -18,7 +18,6 @@ import de.tum.imomesa.workbench.diagrams.ScenarioDiagram;
 import de.tum.imomesa.workbench.diagrams.ScenarioDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,18 +58,25 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 	@Override
 	public void setRootElement(Scenario element) {
 		pane.getChildren().clear();
+
+		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
+			buttonSetInitialStep.setDisable(!checkType(Step.class));
+			buttonSetFinalStep.setDisable(!checkType(Step.class));
+			buttonRemoveStep.setDisable(!checkType(Step.class));
+			buttonRemoveTransition.setDisable(!checkType(Transition.class));
+		};
 		
 		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
-
-		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
-			@Override
-			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
-				buttonSetInitialStep.setDisable(!(newValue instanceof Step));
-				buttonSetFinalStep.setDisable(!(newValue instanceof Step));
-				buttonRemoveStep.setDisable(!(newValue instanceof Step));
-				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
-			}
-		});
+		diagram.clickedElementProperty().addListener(listener);
+		diagram.pressedElementProperty().addListener(listener);
+	}
+	
+	private <T extends Element> boolean checkType(Class<T> type) {
+		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
+	}
+	
+	private <T extends Element> boolean checkType(Element element, Class<T> type) {
+		return element != null && type.isAssignableFrom(element.getClass()); 
 	}
 	
 	@Override
