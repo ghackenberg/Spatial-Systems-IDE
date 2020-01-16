@@ -27,14 +27,19 @@ public class ComponentsController implements AbstractEditorChildController<Defin
 	private Button buttonRemoveChannel;
 	
 	private ComponentDiagram diagram;
-
-	@Override
-	public void setRootElement(DefinitionComponent element) {
-		diagram = new ComponentDiagram(pane, element, new ComponentDiagramBehavior(), true);
-
+	
+	@FXML
+	public void initialize() {
 		buttonRemoveComponent.setDisable(true);
 		buttonRemovePort.setDisable(true);
 		buttonRemoveChannel.setDisable(true);
+	}
+
+	@Override
+	public void setRootElement(DefinitionComponent element) {
+		pane.getChildren().clear();
+		
+		diagram = new ComponentDiagram(pane, element, new ComponentDiagramBehavior(), true);
 		
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
 			@Override

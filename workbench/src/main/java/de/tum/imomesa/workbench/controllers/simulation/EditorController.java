@@ -51,7 +51,7 @@ public class EditorController extends AbstractEditorController implements EventH
 			});
 		}
 		// obtain controller
-		lastController = loadEditor(event.getElement());
+		lastController = (EditorChildController<Element>) loadEditor(event.getElement());
 		// check controller
 		if (lastController != null) {
 			// set simulator

@@ -47,15 +47,20 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 	private Button buttonRemoveTransition;
 
 	private ScenarioDiagram diagram;
-
-	@Override
-	public void setRootElement(Scenario element) {
-		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
-
+	
+	@FXML
+	public void initialize() {
 		buttonSetInitialStep.setDisable(true);
 		buttonSetFinalStep.setDisable(true);
 		buttonRemoveStep.setDisable(true);
 		buttonRemoveTransition.setDisable(true);
+	}
+
+	@Override
+	public void setRootElement(Scenario element) {
+		pane.getChildren().clear();
+		
+		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
 
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
 			@Override

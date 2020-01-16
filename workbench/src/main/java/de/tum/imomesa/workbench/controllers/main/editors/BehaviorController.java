@@ -26,14 +26,19 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	private Button buttonRemoveTransition;
 	
 	private BehaviorDiagram diagram;
-
-	@Override
-	public void setRootElement(Behavior element) {
-		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
-		
+	
+	@FXML
+	public void initialize() {
 		buttonSetInitialState.setDisable(true);
 		buttonRemoveState.setDisable(true);
 		buttonRemoveTransition.setDisable(true);
+	}
+
+	@Override
+	public void setRootElement(Behavior element) {
+		pane.getChildren().clear();
+		
+		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
 		
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
 			@Override

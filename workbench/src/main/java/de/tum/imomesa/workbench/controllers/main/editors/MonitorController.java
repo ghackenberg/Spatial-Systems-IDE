@@ -26,14 +26,19 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 	private Button buttonRemoveTransition;
 
 	private MonitorDiagram diagram;
-
-	@Override
-	public void setRootElement(Monitor element) {
-		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
-
+	
+	@FXML
+	public void initialize() {
 		buttonSetInitialActivity.setDisable(true);
 		buttonRemoveActivity.setDisable(true);
 		buttonRemoveTransition.setDisable(true);
+	}
+
+	@Override
+	public void setRootElement(Monitor element) {
+		pane.getChildren().clear();
+		
+		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
 
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
 			@Override
