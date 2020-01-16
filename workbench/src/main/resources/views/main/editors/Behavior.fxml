@@ -15,6 +15,7 @@
 		<ToolBar>
 			<items>
 				<Button fx:id="buttonSetInitialState" text="Set initial state" onAction="#setInitialState" />
+				<Button fx:id="buttonRemoveState" text="Remove state" onAction="#removeState" />
 				<Button fx:id="buttonRemoveTransition" text="Remove transition" onAction="#removeTransition" />
 			</items>
 		</ToolBar>

@@ -4,9 +4,9 @@ import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.behaviors.Behavior;
 import de.tum.imomesa.model.executables.behaviors.State;
 import de.tum.imomesa.model.executables.behaviors.Transition;
-import de.tum.imomesa.workbench.diagrams.BehaviorDiagramBehavior;
 import de.tum.imomesa.workbench.controllers.AbstractEditorChildController;
 import de.tum.imomesa.workbench.diagrams.BehaviorDiagram;
+import de.tum.imomesa.workbench.diagrams.BehaviorDiagramBehavior;
 import de.tum.imomesa.workbench.explorers.handlers.RemoveElementHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +21,8 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	@FXML
 	private Button buttonSetInitialState;
 	@FXML
+	private Button buttonRemoveState;
+	@FXML
 	private Button buttonRemoveTransition;
 	
 	private BehaviorDiagram diagram;
@@ -30,12 +32,14 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
 		
 		buttonSetInitialState.setDisable(true);
+		buttonRemoveState.setDisable(true);
 		buttonRemoveTransition.setDisable(true);
 		
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
 			@Override
 			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
 				buttonSetInitialState.setDisable(!(newValue instanceof State));
+				buttonRemoveState.setDisable(!(newValue instanceof State));
 				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
 			}
 		});
@@ -59,6 +63,11 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	@FXML
 	public void setInitialState() {
 		diagram.getElement().setInitialLabel((State) diagram.getClickedElement());
+	}
+	
+	@FXML
+	public void removeState() {
+		new RemoveElementHandler(diagram.getClickedElement()).handle(null);
 	}
 	
 	@FXML

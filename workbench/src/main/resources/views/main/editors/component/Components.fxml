@@ -14,7 +14,9 @@
 	<top>
 		<ToolBar>
 			<items>
-				<Button fx:id="buttonRemoveStaticChannel" text="Remove channel" onAction="#removeStaticChannel" />
+				<Button fx:id="buttonRemoveComponent" text="Remove component" onAction="#removeComponent" />
+				<Button fx:id="buttonRemovePort" text="Remove port" onAction="#removePort" />
+				<Button fx:id="buttonRemoveChannel" text="Remove channel" onAction="#removeChannel" />
 			</items>
 		</ToolBar>
 	</top>

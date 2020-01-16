@@ -15,6 +15,7 @@
 		<ToolBar>
 			<items>
 				<Button fx:id="buttonSetInitialActivity" text="Set initial activity" onAction="#setInitialActivity" />
+				<Button fx:id="buttonRemoveActivity" text="Remove activity" onAction="#removeActivity" />
 				<Button fx:id="buttonRemoveTransition" text="Remove transition" onAction="#removeTransition" />
 			</items>
 		</ToolBar>

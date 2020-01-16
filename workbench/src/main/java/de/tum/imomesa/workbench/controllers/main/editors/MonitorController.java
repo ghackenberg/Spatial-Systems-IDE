@@ -21,6 +21,8 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 	@FXML
 	private Button buttonSetInitialActivity;
 	@FXML
+	private Button buttonRemoveActivity;
+	@FXML
 	private Button buttonRemoveTransition;
 
 	private MonitorDiagram diagram;
@@ -30,12 +32,14 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
 
 		buttonSetInitialActivity.setDisable(true);
+		buttonRemoveActivity.setDisable(true);
 		buttonRemoveTransition.setDisable(true);
 
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
 			@Override
 			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
 				buttonSetInitialActivity.setDisable(!(newValue instanceof Activity));
+				buttonRemoveActivity.setDisable(!(newValue instanceof Activity));
 				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
 			}
 		});
@@ -59,6 +63,11 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 	@FXML
 	public void setInitialActivity() {
 		diagram.getElement().setInitialLabel((Activity) diagram.getClickedElement());
+	}
+
+	@FXML
+	public void removeActivity() {
+		new RemoveElementHandler(diagram.getClickedElement()).handle(null);
 	}
 
 	@FXML

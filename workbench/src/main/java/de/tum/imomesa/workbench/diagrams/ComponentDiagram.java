@@ -68,8 +68,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 	private static final Color GENERIC_OUTPUT_COLOR_INACTIVE = Paints.GRAY_THREE;
 	private static final Color GENERIC_OUTPUT_COLOR_ACTIVE = Paints.GRAY_FOUR;
 
-	public ComponentDiagram(Pane pane, DefinitionComponent component,
-			AbstractDiagramBehavior<DefinitionComponent> behavior, boolean interactive) {
+	public ComponentDiagram(Pane pane, DefinitionComponent component, AbstractDiagramBehavior<DefinitionComponent> behavior, boolean interactive) {
 		super(pane, component, behavior, interactive);
 
 		transform(pane, component);

@@ -42,6 +42,8 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 	@FXML
 	private Button buttonSetFinalStep;
 	@FXML
+	private Button buttonRemoveStep;
+	@FXML
 	private Button buttonRemoveTransition;
 
 	private ScenarioDiagram diagram;
@@ -52,6 +54,7 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 
 		buttonSetInitialStep.setDisable(true);
 		buttonSetFinalStep.setDisable(true);
+		buttonRemoveStep.setDisable(true);
 		buttonRemoveTransition.setDisable(true);
 
 		diagram.clickedElementProperty().addListener(new ChangeListener<Element>() {
@@ -59,6 +62,7 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 			public void changed(ObservableValue<? extends Element> observable, Element oldValue, Element newValue) {
 				buttonSetInitialStep.setDisable(!(newValue instanceof Step));
 				buttonSetFinalStep.setDisable(!(newValue instanceof Step));
+				buttonRemoveStep.setDisable(!(newValue instanceof Step));
 				buttonRemoveTransition.setDisable(!(newValue instanceof Transition));
 			}
 		});
@@ -87,6 +91,11 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 	@FXML
 	public void setFinalStep() {
 		diagram.getElement().setFinalLabel((Step) diagram.getClickedElement());
+	}
+
+	@FXML
+	public void removeStep() {
+		new RemoveElementHandler(diagram.getClickedElement()).handle(null);
 	}
 
 	@FXML
