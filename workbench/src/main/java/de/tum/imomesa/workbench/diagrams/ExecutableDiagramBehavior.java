@@ -112,12 +112,19 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					L source = (L) getDiagram().getPressedElement();
 					@SuppressWarnings("unchecked")
 					L target = (L) getDiagram().getReleasedElement();
+					
+					double dx = target.getX() - source.getX();
+					double dy = target.getY() - source.getY();
+					
+					double angle = Math.atan2(dy, dx);
 
 					T transition = createTransition();
 
 					transition.setName("New transition");
 					transition.setSourceLabel(source);
 					transition.setTargetLabel(target);
+					transition.setSourceAngle((angle / Math.PI * 180 + 360) % 360);
+					transition.setTargetAngle((angle / Math.PI * 180 + 180) % 360);
 					transition.setParent(getDiagram().getElement());
 					
 					source.getOutgoingTransitions().add(transition);
