@@ -122,9 +122,13 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					
 					ConstantExpressionBoolean expression = new ConstantExpressionBoolean();
 					expression.setValue(false);
+					expression.accept(new SyntacticCheckVisitor());
 					
 					Guard guard = new Guard();
 					guard.setExpression(expression);
+					guard.accept(new SyntacticCheckVisitor());
+					
+					expression.setParent(guard);
 
 					T transition = createTransition();
 
@@ -134,14 +138,15 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					transition.setGuard(guard);
 					transition.setSourceAngle((angle / Math.PI * 180 + 360) % 360);
 					transition.setTargetAngle((angle / Math.PI * 180 + 180) % 360);
-					transition.setParent(getDiagram().getElement());
+					transition.accept(new SyntacticCheckVisitor());
+					
+					guard.setParent(transition);
 					
 					source.getOutgoingTransitions().add(transition);
 					target.getIncomingTransitions().add(transition);
-
 					getDiagram().getElement().getTransitions().add(transition);
 					
-					transition.accept(new SyntacticCheckVisitor());
+					transition.setParent(getDiagram().getElement());
 				} else {
 					alert("Cannot create transition!", "Drop target no label!");
 				}
