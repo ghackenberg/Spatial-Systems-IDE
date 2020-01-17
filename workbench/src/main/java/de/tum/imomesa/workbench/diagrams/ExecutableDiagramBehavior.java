@@ -3,8 +3,10 @@ package de.tum.imomesa.workbench.diagrams;
 import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.Executable;
+import de.tum.imomesa.model.executables.Guard;
 import de.tum.imomesa.model.executables.Label;
 import de.tum.imomesa.model.executables.Transition;
+import de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -117,12 +119,19 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					double dy = target.getY() - source.getY();
 					
 					double angle = Math.atan2(dy, dx);
+					
+					ConstantExpressionBoolean expression = new ConstantExpressionBoolean();
+					expression.setValue(false);
+					
+					Guard guard = new Guard();
+					guard.setExpression(expression);
 
 					T transition = createTransition();
 
 					transition.setName("New transition");
 					transition.setSourceLabel(source);
 					transition.setTargetLabel(target);
+					transition.setGuard(guard);
 					transition.setSourceAngle((angle / Math.PI * 180 + 360) % 360);
 					transition.setTargetAngle((angle / Math.PI * 180 + 180) % 360);
 					transition.setParent(getDiagram().getElement());
