@@ -119,6 +119,9 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					transition.setSourceLabel(source);
 					transition.setTargetLabel(target);
 					transition.setParent(getDiagram().getElement());
+					
+					source.getOutgoingTransitions().add(transition);
+					target.getIncomingTransitions().add(transition);
 
 					getDiagram().getElement().getTransitions().add(transition);
 					

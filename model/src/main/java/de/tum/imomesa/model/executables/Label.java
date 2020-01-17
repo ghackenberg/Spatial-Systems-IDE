@@ -30,9 +30,6 @@ public abstract class Label extends NamedElement {
 		for (Property p : properties) {
 			p.accept(visitor);
 		}
-		/*
-		 * if (getPoint() != null) { getPoint().accept(visitor); }
-		 */
 	}
 
 	// Actions
@@ -66,17 +63,38 @@ public abstract class Label extends NamedElement {
 	public ListProperty<Property> propertiesProperty() {
 		return properties;
 	}
-
-	/*
-	 * // Point private ObjectProperty<Point> point = new
-	 * SimpleObjectProperty<>();
-	 * 
-	 * public Point getPoint() { return point.get(); }
-	 * 
-	 * public void setPoint(Point p) { this.point.set(p); }
-	 * 
-	 * @Cascading public ObjectProperty<Point> pointProperty() { return point; }
-	 */
+	
+	// Incoming transitions
+	private final ListProperty<Transition<?>> incoming = new SimpleListProperty<>(FXCollections.observableArrayList());
+	
+	public List<Transition<?>> getIncomingTransitions() {
+		return incoming.get();
+	}
+	
+	public void setIncomingTransitions(List<Transition<?>> incoming) {
+		this.incoming.set(FXCollections.observableList(incoming));
+	}
+	
+	@Cascading
+	public ListProperty<Transition<?>> incomingTransitionsProperty() {
+		return incoming;
+	}
+	
+	// Outgoing transitions
+	private final ListProperty<Transition<?>> outgoing = new SimpleListProperty<>(FXCollections.observableArrayList());
+	
+	public List<Transition<?>> getOutgoingTransitions() {
+		return outgoing.get();
+	}
+	
+	public void setOutgoingTransitions(List<Transition<?>> outgoing) {
+		this.outgoing.set(FXCollections.observableList(outgoing));
+	}
+	
+	@Cascading
+	public ListProperty<Transition<?>> outgoingTransitionsProperty() {
+		return outgoing;
+	}
 
 	// X
 	private DoubleProperty x = new SimpleDoubleProperty(0.2 + Math.random() * 0.6);
