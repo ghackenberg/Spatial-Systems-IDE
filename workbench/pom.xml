@@ -8,6 +8,7 @@
 		<version>0.0.1</version>
 	</parent>
 	
+	<name>mecon-workbench</name>
 	<artifactId>de.tum.imomesa.workbench</artifactId>
 	<packaging>jar</packaging>
 	
@@ -47,33 +48,94 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
+				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-					<mainClass>de.tum.imomesa.workbench.Main</mainClass>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib</classpathPrefix>
+						</manifest>
+					</archive>
+					<finalName>${project.name}-${project.version}</finalName>
+					<outputDirectory>${project.build.directory}/lib</outputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.openjfx</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>0.0.3</version>
-				<configuration>
-					<mainClass>de.tum.imomesa.workbench.Main</mainClass>
-				</configuration>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/jre</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${java.home}</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<headerType>console</headerType>
+							<outfile>${project.build.directory}/${project.name}-${project.version}.exe</outfile>
+							<jar>${project.build.directory}/lib/${project.name}-${project.version}.jar</jar>
+							<classPath>
+								<mainClass>de.tum.imomesa.workbench.Main</mainClass>
+								<addDependencies>false</addDependencies>
+							</classPath>
+							<jre>
+								<path>./jre</path>
+								<opts>
+									<opt>--module-path ./lib/javafx-controls-13.0.1-win.jar;./lib/javafx-graphics-13.0.1-win.jar;./lib/javafx-web-13.0.1-win.jar;./lib/javafx-media-13.0.1-win.jar;./lib/javafx-fxml-13.0.1-win.jar;./lib/javafx-base-12.0.2-win.jar --add-modules javafx.controls,javafx.graphics,javafx.web,javafx.media,javafx.fxml,javafx.base -Xss1g</opt>
+								</opts>
+							</jre>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>de.tum.imomesa.workbench.Main</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+					<finalName>${project.name}-${project.version}</finalName>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
