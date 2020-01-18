@@ -47,10 +47,13 @@ public abstract class AbstractEditorController {
 					String urlString = prefix + iterator.getSimpleName().toLowerCase() + "/" + name + ".fxml";
 					// Load url
 					if (tryLoading(urlString)) {
-						// Set root element
-						controller.setRootElement(parent);
-						// Set selected element
-						controller.setSelectedElement(original);
+						// Check controller
+						if (controller != null) {
+							// Set root element
+							controller.setRootElement(parent);
+							// Set selected element
+							controller.setSelectedElement(original);
+						}
 						// Return controller
 						return controller;
 					} else {
@@ -73,10 +76,13 @@ public abstract class AbstractEditorController {
 				String urlString = prefix + iterator.getSimpleName() + ".fxml";
 				// Load url
 				if (tryLoading(urlString)) {
-					// Set root element
-					controller.setRootElement(element);
-					// Set selected element
-					controller.setSelectedElement(original);
+					// Check controller
+					if (controller != null) {
+						// Set root element
+						controller.setRootElement(element);
+						// Set selected element
+						controller.setSelectedElement(original);
+					}
 					// Return controller
 					return controller;
 				} else {
