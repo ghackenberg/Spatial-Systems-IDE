@@ -18,8 +18,10 @@ import de.tum.imomesa.model.expressions.booleans.AndExpression;
 import de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.EqualExpression;
 import de.tum.imomesa.model.expressions.booleans.GreaterExpression;
+import de.tum.imomesa.model.expressions.booleans.MaximumDurationExpression;
 import de.tum.imomesa.model.expressions.booleans.NotExpression;
 import de.tum.imomesa.model.expressions.booleans.OrExpression;
+import de.tum.imomesa.model.expressions.booleans.RandomExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.SmallerExpression;
 import de.tum.imomesa.model.expressions.numbers.AverageExpression;
 import de.tum.imomesa.model.expressions.numbers.CardinalityExpression;
@@ -313,6 +315,40 @@ public class ExpressionDispatcher
 		}
 	}
 	
+	public Object evaluate(AbstractThread<?> thread, List<Element> context, MaximumDurationExpression expression, Memory memory, Integer step) {
+		
+		try {
+			// find first Executable in context
+			Executable<?, ?> executable = expression.getFirstAncestorByType(Executable.class);
+			
+			if (executable == null) {
+				MarkerManager.get().addMarker(new WrongUseOfDurationExpressionError(context, step));
+				return null;
+			}
+			
+			// get active label of executable out of memory
+			Label current_label = memory.getLabel(context, step);
+			
+			// check for how long this label has been active
+			double counter = 0.;
+			
+			for (int index = step - 1; index >= 0; index--) {
+				if(current_label.equals(memory.getLabel(context, index))) {
+					counter++;
+				}
+				else {
+					break;
+				}
+			}
+			
+			return counter <= expression.getLimit();
+			
+		} catch (InterruptedException e) {
+			// Should never happen
+			throw new IllegalStateException(e);
+		}
+	}
+	
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, MaximumExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			double result = -Double.MAX_VALUE;
@@ -360,6 +396,10 @@ public class ExpressionDispatcher
 	
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, RandomExpressionNumber expression, Memory memory, Integer step) {
 		return Math.random();
+	}
+	
+	public Object evaluate(AbstractThread<?> thread, List<Element> context, RandomExpressionBoolean expression, Memory memory, Integer step) {
+		return Math.random() > 0.5;
 	}
 	
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, StepExpression expression, Memory memory, Integer step) {

@@ -12,16 +12,12 @@ public class RandomExpressionNumber extends AtomicExpression {
 
 	@Override
 	public StringExpression toStringExpression() {
-		// create string property
-		StringExpression s = new SimpleStringProperty("Random");
-
-		// return result
-		return s;
+		return new SimpleStringProperty("RandomNumber");
 	}
 
 	@Override
 	public String toString() {
-		return "Random";
+		return "RandomNumber";
 	}
 
 }

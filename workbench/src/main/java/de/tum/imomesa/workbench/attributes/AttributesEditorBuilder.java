@@ -32,6 +32,7 @@ import de.tum.imomesa.model.expressions.Expression;
 import de.tum.imomesa.model.expressions.ObservationExpression;
 import de.tum.imomesa.model.expressions.TerniaryExpression;
 import de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean;
+import de.tum.imomesa.model.expressions.booleans.MaximumDurationExpression;
 import de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber;
 import de.tum.imomesa.model.ports.DataPort;
 import de.tum.imomesa.model.ports.GenericPort;
@@ -526,6 +527,12 @@ public class AttributesEditorBuilder {
 		NumberField dtfValue = new NumberField();
 		Bindings.bindBidirectional(dtfValue.textProperty(), e.doubleValueProperty(), new NumberConverter());
 		grid.addProperty("Value:", dtfValue);
+	}
+
+	public static void addProperties(AttributesGrid grid, MaximumDurationExpression e) {
+		NumberField dtfValue = new NumberField();
+		Bindings.bindBidirectional(dtfValue.textProperty(), e.limitProperty(), new NumberConverter());
+		grid.addProperty("Limit:", dtfValue);
 	}
 
 	public static void addProperties(AttributesGrid grid, ObservationExpression e) {

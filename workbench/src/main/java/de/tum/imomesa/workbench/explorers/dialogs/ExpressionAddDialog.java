@@ -10,8 +10,10 @@ import de.tum.imomesa.model.expressions.booleans.AndExpression;
 import de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.EqualExpression;
 import de.tum.imomesa.model.expressions.booleans.GreaterExpression;
+import de.tum.imomesa.model.expressions.booleans.MaximumDurationExpression;
 import de.tum.imomesa.model.expressions.booleans.NotExpression;
 import de.tum.imomesa.model.expressions.booleans.OrExpression;
+import de.tum.imomesa.model.expressions.booleans.RandomExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.SmallerExpression;
 import de.tum.imomesa.model.expressions.numbers.AverageExpression;
 import de.tum.imomesa.model.expressions.numbers.CardinalityExpression;
@@ -55,8 +57,10 @@ public class ExpressionAddDialog extends Dialog<Expression> {
     private ObservableList<Expression> optionsAtomic = FXCollections.observableArrayList(
 		new ConstantExpressionBoolean(),
 		new ConstantExpressionNumber(),
+		new RandomExpressionBoolean(),
 		new RandomExpressionNumber(),
 		new DurationExpression(),
+		new MaximumDurationExpression(),
 		new StepExpression(),
 		new NullExpression(),
 		new ObservationExpression()
