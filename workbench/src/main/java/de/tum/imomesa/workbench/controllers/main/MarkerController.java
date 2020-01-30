@@ -1,7 +1,7 @@
 package de.tum.imomesa.workbench.controllers.main;
 
 import de.tum.imomesa.checker.events.MarkerAddEvent;
-import de.tum.imomesa.checker.manager.SyntacticMarkerManager;
+import de.tum.imomesa.checker.managers.SyntacticMarkerManager;
 import de.tum.imomesa.checker.markers.SyntacticMarker;
 import de.tum.imomesa.core.events.EventBus;
 import de.tum.imomesa.core.events.EventHandler;

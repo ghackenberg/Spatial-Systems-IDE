@@ -3,6 +3,7 @@ package de.tum.imomesa.workbench.commons.helpers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.components.Component;
@@ -10,6 +11,7 @@ import de.tum.imomesa.model.components.DefinitionComponent;
 import de.tum.imomesa.model.executables.Executable;
 import de.tum.imomesa.model.expressions.Expression;
 import de.tum.imomesa.model.expressions.ObservationExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalityCompareExpression;
 import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.model.ports.Port.Direction;
 import de.tum.imomesa.model.properties.Property;
@@ -21,7 +23,7 @@ public class ContextHelper {
 	 * @param p Port
 	 * @return the observation list
 	 */
-	public static List<Observation> getObservations(ObservationExpression exp) {
+	public static List<Observation> getObservations(Expression exp) {
 		// possibilities are
 		//    - ports
 		//    - action
@@ -31,8 +33,7 @@ public class ContextHelper {
 		
 		List<Observation> observations = new ArrayList<Observation>();
 		
-		@SuppressWarnings("rawtypes")
-		Executable executable = exp.getFirstAncestorByType(Executable.class);
+		Executable<?, ?> executable = exp.getFirstAncestorByType(Executable.class);
 		if(executable != null) {
 			observations = ExecutableContextHelper.getObservationsToRead(exp.getParent());
 		}
@@ -77,8 +78,14 @@ public class ContextHelper {
 		// filter results
 		List<Observation> result = new ArrayList<Observation>();
 		for(Observation o : observations) {
-			if(exp.getType().isAssignableFrom(o.getReadType())) {
-				result.add(o);
+			if (exp instanceof ObservationExpression) {
+				if(exp.getType().isAssignableFrom(o.getReadType())) {
+					result.add(o);
+				}
+			} else if (exp instanceof ObservationCardinalityCompareExpression) {
+				if (Set.class.isAssignableFrom(o.getReadType())) {
+					result.add(o);
+				}
 			}
 		}
 		

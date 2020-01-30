@@ -2,7 +2,7 @@ package de.tum.imomesa.workbench.explorers.handlers;
 
 import java.util.Optional;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckRemoverVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckRemoveVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.utilities.managers.StorageManager;
 import de.tum.imomesa.workbench.commons.helpers.ImageHelper;
@@ -24,7 +24,7 @@ public class RemoveElementHandler implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent event) {
 		if(confirmDeletion(object) == true) {
-			object.accept(new SyntacticCheckRemoverVisitor());
+			object.accept(new SyntacticCheckRemoveVisitor());
 			StorageManager.getInstance().releaseElement(object);
 		}
 	}

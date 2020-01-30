@@ -23,6 +23,9 @@ import de.tum.imomesa.model.expressions.booleans.NotExpression;
 import de.tum.imomesa.model.expressions.booleans.OrExpression;
 import de.tum.imomesa.model.expressions.booleans.RandomExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.SmallerExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalityEqualsExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalityGreaterExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalitySmallerExpression;
 import de.tum.imomesa.model.expressions.numbers.AverageExpression;
 import de.tum.imomesa.model.expressions.numbers.CardinalityExpression;
 import de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber;
@@ -98,9 +101,84 @@ public class ExpressionDispatcher
 			// Check timepoint
 			if (timepoint < 0) {
 				// Add marker
-				MarkerManager.get().addMarker(new NegativeDelayWarning(context, expression, step, delay));
+				MarkerManager.get().addMarker(new NegativeDelayWarning(context, step, delay));
 				// Return default
 				return dispatch(thread, temp, expression.getObservation().getDefault(), memory, step);
+			} else {
+				// Obtain value
+				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	
+			}
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
+	public Object evaluate(AbstractThread<?> thread, List<Element> context, ObservationCardinalityEqualsExpression expression, Memory memory, Integer step) {
+		try {
+			// Obtain context
+			List<Element> temp = expression.getObservation().resolve(context);
+			// Obtain delay
+			int delay = expression.getDelay();
+			// Obtain timepoint
+			int timepoint = step - delay;
+			// Check timepoint
+			if (timepoint < 0) {
+				// Add marker
+				MarkerManager.get().addMarker(new NegativeDelayWarning(context, step, delay));
+				// Get set
+				Set<?> set = (Set<?>) dispatch(thread, temp, expression.getObservation().getDefault(), memory, step);
+				// Return default
+				return set.size() == expression.getValue();
+			} else {
+				// Obtain value
+				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	
+			}
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
+	public Object evaluate(AbstractThread<?> thread, List<Element> context, ObservationCardinalityGreaterExpression expression, Memory memory, Integer step) {
+		try {
+			// Obtain context
+			List<Element> temp = expression.getObservation().resolve(context);
+			// Obtain delay
+			int delay = expression.getDelay();
+			// Obtain timepoint
+			int timepoint = step - delay;
+			// Check timepoint
+			if (timepoint < 0) {
+				// Add marker
+				MarkerManager.get().addMarker(new NegativeDelayWarning(context, step, delay));
+				// Get set
+				Set<?> set = (Set<?>) dispatch(thread, temp, expression.getObservation().getDefault(), memory, step);
+				// Return default
+				return set.size() > expression.getValue();
+			} else {
+				// Obtain value
+				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	
+			}
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
+	public Object evaluate(AbstractThread<?> thread, List<Element> context, ObservationCardinalitySmallerExpression expression, Memory memory, Integer step) {
+		try {
+			// Obtain context
+			List<Element> temp = expression.getObservation().resolve(context);
+			// Obtain delay
+			int delay = expression.getDelay();
+			// Obtain timepoint
+			int timepoint = step - delay;
+			// Check timepoint
+			if (timepoint < 0) {
+				// Add marker
+				MarkerManager.get().addMarker(new NegativeDelayWarning(context, step, delay));
+				// Get set
+				Set<?> set = (Set<?>) dispatch(thread, temp, expression.getObservation().getDefault(), memory, step);
+				// Return default
+				return set.size() < expression.getValue();
 			} else {
 				// Obtain value
 				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	

@@ -1,6 +1,6 @@
 package de.tum.imomesa.workbench.controllers.main.editors;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.behaviors.Behavior;
 import de.tum.imomesa.model.executables.behaviors.State;
@@ -86,7 +86,7 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 		State state = new State();
 		state.setName("New state");
 		state.setParent(diagram.getElement());
-		state.accept(new SyntacticCheckVisitor());
+		state.accept(new SyntacticCheckAddVisitor());
 		
 		diagram.getElement().getLabels().add(state);
 		diagram.setClickedElement(state);

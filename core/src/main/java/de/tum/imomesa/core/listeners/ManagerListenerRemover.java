@@ -9,20 +9,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-@SuppressWarnings("rawtypes")
 public class ManagerListenerRemover {
 	
 	// ######################################################################
 	// Data
 	// ######################################################################
-	HashMap<ObservableValue, List<ChangeListener>> memoryObservableValue = new HashMap<>();
-	HashMap<ObservableList, List<ListChangeListener>> memoryObservableList = new HashMap<>();
+	HashMap<ObservableValue<?>, List<ChangeListener<?>>> memoryObservableValue = new HashMap<>();
+	HashMap<ObservableList<?>, List<ListChangeListener<?>>> memoryObservableList = new HashMap<>();
 	
 	// ######################################################################
 	// Public methods
 	// ######################################################################
-	@SuppressWarnings("unchecked")
-	public void addListener(ObservableValue p, ChangeListener l) {
+	public <T> void addListener(ObservableValue<T> p, ChangeListener<T> l) {
 		p.addListener(l);
 		
 		if(memoryObservableValue.containsKey(p)) {
@@ -34,8 +32,7 @@ public class ManagerListenerRemover {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void addListener(ObservableList p, ListChangeListener l) {
+	public <T> void addListener(ObservableList<T> p, ListChangeListener<T> l) {
 		p.addListener(l);
 		
 		if(memoryObservableList.containsKey(p)) {
@@ -47,16 +44,16 @@ public class ManagerListenerRemover {
 		}
 	}
 	
-
 	@SuppressWarnings("unchecked")
 	public void removeAllListener() {
 		// remove all listener
-		for( HashMap.Entry<ObservableValue, List<ChangeListener>> entry : memoryObservableValue.entrySet()) {
+		for( HashMap.Entry<ObservableValue<?>, List<ChangeListener<?>>> entry : memoryObservableValue.entrySet()) {
 
-			ObservableValue key = entry.getKey();
-			for(ChangeListener listener : entry.getValue()) {
+			ObservableValue<?> key = entry.getKey();
+			
+			for(ChangeListener<?> listener : entry.getValue()) {
 				// remove listener
-				key.removeListener(listener);
+				key.removeListener((ChangeListener<Object>) listener);
 			}
 		}
 		
@@ -65,19 +62,19 @@ public class ManagerListenerRemover {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void removeAllListeners(ObservableValue p) {
+	public <T> void removeAllListeners(ObservableValue<T> p) {
 		if(memoryObservableValue.containsKey(p)) {
-			for(ChangeListener listener : memoryObservableValue.get(p)) {
-				p.removeListener(listener);
+			for(ChangeListener<?> listener : memoryObservableValue.get(p)) {
+				p.removeListener((ChangeListener<Object>) listener);
 			}
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void removeAllListeners(ObservableList p) {
+	public <T> void removeAllListeners(ObservableList<T> p) {
 		if(p != null && memoryObservableList.containsKey(p)) {
-			for(ListChangeListener listener : memoryObservableList.get(p)) {
-				p.removeListener(listener);
+			for(ListChangeListener<?> listener : memoryObservableList.get(p)) {
+				p.removeListener((ListChangeListener<T>) listener);
 			}
 		}
 	}

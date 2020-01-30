@@ -61,7 +61,6 @@ public class ExecutableContextHelper {
 		return observations;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static List<Observation> getObservationsToRead(Element e) {
 		List<Observation> observations = new ArrayList<Observation>();
 		
@@ -72,7 +71,7 @@ public class ExecutableContextHelper {
 		}
 		
 		// add variables from Executable
-		Executable executable = e.getFirstAncestorByType(Executable.class);
+		Executable<?, ?> executable = e.getFirstAncestorByType(Executable.class);
 		if(executable != null) {
 			observations.addAll(executable.getVariables());
 			

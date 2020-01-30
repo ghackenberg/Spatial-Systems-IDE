@@ -1,6 +1,6 @@
 package de.tum.imomesa.workbench.controllers.main.editors;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.monitors.Activity;
 import de.tum.imomesa.model.executables.monitors.Monitor;
@@ -86,7 +86,7 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 		Activity activity = new Activity();
 		activity.setName("New activity");
 		activity.setParent(diagram.getElement());
-		activity.accept(new SyntacticCheckVisitor());
+		activity.accept(new SyntacticCheckAddVisitor());
 		
 		diagram.getElement().getLabels().add(activity);
 		diagram.setClickedElement(activity);

@@ -15,6 +15,9 @@ import de.tum.imomesa.model.expressions.booleans.NotExpression;
 import de.tum.imomesa.model.expressions.booleans.OrExpression;
 import de.tum.imomesa.model.expressions.booleans.RandomExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.SmallerExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalityEqualsExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalityGreaterExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalitySmallerExpression;
 import de.tum.imomesa.model.expressions.numbers.AverageExpression;
 import de.tum.imomesa.model.expressions.numbers.CardinalityExpression;
 import de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber;
@@ -63,7 +66,10 @@ public class ExpressionAddDialog extends Dialog<Expression> {
 		new MaximumDurationExpression(),
 		new StepExpression(),
 		new NullExpression(),
-		new ObservationExpression()
+		new ObservationExpression(),
+		new ObservationCardinalityEqualsExpression(),
+		new ObservationCardinalityGreaterExpression(),
+		new ObservationCardinalitySmallerExpression()
 	);
     
     private ObservableList<Expression> optionsUnary = FXCollections.observableArrayList(

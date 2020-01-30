@@ -2,8 +2,8 @@ package de.tum.imomesa.workbench.controllers.main.editors;
 
 import java.io.IOException;
 
-import de.tum.imomesa.checker.manager.SyntacticMarkerManager;
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.managers.SyntacticMarkerManager;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.core.events.EventBus;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.components.DefinitionComponent;
@@ -111,7 +111,7 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 		Step step = new Step();
 		step.setName("New step");
 		step.setParent(diagram.getElement());
-		step.accept(new SyntacticCheckVisitor());
+		step.accept(new SyntacticCheckAddVisitor());
 		
 		diagram.getElement().getLabels().add(step);
 		diagram.setClickedElement(step);

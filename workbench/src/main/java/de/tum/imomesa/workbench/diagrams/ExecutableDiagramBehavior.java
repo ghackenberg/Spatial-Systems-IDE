@@ -1,6 +1,6 @@
 package de.tum.imomesa.workbench.diagrams;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.executables.Executable;
 import de.tum.imomesa.model.executables.Guard;
@@ -122,11 +122,11 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					
 					ConstantExpressionBoolean expression = new ConstantExpressionBoolean();
 					expression.setValue(false);
-					expression.accept(new SyntacticCheckVisitor());
+					expression.accept(new SyntacticCheckAddVisitor());
 					
 					Guard guard = new Guard();
 					guard.setExpression(expression);
-					guard.accept(new SyntacticCheckVisitor());
+					guard.accept(new SyntacticCheckAddVisitor());
 					
 					expression.setParent(guard);
 
@@ -138,7 +138,7 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					transition.setGuard(guard);
 					transition.setSourceAngle((angle / Math.PI * 180 + 360) % 360);
 					transition.setTargetAngle((angle / Math.PI * 180 + 180) % 360);
-					transition.accept(new SyntacticCheckVisitor());
+					transition.accept(new SyntacticCheckAddVisitor());
 					
 					guard.setParent(transition);
 					

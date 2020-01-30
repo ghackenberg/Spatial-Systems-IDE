@@ -2,7 +2,7 @@ package de.tum.imomesa.workbench.explorers.handlers;
 
 import java.util.Optional;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.NamedElement;
 import javafx.beans.property.Property;
@@ -36,7 +36,7 @@ public abstract class AbstractAddElementHandler<T extends Element, S extends Pro
 		if(element != null) {
 			element.setParent(parent);
 			updateProperty(element);
-			element.accept(new SyntacticCheckVisitor());
+			element.accept(new SyntacticCheckAddVisitor());
 		}
 	}
 	

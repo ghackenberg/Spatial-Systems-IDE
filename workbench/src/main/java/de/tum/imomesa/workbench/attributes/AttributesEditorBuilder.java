@@ -33,6 +33,7 @@ import de.tum.imomesa.model.expressions.ObservationExpression;
 import de.tum.imomesa.model.expressions.TerniaryExpression;
 import de.tum.imomesa.model.expressions.booleans.ConstantExpressionBoolean;
 import de.tum.imomesa.model.expressions.booleans.MaximumDurationExpression;
+import de.tum.imomesa.model.expressions.booleans.compares.ObservationCardinalityCompareExpression;
 import de.tum.imomesa.model.expressions.numbers.ConstantExpressionNumber;
 import de.tum.imomesa.model.ports.DataPort;
 import de.tum.imomesa.model.ports.GenericPort;
@@ -537,13 +538,9 @@ public class AttributesEditorBuilder {
 
 	public static void addProperties(AttributesGrid grid, ObservationExpression e) {
 		// Observation Value
-		ComboBox<Observation> observations = new ComboBox<>(
-				FXCollections.observableArrayList(ContextHelper.getObservations(e)));
-		observations.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				observations.requestFocus();
-			}
+		ComboBox<Observation> observations = new ComboBox<>(FXCollections.observableArrayList(ContextHelper.getObservations(e)));
+		observations.setOnMousePressed(event -> {
+			observations.requestFocus();
 		});
 		observations.valueProperty().bindBidirectional(e.observationProperty());
 		grid.addProperty("Observation:", observations);
@@ -552,6 +549,26 @@ public class AttributesEditorBuilder {
 		NumberField dtfDelay = new NumberField();
 		Bindings.bindBidirectional(dtfDelay.textProperty(), e.delayProperty(), new NumberConverter());
 		grid.addProperty("Delay:", dtfDelay);
+	}
+
+	public static void addProperties(AttributesGrid grid, ObservationCardinalityCompareExpression e) {
+		// Observation Value
+		ComboBox<Observation> observations = new ComboBox<>(FXCollections.observableArrayList(ContextHelper.getObservations(e)));
+		observations.setOnMousePressed(event -> {
+			observations.requestFocus();
+		});
+		observations.valueProperty().bindBidirectional(e.observationProperty());
+		grid.addProperty("Observation:", observations);
+
+		// Delay TextField
+		NumberField dtfDelay = new NumberField();
+		Bindings.bindBidirectional(dtfDelay.textProperty(), e.delayProperty(), new NumberConverter());
+		grid.addProperty("Delay:", dtfDelay);
+		
+		// Delay TextField
+		NumberField dtfValue = new NumberField();
+		Bindings.bindBidirectional(dtfValue.textProperty(), e.valueProperty(), new NumberConverter());
+		grid.addProperty("Value:", dtfValue);
 	}
 
 	public static void addProperties(AttributesGrid grid, CompositeExpression e) {

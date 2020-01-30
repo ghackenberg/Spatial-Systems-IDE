@@ -1,6 +1,6 @@
 package de.tum.imomesa.workbench.diagrams;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.channels.StaticChannel;
 import de.tum.imomesa.model.components.Component;
@@ -208,7 +208,7 @@ public class ComponentDiagramBehavior extends AbstractDiagramBehavior<Definition
 
 					getDiagram().getElement().getChannels().add(channel);
 					
-					channel.accept(new SyntacticCheckVisitor());
+					channel.accept(new SyntacticCheckAddVisitor());
 				} else {
 					alert("Cannot create static channel!", "Drop target no port!");
 				}

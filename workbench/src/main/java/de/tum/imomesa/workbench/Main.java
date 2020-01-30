@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import de.tum.imomesa.checker.visitor.SyntacticCheckVisitor;
+import de.tum.imomesa.checker.visitors.SyntacticCheckAddVisitor;
 import de.tum.imomesa.core.events.EventBus;
 import de.tum.imomesa.model.volumes.Volume;
 import de.tum.imomesa.utilities.managers.StorageManager;
@@ -98,7 +98,7 @@ public class Main extends Application {
 				if (StorageManager.getInstance().getWorkspace() == null) {
 					return false;
 				} else {
-					StorageManager.getInstance().getWorkspace().accept(new SyntacticCheckVisitor());
+					StorageManager.getInstance().getWorkspace().accept(new SyntacticCheckAddVisitor());
 					return true;
 				}
 			}
