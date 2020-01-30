@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.math3.linear.RealMatrix;
+import org.eclipse.jetty.util.BlockingArrayQueue;
 
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.Part;
@@ -64,58 +66,129 @@ public class CollisionDetector {
 		
 		// Convert to ordered list
 		List<Entry<CSG, List<Element>>> entries = new ArrayList<>(map.entrySet());
+		
+		// Queue calculations
+		class Pair {
+			Pair(int first, int second) {
+				this.first = first;
+				this.second = second;
+			}
+			int first;
+			int second;
+		};
+		
+		Queue<Pair> queue = new BlockingArrayQueue<>();
+		
 		// Outer iteration
 		for (int outerIndex = 0; outerIndex < entries.size(); outerIndex++) {
 			// Inner iteration
-			for (int innerIndex = outerIndex + 1; innerIndex < entries.size(); innerIndex++) {
-				Entry<CSG, List<Element>> outerEntry = entries.get(outerIndex);
-				Entry<CSG, List<Element>> innerEntry = entries.get(innerIndex);
-				
-				List<Element> listA = outerEntry.getValue();
-				List<Element> listB = innerEntry.getValue();
-				
-				boolean sameComponent = true;
-				
-				for (int index = 0; index < Math.min(listA.size(), listB.size()); index++) {
-					Element elementA = listA.get(index);
-					Element elementB = listB.get(index);
-					
-					if (elementA instanceof Component || elementB instanceof Component) {
-						if (!elementA.equals(elementB)) {
-							sameComponent = false;
-							break;
-						}
-					} else {
-						break;
-					}
-				}
-				 
-				if (!sameComponent) {
-					CSG outerCSG = outerEntry.getKey();
-					CSG innerCSG = innerEntry.getKey();
-					
-					CSG intersection = outerCSG.intersect(innerCSG);
-					
-					if(!intersection.getPolygons().isEmpty()) {
-						// Memorize intersection						
-						Element first = listA.get(listA.size() - 1);
-						Element second = listB.get(listB.size() - 1);
-						
-						System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get() + " with " + intersection.computeVolume());
-						// System.out.println(first.getElementPath().get() + ": " + (first instanceof Component ? memory.getTransform(listA, step) : memory.getTransform(listA.subList(0, listA.size() - 1), step)));
-						// System.out.println(second.getElementPath().get() + ": " + (second instanceof Component ? memory.getTransform(listB, step) : memory.getTransform(listB.subList(0, listB.size() - 1), step)));
-			
-						evaluateCollision(outerEntry, innerEntry, memory, step, intersection);
-						evaluateCollision(innerEntry, outerEntry, memory, step, intersection);
-					}
-				}
+			for (int innerIndex = outerIndex + 1; innerIndex < entries.size(); innerIndex++) {			
+				queue.add(new Pair(outerIndex, innerIndex));
 			}
 		}
+		
+		long start = System.currentTimeMillis();
+		
+		List<Thread> threads = new ArrayList<>();
+		
+		for (int processor = 0; processor < Runtime.getRuntime().availableProcessors() - 1; processor++) {
+			Thread thread = new Thread(() -> {
+				while (true) {
+					Pair pair = queue.poll();
+					
+					if (pair == null) {
+						return;
+					}
+					
+					Entry<CSG, List<Element>> outerEntry = entries.get(pair.first);
+					Entry<CSG, List<Element>> innerEntry = entries.get(pair.second);
+					
+					List<Element> listA = outerEntry.getValue();
+					List<Element> listB = innerEntry.getValue();
+					
+					/*
+					synchronized (threads) {
+						System.out.println("Comparing " + listA + " and " + listB);
+					}
+					*/
+					
+					boolean sameComponent = true;
+					
+					for (int index = 0; index < Math.min(listA.size(), listB.size()); index++) {
+						Element elementA = listA.get(index);
+						Element elementB = listB.get(index);
+						
+						if (elementA instanceof Component || elementB instanceof Component) {
+							if (!elementA.equals(elementB)) {
+								sameComponent = false;
+								break;
+							}
+						} else {
+							break;
+						}
+					}
+					
+					if (!sameComponent) {
+						/*
+						synchronized (threads) {
+							System.out.println("Not same component!");
+						}
+						*/
+						
+						CSG outerCSG = outerEntry.getKey();
+						CSG innerCSG = innerEntry.getKey();
+						
+						CSG intersection = outerCSG.intersect(innerCSG);
+						
+						if(!intersection.getPolygons().isEmpty()) {
+							/*
+							synchronized (threads) {
+								System.out.println("Not empty intersection!");
+							}
+							*/
+							
+							// Memorize intersection						
+							Element first = listA.get(listA.size() - 1);
+							Element second = listB.get(listB.size() - 1);
+
+							synchronized (threads) {
+								System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get() + " with " + intersection.computeVolume());
+								// System.out.println(first.getElementPath().get() + ": " + (first instanceof Component ? memory.getTransform(listA, step) : memory.getTransform(listA.subList(0, listA.size() - 1), step)));
+								// System.out.println(second.getElementPath().get() + ": " + (second instanceof Component ? memory.getTransform(listB, step) : memory.getTransform(listB.subList(0, listB.size() - 1), step)));
+							}
+				
+							try {
+								evaluateCollision(outerEntry, innerEntry, memory, step, intersection);
+								evaluateCollision(innerEntry, outerEntry, memory, step, intersection);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			});
+			
+			thread.start();
+			
+			threads.add(thread);
+		}
+		
+		threads.forEach(thread -> {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println((end - start) + "ms used!");
 		
 		System.out.println("Intersections: " + memory.getIntersections(step).size());
 	}
 	
-	private static void evaluateCollision(Entry<CSG, List<Element>> entryA, Entry<CSG, List<Element>> entryB, Memory memory, int step, CSG intersection) throws InterruptedException {
+	private static synchronized void evaluateCollision(Entry<CSG, List<Element>> entryA, Entry<CSG, List<Element>> entryB, Memory memory, int step, CSG intersection) throws InterruptedException {
 		List<Element> contextA = entryA.getValue();
 		List<Element> contextB = entryB.getValue();
 		

@@ -48,7 +48,7 @@ public class Simulator extends Thread {
 	}
 	
 	public Simulator(DefinitionComponent component, Scenario scenario, String path) {
-		this(component, scenario, 100000, path);
+		this(component, scenario, Long.MAX_VALUE, path);
 	}
 
 	public Simulator(DefinitionComponent component, Scenario scenario, long maxtime) {
