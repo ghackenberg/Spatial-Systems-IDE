@@ -32,7 +32,7 @@ public class SphereVolume extends AtomicVolume {
 	}
 
 	// Slices
-	private final IntegerProperty slices = new SimpleIntegerProperty(50);
+	private final IntegerProperty slices = new SimpleIntegerProperty(20);
 
 	public int getSlices() {
 		return slices.get();
@@ -47,7 +47,7 @@ public class SphereVolume extends AtomicVolume {
 	}
 
 	// Stacks
-	private final IntegerProperty stacks = new SimpleIntegerProperty(50);
+	private final IntegerProperty stacks = new SimpleIntegerProperty(20);
 
 	public int getStacks() {
 		return stacks.get();

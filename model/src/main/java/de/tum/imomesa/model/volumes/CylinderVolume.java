@@ -46,7 +46,7 @@ public class CylinderVolume extends AtomicVolume {
 	}
 
 	// Slices
-	private final IntegerProperty slices = new SimpleIntegerProperty(50);
+	private final IntegerProperty slices = new SimpleIntegerProperty(20);
 
 	public int getSlices() {
 		return slices.get();
