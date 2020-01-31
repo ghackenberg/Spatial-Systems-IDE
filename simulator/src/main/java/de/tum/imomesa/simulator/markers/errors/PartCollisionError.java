@@ -11,40 +11,33 @@ import javafx.collections.FXCollections;
 public class PartCollisionError extends ErrorMarker {
 
 	public PartCollisionError() {
-		
+
 	}
-	
+
 	public PartCollisionError(List<Element> context, List<Element> contextCollisionObject, int step) {
 		super(context, "Part collision detected with " + contextCollisionObject, step);
-		
+
 		this.collisionObject.set(FXCollections.observableList(contextCollisionObject));
 	}
-	
+
 	private ListProperty<Element> collisionObject = new SimpleListProperty<>(FXCollections.observableArrayList());
-	
+
 	public ListProperty<Element> collisionObjectProperty() {
 		return collisionObject;
 	}
-	
+
 	public List<Element> getCollisionObject() {
 		return collisionObject.get();
 	}
-	
+
 	/*
-	@Override
-	public boolean equals(Object other) {
-		if (!super.equals(other)) {
-			return false;
-		}
-		
-		PartCollisionError marker = (PartCollisionError) other;
-		
-		if (!collisionObject.equals(marker.collisionObject)) {
-			return false;
-		}
-		
-		return true;
-	}
-	*/
+	 * @Override public boolean equals(Object other) { if (!super.equals(other)) { return false; }
+	 * 
+	 * PartCollisionError marker = (PartCollisionError) other;
+	 * 
+	 * if (!collisionObject.equals(marker.collisionObject)) { return false; }
+	 * 
+	 * return true; }
+	 */
 
 }

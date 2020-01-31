@@ -16,14 +16,12 @@ public class ReferenceComponentChangeListener implements ChangeListener<Boolean>
 
 	private TreeItem<Element> transforms;
 
-	public ReferenceComponentChangeListener(ReferenceComponent component, TreeItem<Element> item,
-			Configuration configuration) {
+	public ReferenceComponentChangeListener(ReferenceComponent component, TreeItem<Element> item, Configuration configuration) {
 
 		this.item = item;
 		this.configuration = configuration;
 
-		transforms = TreeItemBuilder.getInstance().transform(component, "Transforms", Transform.class,
-				component.transformsProperty(), configuration, true, false);
+		transforms = TreeItemBuilder.getInstance().transform(component, "Transforms", Transform.class, component.transformsProperty(), configuration, true, false);
 
 		update();
 	}

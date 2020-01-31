@@ -12,7 +12,8 @@ public class ElementSelectionListener implements ChangeListener<TreeItem<Element
 	@Override
 	public void changed(ObservableValue<? extends TreeItem<Element>> observable, TreeItem<Element> oldValue, TreeItem<Element> newValue) {
 		// return if new item is null
-		if(newValue == null) return;
+		if (newValue == null)
+			return;
 		// Publish event
 		EventBus.getInstance().publish(new SelectionExplorerEvent(newValue.getValue()));
 	}

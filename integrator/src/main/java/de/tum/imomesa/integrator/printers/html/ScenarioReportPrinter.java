@@ -14,7 +14,7 @@ public class ScenarioReportPrinter extends AbstractReportPrinter<Scenario, Scena
 
 	@Override
 	public void process(Writer writer) {
-		
+
 	}
 
 }

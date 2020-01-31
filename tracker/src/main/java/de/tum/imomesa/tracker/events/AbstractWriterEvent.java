@@ -7,21 +7,21 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 public class AbstractWriterEvent extends Event {
-	
+
 	public AbstractWriterEvent() {
-		
+
 	}
-	
+
 	public AbstractWriterEvent(AbstractWriter writer) {
 		this.writer.set(writer);
 	}
 
 	private ObjectProperty<AbstractWriter> writer = new SimpleObjectProperty<>();
-	
+
 	public AbstractWriter getWriter() {
 		return writer.get();
 	}
-	
+
 	@Transient
 	public ObjectProperty<AbstractWriter> writerProperty() {
 		return writer;

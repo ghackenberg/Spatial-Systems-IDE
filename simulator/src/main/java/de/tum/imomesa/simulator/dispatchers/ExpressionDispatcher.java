@@ -45,19 +45,18 @@ import de.tum.imomesa.simulator.markers.errors.WrongUseOfDurationExpressionError
 import de.tum.imomesa.simulator.markers.warnings.NegativeDelayWarning;
 import de.tum.imomesa.simulator.threads.AbstractThread;
 
-public class ExpressionDispatcher
-{
-	
+public class ExpressionDispatcher {
+
 	private static ExpressionDispatcher instance = new ExpressionDispatcher();
-	
+
 	public static ExpressionDispatcher getInstance() {
 		return instance;
 	}
-	
+
 	private ExpressionDispatcher() {
-		
+
 	}
-	
+
 	public Object dispatch(AbstractThread<?> thread, List<Element> context, Expression expression, Memory memory, Integer step) {
 		try {
 			if (expression != null) {
@@ -65,28 +64,26 @@ public class ExpressionDispatcher
 				Method method = getClass().getMethod("evaluate", AbstractThread.class, List.class, expression.getClass(), Memory.class, Integer.class);
 				// Invoke method
 				return method.invoke(this, thread, context, expression, memory, step);
-			}
-			else {
+			} else {
 				return null;
 			}
 		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, IfClauseExpression expression, Memory memory, Integer step) {
 		if ((Boolean) dispatch(thread, context, expression.getArgumentOne(), memory, step)) {
 			return dispatch(thread, context, expression.getArgumentTwo(), memory, step);
-		}
-		else {
+		} else {
 			return dispatch(thread, context, expression.getArgumentThree(), memory, step);
 		}
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, NullExpression expression, Memory memory, Integer step) {
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, ObservationExpression expression, Memory memory, Integer step) {
 		try {
 			// Obtain context
@@ -103,13 +100,13 @@ public class ExpressionDispatcher
 				return dispatch(thread, temp, null, memory, step);
 			} else {
 				// Obtain value
-				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	
+				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);
 			}
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, AndExpression expression, Memory memory, Integer step) {
 		for (Expression argument : expression.getArguments()) {
 			Object value = dispatch(thread, context, argument, memory, step);
@@ -122,11 +119,11 @@ public class ExpressionDispatcher
 		}
 		return true;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, ConstantExpressionBoolean expression, Memory memory, Integer step) {
 		return expression.getValue();
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, EqualExpression expression, Memory memory, Integer step) {
 		// Check arguments
 		if (expression.getArguments().size() > 0) {
@@ -143,7 +140,7 @@ public class ExpressionDispatcher
 		// Return true
 		return true;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, GreaterExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Iterator<Expression> iterator = expression.getArguments().iterator();
@@ -160,8 +157,7 @@ public class ExpressionDispatcher
 					if ((Double) previous <= (Double) next) {
 						return false;
 					}
-				}
-				else {
+				} else {
 					return null;
 				}
 				previous = next;
@@ -169,7 +165,7 @@ public class ExpressionDispatcher
 		}
 		return true;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, NotExpression expression, Memory memory, Integer step) {
 		Object value = dispatch(thread, context, expression.getArgument(), memory, step);
 		if (value == null) {
@@ -177,7 +173,7 @@ public class ExpressionDispatcher
 		}
 		return !(Boolean) value;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, OrExpression expression, Memory memory, Integer step) {
 		for (Expression argument : expression.getArguments()) {
 			Object value = dispatch(thread, context, argument, memory, step);
@@ -187,7 +183,7 @@ public class ExpressionDispatcher
 		}
 		return false;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, SmallerExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Iterator<Expression> iterator = expression.getArguments().iterator();
@@ -204,8 +200,7 @@ public class ExpressionDispatcher
 					if ((Double) previous >= (Double) next) {
 						return false;
 					}
-				}
-				else {
+				} else {
 					return null;
 				}
 				previous = next;
@@ -213,7 +208,7 @@ public class ExpressionDispatcher
 		}
 		return true;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, AverageExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			double result = 0;
@@ -228,7 +223,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, CardinalityExpression expression, Memory memory, Integer step) {
 		Object value = dispatch(thread, context, expression.getArgument(), memory, step);
 		if (value == null) {
@@ -236,11 +231,11 @@ public class ExpressionDispatcher
 		}
 		return (double) ((Set<?>) value).size();
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, ConstantExpressionNumber expression, Memory memory, Integer step) {
 		return expression.getDoubleValue();
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, DifferenceExpressionNumber expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Iterator<Expression> iterator = expression.getArguments().iterator();
@@ -260,7 +255,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, DivisionExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Iterator<Expression> iterator = expression.getArguments().iterator();
@@ -280,75 +275,73 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, DurationExpression expression, Memory memory, Integer step) {
-		
+
 		try {
 			// find first Executable in context
 			Executable<?, ?> executable = expression.getFirstAncestorByType(Executable.class);
-			
+
 			if (executable == null) {
 				MarkerManager.get().addMarker(new WrongUseOfDurationExpressionError(context, step));
 				return null;
 			}
-			
+
 			// get active label of executable out of memory
 			Label current_label = memory.getLabel(context, step);
-			
+
 			// check for how long this label has been active
 			double counter = 0.;
-			
+
 			for (int index = step - 1; index >= 0; index--) {
-				if(current_label.equals(memory.getLabel(context, index))) {
+				if (current_label.equals(memory.getLabel(context, index))) {
 					counter++;
-				}
-				else {
+				} else {
 					break;
 				}
 			}
-			
+
 			return counter;
-			
+
 		} catch (InterruptedException e) {
 			// Should never happen
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, MaximumDurationExpression expression, Memory memory, Integer step) {
-		
+
 		try {
 			// find first Executable in context
 			Executable<?, ?> executable = expression.getFirstAncestorByType(Executable.class);
-			
+
 			if (executable == null) {
 				MarkerManager.get().addMarker(new WrongUseOfDurationExpressionError(context, step));
 				return null;
 			}
-			
+
 			// get active label of executable out of memory
 			Label current_label = memory.getLabel(context, step);
-			
+
 			// check for how long this label has been active
 			double counter = 0.;
-			
+
 			for (int index = step - 1; index >= 0; index--) {
-				if(current_label.equals(memory.getLabel(context, index))) {
+				if (current_label.equals(memory.getLabel(context, index))) {
 					counter++;
-				}
-				else {
+				} else {
 					break;
 				}
 			}
-			
+
 			return counter <= expression.getLimit();
-			
+
 		} catch (InterruptedException e) {
 			// Should never happen
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, MaximumExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			double result = -Double.MAX_VALUE;
@@ -363,7 +356,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, MinimumExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			double result = Double.MAX_VALUE;
@@ -378,7 +371,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, ProductExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			double result = 1;
@@ -393,19 +386,19 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, RandomExpressionNumber expression, Memory memory, Integer step) {
 		return Math.random();
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, RandomExpressionBoolean expression, Memory memory, Integer step) {
 		return Math.random() > 0.5;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, StepExpression expression, Memory memory, Integer step) {
 		return (double) step;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, SumExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			double result = 0;
@@ -420,7 +413,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, DifferenceExpressionSet expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Iterator<Expression> iterator = expression.getArguments().iterator();
@@ -440,7 +433,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, IntersectionExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Iterator<Expression> iterator = expression.getArguments().iterator();
@@ -467,7 +460,7 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, SetConstructorExpression expression, Memory memory, Integer step) {
 		Set<Object> result = new HashSet<>();
 		if (expression.getArguments().size() > 0) {
@@ -481,7 +474,7 @@ public class ExpressionDispatcher
 		}
 		return result;
 	}
-	
+
 	public Object evaluate(AbstractThread<?> thread, List<Element> context, UnionExpression expression, Memory memory, Integer step) {
 		if (expression.getArguments().size() > 0) {
 			Set<Object> result = new HashSet<>();
@@ -496,5 +489,5 @@ public class ExpressionDispatcher
 		}
 		return null;
 	}
-	
+
 }

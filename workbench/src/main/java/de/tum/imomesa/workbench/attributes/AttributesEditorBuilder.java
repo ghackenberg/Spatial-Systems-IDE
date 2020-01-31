@@ -89,17 +89,17 @@ public class AttributesEditorBuilder {
 		ListenerManager.getListenerManager().removeAllListener();
 
 		AttributesGrid grid = new AttributesGrid();
-		
+
 		List<Class<?>> types = new ArrayList<>();
 
 		Class<?> type = element.getClass();
 
 		while (Element.class.isAssignableFrom(type)) {
 			types.add(0, type);
-			
+
 			type = type.getSuperclass();
 		}
-		
+
 		for (Class<?> typeIter : types) {
 			try {
 				grid.addType(typeIter);
@@ -123,7 +123,7 @@ public class AttributesEditorBuilder {
 		tfKey.setText("" + StorageManager.getInstance().getKey(e));
 		tfKey.setDisable(true);
 		grid.addProperty("Key:", tfKey);
-		
+
 		TextField tfPath = new TextField();
 		tfPath.textProperty().bind(e.getElementPath());
 		tfPath.setDisable(true);
@@ -244,8 +244,7 @@ public class AttributesEditorBuilder {
 		}
 
 		// add change listener on combobox
-		ListenerManager.getListenerManager().addListener(cbTemplate.getSelectionModel().selectedItemProperty(),
-				new ChangeListenerComponentProxyTemplate(c, cbTemplate));
+		ListenerManager.getListenerManager().addListener(cbTemplate.getSelectionModel().selectedItemProperty(), new ChangeListenerComponentProxyTemplate(c, cbTemplate));
 		grid.addProperty("Template:", cbTemplate);
 	}
 
@@ -280,8 +279,7 @@ public class AttributesEditorBuilder {
 
 	public static void addProperties(AttributesGrid grid, DataPort p) {
 		// Type selection menu
-		List<Class<?>> contentList = FXCollections.observableArrayList(Object.class, Set.class, Number.class,
-				Boolean.class);
+		List<Class<?>> contentList = FXCollections.observableArrayList(Object.class, Set.class, Number.class, Boolean.class);
 		ComboBox<Class<?>> cbType = new ComboBox<>(FXCollections.observableArrayList(contentList));
 		cbType.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -296,8 +294,7 @@ public class AttributesEditorBuilder {
 
 	public static void addProperties(AttributesGrid grid, GenericPort p) {
 		// Type selection menu
-		List<Class<?>> contentList = FXCollections.observableArrayList(Object.class, Set.class, Number.class,
-				Boolean.class);
+		List<Class<?>> contentList = FXCollections.observableArrayList(Object.class, Set.class, Number.class, Boolean.class);
 		ComboBox<Class<?>> cbType = new ComboBox<>(FXCollections.observableArrayList(contentList));
 		cbType.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -358,8 +355,7 @@ public class AttributesEditorBuilder {
 			cbComponent.getSelectionModel().select(p.getComponent());
 		}
 		// add listener
-		cbComponent.getSelectionModel().selectedItemProperty()
-				.addListener(new ChangeListenerTemplate(p.componentProperty()));
+		cbComponent.getSelectionModel().selectedItemProperty().addListener(new ChangeListenerTemplate(p.componentProperty()));
 		grid.addProperty("Template:", cbComponent);
 	}
 
@@ -377,7 +373,7 @@ public class AttributesEditorBuilder {
 		});
 		grid.addProperty("Color:", colorPicker);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, BoxVolume v) {
 		// width
 		NumberField dtfWidth = new NumberField();
@@ -392,7 +388,7 @@ public class AttributesEditorBuilder {
 		dtfDepth.textProperty().bindBidirectional(v.depthProperty(), new NumberConverter());
 		grid.addProperty("Depth:", dtfDepth);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, CylinderVolume v) {
 		// radius
 		NumberField dtfRadius = new NumberField();
@@ -407,7 +403,7 @@ public class AttributesEditorBuilder {
 		Bindings.bindBidirectional(dtfSlices.textProperty(), v.slicesProperty(), new NumberConverter());
 		grid.addProperty("Slices:", dtfSlices);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, SphereVolume v) {
 		// radius
 		NumberField dtfRadius = new NumberField();
@@ -422,31 +418,31 @@ public class AttributesEditorBuilder {
 		Bindings.bindBidirectional(dtfStacks.textProperty(), v.stacksProperty(), new NumberConverter());
 		grid.addProperty("Stacks:", dtfStacks);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, STLVolume v) {
 		TextField dtfFilePath = new TextField();
 		dtfFilePath.setDisable(true);
 		dtfFilePath.textProperty().bind(v.filePathProperty());
-		
+
 		Button dtfChooseButton = new Button("Choose");
 		dtfChooseButton.setOnAction((event) -> {
 			FileChooser chooser = new FileChooser();
 			chooser.setTitle("Choose STL file");
 			chooser.getExtensionFilters().add(new ExtensionFilter("STL file", "*.stl"));
-			
+
 			File file = chooser.showOpenDialog(Main.PRIMARY_STAGE);
 			if (file != null) {
 				v.setFilePath(file.getAbsolutePath());
 			}
 		});
-		
+
 		GridPane pane = new GridPane();
 		pane.add(dtfFilePath, 0, 0);
 		pane.add(dtfChooseButton, 1, 0);
-		
+
 		grid.addProperty("File path:", pane);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, CompositeVolume v) {
 		// operator
 		ComboBox<String> dtfOperator = new ComboBox<>(FXCollections.observableArrayList("Union", "Intersection", "Difference"));
@@ -524,8 +520,7 @@ public class AttributesEditorBuilder {
 
 	public static void addProperties(AttributesGrid grid, ObservationExpression e) {
 		// Observation Value
-		ComboBox<Observation> observations = new ComboBox<>(
-				FXCollections.observableArrayList(ContextHelper.getObservations(e)));
+		ComboBox<Observation> observations = new ComboBox<>(FXCollections.observableArrayList(ContextHelper.getObservations(e)));
 		observations.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -576,8 +571,7 @@ public class AttributesEditorBuilder {
 	public static void addProperties(AttributesGrid grid, Action a) {
 		// Observation
 		// create comb box
-		ComboBox<Observation> observations = new ComboBox<>(
-				FXCollections.observableArrayList(ExecutableContextHelper.getObservationsToSet(a)));
+		ComboBox<Observation> observations = new ComboBox<>(FXCollections.observableArrayList(ExecutableContextHelper.getObservationsToSet(a)));
 		// bind value
 		observations.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -601,8 +595,7 @@ public class AttributesEditorBuilder {
 
 	public static void addProperties(AttributesGrid grid, Variable v) {
 		// Type selection menu
-		List<Class<?>> contentList = FXCollections.observableArrayList(Object.class, Set.class, Number.class,
-				Boolean.class);
+		List<Class<?>> contentList = FXCollections.observableArrayList(Object.class, Set.class, Number.class, Boolean.class);
 		ComboBox<Class<?>> cbType = new ComboBox<>(FXCollections.observableArrayList(contentList));
 		cbType.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -613,7 +606,7 @@ public class AttributesEditorBuilder {
 		cbType.getSelectionModel().select(v.getReadType());
 		cbType.valueProperty().addListener(new ChangeListenerObservationType<Variable>(v));
 		grid.addProperty("Read / write type:", cbType);
-		
+
 		// expression string
 		TextField lExpressionString = new TextField();
 		if (v.getDefault() != null) {
@@ -645,11 +638,10 @@ public class AttributesEditorBuilder {
 		guard.setDisable(true);
 		guard.setWrapText(true);
 		guard.setPrefRowCount(6);
-		
+
 		ChangeListener<Expression> exprListener = new ChangeListener<Expression>() {
 			@Override
-			public void changed(ObservableValue<? extends Expression> observable, Expression oldValue,
-					Expression newValue) {
+			public void changed(ObservableValue<? extends Expression> observable, Expression oldValue, Expression newValue) {
 				guard.textProperty().unbind();
 				if (newValue != null) {
 					guard.textProperty().bind(newValue.toStringExpression());
@@ -671,7 +663,7 @@ public class AttributesEditorBuilder {
 				}
 			}
 		};
-		
+
 		transition.guardProperty().addListener(guardListener);
 		if (transition.getGuard() != null) {
 			transition.getGuard().expressionProperty().addListener(exprListener);
@@ -680,7 +672,7 @@ public class AttributesEditorBuilder {
 			}
 		}
 		grid.addProperty("Guard:", guard);
-		
+
 		// Angle source
 		NumberField sourceAngle = new NumberField();
 		Bindings.bindBidirectional(sourceAngle.textProperty(), transition.sourceAngleProperty(), new NumberConverter());
@@ -703,23 +695,23 @@ public class AttributesEditorBuilder {
 		}
 		grid.addProperty("Expression:", lExpressionString);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, Scenario scenario) {
 		ComboBox<Step> initialComboBox = new ComboBox<>(scenario.labelsProperty());
 		initialComboBox.valueProperty().bindBidirectional(scenario.initialLabelProperty());
 		grid.addProperty("Intial step:", initialComboBox);
-		
+
 		ComboBox<Step> finalComboBox = new ComboBox<>(scenario.labelsProperty());
 		finalComboBox.valueProperty().bindBidirectional(scenario.finalLabelProperty());
 		grid.addProperty("Final step:", finalComboBox);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, Monitor monitor) {
 		ComboBox<Activity> comboBox = new ComboBox<>(monitor.labelsProperty());
 		comboBox.valueProperty().bindBidirectional(monitor.initialLabelProperty());
 		grid.addProperty("Intial activity:", comboBox);
 	}
-	
+
 	public static void addProperties(AttributesGrid grid, Behavior behavior) {
 		ComboBox<State> comboBox = new ComboBox<>(behavior.labelsProperty());
 		comboBox.valueProperty().bindBidirectional(behavior.initialLabelProperty());
@@ -747,7 +739,7 @@ public class AttributesEditorBuilder {
 		height.textProperty().bindBidirectional(label.heightProperty(), new NumberConverter());
 		grid.addProperty("Height:", height);
 	}
-	
+
 	private static void addPoint(AttributesGrid grid, String prefix, Point point) {
 		NumberField x = new NumberField();
 		x.textProperty().bindBidirectional(point.xProperty(), new NumberConverter());
@@ -761,5 +753,5 @@ public class AttributesEditorBuilder {
 		z.textProperty().bindBidirectional(point.zProperty(), new NumberConverter());
 		grid.addProperty(prefix + "z:", z);
 	}
-	
+
 }

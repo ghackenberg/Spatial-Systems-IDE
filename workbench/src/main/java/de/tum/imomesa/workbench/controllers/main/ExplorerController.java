@@ -65,8 +65,7 @@ public class ExplorerController extends AbstractExplorerController {
 	private Configuration configuration = new Configuration();
 
 	/**
-	 * This method is called automatically when Controller is initialized It
-	 * sets all the necessary information in the controller
+	 * This method is called automatically when Controller is initialized It sets all the necessary information in the controller
 	 */
 	@FXML
 	public void initialize() {
@@ -75,7 +74,7 @@ public class ExplorerController extends AbstractExplorerController {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				borderPane.setLeft(null);
 				borderPane.setBottom(null);
-				
+
 				if (newValue.intValue() > 300) {
 					borderPane.setLeft(leftToolBar);
 					borderPane.setBottom(null);

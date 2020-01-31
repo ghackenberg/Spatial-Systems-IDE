@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import de.tum.imomesa.model.Element;
 
 public abstract class MultipleMethodVisitor extends Visitor {
-	
+
 	@Override
 	public <T extends Element> void dispatch(T object) {
 		try {
@@ -19,8 +19,7 @@ public abstract class MultipleMethodVisitor extends Visitor {
 					Method method = getClass().getMethod("visit", iterator);
 					// Invoke method
 					method.invoke(this, object);
-				}
-				catch (NoSuchMethodException e) {
+				} catch (NoSuchMethodException e) {
 					// do nothing, can occur as it has not to be implemented for all levels
 				}
 				// Iterate up

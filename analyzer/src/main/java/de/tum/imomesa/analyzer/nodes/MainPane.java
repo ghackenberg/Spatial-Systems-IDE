@@ -41,8 +41,7 @@ public class MainPane extends GridPane {
 		tree = new TreeView<>(rootItem);
 		tree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeElement>>() {
 			@Override
-			public void changed(ObservableValue<? extends TreeItem<TreeElement>> observable,
-					TreeItem<TreeElement> oldValue, TreeItem<TreeElement> newValue) {
+			public void changed(ObservableValue<? extends TreeItem<TreeElement>> observable, TreeItem<TreeElement> oldValue, TreeItem<TreeElement> newValue) {
 				scroll.setContent(newValue.getValue().toNode());
 			}
 		});
@@ -75,8 +74,7 @@ public class MainPane extends GridPane {
 
 		for (Aggregation<?> aggregation : aggregations) {
 			AggregationElement aggregationElement = new AggregationElement(aggregation);
-			TreeItem<TreeElement> aggregationItem = new TreeItem<>(aggregationElement,
-					new ImageView(new Image("aggregation.png")));
+			TreeItem<TreeElement> aggregationItem = new TreeItem<>(aggregationElement, new ImageView(new Image("aggregation.png")));
 
 			aggregationItem.setExpanded(false);
 
@@ -90,8 +88,7 @@ public class MainPane extends GridPane {
 
 			for (Visualization<?, ?> visualization : aggregation.getVisualizations()) {
 				VisualizationElement visualizationElement = new VisualizationElement(visualization);
-				TreeItem<TreeElement> visualizationItem = new TreeItem<>(visualizationElement,
-						new ImageView(new Image("visualization.png")));
+				TreeItem<TreeElement> visualizationItem = new TreeItem<>(visualizationElement, new ImageView(new Image("visualization.png")));
 
 				visualizationItem.setExpanded(false);
 

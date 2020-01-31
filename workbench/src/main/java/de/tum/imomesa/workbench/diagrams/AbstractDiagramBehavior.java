@@ -7,19 +7,21 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
 public abstract class AbstractDiagramBehavior<E extends Element> {
-	
+
 	private AbstractDiagram<E> graph;
-	
+
 	public void setDiagram(AbstractDiagram<E> graph) {
 		this.graph = graph;
 	}
-	
+
 	public AbstractDiagram<E> getDiagram() {
 		return graph;
 	}
 
 	public abstract void handleMousePressed(MouseEvent event, Element element, Node node);
+
 	public abstract void handleMouseDragged(MouseEvent event, Element element, Node node);
+
 	public abstract void handleMouseReleased(MouseEvent event, Element element, Node node);
 
 	protected void alert(String headerText, String contextText) {
@@ -31,5 +33,5 @@ public abstract class AbstractDiagramBehavior<E extends Element> {
 
 		alert.showAndWait();
 	}
-	
+
 }

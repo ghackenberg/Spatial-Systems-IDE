@@ -7,9 +7,10 @@ import javafx.scene.control.TableView;
 
 public class ChangeController {
 
-	@FXML private TableView<Change> table;
-	
-	public void initialize() {		
+	@FXML
+	private TableView<Change> table;
+
+	public void initialize() {
 		table.setItems(StorageManager.getInstance().getChanges());
 	}
 }

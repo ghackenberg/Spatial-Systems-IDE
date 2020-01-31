@@ -13,7 +13,7 @@ public class ComponentController extends EditorChildController<Component<?>> {
 
 	@Override
 	public void handle(SimulationStepEvent event) {
-		
+
 	}
 
 }

@@ -19,7 +19,7 @@ public class CompositeVolume extends Volume {
 	public CompositeVolume() {
 		volumes.addListener(this::handleVolumesChange);
 		volumes.addListener(this::handleVolumesItemChange);
-		
+
 		operator.addListener(this::updateCSG);
 	}
 
@@ -52,18 +52,18 @@ public class CompositeVolume extends Volume {
 			v.accept(visitor);
 		}
 	}
-	
+
 	// Operator
 	private final IntegerProperty operator = new SimpleIntegerProperty(0);
-	
+
 	public int getOperator() {
 		return operator.get();
 	}
-	
+
 	public void setOperator(int operator) {
 		this.operator.set(operator);
 	}
-	
+
 	public IntegerProperty operatorProperty() {
 		return operator;
 	}
@@ -96,7 +96,7 @@ public class CompositeVolume extends Volume {
 				} else if (getOperator() == 1) {
 					result = result.intersect(volume.getCSG());
 				} else if (getOperator() == 2) {
-					result = result.difference(volume.getCSG());	
+					result = result.difference(volume.getCSG());
 				} else {
 					throw new IllegalStateException();
 				}

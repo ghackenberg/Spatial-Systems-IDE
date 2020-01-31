@@ -15,27 +15,27 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 
-public class WorkspaceController implements AbstractEditorChildController<Workspace>, EventHandler{
-	
+public class WorkspaceController implements AbstractEditorChildController<Workspace>, EventHandler {
+
 	@FXML
 	private BorderPane borderPane;
 	@FXML
 	private ProgressBar progressBar;
 	@FXML
 	private Spinner<Number> spinner;
-	
+
 	private Workspace workspace;
 
 	@Override
 	public void setRootElement(Workspace e) {
 		workspace = e;
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
-	
+
 	public void handle(ProgressChangeEvent event) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -44,22 +44,22 @@ public class WorkspaceController implements AbstractEditorChildController<Worksp
 			}
 		});
 	}
-	
+
 	public void startIntegration() {
 		WorkspaceController self = this;
-		
+
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				EventBus.getInstance().subscribe(self);
-				
+
 				// Create integrator
 				Integrator integrator = new Integrator(spinner.getValue().intValue());
 				// Process project
 				WorkspaceReport report = integrator.process(workspace);
-				
+
 				EventBus.getInstance().unsubscribe(self);
-				
+
 				Platform.runLater(new Runnable() {
 					public void run() {
 						borderPane.setCenter(ReportConverter.convert(ReportConverter.convert(report)));
@@ -67,8 +67,8 @@ public class WorkspaceController implements AbstractEditorChildController<Worksp
 				});
 			}
 		});
-		
+
 		thread.start();
 	}
-	
+
 }

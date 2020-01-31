@@ -21,30 +21,26 @@ public class SimulationDurationAggregation extends DurationAggregation<String> {
 	@Override
 	protected DurationDescriptor<String> generateResult() {
 		Map<String, List<Long>> durations = new HashMap<>();
-		
+
 		durations.put("Simulations", new ArrayList<>());
-		
+
 		/*
-		boolean integration = false;
-		*/
+		 * boolean integration = false;
+		 */
 		long timestamp = 0;
-		
+
 		for (Event event : getEvents()) {
 			/*
-			if (event instanceof de.tum.imomesa.integrator.events.StartEvent) {
-				integration = true;
-			} else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) {
-				integration = false;
-			} else if (!integration) {
-			*/
-				if (event instanceof SimulationStartEvent) {
-					timestamp = event.getTimestamp();
-				} else if (event instanceof SimulationEndEvent) {
-					durations.get("Simulations").add(event.getTimestamp() - timestamp);
-				}
-			/*
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
+			 */
+			if (event instanceof SimulationStartEvent) {
+				timestamp = event.getTimestamp();
+			} else if (event instanceof SimulationEndEvent) {
+				durations.get("Simulations").add(event.getTimestamp() - timestamp);
 			}
-			*/
+			/*
+			 * }
+			 */
 		}
 
 		return new DurationDescriptor<>(durations);

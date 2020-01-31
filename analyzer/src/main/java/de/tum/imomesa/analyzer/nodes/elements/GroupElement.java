@@ -60,11 +60,11 @@ public class GroupElement extends TreeElement {
 
 		for (int index = 0; index < getChildren().size(); index++) {
 			Node node = getChildren().get(index).toNode();
-			
+
 			ScrollPane scrollPane = node instanceof ScrollPane ? (ScrollPane) node : new ScrollPane(node);
 			scrollPane.setFitToWidth(true);
 			scrollPane.setFitToHeight(true);
-			
+
 			gridPane.add(scrollPane, index % cols, index / cols);
 		}
 

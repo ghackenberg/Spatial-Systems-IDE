@@ -41,8 +41,7 @@ public class HelperTransform {
 
 				// add listener
 				// store pointer on listener
-				PointChangeListener listener = new PointChangeListener(rotate.axisProperty(),
-						((RotationTransform) transform).rotationAxeProperty());
+				PointChangeListener listener = new PointChangeListener(rotate.axisProperty(), ((RotationTransform) transform).rotationAxeProperty());
 				ListenerManager.getListenerRemover().addListener(vector.xProperty(), listener);
 				ListenerManager.getListenerRemover().addListener(vector.yProperty(), listener);
 				ListenerManager.getListenerRemover().addListener(vector.zProperty(), listener);
@@ -72,11 +71,11 @@ public class HelperTransform {
 			throw new IllegalStateException("Transform type not supported: " + modelPath.element.getClass().getName());
 		}
 	}
-	
+
 	private static void paintTranslationTransform(ModelPath<TranslationTransform> modelPath, ObjectProperty<Element> selected, ScenePath sceneParentCtx) {
 		paintVector(new ModelPath<>(modelPath, modelPath.element.getVector()), selected, sceneParentCtx);
 	}
-	
+
 	private static void paintRotationTransform(ModelPath<RotationTransform> modelPath, ObjectProperty<Element> selected, ScenePath scenePath) {
 		paintVector(new ModelPath<>(modelPath, modelPath.element.getRotationAxe()), selected, scenePath);
 	}
@@ -103,7 +102,7 @@ public class HelperTransform {
 
 		solidChild.getChildren().add(createArrowBody(modelPath, rotation, DrawMode.LINE, CullFace.BACK, Color.BLACK, selected));
 		solidChild.getChildren().add(createArrowHead(modelPath, rotation, DrawMode.LINE, CullFace.BACK, Color.BLACK, selected));
-		
+
 		scenePath.solidParent.getChildren().add(solidChild);
 	}
 

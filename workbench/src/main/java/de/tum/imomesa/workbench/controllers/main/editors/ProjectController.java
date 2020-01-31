@@ -16,26 +16,26 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 
 public class ProjectController implements AbstractEditorChildController<Project>, EventHandler {
-	
+
 	@FXML
 	private BorderPane borderPane;
 	@FXML
 	private ProgressBar progressBar;
 	@FXML
 	private Spinner<Number> spinner;
-	
+
 	private Project project;
 
 	@Override
 	public void setRootElement(Project e) {
 		project = e;
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
-	
+
 	public void handle(ProgressChangeEvent event) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -44,22 +44,22 @@ public class ProjectController implements AbstractEditorChildController<Project>
 			}
 		});
 	}
-	
+
 	public void startIntegration() {
 		ProjectController self = this;
-		
+
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				EventBus.getInstance().subscribe(self);
-				
+
 				// Create integrator
 				Integrator integrator = new Integrator(spinner.getValue().intValue());
 				// Process project
 				ProjectReport report = integrator.process(project);
-				
+
 				EventBus.getInstance().unsubscribe(self);
-				
+
 				Platform.runLater(new Runnable() {
 					public void run() {
 						borderPane.setCenter(ReportConverter.convert(ReportConverter.convert(report)));
@@ -67,8 +67,8 @@ public class ProjectController implements AbstractEditorChildController<Project>
 				});
 			}
 		});
-		
+
 		thread.start();
 	}
-	
+
 }

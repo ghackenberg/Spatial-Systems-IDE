@@ -63,34 +63,34 @@ public abstract class Label extends NamedElement {
 	public ListProperty<Property> propertiesProperty() {
 		return properties;
 	}
-	
+
 	// Incoming transitions
 	private final ListProperty<Transition<?>> incoming = new SimpleListProperty<>(FXCollections.observableArrayList());
-	
+
 	public List<Transition<?>> getIncomingTransitions() {
 		return incoming.get();
 	}
-	
+
 	public void setIncomingTransitions(List<Transition<?>> incoming) {
 		this.incoming.set(FXCollections.observableList(incoming));
 	}
-	
+
 	@Cascading
 	public ListProperty<Transition<?>> incomingTransitionsProperty() {
 		return incoming;
 	}
-	
+
 	// Outgoing transitions
 	private final ListProperty<Transition<?>> outgoing = new SimpleListProperty<>(FXCollections.observableArrayList());
-	
+
 	public List<Transition<?>> getOutgoingTransitions() {
 		return outgoing.get();
 	}
-	
+
 	public void setOutgoingTransitions(List<Transition<?>> outgoing) {
 		this.outgoing.set(FXCollections.observableList(outgoing));
 	}
-	
+
 	@Cascading
 	public ListProperty<Transition<?>> outgoingTransitionsProperty() {
 		return outgoing;

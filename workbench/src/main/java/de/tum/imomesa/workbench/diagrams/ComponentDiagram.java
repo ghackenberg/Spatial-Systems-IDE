@@ -96,8 +96,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		rectangle.widthProperty().bind(parent.widthProperty().subtract(borderPadding.multiply(2)));
 		rectangle.heightProperty().bind(parent.heightProperty().subtract(borderPadding.multiply(2)));
-		rectangle.fillProperty()
-				.bind(whenActive(component).then(CONTAINER_FILL_ACTIVE).otherwise(CONTAINER_FILL_INACTIVE));
+		rectangle.fillProperty().bind(whenActive(component).then(CONTAINER_FILL_ACTIVE).otherwise(CONTAINER_FILL_INACTIVE));
 		rectangle.arcWidthProperty().bind(cornerRadius);
 		rectangle.arcHeightProperty().bind(cornerRadius);
 		rectangle.setStroke(STROKE);
@@ -117,8 +116,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		bind(component, text, tooltip);
 
-		text.textProperty()
-				.bind(Bindings.concat("«" + component.getClass().getSimpleName() + "» ", component.nameProperty()));
+		text.textProperty().bind(Bindings.concat("«" + component.getClass().getSimpleName() + "» ", component.nameProperty()));
 		text.xProperty().bind(textPadding);
 		text.yProperty().bind(textPadding);
 		text.setTextOrigin(VPos.TOP);
@@ -241,8 +239,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 	public void transform(Group parent, Rectangle bounds, Port port) {
 		// Tooltip
 		Tooltip tooltip = new Tooltip();
-		tooltip.textProperty().bind(
-				Bindings.concat(port.nameProperty(), " : ", port.writeTypeProperty(), " / ", port.readTypeProperty()));
+		tooltip.textProperty().bind(Bindings.concat(port.nameProperty(), " : ", port.writeTypeProperty(), " / ", port.readTypeProperty()));
 
 		// Port
 		Port colorPort;
@@ -276,35 +273,27 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		if (colorPort instanceof MaterialPort) {
 			if (colorPort.getDirection().equals(Direction.INPUT.ordinal())) {
-				circle.fillProperty().bind(
-						whenActive(port).then(MATERIAL_INPUT_COLOR_ACTIVE).otherwise(MATERIAL_INPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(MATERIAL_INPUT_COLOR_ACTIVE).otherwise(MATERIAL_INPUT_COLOR_INACTIVE));
 			} else {
-				circle.fillProperty().bind(
-						whenActive(port).then(MATERIAL_OUTPUT_COLOR_ACTIVE).otherwise(MATERIAL_OUTPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(MATERIAL_OUTPUT_COLOR_ACTIVE).otherwise(MATERIAL_OUTPUT_COLOR_INACTIVE));
 			}
 		} else if (colorPort instanceof EnergyPort) {
 			if (colorPort.getDirection().equals(Direction.INPUT.ordinal())) {
-				circle.fillProperty()
-						.bind(whenActive(port).then(ENERGY_INPUT_COLOR_ACTIVE).otherwise(ENERGY_INPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(ENERGY_INPUT_COLOR_ACTIVE).otherwise(ENERGY_INPUT_COLOR_INACTIVE));
 			} else {
-				circle.fillProperty().bind(
-						whenActive(port).then(ENERGY_OUTPUT_COLOR_ACTIVE).otherwise(ENERGY_OUTPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(ENERGY_OUTPUT_COLOR_ACTIVE).otherwise(ENERGY_OUTPUT_COLOR_INACTIVE));
 			}
 		} else if (colorPort instanceof DataPort) {
 			if (colorPort.getDirection().equals(Direction.INPUT.ordinal())) {
-				circle.fillProperty()
-						.bind(whenActive(port).then(DATA_INPUT_COLOR_ACTIVE).otherwise(DATA_INPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(DATA_INPUT_COLOR_ACTIVE).otherwise(DATA_INPUT_COLOR_INACTIVE));
 			} else {
-				circle.fillProperty()
-						.bind(whenActive(port).then(DATA_OUTPUT_COLOR_ACTIVE).otherwise(DATA_OUTPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(DATA_OUTPUT_COLOR_ACTIVE).otherwise(DATA_OUTPUT_COLOR_INACTIVE));
 			}
 		} else if (colorPort instanceof GenericPort) {
 			if (colorPort.getDirection().equals(Direction.INPUT.ordinal())) {
-				circle.fillProperty().bind(
-						whenActive(port).then(GENERIC_INPUT_COLOR_ACTIVE).otherwise(GENERIC_INPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(GENERIC_INPUT_COLOR_ACTIVE).otherwise(GENERIC_INPUT_COLOR_INACTIVE));
 			} else {
-				circle.fillProperty().bind(
-						whenActive(port).then(GENERIC_OUTPUT_COLOR_ACTIVE).otherwise(GENERIC_OUTPUT_COLOR_INACTIVE));
+				circle.fillProperty().bind(whenActive(port).then(GENERIC_OUTPUT_COLOR_ACTIVE).otherwise(GENERIC_OUTPUT_COLOR_INACTIVE));
 			}
 		} else {
 			throw new IllegalStateException("Port type not supported: " + colorPort.getClass().getName());
@@ -344,8 +333,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		bind(port, text, tooltip);
 
-		text.textProperty().bind(Bindings
-				.concat(/* "«" + port.getClass().getSimpleName() + "»\n", */port.nameProperty()));
+		text.textProperty().bind(Bindings.concat(/* "«" + port.getClass().getSimpleName() + "»\n", */port.nameProperty()));
 
 		flow.getChildren().add(text);
 	}
@@ -362,10 +350,8 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		bind(port, group, tooltip);
 
-		group.translateXProperty().bind(Bindings.add(bound.xProperty(), Bindings.multiply(bound.widthProperty(),
-				Bindings.subtract(port.xProperty(), Bindings.divide(port.widthProperty(), 2.)))));
-		group.translateYProperty().bind(Bindings.add(bound.yProperty(), Bindings.multiply(bound.heightProperty(),
-				Bindings.subtract(port.yProperty(), Bindings.divide(port.heightProperty(), 2.)))));
+		group.translateXProperty().bind(Bindings.add(bound.xProperty(), Bindings.multiply(bound.widthProperty(), Bindings.subtract(port.xProperty(), Bindings.divide(port.widthProperty(), 2.)))));
+		group.translateYProperty().bind(Bindings.add(bound.yProperty(), Bindings.multiply(bound.heightProperty(), Bindings.subtract(port.yProperty(), Bindings.divide(port.heightProperty(), 2.)))));
 
 		// Boundary
 		Rectangle rectangle = new Rectangle();
@@ -406,8 +392,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 		bind(port, text, tooltip);
 
 		text.setTextAlignment(TextAlignment.CENTER);
-		text.textProperty().bind(Bindings
-				.concat(/* "«" + port.getClass().getSimpleName() + "»\n", */port.nameProperty()));
+		text.textProperty().bind(Bindings.concat(/* "«" + port.getClass().getSimpleName() + "»\n", */port.nameProperty()));
 		text.wrappingWidthProperty().bind(rectangle.widthProperty().subtract(textPadding.multiply(2)));
 
 		flow.getChildren().add(text);
@@ -447,10 +432,8 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		bind(component, group, tooltip);
 
-		group.translateXProperty().bind(Bindings.add(bounds.xProperty(), Bindings.multiply(bounds.widthProperty(),
-				Bindings.subtract(component.xProperty(), Bindings.divide(component.widthProperty(), 2.)))));
-		group.translateYProperty().bind(Bindings.add(bounds.yProperty(), Bindings.multiply(bounds.heightProperty(),
-				Bindings.subtract(component.yProperty(), Bindings.divide(component.heightProperty(), 2.)))));
+		group.translateXProperty().bind(Bindings.add(bounds.xProperty(), Bindings.multiply(bounds.widthProperty(), Bindings.subtract(component.xProperty(), Bindings.divide(component.widthProperty(), 2.)))));
+		group.translateYProperty().bind(Bindings.add(bounds.yProperty(), Bindings.multiply(bounds.heightProperty(), Bindings.subtract(component.yProperty(), Bindings.divide(component.heightProperty(), 2.)))));
 
 		// Boundary
 		Rectangle rectangle = new Rectangle();
@@ -459,8 +442,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		rectangle.widthProperty().bind(Bindings.multiply(bounds.widthProperty(), component.widthProperty()));
 		rectangle.heightProperty().bind(Bindings.multiply(bounds.heightProperty(), component.heightProperty()));
-		rectangle.fillProperty()
-				.bind(whenActive(component).then(COMPONENT_FILL_ACTIVE).otherwise(COMPONENT_FILL_INACTIVE));
+		rectangle.fillProperty().bind(whenActive(component).then(COMPONENT_FILL_ACTIVE).otherwise(COMPONENT_FILL_INACTIVE));
 		rectangle.setStroke(STROKE);
 		rectangle.setStrokeWidth(STROKE_WIDTH);
 		if (component instanceof ReferenceComponent) {
@@ -481,11 +463,9 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 		bind(component, text, tooltip);
 
 		if (component instanceof ReferenceComponent) {
-			text.textProperty().bind(
-					component.nameProperty().concat(" : ").concat(((ReferenceComponent) component).templateProperty()));
+			text.textProperty().bind(component.nameProperty().concat(" : ").concat(((ReferenceComponent) component).templateProperty()));
 		} else {
-			text.textProperty().bind(Bindings.concat(
-					/* "«" + component.getClass().getSimpleName() + "»\n", */component.nameProperty()));
+			text.textProperty().bind(Bindings.concat(/* "«" + component.getClass().getSimpleName() + "»\n", */component.nameProperty()));
 		}
 		text.xProperty().bind(textPadding);
 		text.yProperty().bind(Bindings.divide(rectangle.heightProperty(), 2));
@@ -521,8 +501,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 	public void transform(Group parent, Rectangle bounds, StaticChannel channel) {
 		// Tooltip
 		Tooltip tooltip = new Tooltip();
-		tooltip.textProperty()
-				.bind(Bindings.concat(channel.nameProperty(), " : ", channel.getSource(), " -> ", channel.getTarget()));
+		tooltip.textProperty().bind(Bindings.concat(channel.nameProperty(), " : ", channel.getSource(), " -> ", channel.getTarget()));
 
 		// Group
 		Group group = new Group();
@@ -551,8 +530,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 		NumberExpression targetX = convertXTrack(targetTrack);
 		NumberExpression targetY = convertYTrack(targetTrack);
 
-		PortPositionListener positionListener = new PortPositionListener(sourceX, sourceY, targetX, targetY,
-				portRadius.multiply(1.5), line);
+		PortPositionListener positionListener = new PortPositionListener(sourceX, sourceY, targetX, targetY, portRadius.multiply(1.5), line);
 
 		sourceX.addListener(positionListener);
 		sourceY.addListener(positionListener);
@@ -599,10 +577,8 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 		flow.setMaxWidth(CHANNEL_TEXT_WIDTH);
 		flow.setMinHeight(CHANNEL_TEXT_WIDTH);
 		flow.setMaxHeight(CHANNEL_TEXT_WIDTH);
-		flow.translateXProperty()
-				.bind(line.startXProperty().add(line.endXProperty()).divide(2).subtract(CHANNEL_TEXT_WIDTH / 2));
-		flow.translateYProperty()
-				.bind(line.startYProperty().add(line.endYProperty()).divide(2).subtract(CHANNEL_TEXT_WIDTH / 2));
+		flow.translateXProperty().bind(line.startXProperty().add(line.endXProperty()).divide(2).subtract(CHANNEL_TEXT_WIDTH / 2));
+		flow.translateYProperty().bind(line.startYProperty().add(line.endYProperty()).divide(2).subtract(CHANNEL_TEXT_WIDTH / 2));
 
 		group.getChildren().add(flow);
 
@@ -611,8 +587,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 
 		bind(channel, text, tooltip);
 
-		text.textProperty().bind(Bindings
-				.concat(/* "«" + channel.getClass().getSimpleName() + "»\n", */channel.nameProperty()));
+		text.textProperty().bind(Bindings.concat(/* "«" + channel.getClass().getSimpleName() + "»\n", */channel.nameProperty()));
 		text.setWrappingWidth(CHANNEL_TEXT_WIDTH * 2);
 		text.fillProperty().bind(whenActive(channel).then(EDGE_COLOR_ACTIVE).otherwise(EDGE_COLOR_INACTIVE));
 		text.setTextAlignment(TextAlignment.CENTER);
@@ -621,8 +596,7 @@ public class ComponentDiagram extends AbstractDiagram<DefinitionComponent> {
 	}
 
 	private boolean show(Port port) {
-		return !(port instanceof InteractionMaterialPort) && !(port instanceof ReferencePort
-				&& ((ReferencePort) port).getPortImplementation() instanceof InteractionMaterialPort);
+		return !(port instanceof InteractionMaterialPort) && !(port instanceof ReferencePort && ((ReferencePort) port).getPortImplementation() instanceof InteractionMaterialPort);
 	}
 
 }

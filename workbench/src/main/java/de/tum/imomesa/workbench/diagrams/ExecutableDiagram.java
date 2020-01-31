@@ -53,8 +53,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 	public void transform(Pane pane, E executable) {
 		// Tooltip
 		Tooltip tooltip = new Tooltip();
-		tooltip.textProperty()
-				.bind(Bindings.concat(executable.nameProperty(), " : ", executable.initialLabelProperty()));
+		tooltip.textProperty().bind(Bindings.concat(executable.nameProperty(), " : ", executable.initialLabelProperty()));
 
 		// Group
 		Group group = new Group();
@@ -73,8 +72,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 
 		rectangle.widthProperty().bind(pane.widthProperty().subtract(borderPadding.multiply(2)));
 		rectangle.heightProperty().bind(pane.heightProperty().subtract(borderPadding.multiply(2)));
-		rectangle.fillProperty()
-				.bind(whenActive(executable).then(CONTAINER_FILL_ACTIVE).otherwise(CONTAINER_FILL_INACTIVE));
+		rectangle.fillProperty().bind(whenActive(executable).then(CONTAINER_FILL_ACTIVE).otherwise(CONTAINER_FILL_INACTIVE));
 		rectangle.arcWidthProperty().bind(cornerRadius);
 		rectangle.arcHeightProperty().bind(cornerRadius);
 		rectangle.setStroke(STROKE);
@@ -93,11 +91,9 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 
 		BooleanBinding hasVariables = executable.variablesProperty().sizeProperty().greaterThan(0);
 
-		StringBinding variables = Bindings.when(hasVariables).then(Bindings.concat(" ", executable.variablesProperty()))
-				.otherwise("");
+		StringBinding variables = Bindings.when(hasVariables).then(Bindings.concat(" ", executable.variablesProperty())).otherwise("");
 
-		text.textProperty().bind(Bindings.concat("«" + executable.getClass().getSimpleName() + "» ",
-				executable.nameProperty(), variables, extend(executable)));
+		text.textProperty().bind(Bindings.concat("«" + executable.getClass().getSimpleName() + "» ", executable.nameProperty(), variables, extend(executable)));
 		text.xProperty().bind(textPadding);
 		text.yProperty().bind(textPadding);
 		text.wrappingWidthProperty().bind(rectangle.widthProperty().subtract(textPadding.multiply(2)));
@@ -147,18 +143,15 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 	public void transform(Group parent, Rectangle bounds, L label) {
 		// Tooltip
 		Tooltip tooltip = new Tooltip();
-		tooltip.textProperty().bind(Bindings.concat(label.nameProperty(), " : ", label.actionsProperty(), " / ",
-				label.propertiesProperty()));
+		tooltip.textProperty().bind(Bindings.concat(label.nameProperty(), " : ", label.actionsProperty(), " / ", label.propertiesProperty()));
 
 		// Group
 		Group group = new Group();
 
 		bind(label, group, tooltip);
 
-		group.translateXProperty()
-				.bind(Bindings.add(bounds.xProperty(), Bindings.multiply(bounds.widthProperty(), label.xProperty())));
-		group.translateYProperty()
-				.bind(Bindings.add(bounds.yProperty(), Bindings.multiply(bounds.heightProperty(), label.yProperty())));
+		group.translateXProperty().bind(Bindings.add(bounds.xProperty(), Bindings.multiply(bounds.widthProperty(), label.xProperty())));
+		group.translateYProperty().bind(Bindings.add(bounds.yProperty(), Bindings.multiply(bounds.heightProperty(), label.yProperty())));
 
 		parent.getChildren().add(group);
 
@@ -167,10 +160,8 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 
 		bind(label, ellipse, tooltip);
 
-		ellipse.radiusXProperty()
-				.bind(Bindings.multiply(bounds.widthProperty(), Bindings.divide(label.widthProperty(), 2)));
-		ellipse.radiusYProperty()
-				.bind(Bindings.multiply(bounds.heightProperty(), Bindings.divide(label.heightProperty(), 2)));
+		ellipse.radiusXProperty().bind(Bindings.multiply(bounds.widthProperty(), Bindings.divide(label.widthProperty(), 2)));
+		ellipse.radiusYProperty().bind(Bindings.multiply(bounds.heightProperty(), Bindings.divide(label.heightProperty(), 2)));
 		ellipse.fillProperty().bind(whenActive(label).then(getLabelFillActive()).otherwise(getLabelFillInactive()));
 		ellipse.setStroke(STROKE);
 		ellipse.setStrokeWidth(STROKE_WIDTH);
@@ -205,26 +196,18 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		bind(label, text, tooltip);
 
 		/*
-		 * BooleanBinding hasActions =
-		 * label.actionsProperty().sizeProperty().greaterThan(0);
+		 * BooleanBinding hasActions = label.actionsProperty().sizeProperty().greaterThan(0);
 		 */
 		BooleanBinding hasProperties = label.propertiesProperty().sizeProperty().greaterThan(0);
 
 		/*
-		 * StringBinding actions =
-		 * Bindings.when(hasActions).then(Bindings.concat(" ",
-		 * label.actionsProperty())) .otherwise("");
+		 * StringBinding actions = Bindings.when(hasActions).then(Bindings.concat(" ", label.actionsProperty())) .otherwise("");
 		 */
-		StringBinding properties = Bindings.when(hasProperties).then(Bindings.concat(" ", label.propertiesProperty()))
-				.otherwise("");
+		StringBinding properties = Bindings.when(hasProperties).then(Bindings.concat(" ", label.propertiesProperty())).otherwise("");
 
-		text.textProperty()
-				.bind(Bindings.concat(
-						/* "«" + label.getClass().getSimpleName() + "»\n", */label.nameProperty()/* , actions */,
-						properties, extend(label)));
+		text.textProperty().bind(Bindings.concat(/* "«" + label.getClass().getSimpleName() + "»\n", */label.nameProperty()/* , actions */, properties, extend(label)));
 		text.xProperty().bind(Bindings.subtract(0, ellipse.radiusXProperty()).add(textPadding));
-		text.wrappingWidthProperty()
-				.bind(Bindings.multiply(ellipse.radiusXProperty(), 2).subtract(textPadding.multiply(2)));
+		text.wrappingWidthProperty().bind(Bindings.multiply(ellipse.radiusXProperty(), 2).subtract(textPadding.multiply(2)));
 		text.setTextAlignment(TextAlignment.CENTER);
 		text.setTextOrigin(VPos.CENTER);
 
@@ -238,8 +221,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 	public void transform(Group parent, Rectangle bounds, T transition) {
 		// Tooltip
 		Tooltip tooltip = new Tooltip();
-		tooltip.textProperty().bind(Bindings.concat(transition.nameProperty(), " : ", transition.guardProperty(), " / ",
-				transition.actionsProperty()));
+		tooltip.textProperty().bind(Bindings.concat(transition.nameProperty(), " : ", transition.guardProperty(), " / ", transition.actionsProperty()));
 
 		// Group
 		Group group = new Group();
@@ -257,8 +239,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		Ellipse sourceEllipse = resolve(sourceLabel, Ellipse.class).get(0);
 		Group sourceGroup = resolve(sourceLabel, Group.class).get(0);
 
-		EllipsePositionListener sourceListener = new EllipsePositionListener(sourceEllipse, sourcePortGroup,
-				transition.sourceAngleProperty());
+		EllipsePositionListener sourceListener = new EllipsePositionListener(sourceEllipse, sourcePortGroup, transition.sourceAngleProperty());
 
 		transition.sourceAngleProperty().addListener(sourceListener);
 
@@ -275,8 +256,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		bind(transition, sourcePort, tooltip);
 
 		sourcePort.radiusProperty().bind(portRadius);
-		sourcePort.fillProperty().bind(
-				whenActive(sourcePort).then(TRANSITION_SOURCE_FILL_ACTIVE).otherwise(TRANSITION_SOURCE_FILL_INACTIVE));
+		sourcePort.fillProperty().bind(whenActive(sourcePort).then(TRANSITION_SOURCE_FILL_ACTIVE).otherwise(TRANSITION_SOURCE_FILL_INACTIVE));
 		sourcePort.setStroke(STROKE);
 		sourcePort.setStrokeWidth(STROKE_WIDTH);
 
@@ -291,8 +271,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		Ellipse targetEllipse = resolve(target, Ellipse.class).get(0);
 		Group targetGroup = resolve(target, Group.class).get(0);
 
-		EllipsePositionListener targetListener = new EllipsePositionListener(targetEllipse, targetPortGroup,
-				transition.targetAngleProperty());
+		EllipsePositionListener targetListener = new EllipsePositionListener(targetEllipse, targetPortGroup, transition.targetAngleProperty());
 
 		transition.targetAngleProperty().addListener(targetListener);
 
@@ -309,8 +288,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		bind(transition, targetPort, tooltip);
 
 		targetPort.radiusProperty().bind(portRadius);
-		targetPort.fillProperty().bind(
-				whenActive(targetPort).then(TRANSITION_TARGET_FILL_ACTIVE).otherwise(TRANSITION_TARGET_FILL_INACTIVE));
+		targetPort.fillProperty().bind(whenActive(targetPort).then(TRANSITION_TARGET_FILL_ACTIVE).otherwise(TRANSITION_TARGET_FILL_INACTIVE));
 		targetPort.setStroke(STROKE);
 		targetPort.setStrokeWidth(STROKE_WIDTH);
 
@@ -329,8 +307,7 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		NumberExpression targetPortX = convertXTrack(targetPortTrack);
 		NumberExpression targetPortY = convertYTrack(targetPortTrack);
 
-		PortPositionListener positionListener = new PortPositionListener(sourcePortX, sourcePortY, targetPortX,
-				targetPortY, portRadius.multiply(1.5), line);
+		PortPositionListener positionListener = new PortPositionListener(sourcePortX, sourcePortY, targetPortX, targetPortY, portRadius.multiply(1.5), line);
 
 		sourcePortX.addListener(positionListener);
 		sourcePortY.addListener(positionListener);
@@ -373,19 +350,14 @@ public abstract class ExecutableDiagram<L extends Label, T extends Transition<L>
 		bind(transition, text, tooltip);
 
 		/*
-		 * BooleanBinding hasActions =
-		 * transition.actionsProperty().sizeProperty().greaterThan(0);
+		 * BooleanBinding hasActions = transition.actionsProperty().sizeProperty().greaterThan(0);
 		 */
 
 		/*
-		 * StringBinding actions =
-		 * Bindings.when(hasActions).then(Bindings.concat(" ",
-		 * transition.actionsProperty())) .otherwise("");
+		 * StringBinding actions = Bindings.when(hasActions).then(Bindings.concat(" ", transition.actionsProperty())) .otherwise("");
 		 */
 
-		text.textProperty().bind(Bindings.concat(
-				/* "«" + transition.getClass().getSimpleName() + "»\n", */transition
-						.nameProperty()/* , actions */));
+		text.textProperty().bind(Bindings.concat(/* "«" + transition.getClass().getSimpleName() + "»\n", */transition.nameProperty()/* , actions */));
 		text.xProperty().bind(line.startXProperty().add(line.endXProperty()).divide(2).subtract(TRANSITION_TEXT_WIDTH));
 		text.yProperty().bind(line.startYProperty().add(line.endYProperty()).divide(2));
 		text.setWrappingWidth(TRANSITION_TEXT_WIDTH * 2);

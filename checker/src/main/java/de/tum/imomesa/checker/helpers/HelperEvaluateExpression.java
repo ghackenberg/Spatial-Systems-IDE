@@ -20,34 +20,35 @@ public class HelperEvaluateExpression {
 	// Evaluate Expression
 	// ***********************************************************************************
 	public static void evaluateUnaryExpression(UnaryExpression parent, Expression child, SyntacticMarker marker) {
-		if(child == null) return;
-		
+		if (child == null)
+			return;
+
 		HelperEvaluateType.evaluateType(parent.getArgumentType(), child.getType(), marker);
 	}
-	
+
 	public static void evaluateNaryExpression(NaryExpression parent, List<Expression> children, SyntacticMarker marker) {
-		for(Expression child : children) {
+		for (Expression child : children) {
 			HelperEvaluateType.evaluateType(parent.getArgumentType(), child.getType(), marker);
 		}
 	}
-	
+
 	// ***********************************************************************************
 	// Init evaluate Expression
-	//     - expressions are evaluated top down
-	//     - only arguments of an expression are considered
+	// - expressions are evaluated top down
+	// - only arguments of an expression are considered
 	// ***********************************************************************************
 	public static void evaluateExpressionInit(UnaryExpression parent, SyntacticMarker marker) {
 		evaluateUnaryExpression(parent, parent.getArgument(), marker);
 		ListenerRemover.getListenerManager().addListener(parent.argumentProperty(), new ChangeListenerMarkerExpressionUnary(parent, marker));
 	}
-	
+
 	public static void evaluateExpressionInit(NaryExpression parent, SyntacticMarker marker) {
 		evaluateNaryExpression(parent, parent.getArguments(), marker);
 		ListenerRemover.getListenerManager().addListener(parent.argumentsProperty(), new ChangeListenerMarkerExpressionNary(parent, marker));
 	}
 
 	public static void evaluateExpressionInit(ObservationExpression parent, SyntacticMarker marker, SyntacticMarker delay) {
-		if(parent.getObservation() != null) {
+		if (parent.getObservation() != null) {
 			HelperEvaluateType.evaluateType(parent.getType(), parent.getObservation().getReadType(), marker);
 			ListenerRemover.getListenerManager().addListener(parent.getObservation().readTypeProperty(), new ChangeListenerMarkerExpressionObservationType(parent.getType(), marker));
 		}

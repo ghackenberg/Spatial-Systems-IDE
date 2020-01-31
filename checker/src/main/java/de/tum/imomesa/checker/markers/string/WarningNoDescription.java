@@ -6,9 +6,9 @@ import de.tum.imomesa.model.Element;
 public class WarningNoDescription extends SyntacticWarning {
 
 	public WarningNoDescription() {
-		
+
 	}
-	
+
 	public WarningNoDescription(Element source) {
 		super(source, "No description set.");
 	}

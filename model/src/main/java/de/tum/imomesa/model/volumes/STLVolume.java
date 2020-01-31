@@ -9,27 +9,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class STLVolume extends AtomicVolume {
-	
+
 	public STLVolume() {
 		filePath.addListener(this::updateCSG);
 	}
-	
+
 	// Depth
 	private StringProperty filePath = new SimpleStringProperty();
-	
-	public String getFilePath()
-	{
+
+	public String getFilePath() {
 		return filePath.get();
 	}
-	public void setFilePath(String filePath)
-	{
+
+	public void setFilePath(String filePath) {
 		this.filePath.set(filePath);
 	}
-	public StringProperty filePathProperty()
-	{
+
+	public StringProperty filePathProperty() {
 		return filePath;
 	}
-	
+
 	protected CSG toCSG() {
 		try {
 			if (filePath.get() != null && !filePath.get().equals("")) {
@@ -42,5 +41,5 @@ public class STLVolume extends AtomicVolume {
 			return CSG.fromPolygons();
 		}
 	}
-	
+
 }

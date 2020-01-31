@@ -91,52 +91,52 @@ public abstract class Executable<L extends Label, T extends Transition<L>> exten
 	public ListProperty<Variable> variablesProperty() {
 		return variables;
 	}
-	
+
 	public List<Transition<?>> getIncomingTransitions(Label label) {
 		List<Transition<?>> result = new ArrayList<>();
-		
+
 		for (T transition : getTransitions()) {
 			if (transition.getTargetLabel() == label) {
 				result.add(transition);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public List<Transition<?>> getOutgoingTransitions(Label label) {
 		List<Transition<?>> result = new ArrayList<>();
-		
+
 		for (T transition : getTransitions()) {
 			if (transition.getSourceLabel() == label) {
 				result.add(transition);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public List<T> getIncomingTransitionsTyped(L label) {
 		List<T> result = new ArrayList<>();
-		
+
 		for (T transition : getTransitions()) {
 			if (transition.getTargetLabel() == label) {
 				result.add(transition);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public List<T> getOutgoingTransitionsTyped(L label) {
 		List<T> result = new ArrayList<>();
-		
+
 		for (T transition : getTransitions()) {
 			if (transition.getSourceLabel() == label) {
 				result.add(transition);
 			}
 		}
-		
+
 		return result;
 	}
 

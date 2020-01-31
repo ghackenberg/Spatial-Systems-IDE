@@ -25,8 +25,7 @@ import de.tum.imomesa.simulator.markers.SimulationMarker;
 import de.tum.imomesa.simulator.markers.TimeoutMarker;
 import de.tum.imomesa.simulator.markers.WarningMarker;
 
-public class PrototypeSimulationComponentResultAggregation
-		extends Aggregation<Map<DefinitionComponent, Map<String, List<Integer>>>> {
+public class PrototypeSimulationComponentResultAggregation extends Aggregation<Map<DefinitionComponent, Map<String, List<Integer>>>> {
 
 	private static final String FAILURE = "Failure";
 	private static final String TIMEOUT = "Timeout";
@@ -34,8 +33,7 @@ public class PrototypeSimulationComponentResultAggregation
 
 	private Discretizer discretizer;
 
-	public PrototypeSimulationComponentResultAggregation(List<Change> changes, List<Event> events,
-			Discretizer discretizer) {
+	public PrototypeSimulationComponentResultAggregation(List<Change> changes, List<Event> events, Discretizer discretizer) {
 		super(changes, events);
 
 		this.discretizer = discretizer;
@@ -105,8 +103,7 @@ public class PrototypeSimulationComponentResultAggregation
 	}
 
 	@Override
-	protected List<Serialization<Map<DefinitionComponent, Map<String, List<Integer>>>>> generateSerializations()
-			throws IOException {
+	protected List<Serialization<Map<DefinitionComponent, Map<String, List<Integer>>>>> generateSerializations() throws IOException {
 		List<Serialization<Map<DefinitionComponent, Map<String, List<Integer>>>>> result = new ArrayList<>();
 
 		return result;

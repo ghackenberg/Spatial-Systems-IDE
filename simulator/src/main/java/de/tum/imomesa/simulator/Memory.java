@@ -24,7 +24,7 @@ import de.tum.imomesa.utilities.managers.StorageManager;
 import eu.mihosoft.jcsg.CSG;
 
 public class Memory {
-	
+
 	// Proxies
 
 	private CopyOnWriteArrayList<CopyOnWriteArraySet<ReferenceComponent>> proxies = new CopyOnWriteArrayList<>();
@@ -46,7 +46,7 @@ public class Memory {
 
 		return proxies.get(step);
 	}
-	
+
 	// Added proxies
 
 	private CopyOnWriteArrayList<CopyOnWriteArraySet<ReferenceComponent>> addedProxies = new CopyOnWriteArrayList<>();
@@ -68,7 +68,7 @@ public class Memory {
 
 		return addedProxies.get(step);
 	}
-	
+
 	// Removed proxies
 
 	private CopyOnWriteArrayList<CopyOnWriteArraySet<ReferenceComponent>> removedProxies = new CopyOnWriteArrayList<>();
@@ -114,8 +114,7 @@ public class Memory {
 		}
 	}
 
-	public synchronized java.lang.Object getValue(AbstractThread<?> thread, List<Element> context, int step)
-			throws InterruptedException {
+	public synchronized java.lang.Object getValue(AbstractThread<?> thread, List<Element> context, int step) throws InterruptedException {
 		if (!(context.get(context.size() - 1) instanceof Observation)) {
 			throw new IllegalStateException();
 		}
@@ -155,8 +154,7 @@ public class Memory {
 		}
 	}
 
-	public synchronized void setValue(AbstractThread<?> thread, List<Element> context, int step,
-			java.lang.Object value) {
+	public synchronized void setValue(AbstractThread<?> thread, List<Element> context, int step, java.lang.Object value) {
 		if (!(context.get(context.size() - 1) instanceof Observation)) {
 			throw new IllegalStateException();
 		}
@@ -182,8 +180,7 @@ public class Memory {
 
 			ThreadManager.getInstance().unblockObservation(context);
 		} else if (values.size() > step) {
-			MarkerManager.get().addMarker(new WritingValueMoreThanOnceError(
-					thread == null ? new ArrayList<>() : thread.getContext(), context, step));
+			MarkerManager.get().addMarker(new WritingValueMoreThanOnceError(thread == null ? new ArrayList<>() : thread.getContext(), context, step));
 
 			// System.out.println("setValue(" + thread + ":" + (thread == null ?
 			// "null" : thread.getClass().getName()) + ", " +
@@ -261,7 +258,7 @@ public class Memory {
 		// + step + ") = " + (values.size() > step));
 		return intersections.size() > step;
 	}
-	
+
 	// Differences
 
 	private ConcurrentMap<String, CopyOnWriteArrayList<CSG>> differences = new ConcurrentHashMap<>();
@@ -287,7 +284,7 @@ public class Memory {
 
 	public synchronized CSG getDifference(List<Element> context, int step) throws InterruptedException {
 		CopyOnWriteArrayList<CSG> values = getDifferences(context);
-		
+
 		// System.out.println("getCollision(" + getPathReadable(context) + ", " + step + ") = " + values.get(step));
 
 		while (values.size() <= step && ThreadManager.getInstance().getRunning()) {
@@ -327,7 +324,7 @@ public class Memory {
 		// + step + ") = " + (values.size() > step));
 		return values.size() > step;
 	}
-	
+
 	// Collisions
 
 	private ConcurrentMap<String, CopyOnWriteArrayList<Set<List<Element>>>> collisions = new ConcurrentHashMap<>();
@@ -353,7 +350,7 @@ public class Memory {
 
 	public synchronized Set<List<Element>> getCollisions(List<Element> context, int step) throws InterruptedException {
 		CopyOnWriteArrayList<Set<List<Element>>> values = getCollisions(context);
-		
+
 		// System.out.println("getCollision(" + getPathReadable(context) + ", " + step + ") = " + values.get(step));
 
 		while (values.size() <= step && ThreadManager.getInstance().getRunning()) {
@@ -494,7 +491,7 @@ public class Memory {
 
 		// System.out.println("getTransform(" + getPathReadable(context) + ", "
 		// + step + ") = " + transforms.get(step));
-		
+
 		if (transforms.size() <= step) {
 			System.out.println(getPathReadable(context) + " does not have transform " + step + " (length = " + transforms.size() + ")");
 		}

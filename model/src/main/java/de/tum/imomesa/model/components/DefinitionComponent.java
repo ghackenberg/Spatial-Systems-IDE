@@ -47,8 +47,7 @@ public class DefinitionComponent extends Component<DefinitionPort> {
 
 	// Requirements
 
-	private final ListProperty<Requirement> requirements = new SimpleListProperty<>(
-			FXCollections.observableArrayList());
+	private final ListProperty<Requirement> requirements = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public List<Requirement> getRequirements() {
 		return requirements.get();
@@ -130,20 +129,20 @@ public class DefinitionComponent extends Component<DefinitionPort> {
 	public ListProperty<Component<?>> componentsProperty() {
 		return components;
 	}
-	
+
 	// Channels
 	// TODO Use channels list!
-	
+
 	private final ListProperty<StaticChannel> channels = new SimpleListProperty<>(FXCollections.observableArrayList());
-	
+
 	public List<StaticChannel> getChannels() {
 		return channels.get();
 	}
-	
+
 	public void setChannels(List<StaticChannel> channels) {
 		this.channels.set(FXCollections.observableList(channels));
 	}
-	
+
 	@Cascading
 	public ListProperty<StaticChannel> channelsProperty() {
 		return channels;

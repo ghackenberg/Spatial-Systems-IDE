@@ -25,7 +25,7 @@ public class SyntaxComponentDurationAggregation extends DurationAggregation<Defi
 	@Override
 	protected DurationDescriptor<DefinitionComponent> generateResult() {
 		Map<DefinitionComponent, List<Long>> durations = new HashMap<>();
-		
+
 		Map<Element, Map<Class<?>, Long>> adds = new HashMap<>();
 
 		for (Event event : getEvents()) {
@@ -63,8 +63,7 @@ public class SyntaxComponentDurationAggregation extends DurationAggregation<Defi
 						long duration = currentTimestamp - previousTimestamp;
 
 						if (duration / 1000 / 60 > 600) {
-							System.out.println("[Component] Duration too long: " + duration + ", "
-									+ marker.getClass().getName() + ", " + element.getClass().getName());
+							System.out.println("[Component] Duration too long: " + duration + ", " + marker.getClass().getName() + ", " + element.getClass().getName());
 						}
 
 						durations.get(component).add(duration);

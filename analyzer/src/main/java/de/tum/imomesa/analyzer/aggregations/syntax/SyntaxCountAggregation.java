@@ -17,7 +17,7 @@ import de.tum.imomesa.database.changes.Change;
 import de.tum.imomesa.model.Element;
 
 public class SyntaxCountAggregation extends CountAggregtion<String> {
-	
+
 	private static final String DEFICIENCY = "Deficiency";
 	private static final String DEFECT = "Defect";
 
@@ -30,7 +30,7 @@ public class SyntaxCountAggregation extends CountAggregtion<String> {
 		Map<Element, Set<Class<?>>> markers = new HashMap<>();
 
 		Map<String, Integer> counts = new HashMap<>();
-		
+
 		counts.put(DEFICIENCY, 0);
 		counts.put(DEFECT, 0);
 
@@ -61,8 +61,7 @@ public class SyntaxCountAggregation extends CountAggregtion<String> {
 					} else if (marker instanceof SyntacticError) {
 						counts.put(DEFECT, counts.get(DEFECT) + 1);
 					} else {
-						throw new IllegalStateException(
-								"Syntactic issue type not supported: " + marker.getClass().getName());
+						throw new IllegalStateException("Syntactic issue type not supported: " + marker.getClass().getName());
 					}
 				}
 			}

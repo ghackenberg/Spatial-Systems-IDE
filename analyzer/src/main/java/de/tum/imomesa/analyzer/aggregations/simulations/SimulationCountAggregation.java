@@ -33,42 +33,38 @@ public class SimulationCountAggregation extends CountAggregtion<String> {
 		counts.put(TIMEOUT, 0);
 
 		/*
-		boolean integration = false;
-		*/
+		 * boolean integration = false;
+		 */
 		boolean failure = false;
 		boolean timeout = false;
 
 		for (Event event : getEvents()) {
 			/*
-			if (event instanceof de.tum.imomesa.integrator.events.StartEvent) {
-				integration = true;
-			} else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) {
-				integration = false;
-			} else if (!integration) {
-			*/
-				if (event instanceof StartEvent) {
-					failure = false;
-					timeout = false;
-				} else if (event instanceof SimulationMarkerEvent) {
-					SimulationMarkerEvent casted = (SimulationMarkerEvent) event;
-					SimulationMarker marker = casted.getMarker();
-					if (marker instanceof TimeoutMarker) {
-						timeout = true;
-					} else if (marker instanceof ErrorMarker) {
-						failure = true;
-					}
-				} else if (event instanceof EndEvent) {
-					if (failure) {
-						counts.put(FAILURE, counts.get(FAILURE) + 1);
-					} else if (timeout) {
-						counts.put(TIMEOUT, counts.get(TIMEOUT) + 1);
-					} else {
-						counts.put(SUCCESS, counts.get(SUCCESS) + 1);
-					}
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
+			 */
+			if (event instanceof StartEvent) {
+				failure = false;
+				timeout = false;
+			} else if (event instanceof SimulationMarkerEvent) {
+				SimulationMarkerEvent casted = (SimulationMarkerEvent) event;
+				SimulationMarker marker = casted.getMarker();
+				if (marker instanceof TimeoutMarker) {
+					timeout = true;
+				} else if (marker instanceof ErrorMarker) {
+					failure = true;
 				}
-			/*
+			} else if (event instanceof EndEvent) {
+				if (failure) {
+					counts.put(FAILURE, counts.get(FAILURE) + 1);
+				} else if (timeout) {
+					counts.put(TIMEOUT, counts.get(TIMEOUT) + 1);
+				} else {
+					counts.put(SUCCESS, counts.get(SUCCESS) + 1);
+				}
 			}
-			*/
+			/*
+			 * }
+			 */
 		}
 
 		return counts;

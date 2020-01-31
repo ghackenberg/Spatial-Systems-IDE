@@ -14,7 +14,7 @@ public class ComponentReportPrinter extends AbstractReportPrinter<DefinitionComp
 
 	@Override
 	public void process(Writer writer) {
-		
+
 	}
 
 }

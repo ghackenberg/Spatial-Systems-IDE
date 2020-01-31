@@ -8,50 +8,46 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 
-public abstract class ObservedElement extends NamedElement
-{
+public abstract class ObservedElement extends NamedElement {
 
 	@Override
-	public String toString()
-	{
-		if(getName() == null || getName().equals("")) {
+	public String toString() {
+		if (getName() == null || getName().equals("")) {
 			return this.getClass().getSimpleName();
 		}
 		return getName();
 	}
-	
+
 	// WriteType
-	
+
 	private ListProperty<Class<?>> writeType = new SimpleListProperty<>(FXCollections.observableArrayList());
-	
-	public List<Class<?>> getWriteType()
-	{
+
+	public List<Class<?>> getWriteType() {
 		return writeTypeProperty().get();
 	}
-	public void setWriteType(List<Class<?>> writeType)
-	{
+
+	public void setWriteType(List<Class<?>> writeType) {
 		writeTypeProperty().set(FXCollections.observableList(writeType));
 	}
-	public ListProperty<Class<?>> writeTypeProperty()
-	{
+
+	public ListProperty<Class<?>> writeTypeProperty() {
 		return writeType;
 	}
 
 	// ReadType
-	
+
 	private ObjectProperty<Class<?>> readType = new SimpleObjectProperty<>();
-	
-	public Class<?> getReadType()
-	{
+
+	public Class<?> getReadType() {
 		return readTypeProperty().get();
 	}
-	public void setReadType(Class<?> readType)
-	{
+
+	public void setReadType(Class<?> readType) {
 		readTypeProperty().set(readType);
 	}
-	public ObjectProperty<Class<?>> readTypeProperty()
-	{
+
+	public ObjectProperty<Class<?>> readTypeProperty() {
 		return readType;
 	}
-	
+
 }

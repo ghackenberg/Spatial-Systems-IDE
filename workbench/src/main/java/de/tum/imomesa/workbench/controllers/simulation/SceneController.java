@@ -57,14 +57,14 @@ public class SceneController extends AbstractSceneController implements EventHan
 			// Unbind transform values
 			rotationTransformX.angleProperty().unbindBidirectional(data.cameraAngleXProperty());
 			rotationTransformY.angleProperty().unbindBidirectional(data.cameraAngleYProperty());
-			
+
 			translateDistance.xProperty().unbindBidirectional(data.cameraTranslateXProperty());
 			translateDistance.yProperty().unbindBidirectional(data.cameraTranslateYProperty());
 			translateDistance.zProperty().unbindBidirectional(data.cameraDistanceProperty());
 			// Reset transform values
 			rotationTransformX.setAngle(-45);
 			rotationTransformY.setAngle(-45);
-			
+
 			translateDistance.setX(0);
 			translateDistance.setY(0);
 			translateDistance.setZ(-200);
@@ -83,7 +83,7 @@ public class SceneController extends AbstractSceneController implements EventHan
 		// clear scene and remove all listener
 		solidRoot.getChildren().clear();
 		alphaRoot.getChildren().clear();
-		
+
 		ListenerManager.getListenerRemover().removeAllListener();
 
 		// paint new data
@@ -91,41 +91,41 @@ public class SceneController extends AbstractSceneController implements EventHan
 			// Initialize transforms
 			rotationTransformX.setAngle(data.getCameraAngleX());
 			rotationTransformY.setAngle(data.getCameraAngleY());
-			
+
 			translateDistance.setX(data.getCameraTranslateX());
 			translateDistance.setY(data.getCameraTranslateY());
 			translateDistance.setZ(data.getCameraDistance());
 			// Bind transforms
 			rotationTransformX.angleProperty().bindBidirectional(data.cameraAngleXProperty());
 			rotationTransformY.angleProperty().bindBidirectional(data.cameraAngleYProperty());
-			
+
 			translateDistance.xProperty().bindBidirectional(data.cameraTranslateXProperty());
 			translateDistance.yProperty().bindBidirectional(data.cameraTranslateYProperty());
 			translateDistance.zProperty().bindBidirectional(data.cameraDistanceProperty());
-			
+
 			// Paint components
 			try {
 				if (step >= 0) {
 					// Intersections
 					for (CSG csg : memory.getIntersections(step)) {
 						final Group alphaChild = new Group();
-						
+
 						csg.toJavaFXMesh().getAsMeshViews().forEach(meshView -> {
 							meshView.setMaterial(new PhongMaterial(Color.RED));
 							meshView.setDrawMode(DrawMode.FILL);
 							meshView.setCullFace(CullFace.BACK);
-							
+
 							alphaChild.getChildren().add(meshView);
 						});
-						
+
 						csg.toJavaFXMesh().getAsMeshViews().forEach(meshView -> {
 							meshView.setMaterial(new PhongMaterial(Color.BLACK));
 							meshView.setDrawMode(DrawMode.LINE);
 							meshView.setCullFace(CullFace.FRONT);
-							
+
 							alphaChild.getChildren().add(meshView);
 						});
-						
+
 						alphaRoot.getChildren().add(alphaChild);
 					}
 					// Selected component
@@ -149,7 +149,7 @@ public class SceneController extends AbstractSceneController implements EventHan
 
 			final Group solidChild = new Group();
 			final Group alphaChild = new Group();
-			
+
 			final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 
 			// get material ports from component
@@ -191,13 +191,10 @@ public class SceneController extends AbstractSceneController implements EventHan
 			}
 
 			// transform component
-			final RealMatrix matrix = memory.getTransform(modelPath.path, step); //Utils.calcTransforms(component, context, memory, step);
+			final RealMatrix matrix = memory.getTransform(modelPath.path, step); // Utils.calcTransforms(component, context, memory, step);
 
-			final Transform transform = new Affine(matrix.getEntry(0, 0), matrix.getEntry(0, 1), matrix.getEntry(0, 2),
-					matrix.getEntry(0, 3), matrix.getEntry(1, 0), matrix.getEntry(1, 1), matrix.getEntry(1, 2),
-					matrix.getEntry(1, 3), matrix.getEntry(2, 0), matrix.getEntry(2, 1), matrix.getEntry(2, 2),
-					matrix.getEntry(2, 3));
-			
+			final Transform transform = new Affine(matrix.getEntry(0, 0), matrix.getEntry(0, 1), matrix.getEntry(0, 2), matrix.getEntry(0, 3), matrix.getEntry(1, 0), matrix.getEntry(1, 1), matrix.getEntry(1, 2), matrix.getEntry(1, 3), matrix.getEntry(2, 0), matrix.getEntry(2, 1), matrix.getEntry(2, 2), matrix.getEntry(2, 3));
+
 			solidChild.getTransforms().add(transform);
 			alphaChild.getTransforms().add(transform);
 		} else if (modelPath.element instanceof ReferenceComponent) {

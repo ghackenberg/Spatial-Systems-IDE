@@ -16,26 +16,26 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 
 public class DefinitionComponentController implements AbstractEditorChildController<DefinitionComponent>, EventHandler {
-	
+
 	@FXML
 	private BorderPane borderPane;
 	@FXML
 	private ProgressBar progressBar;
 	@FXML
 	private Spinner<Number> spinner;
-	
+
 	private DefinitionComponent component;
 
 	@Override
 	public void setRootElement(DefinitionComponent e) {
 		component = e;
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
-	
+
 	public void handle(ProgressChangeEvent event) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -44,22 +44,22 @@ public class DefinitionComponentController implements AbstractEditorChildControl
 			}
 		});
 	}
-	
+
 	public void startIntegration() {
 		DefinitionComponentController self = this;
-		
+
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				EventBus.getInstance().subscribe(self);
-				
+
 				// Create integrator
 				Integrator integrator = new Integrator(spinner.getValue().intValue());
 				// Process project
 				ComponentReport report = integrator.process(component);
-				
+
 				EventBus.getInstance().unsubscribe(self);
-				
+
 				Platform.runLater(new Runnable() {
 					public void run() {
 						borderPane.setCenter(ReportConverter.convert(ReportConverter.convert(report)));
@@ -67,8 +67,8 @@ public class DefinitionComponentController implements AbstractEditorChildControl
 				});
 			}
 		});
-		
+
 		thread.start();
 	}
-	
+
 }

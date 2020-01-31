@@ -8,26 +8,25 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class SphereVolume extends AtomicVolume {
-	
+
 	public SphereVolume() {
 		radius.addListener(this::updateCSG);
 		slices.addListener(this::updateCSG);
 		stacks.addListener(this::updateCSG);
 	}
-	
+
 	// Radius
 	private final DoubleProperty radius = new SimpleDoubleProperty(0);
-	
-	public double getRadius()
-	{
+
+	public double getRadius() {
 		return radius.get();
 	}
-	public void setRadius(double radius)
-	{
+
+	public void setRadius(double radius) {
 		this.radius.set(radius);
 	}
-	public DoubleProperty radiusProperty()
-	{
+
+	public DoubleProperty radiusProperty() {
 		return radius;
 	}
 
@@ -37,11 +36,11 @@ public class SphereVolume extends AtomicVolume {
 	public int getSlices() {
 		return slices.get();
 	}
-	
+
 	public void setSlices(int slices) {
 		this.slices.set(slices);
 	}
-	
+
 	public IntegerProperty slicesProperty() {
 		return slices;
 	}
@@ -52,17 +51,17 @@ public class SphereVolume extends AtomicVolume {
 	public int getStacks() {
 		return stacks.get();
 	}
-	
+
 	public void setStacks(int stacks) {
 		this.stacks.set(stacks);
 	}
-	
+
 	public IntegerProperty stacksProperty() {
 		return stacks;
 	}
-	
+
 	protected CSG toCSG() {
 		return new Sphere(getRadius(), getSlices(), getStacks()).toCSG().transformed(getTransform());
 	}
-	
+
 }

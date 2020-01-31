@@ -16,7 +16,7 @@ public class NegativeDelayWarning extends WarningMarker {
 
 	public NegativeDelayWarning(List<Element> context, ObservationExpression exp, int step, int delay) {
 		super(context, "Negative delay = " + delay, step);
-		
+
 		this.delay.set(delay);
 	}
 

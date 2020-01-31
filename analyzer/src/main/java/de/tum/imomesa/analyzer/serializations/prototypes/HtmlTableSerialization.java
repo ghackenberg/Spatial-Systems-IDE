@@ -20,8 +20,7 @@ public class HtmlTableSerialization extends Serialization<List<SimulationDescrip
 	private List<DefinitionComponent> outerOrder;
 	private List<Scenario> innerOrder;
 
-	public HtmlTableSerialization(List<SimulationDescriptor> data, List<DefinitionComponent> outerOrder,
-			List<Scenario> innerOrder, Writer writer) {
+	public HtmlTableSerialization(List<SimulationDescriptor> data, List<DefinitionComponent> outerOrder, List<Scenario> innerOrder, Writer writer) {
 		super(data, writer);
 
 		this.outerOrder = outerOrder;
@@ -31,7 +30,7 @@ public class HtmlTableSerialization extends Serialization<List<SimulationDescrip
 	@Override
 	public void generateResult() throws IOException {
 		Set<String> messages = new HashSet<>();
-		
+
 		double maxCount = 0;
 
 		Map<DefinitionComponent, Map<Scenario, List<SimulationDescriptor>>> swimlanes = new HashMap<>();
@@ -106,7 +105,7 @@ public class HtmlTableSerialization extends Serialization<List<SimulationDescrip
 								messages.add(message.trim());
 							}
 						}
-						
+
 						if (values.get(innerKey).contains(descriptor)) {
 							getWriter().write("\t\t\t\t<td class=\"" + descriptor.getResult() + "\"></td>\n");
 						} else {

@@ -5,11 +5,11 @@ import javafx.beans.value.ObservableValue;
 import de.tum.imomesa.checker.helpers.HelperEvaluateType;
 import de.tum.imomesa.checker.markers.SyntacticMarker;
 
-public class ChangeListenerMarkerExpressionObservationType implements ChangeListener<Class<?>>  {
-	
+public class ChangeListenerMarkerExpressionObservationType implements ChangeListener<Class<?>> {
+
 	private Class<?> typeParent;
 	private SyntacticMarker marker;
-	
+
 	public ChangeListenerMarkerExpressionObservationType(Class<?> typeParent, SyntacticMarker marker) {
 		this.typeParent = typeParent;
 		this.marker = marker;

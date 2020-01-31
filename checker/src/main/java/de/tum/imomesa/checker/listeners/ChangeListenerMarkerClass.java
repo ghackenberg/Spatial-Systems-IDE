@@ -23,8 +23,9 @@ public class ChangeListenerMarkerClass implements ChangeListener<List<Class<?>>>
 
 	@Override
 	public void changed(ObservableValue<? extends List<Class<?>>> arg0, List<Class<?>> oldValue, List<Class<?>> newValue) {
-		if(expressions.get() == null) return;
-		
+		if (expressions.get() == null)
+			return;
+
 		HelperEvaluateType.evaluateType(newValue, expressions.get().getType(), marker);
 	}
 

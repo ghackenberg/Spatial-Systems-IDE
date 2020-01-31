@@ -4,14 +4,14 @@ import org.apache.commons.math3.linear.RealMatrix;
 
 public class RawTransform extends Transform {
 
-	// TODO provide matrix coefficient for storage! 
-	
+	// TODO provide matrix coefficient for storage!
+
 	private RealMatrix matrix;
 
 	public RawTransform() {
 		setTransform(toVVecMathTransform());
 	}
-	
+
 	public RawTransform(RealMatrix matrix) {
 		this.matrix = matrix;
 	}
@@ -25,5 +25,5 @@ public class RawTransform extends Transform {
 	public RealMatrix toRealMatrix() {
 		return matrix;
 	}
-	
+
 }

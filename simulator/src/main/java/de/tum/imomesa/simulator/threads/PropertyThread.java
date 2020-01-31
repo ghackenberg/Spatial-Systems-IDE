@@ -39,21 +39,19 @@ public class PropertyThread extends AbstractThread<Property> {
 				// Obtain value
 				if (context.get(context.size() - 1) instanceof Component) {
 					value = ExpressionDispatcher.getInstance().dispatch(this, context, element.getExpression(), memory, step);
-				}
-				else if (context.get(context.size() - 1) instanceof Label) {
+				} else if (context.get(context.size() - 1) instanceof Label) {
 					value = ExpressionDispatcher.getInstance().dispatch(this, context.subList(0, context.size() - 1), element.getExpression(), memory, step);
-				}
-				else {
+				} else {
 					throw new IllegalStateException();
 				}
 				// Remember value
 				ObservationDispatcher.getInstance().dispatch(this, context, element, memory, step, value);
 				// Check constraint
-				if(element instanceof ConstraintProperty) {
+				if (element instanceof ConstraintProperty) {
 					// Convert value
 					Boolean result = (Boolean) value;
 					// Check constraint
-					if(result == false) {
+					if (result == false) {
 						// Add marker
 						MarkerManager.get().addMarker(new ConstraintViolatedError(element.append(context), step));
 					}
@@ -64,12 +62,11 @@ public class PropertyThread extends AbstractThread<Property> {
 				// Set null
 				ObservationDispatcher.getInstance().dispatch(this, context, element, memory, step, null);
 			}
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	@Override
 	public String toDotStyle() {
 		return "shape = box, style = filled, fillcolor = green";

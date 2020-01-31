@@ -16,10 +16,10 @@ public class MonitorsController implements AbstractEditorChildController<Definit
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.monitorsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

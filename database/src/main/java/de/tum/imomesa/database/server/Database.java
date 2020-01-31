@@ -56,11 +56,9 @@ public class Database {
 
 		// Create threads
 		heartbeatThread = new HeartbeatThread(sockets);
-		
-		jsonThread = new OutputThread(fileJson, StandardOpenOption.CREATE, StandardOpenOption.WRITE,
-				StandardOpenOption.TRUNCATE_EXISTING);
-		logThread = new OutputThread(fileLog, StandardOpenOption.CREATE, StandardOpenOption.WRITE,
-				StandardOpenOption.APPEND);
+
+		jsonThread = new OutputThread(fileJson, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+		logThread = new OutputThread(fileLog, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
 
 		// Parse json
 		try {

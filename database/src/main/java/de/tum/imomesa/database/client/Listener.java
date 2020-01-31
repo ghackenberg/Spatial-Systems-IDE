@@ -55,12 +55,12 @@ public class Listener implements ChangeListener<Object> {
 					}
 				}
 			}
-			
+
 			// Create and send HTTP request
 			Request request = client.getService().createRequest();
 			request.method(HttpMethod.POST);
 			request.content(new StringContentProvider(json));
-			
+
 			client.getPusher().getQueue().add(request);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

@@ -35,7 +35,7 @@ public class SplashScreenCreator {
 		ImageView splash = new ImageView(new Image("images/splash.png"));
 		splash.setPreserveRatio(true);
 		splash.setFitWidth(SPLASH_WIDTH);
-		
+
 		LinearGradient gradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, new Stop(0, Color.LIGHTBLUE), new Stop(1, Color.STEELBLUE));
 
 		splashLayout = new VBox();

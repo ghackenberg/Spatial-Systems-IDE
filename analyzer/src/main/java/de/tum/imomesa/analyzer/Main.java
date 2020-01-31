@@ -344,58 +344,12 @@ public class Main extends Application {
 
 		// create stage
 		MainPane processorPane = new MainPane();
-		processorPane.addProcessors("Session activities", new SessionCountAggregation(changes, events),
-				new SessionTimelineAggregation(changes, events, discretizer),
-				new SessionDurationAggregation(changes, events));
-		processorPane.addProcessors("Modeling activities", new ElementCountAggregation(changes, events),
-				new ElementComponentCountAggregation(changes, events),
-				new ElementComponentTimelineAggregation(changes, events, discretizer),
-				new ElementComponentTransitionAggregation(changes, events),
-				new ElementFeatureCountAggregation(changes, events),
-				new ElementFeatureTimelineAggregation(changes, events, discretizer),
-				new ElementFeatureTransitionAggregation(changes, events));
-		processorPane.addProcessors("Simulation activities", new SimulationCountAggregation(changes, events),
-				new SimulationDurationAggregation(changes, events),
-				new SimulationComponentCountAggregation(changes, events),
-				new SimulationComponentTimelineAggregation(changes, events, discretizer),
-				new SimulationComponentTransitionAggregation(changes, events),
-				new SimulationScenarioCountAggregation(changes, events),
-				new SimulationScenarioTimelineAggregation(changes, events, discretizer),
-				new SimulationScenarioTransitionAggregation(changes, events),
-				new SimulationResultCountAggregation(changes, events),
-				new SimulationResultTimelineAggregation(changes, events, discretizer),
-				new SimulationResultTransitionAggregation(changes, events));
-		processorPane.addProcessors("Syntactic issues", new SyntaxCountAggregation(changes, events),
-				new SyntaxComponentCountAggregation(changes, events),
-				new SyntaxComponentTimelineAggregation(changes, events, discretizer),
-				new SyntaxComponentDurationAggregation(changes, events),
-				new SyntaxClassCountAggregation(changes, events),
-				new SyntaxClassTimelineAggregation(changes, events, discretizer),
-				new SyntaxClassDurationAggregation(changes, events),
-				new SyntaxCategoryCountAggregation(changes, events),
-				new SyntaxCategoryTimelineAggregation(changes, events, discretizer),
-				new SyntaxCategoryDurationAggregation(changes, events),
-				new SyntaxFeatureCountAggregation(changes, events),
-				new SyntaxFeatureTimelineAggregation(changes, events, discretizer),
-				new SyntaxFeatureDurationAggregation(changes, events));
-		processorPane.addProcessors("Semantic issues", new SemanticsCountAggregation(changes, events),
-				new SemanticsComponentCountAggregation(changes, events),
-				new SemanticsComponentTimelineAggregation(changes, events, discretizer),
-				new SemanticsComponentDurationAggregation(changes, events),
-				new SemanticsClassCountAggregation(changes, events),
-				new SemanticsClassTimelineAggregation(changes, events, discretizer),
-				new SemanticsClassDurationAggregation(changes, events),
-				new SemanticsCategoryCountAggregation(changes, events),
-				new SemanticsCategoryTimelineAggregation(changes, events, discretizer),
-				new SemanticsCategoryDurationAggregation(changes, events));
-		processorPane.addProcessors("Prototype aggregations",
-				new PrototypeComponentFeaturePlotAggregation(changes, events, discretizer),
-				new PrototypeComponentScenarioPlotAggregation(changes, events, discretizer),
-				new PrototypeElementFeatureTimelineAggregation(changes, events, discretizer),
-				new PrototypeElementComponentFeatureAggregation(changes, events, discretizer),
-				new PrototypeSimulationComponentResultAggregation(changes, events, discretizer),
-				new PrototypeSimulationPlotAggregation(changes, events),
-				new PrototypeSimulationGraphAggregation(changes, events));
+		processorPane.addProcessors("Session activities", new SessionCountAggregation(changes, events), new SessionTimelineAggregation(changes, events, discretizer), new SessionDurationAggregation(changes, events));
+		processorPane.addProcessors("Modeling activities", new ElementCountAggregation(changes, events), new ElementComponentCountAggregation(changes, events), new ElementComponentTimelineAggregation(changes, events, discretizer), new ElementComponentTransitionAggregation(changes, events), new ElementFeatureCountAggregation(changes, events), new ElementFeatureTimelineAggregation(changes, events, discretizer), new ElementFeatureTransitionAggregation(changes, events));
+		processorPane.addProcessors("Simulation activities", new SimulationCountAggregation(changes, events), new SimulationDurationAggregation(changes, events), new SimulationComponentCountAggregation(changes, events), new SimulationComponentTimelineAggregation(changes, events, discretizer), new SimulationComponentTransitionAggregation(changes, events), new SimulationScenarioCountAggregation(changes, events), new SimulationScenarioTimelineAggregation(changes, events, discretizer), new SimulationScenarioTransitionAggregation(changes, events), new SimulationResultCountAggregation(changes, events), new SimulationResultTimelineAggregation(changes, events, discretizer), new SimulationResultTransitionAggregation(changes, events));
+		processorPane.addProcessors("Syntactic issues", new SyntaxCountAggregation(changes, events), new SyntaxComponentCountAggregation(changes, events), new SyntaxComponentTimelineAggregation(changes, events, discretizer), new SyntaxComponentDurationAggregation(changes, events), new SyntaxClassCountAggregation(changes, events), new SyntaxClassTimelineAggregation(changes, events, discretizer), new SyntaxClassDurationAggregation(changes, events), new SyntaxCategoryCountAggregation(changes, events), new SyntaxCategoryTimelineAggregation(changes, events, discretizer), new SyntaxCategoryDurationAggregation(changes, events), new SyntaxFeatureCountAggregation(changes, events), new SyntaxFeatureTimelineAggregation(changes, events, discretizer), new SyntaxFeatureDurationAggregation(changes, events));
+		processorPane.addProcessors("Semantic issues", new SemanticsCountAggregation(changes, events), new SemanticsComponentCountAggregation(changes, events), new SemanticsComponentTimelineAggregation(changes, events, discretizer), new SemanticsComponentDurationAggregation(changes, events), new SemanticsClassCountAggregation(changes, events), new SemanticsClassTimelineAggregation(changes, events, discretizer), new SemanticsClassDurationAggregation(changes, events), new SemanticsCategoryCountAggregation(changes, events), new SemanticsCategoryTimelineAggregation(changes, events, discretizer), new SemanticsCategoryDurationAggregation(changes, events));
+		processorPane.addProcessors("Prototype aggregations", new PrototypeComponentFeaturePlotAggregation(changes, events, discretizer), new PrototypeComponentScenarioPlotAggregation(changes, events, discretizer), new PrototypeElementFeatureTimelineAggregation(changes, events, discretizer), new PrototypeElementComponentFeatureAggregation(changes, events, discretizer), new PrototypeSimulationComponentResultAggregation(changes, events, discretizer), new PrototypeSimulationPlotAggregation(changes, events), new PrototypeSimulationGraphAggregation(changes, events));
 
 		ToolBar topToolBar = new ToolBar();
 		topToolBar.getItems().add(new Label("About"));
@@ -403,8 +357,7 @@ public class Main extends Application {
 		topToolBar.getItems().add(new Button("Credit", new ImageView(new Image("credit.png"))));
 
 		ToolBar bottomToolBar = new ToolBar();
-		bottomToolBar.getItems().add(new Label(
-				"Copyright 2015, Georg Hackenberg and Thomas Stocker, Lehrstuhl für Software and Systems Engineering, Technische Universität München"));
+		bottomToolBar.getItems().add(new Label("Copyright 2015, Georg Hackenberg and Thomas Stocker, Lehrstuhl für Software and Systems Engineering, Technische Universität München"));
 
 		BorderPane borderPane = new BorderPane();
 		borderPane.setTop(topToolBar);

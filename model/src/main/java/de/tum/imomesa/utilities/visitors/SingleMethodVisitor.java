@@ -6,13 +6,13 @@ import java.lang.reflect.Method;
 import de.tum.imomesa.model.Element;
 
 public abstract class SingleMethodVisitor extends Visitor {
-	
+
 	@Override
 	public <T extends Element> void dispatch(T object) {
 		try {
 			// Initialize iterator
 			Class<?> iterator = object.getClass();
-			
+
 			// Iterate until you find a right method
 			while (Element.class.isAssignableFrom(iterator)) {
 				try {
@@ -21,8 +21,7 @@ public abstract class SingleMethodVisitor extends Visitor {
 					// Invoke method
 					method.invoke(this, object);
 					return;
-				}
-				catch (NoSuchMethodException e) {
+				} catch (NoSuchMethodException e) {
 					// do nothing, can occur as it has not to be implemented for all levels
 				}
 				// Iterate up

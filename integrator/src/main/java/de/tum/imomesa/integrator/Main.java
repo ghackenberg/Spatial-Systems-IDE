@@ -31,15 +31,13 @@ public class Main {
 			// Close writers
 			csv.close();
 			html.close();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// Report exception
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			// Close connection
 			StorageManager.getInstance().close();
 		}
 	}
-	
+
 }

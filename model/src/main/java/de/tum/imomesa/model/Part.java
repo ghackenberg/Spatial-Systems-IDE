@@ -16,102 +16,97 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 
 public class Part extends NamedElement {
-	
+
 	public void accept(Visitor visitor) {
 		super.accept(visitor);
 
-		for(Transform t : transforms) {
+		for (Transform t : transforms) {
 			t.accept(visitor);
 		}
-		if(getVolume() != null) {
+		if (getVolume() != null) {
 			getVolume().accept(visitor);
 		}
 	}
 
 	// Red
 	private IntegerProperty red = new SimpleIntegerProperty();
-	
-	public Integer getRed()
-	{
+
+	public Integer getRed() {
 		return red.get();
 	}
-	public void setRed(int red)
-	{
+
+	public void setRed(int red) {
 		this.red.set(red);
 	}
-	public IntegerProperty redProperty()
-	{
+
+	public IntegerProperty redProperty() {
 		return red;
 	}
 
 	// Green
 	private IntegerProperty green = new SimpleIntegerProperty();
-	
-	public Integer getGreen()
-	{
+
+	public Integer getGreen() {
 		return green.get();
 	}
-	public void setGreen(int green)
-	{
+
+	public void setGreen(int green) {
 		this.green.set(green);
 	}
-	public IntegerProperty greenProperty()
-	{
+
+	public IntegerProperty greenProperty() {
 		return green;
 	}
 
 	// Blue
 	private IntegerProperty blue = new SimpleIntegerProperty();
-	
-	public Integer getBlue()
-	{
+
+	public Integer getBlue() {
 		return blue.get();
 	}
-	public void setBlue(int blue)
-	{
+
+	public void setBlue(int blue) {
 		this.blue.set(blue);
 	}
-	public IntegerProperty blueProperty()
-	{
+
+	public IntegerProperty blueProperty() {
 		return blue;
 	}
 
 	// Volume
 	private ObjectProperty<Volume> volume = new SimpleObjectProperty<>();
-	
-	public Volume getVolume()
-	{
+
+	public Volume getVolume() {
 		return volume.get();
 	}
-	public void setVolume(Volume volume)
-	{
+
+	public void setVolume(Volume volume) {
 		this.volume.set(volume);
 	}
+
 	@Cascading
-	public ObjectProperty<Volume> volumeProperty()
-	{
+	public ObjectProperty<Volume> volumeProperty() {
 		return volume;
 	}
-	
+
 	// Transforms
 	private final ListProperty<Transform> transforms = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-	public List<Transform> getTransforms()
-	{
+	public List<Transform> getTransforms() {
 		return transforms.get();
 	}
-	public void setTransforms(List<Transform> transforms)
-	{
+
+	public void setTransforms(List<Transform> transforms) {
 		this.transforms.set(FXCollections.observableList(transforms));
 	}
+
 	@Cascading
-	public ListProperty<Transform> transformsProperty()
-	{
+	public ListProperty<Transform> transformsProperty() {
 		return transforms;
 	}
-	
+
 	public CSG toCSG() {
 		return getVolume().getCSG().transformed(Transform.toVVecMathTransform(getTransforms()));
 	}
-	
+
 }

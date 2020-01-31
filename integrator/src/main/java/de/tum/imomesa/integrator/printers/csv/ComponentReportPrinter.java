@@ -16,9 +16,9 @@ public class ComponentReportPrinter extends AbstractReportPrinter<DefinitionComp
 
 	@Override
 	public void process(Writer writer) throws IOException {
-		
+
 		writer.write("Component;" + getReport().getElement() + "\n");
-		
+
 		for (ScenarioReport scenario : getReport().getScenariosReport().getReports()) {
 			ScenarioReportPrinter printer = new ScenarioReportPrinter(scenario);
 			printer.process(writer);
@@ -27,7 +27,7 @@ public class ComponentReportPrinter extends AbstractReportPrinter<DefinitionComp
 			ComponentReportPrinter printer = new ComponentReportPrinter(component);
 			printer.process(writer);
 		}
-		
+
 	}
 
 }

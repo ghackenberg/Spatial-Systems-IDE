@@ -15,9 +15,9 @@ import javafx.collections.FXCollections;
 public abstract class SimulationMarker extends Marker {
 
 	public SimulationMarker() {
-		
+
 	}
-	
+
 	public SimulationMarker(List<Element> context, String message, int step) {
 		setContext(context);
 		setMessage(message);
@@ -68,23 +68,16 @@ public abstract class SimulationMarker extends Marker {
 	public IntegerProperty stepProperty() {
 		return step;
 	}
-	
+
 	/*
-	@Override
-	public boolean equals(Object other) {
-		if (!getClass().equals(other.getClass())) {
-			return false;
-		}
-		
-		SimulationMarker marker = (SimulationMarker) other;
-		
-		if (!context.equals(marker.context)) {
-			return false;
-		}
-		
-		return true;
-	}
-	*/
+	 * @Override public boolean equals(Object other) { if (!getClass().equals(other.getClass())) { return false; }
+	 * 
+	 * SimulationMarker marker = (SimulationMarker) other;
+	 * 
+	 * if (!context.equals(marker.context)) { return false; }
+	 * 
+	 * return true; }
+	 */
 	@Override
 	public final boolean equals(Object other) {
 		return super.equals(other);

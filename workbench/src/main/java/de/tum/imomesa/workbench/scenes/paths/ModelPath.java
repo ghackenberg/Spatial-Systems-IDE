@@ -5,8 +5,8 @@ import java.util.List;
 
 import de.tum.imomesa.model.Element;
 
-public class ModelPath <T extends Element> {
-	
+public class ModelPath<T extends Element> {
+
 	public final List<Element> path;
 	public final T element;
 
@@ -20,12 +20,12 @@ public class ModelPath <T extends Element> {
 		this.path = element.append(parent.path);
 		this.element = element;
 	}
-	
+
 	public ModelPath(List<Element> path, T element) {
 		this.path = path;
 		this.element = element;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <S extends T> ModelPath<S> cast(Class<S> type) {
 		if (type.isAssignableFrom(element.getClass())) {

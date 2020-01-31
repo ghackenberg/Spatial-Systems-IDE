@@ -15,18 +15,14 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 
-public class NonDeterministicChoiceWarning<L extends Label, T extends Transition<L>, E extends Executable<L, T>>
-		extends WarningMarker {
+public class NonDeterministicChoiceWarning<L extends Label, T extends Transition<L>, E extends Executable<L, T>> extends WarningMarker {
 
 	public NonDeterministicChoiceWarning() {
 
 	}
 
-	public NonDeterministicChoiceWarning(List<Element> context, E executable, L label, List<T> transitions, int size,
-			int step) {
-		super(context,
-				"Non-deterministic choice in \"" + executable.getName() + "." + label.getName() + "\": " + transitions,
-				step);
+	public NonDeterministicChoiceWarning(List<Element> context, E executable, L label, List<T> transitions, int size, int step) {
+		super(context, "Non-deterministic choice in \"" + executable.getName() + "." + label.getName() + "\": " + transitions, step);
 
 		this.executable.set(executable);
 		this.label.set(label);
@@ -59,28 +55,13 @@ public class NonDeterministicChoiceWarning<L extends Label, T extends Transition
 	}
 
 	/*
-	@Override
-	public boolean equals(Object other) {
-		if (!super.equals(other)) {
-			return false;
-		}
-
-		NonDeterministicChoiceWarning<?, ?, ?> marker = (NonDeterministicChoiceWarning<?, ?, ?>) other;
-
-		if (executable.get() != null && marker.executable.get() != null
-				&& !executable.get().equals(marker.executable.get())) {
-			return false;
-		}
-		if (label.get() != null && marker.label.get() != null && !label.get().equals(marker.label.get())) {
-			return false;
-		}
-		if (transitions.get() != null && marker.transitions.get() != null
-				&& !transitions.get().equals(marker.transitions.get())) {
-			return false;
-		}
-
-		return true;
-	}
-	*/
+	 * @Override public boolean equals(Object other) { if (!super.equals(other)) { return false; }
+	 * 
+	 * NonDeterministicChoiceWarning<?, ?, ?> marker = (NonDeterministicChoiceWarning<?, ?, ?>) other;
+	 * 
+	 * if (executable.get() != null && marker.executable.get() != null && !executable.get().equals(marker.executable.get())) { return false; } if (label.get() != null && marker.label.get() != null && !label.get().equals(marker.label.get())) { return false; } if (transitions.get() != null && marker.transitions.get() != null && !transitions.get().equals(marker.transitions.get())) { return false; }
+	 * 
+	 * return true; }
+	 */
 
 }

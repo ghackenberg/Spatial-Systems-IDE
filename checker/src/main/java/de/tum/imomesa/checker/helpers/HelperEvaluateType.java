@@ -22,58 +22,57 @@ public class HelperEvaluateType {
 	// ***********************************************************************************
 	public static void evaluateType(Class<?> parentType, Class<?> childType, SyntacticMarker marker) {
 		// childType instanceof parentType
-		if(parentType.isAssignableFrom(childType) == false) {
+		if (parentType.isAssignableFrom(childType) == false) {
 			HelperBasic.addMarker(marker);
-		}
-		else {
+		} else {
 			HelperBasic.removeMarker(marker);
 		}
 	}
-	
+
 	public static void evaluateType(List<Class<?>> parentTypes, Class<?> childType, SyntacticMarker marker) {
-		for(Class<?> parentType : parentTypes) {
-			if(parentType.isAssignableFrom(childType) == true) {
+		for (Class<?> parentType : parentTypes) {
+			if (parentType.isAssignableFrom(childType) == true) {
 				HelperBasic.removeMarker(marker);
 				return;
 			}
 		}
-		
+
 		HelperBasic.addMarker(marker);
 	}
-	
+
 	// ***********************************************************************************
 	// Init evaluate Type
 	// ***********************************************************************************
 	// Observations: Properties, Port, Variable
 	// Others: Action (has an observation)
 	// Others: Guard (is boolean)
-	
+
 	public static void evaluateTypeObservationInit(ObjectProperty<Observation> o, ObjectProperty<Expression> expressions, SyntacticMarker marker) {
 		// observation can change -> add listener
 		// -> add listener on observation type as well (if necessary)
 		ListenerRemover.getListenerManager().addListener(o, new ChangeListenerMarkerObservation(expressions, marker));
-		
+
 		evaluateTypeObservationInit(o.get(), expressions, marker);
 	}
-	
+
 	public static void evaluateTypeObservationInit(Observation o, ObjectProperty<Expression> expressions, SyntacticMarker marker) {
-		if(o != null && expressions.get() != null) {
+		if (o != null && expressions.get() != null) {
 			evaluateType(o.getWriteType(), expressions.get().getType(), marker);
 		}
-		
+
 		// type of observation can change -> add listener
-		if(o != null && (o instanceof Variable || o instanceof DataPort)) {
+		if (o != null && (o instanceof Variable || o instanceof DataPort)) {
 			o.writeTypeProperty().addListener(new ChangeListenerMarkerClass(expressions, marker));
 		}
-		
+
 		// expression can change -> add listener
-		if(o != null) {
+		if (o != null) {
 			ListenerRemover.getListenerManager().addListener(expressions, new ChangeListenerMarkerExpression(o.writeTypeProperty(), marker));
 		}
 	}
-	
+
 	public static void evaluateTypeObservationInit(List<Class<?>> types, ObjectProperty<Expression> expressions, SyntacticMarker marker) {
-		if(expressions.get() != null) {
+		if (expressions.get() != null) {
 			evaluateType(types, expressions.get().getType(), marker);
 		}
 

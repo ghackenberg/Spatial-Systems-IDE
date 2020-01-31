@@ -95,7 +95,7 @@ public class Converter {
 				try {
 					Class<?> clazz = Class.forName(object.getString("type"));
 					Object instance = clazz.getConstructor().newInstance();
-					
+
 					cache.put(object.getInt("hash"), instance);
 
 					JSONObject fields = object.getJSONObject("fields");

@@ -23,7 +23,7 @@ public class MonitorThread extends ExecutableThread<Activity, Transition> {
 	protected Activity getTargetLabel(Transition transition) {
 		return transition.getTargetLabel();
 	}
-	
+
 	@Override
 	public String toDotStyle() {
 		return "shape = box, style = filled, fillcolor = blue";

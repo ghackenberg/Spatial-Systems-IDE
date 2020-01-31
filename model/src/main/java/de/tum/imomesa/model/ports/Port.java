@@ -65,8 +65,7 @@ public abstract class Port extends Observation {
 
 	// Incoming
 
-	private ListProperty<StaticChannel> incomingStaticChannels = new SimpleListProperty<>(
-			FXCollections.observableArrayList());
+	private ListProperty<StaticChannel> incomingStaticChannels = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public List<StaticChannel> getIncomingStaticChannels() {
 		return incomingStaticChannelsProperty().get();
@@ -83,8 +82,7 @@ public abstract class Port extends Observation {
 
 	// Outgoing
 
-	private ListProperty<StaticChannel> outgoingStaticChannels = new SimpleListProperty<>(
-			FXCollections.observableArrayList());
+	private ListProperty<StaticChannel> outgoingStaticChannels = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public List<StaticChannel> getOutgoingStaticChannels() {
 		return outgoingStaticChannelsProperty().get();
@@ -101,8 +99,7 @@ public abstract class Port extends Observation {
 
 	// Incoming dynamic
 
-	private ListProperty<DynamicChannel> incomingDynamicChannels = new SimpleListProperty<>(
-			FXCollections.observableArrayList());
+	private ListProperty<DynamicChannel> incomingDynamicChannels = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public List<DynamicChannel> getIncomingDynamicChannels() {
 		return incomingDynamicChannelsProperty().get();
@@ -119,8 +116,7 @@ public abstract class Port extends Observation {
 
 	// Outgoing dynamic
 
-	private ListProperty<DynamicChannel> outgoingDynamicChannels = new SimpleListProperty<>(
-			FXCollections.observableArrayList());
+	private ListProperty<DynamicChannel> outgoingDynamicChannels = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public List<DynamicChannel> getOutgoingDynamicChannels() {
 		return outgoingDynamicChannelsProperty().get();

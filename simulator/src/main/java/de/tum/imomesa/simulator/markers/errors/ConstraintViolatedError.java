@@ -8,9 +8,9 @@ import de.tum.imomesa.simulator.markers.ErrorMarker;
 public class ConstraintViolatedError extends ErrorMarker {
 
 	public ConstraintViolatedError() {
-		
+
 	}
-	
+
 	public ConstraintViolatedError(List<Element> context, int step) {
 		super(context, "Constraint is violated!", step);
 	}

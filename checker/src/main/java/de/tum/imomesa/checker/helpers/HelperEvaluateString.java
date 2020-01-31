@@ -11,14 +11,13 @@ public class HelperEvaluateString {
 	// Evaluate string
 	// ***********************************************************************************
 	public static void evaluateString(String s, SyntacticMarker marker) {
-		if(s == null || s.isEmpty()) {
+		if (s == null || s.isEmpty()) {
 			HelperBasic.addMarker(marker);
-		}
-		else {
+		} else {
 			HelperBasic.removeMarker(marker);
 		}
 	}
-	
+
 	// ***********************************************************************************
 	// Init evaluate string
 	// ***********************************************************************************

@@ -11,15 +11,13 @@ import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-public class MultiStackedAreaChartVisualization<T1, T2>
-		extends Visualization<Map<T1, Map<T2, List<Integer>>>, GridPane> {
+public class MultiStackedAreaChartVisualization<T1, T2> extends Visualization<Map<T1, Map<T2, List<Integer>>>, GridPane> {
 
 	private List<T1> outerOrder;
 	private List<T2> innerOrder;
 	private Discretizer discretizer;
 
-	public MultiStackedAreaChartVisualization(Map<T1, Map<T2, List<Integer>>> data, List<T1> outerOrder,
-			List<T2> innerOrder, Discretizer discretizer) {
+	public MultiStackedAreaChartVisualization(Map<T1, Map<T2, List<Integer>>> data, List<T1> outerOrder, List<T2> innerOrder, Discretizer discretizer) {
 		super(data);
 
 		this.outerOrder = outerOrder;
@@ -43,8 +41,7 @@ public class MultiStackedAreaChartVisualization<T1, T2>
 		for (T1 key : outerOrder) {
 			Map<T2, List<Integer>> value = getData().get(key);
 
-			StackedAreaChartVisualization<T2> nested = new StackedAreaChartVisualization<>(value, innerOrder,
-					discretizer);
+			StackedAreaChartVisualization<T2> nested = new StackedAreaChartVisualization<>(value, innerOrder, discretizer);
 
 			StackedAreaChart<Number, Number> chart = nested.getResult();
 

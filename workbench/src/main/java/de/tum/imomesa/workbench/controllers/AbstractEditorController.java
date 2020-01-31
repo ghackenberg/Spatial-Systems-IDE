@@ -16,7 +16,7 @@ public abstract class AbstractEditorController {
 
 	@FXML
 	private Tab tab;
-	
+
 	private URL url;
 	private Node root;
 	private AbstractEditorChildController<Element> controller;
@@ -24,11 +24,11 @@ public abstract class AbstractEditorController {
 	public AbstractEditorController(String prefix) {
 		this.prefix = prefix;
 	}
-	
+
 	protected AbstractEditorChildController<Element> loadEditor(final Element original) {
 		// Initialize element
 		Element element = original;
-		
+
 		// Process overview elements
 		if (element instanceof OverviewElement) {
 			// Cast element
@@ -93,11 +93,11 @@ public abstract class AbstractEditorController {
 			// Iterate element
 			element = element.getParent();
 		}
-		
+
 		// Return null
 		return null;
 	}
-	
+
 	private boolean tryLoading(String urlString) {
 		// Get resource
 		URL url = getClass().getResource(urlString);

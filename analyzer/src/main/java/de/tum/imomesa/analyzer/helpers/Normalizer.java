@@ -15,7 +15,7 @@ public class Normalizer {
 	public static void normalize(List<Change> changes, List<Event> events) {
 		int sessions = 0;
 
-		long last = 0; //events.get(0).getTimestamp();
+		long last = 0; // events.get(0).getTimestamp();
 
 		for (Event event : events) {
 			if (event instanceof ProgramStartEvent) {

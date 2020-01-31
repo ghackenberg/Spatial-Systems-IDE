@@ -48,7 +48,7 @@ public class SyntacticCheckRemoverVisitor extends MultipleMethodVisitor {
 	public void visit(Observation observation) {
 		ListenerRemover.getListenerManager().removeAllListeners((ObservableList<?>) observation.writeTypeProperty());
 	}
-	
+
 	public void visit(Variable variable) {
 		ListenerRemover.getListenerManager().removeAllListeners(variable.defaultProperty());
 	}
@@ -83,8 +83,7 @@ public class SyntacticCheckRemoverVisitor extends MultipleMethodVisitor {
 		ListenerRemover.getListenerManager().removeAllListeners(action.observationProperty());
 		ListenerRemover.getListenerManager().removeAllListeners(action.expressionProperty());
 		if (action.getObservation() != null) {
-			ListenerRemover.getListenerManager()
-					.removeAllListeners((ObservableList<?>) action.getObservation().writeTypeProperty());
+			ListenerRemover.getListenerManager().removeAllListeners((ObservableList<?>) action.getObservation().writeTypeProperty());
 		}
 		ListenerRemover.getListenerManager().removeAllListeners(action.expressionProperty());
 	}

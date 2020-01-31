@@ -25,36 +25,32 @@ public class SemanticsComponentCountAggregation extends CountAggregtion<Definiti
 		Map<DefinitionComponent, Integer> counts = new HashMap<>();
 
 		// boolean integration = false;
-		
+
 		DefinitionComponent component = null;
 
 		for (Event event : getEvents()) {
 			/*
-			if (event instanceof de.tum.imomesa.integrator.events.StartEvent) {
-				integration = true;
-			} else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) {
-				integration = false;
-			} else if (!integration) {
-			*/
-				if (event instanceof StartEvent) {
-					StartEvent start = (StartEvent) event;
-					component = start.getComponent();
-				} else if (event instanceof SimulationMarkerEvent) {
-					SimulationMarkerEvent add = (SimulationMarkerEvent) event;
-					SimulationMarker marker = add.getMarker();
-					String name = Namer.dispatch(marker);
-					if (name != null) {
-						if (!counts.containsKey(component)) {
-							counts.put(component, 0);
-						}
-						counts.put(component, counts.get(component) + 1);
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
+			 */
+			if (event instanceof StartEvent) {
+				StartEvent start = (StartEvent) event;
+				component = start.getComponent();
+			} else if (event instanceof SimulationMarkerEvent) {
+				SimulationMarkerEvent add = (SimulationMarkerEvent) event;
+				SimulationMarker marker = add.getMarker();
+				String name = Namer.dispatch(marker);
+				if (name != null) {
+					if (!counts.containsKey(component)) {
+						counts.put(component, 0);
 					}
-				} else if (event instanceof EndEvent) {
-					component = null;
+					counts.put(component, counts.get(component) + 1);
 				}
-			/*
+			} else if (event instanceof EndEvent) {
+				component = null;
 			}
-			*/
+			/*
+			 * }
+			 */
 		}
 
 		return counts;

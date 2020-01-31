@@ -8,9 +8,9 @@ import javafx.beans.property.SimpleObjectProperty;
 public abstract class MarkerEvent extends Event {
 
 	public MarkerEvent() {
-		
+
 	}
-	
+
 	public MarkerEvent(SyntacticMarker marker) {
 		this.marker.set(marker);
 	}
@@ -20,7 +20,7 @@ public abstract class MarkerEvent extends Event {
 	public SyntacticMarker getMarker() {
 		return marker.get();
 	}
-	
+
 	public ObjectProperty<SyntacticMarker> markerProperty() {
 		return marker;
 	}

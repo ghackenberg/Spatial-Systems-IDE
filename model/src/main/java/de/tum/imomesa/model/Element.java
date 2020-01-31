@@ -100,15 +100,15 @@ public abstract class Element {
 		// return list with all elements
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <T extends Element> List<T> getAncestorsOrSelfByType(Class<T> type) {
 		List<T> result = getAncestorsByType(type);
-		
+
 		if (getClass().equals(type)) {
 			result.add(0, (T) this);
 		}
-		
+
 		return result;
 	}
 
@@ -149,19 +149,19 @@ public abstract class Element {
 	public void accept(Visitor visitor) {
 		visitor.dispatch(this);
 	}
-	
+
 	// Element type
-	
+
 	private StringProperty className = new ReadOnlyStringWrapper(convert(getClass().getSimpleName()));
-	
+
 	public String getClassName() {
 		return className.get();
 	}
-	
+
 	public void setClassName(String className) {
 		this.className.set(className);
 	}
-	
+
 	@Transient
 	public StringProperty classNameProperty() {
 		return className;
@@ -182,18 +182,18 @@ public abstract class Element {
 	public ObjectProperty<Element> parentProperty() {
 		return parent;
 	}
-	
+
 	// convert
-	
+
 	private static String convert(String className) {
 		String[] parts = className.split("(?=\\p{Upper})");
 		String result = parts[0];
-		
+
 		for (int index = 1; index < parts.length; index++) {
 			result += " " + parts[index].toLowerCase();
 		}
-		
+
 		return result;
 	}
-	
+
 }

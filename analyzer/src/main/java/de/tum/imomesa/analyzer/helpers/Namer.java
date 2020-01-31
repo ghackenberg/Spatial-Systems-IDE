@@ -118,11 +118,7 @@ public class Namer {
 		String name = "";
 
 		/*
-		 * if (marker instanceof SyntacticError) { name += "Defect"; } else if
-		 * (marker instanceof SyntacticWarning) { name += "Deficiency"; } else {
-		 * throw new IllegalStateException(
-		 * "Syntactic issue type not supported: " +
-		 * marker.getClass().getName()); }
+		 * if (marker instanceof SyntacticError) { name += "Defect"; } else if (marker instanceof SyntacticWarning) { name += "Deficiency"; } else { throw new IllegalStateException( "Syntactic issue type not supported: " + marker.getClass().getName()); }
 		 */
 
 		if (marker.getClass().getSimpleName().contains("Wrong")) {

@@ -37,14 +37,9 @@ public class DurationDescriptor<T> extends Descriptor {
 		sortedMaximums = maximums;
 
 		/*
-		 * sortedMinimums = new TreeMap<>(new StatisticsComparator<>(minimums,
-		 * averages, maximums)); sortedAverages = new TreeMap<>(new
-		 * StatisticsComparator<>(minimums, averages, maximums)); sortedMaximums
-		 * = new TreeMap<>(new StatisticsComparator<>(minimums, averages,
-		 * maximums));
+		 * sortedMinimums = new TreeMap<>(new StatisticsComparator<>(minimums, averages, maximums)); sortedAverages = new TreeMap<>(new StatisticsComparator<>(minimums, averages, maximums)); sortedMaximums = new TreeMap<>(new StatisticsComparator<>(minimums, averages, maximums));
 		 * 
-		 * sortedMinimums.putAll(minimums); sortedAverages.putAll(averages);
-		 * sortedMaximums.putAll(maximums);
+		 * sortedMinimums.putAll(minimums); sortedAverages.putAll(averages); sortedMaximums.putAll(maximums);
 		 */
 	}
 

@@ -81,7 +81,7 @@ public class Snapshot {
 					folders.put(project, folder);
 					files.put(project, new ArrayList<>());
 				}
-				
+
 				if (!folder.isDirectory() && !folder.mkdirs()) {
 					throw new IllegalStateException("Folder cannot be used " + folder.getAbsolutePath());
 				}
@@ -95,7 +95,7 @@ public class Snapshot {
 				double cy = 85;
 				double cx = Math.sqrt(2 * cy * cy) * Math.sin(2 * Math.PI * id / 100);
 				double cz = Math.sqrt(2 * cy * cy) * Math.cos(2 * Math.PI * id / 100);
-				
+
 				FileUtils.write(tempPovFile, Povray.render(project.getComponent(), timestamp, cx, cy, cz));
 
 				Runtime runtime = Runtime.getRuntime();

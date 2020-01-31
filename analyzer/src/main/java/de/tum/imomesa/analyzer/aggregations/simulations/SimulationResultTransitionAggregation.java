@@ -91,8 +91,7 @@ public class SimulationResultTransitionAggregation extends TransitionAggregation
 							if (!counts.get(previousResult).containsKey(currentResult)) {
 								counts.get(previousResult).put(currentResult, 0);
 							}
-							counts.get(previousResult).put(currentResult,
-									counts.get(previousResult).get(currentResult) + 1);
+							counts.get(previousResult).put(currentResult, counts.get(previousResult).get(currentResult) + 1);
 						}
 					}
 

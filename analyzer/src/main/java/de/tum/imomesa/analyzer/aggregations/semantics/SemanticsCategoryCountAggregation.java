@@ -22,31 +22,27 @@ public class SemanticsCategoryCountAggregation extends CountAggregtion<String> {
 		Map<String, Integer> counts = new HashMap<>();
 
 		/*
-		boolean integration = false;
-		*/
+		 * boolean integration = false;
+		 */
 
 		for (Event event : getEvents()) {
 			/*
-			if (event instanceof de.tum.imomesa.integrator.events.StartEvent) {
-				integration = true;
-			} else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) {
-				integration = false;
-			} else if (!integration) {
-			*/
-				if (event instanceof SimulationMarkerEvent) {
-					SimulationMarkerEvent add = (SimulationMarkerEvent) event;
-					SimulationMarker marker = add.getMarker();
-					String name = Namer.dispatch(marker);
-					if (name != null) {
-						if (!counts.containsKey(name)) {
-							counts.put(name, 0);
-						}
-						counts.put(name, counts.get(name) + 1);
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
+			 */
+			if (event instanceof SimulationMarkerEvent) {
+				SimulationMarkerEvent add = (SimulationMarkerEvent) event;
+				SimulationMarker marker = add.getMarker();
+				String name = Namer.dispatch(marker);
+				if (name != null) {
+					if (!counts.containsKey(name)) {
+						counts.put(name, 0);
 					}
+					counts.put(name, counts.get(name) + 1);
 				}
-			/*
 			}
-			*/
+			/*
+			 * }
+			 */
 		}
 
 		return counts;

@@ -13,8 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 
-public abstract class ExecutableDiagramBehavior<L extends Label, T extends Transition<L>, E extends Executable<L, T>>
-		extends AbstractDiagramBehavior<E> {
+public abstract class ExecutableDiagramBehavior<L extends Label, T extends Transition<L>, E extends Executable<L, T>> extends AbstractDiagramBehavior<E> {
 
 	private double dx = 0;
 	private double dy = 0;
@@ -114,20 +113,20 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					L source = (L) getDiagram().getPressedElement();
 					@SuppressWarnings("unchecked")
 					L target = (L) getDiagram().getReleasedElement();
-					
+
 					double dx = target.getX() - source.getX();
 					double dy = target.getY() - source.getY();
-					
+
 					double angle = Math.atan2(dy, dx);
-					
+
 					ConstantExpressionBoolean expression = new ConstantExpressionBoolean();
 					expression.setValue(false);
 					expression.accept(new SyntacticCheckVisitor());
-					
+
 					Guard guard = new Guard();
 					guard.setExpression(expression);
 					guard.accept(new SyntacticCheckVisitor());
-					
+
 					expression.setParent(guard);
 
 					T transition = createTransition();
@@ -139,13 +138,13 @@ public abstract class ExecutableDiagramBehavior<L extends Label, T extends Trans
 					transition.setSourceAngle((angle / Math.PI * 180 + 360) % 360);
 					transition.setTargetAngle((angle / Math.PI * 180 + 180) % 360);
 					transition.accept(new SyntacticCheckVisitor());
-					
+
 					guard.setParent(transition);
-					
+
 					source.getOutgoingTransitions().add(transition);
 					target.getIncomingTransitions().add(transition);
 					getDiagram().getElement().getTransitions().add(transition);
-					
+
 					transition.setParent(getDiagram().getElement());
 				} else {
 					alert("Cannot create transition!", "Drop target no label!");

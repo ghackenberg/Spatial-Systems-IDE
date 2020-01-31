@@ -29,8 +29,8 @@ public class SemanticsCategoryDurationAggregation extends DurationAggregation<St
 		Map<String, List<Long>> durations = new HashMap<>();
 
 		/*
-		boolean integration = false;
-		*/
+		 * boolean integration = false;
+		 */
 		Scenario scenario = null;
 
 		Set<String> currentMarkers = new HashSet<>();
@@ -41,48 +41,44 @@ public class SemanticsCategoryDurationAggregation extends DurationAggregation<St
 
 		for (Event event : getEvents()) {
 			/*
-			if (event instanceof de.tum.imomesa.integrator.events.StartEvent) {
-				integration = true;
-			} else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) {
-				integration = false;
-			} else if (!integration) {
-			*/
-				if (event instanceof StartEvent) {
-					StartEvent start = (StartEvent) event;
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
+			 */
+			if (event instanceof StartEvent) {
+				StartEvent start = (StartEvent) event;
 
-					scenario = start.getScenario();
-					currentTimestamp = start.getTimestamp();
-				} else if (event instanceof SimulationMarkerEvent) {
-					SimulationMarkerEvent add = (SimulationMarkerEvent) event;
-					SimulationMarker marker = add.getMarker();
-					String name = Namer.dispatch(marker);
+				scenario = start.getScenario();
+				currentTimestamp = start.getTimestamp();
+			} else if (event instanceof SimulationMarkerEvent) {
+				SimulationMarkerEvent add = (SimulationMarkerEvent) event;
+				SimulationMarker marker = add.getMarker();
+				String name = Namer.dispatch(marker);
 
-					if (name != null) {
-						currentMarkers.add(name);
-					}
-				} else if (event instanceof EndEvent) {
-					if (previousMarkers.containsKey(scenario)) {
-						for (String previousMarker : previousMarkers.get(scenario)) {
-							if (!currentMarkers.contains(previousMarker)) {
-								if (!durations.containsKey(previousMarker)) {
-									durations.put(previousMarker, new ArrayList<>());
-								}
-								durations.get(previousMarker).add(currentTimestamp - previousTimestamps.get(scenario));
+				if (name != null) {
+					currentMarkers.add(name);
+				}
+			} else if (event instanceof EndEvent) {
+				if (previousMarkers.containsKey(scenario)) {
+					for (String previousMarker : previousMarkers.get(scenario)) {
+						if (!currentMarkers.contains(previousMarker)) {
+							if (!durations.containsKey(previousMarker)) {
+								durations.put(previousMarker, new ArrayList<>());
 							}
+							durations.get(previousMarker).add(currentTimestamp - previousTimestamps.get(scenario));
 						}
 					}
-
-					previousTimestamps.put(scenario, currentTimestamp);
-					currentTimestamp = 0;
-
-					previousMarkers.put(scenario, currentMarkers);
-					currentMarkers = new HashSet<>();
-
-					scenario = null;
 				}
-			/*
+
+				previousTimestamps.put(scenario, currentTimestamp);
+				currentTimestamp = 0;
+
+				previousMarkers.put(scenario, currentMarkers);
+				currentMarkers = new HashSet<>();
+
+				scenario = null;
 			}
-			*/
+			/*
+			 * }
+			 */
 		}
 
 		return new DurationDescriptor<>(durations);

@@ -11,7 +11,7 @@ import de.tum.imomesa.workbench.diagrams.ExecutableDiagram;
 public abstract class ExecutableController<E extends Executable<?, ?>> extends EditorChildController<E> {
 
 	protected ExecutableDiagram<?, ?, ?> diagram;
-	
+
 	@Override
 	public void handle(SimulationStepEvent event) {
 		try {

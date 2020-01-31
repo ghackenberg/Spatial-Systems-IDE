@@ -99,9 +99,9 @@ public class Povray {
 		result += "}\n";
 		// Plane
 		result += "plane {\n";
-		result += "\t" + vector(0,1,0) + ",\n";
+		result += "\t" + vector(0, 1, 0) + ",\n";
 		result += "\t" + -30 + "\n";
-		result += "\tpigment { color " + color(255,255,255) + " }\n";
+		result += "\tpigment { color " + color(255, 255, 255) + " }\n";
 		result += "}\n";
 		// Dispatch component
 		result += dispatch(component, 0);
@@ -199,15 +199,17 @@ public class Povray {
 
 	protected static String convert(MaterialPort port, Integer indent) {
 		int red = 0, green = 0, blue = 0;
-		
+
 		if (port instanceof InteractionMaterialPort) {
 			blue = 255;
-		} if (port instanceof EntryLifeMaterialPort) {
+		}
+		if (port instanceof EntryLifeMaterialPort) {
 			green = 255;
-		} if (port instanceof ExitLifeMaterialPort) {
+		}
+		if (port instanceof ExitLifeMaterialPort) {
 			red = 255;
 		}
-		
+
 		String result = "";
 
 		// Start
@@ -246,10 +248,8 @@ public class Povray {
 				double ey = y / l;
 				double ez = z / l;
 
-				result += cylinder(0, 0, 0, x, y, z, VECTOR_LINE_RADIUS, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE,
-						indent + 1);
-				result += cone(x, y, z, VECTOR_ARROW_RADIUS, x + VECTOR_ARROW_LENGTH * ex, y + VECTOR_ARROW_LENGTH * ey,
-						z + VECTOR_ARROW_LENGTH * ez, 0, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE, indent + 1);
+				result += cylinder(0, 0, 0, x, y, z, VECTOR_LINE_RADIUS, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE, indent + 1);
+				result += cone(x, y, z, VECTOR_ARROW_RADIUS, x + VECTOR_ARROW_LENGTH * ex, y + VECTOR_ARROW_LENGTH * ey, z + VECTOR_ARROW_LENGTH * ez, 0, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE, indent + 1);
 			} else if (transform instanceof RotationTransform) {
 				RotationTransform rotation = (RotationTransform) transform;
 
@@ -263,10 +263,8 @@ public class Povray {
 				double ey = y / l;
 				double ez = z / l;
 
-				result += cylinder(0, 0, 0, x, y, z, VECTOR_LINE_RADIUS, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE,
-						indent + 1);
-				result += cone(x, y, z, VECTOR_ARROW_RADIUS, x + VECTOR_ARROW_LENGTH * ex, y + VECTOR_ARROW_LENGTH * ey,
-						z + VECTOR_ARROW_LENGTH * ez, 0, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE, indent + 1);
+				result += cylinder(0, 0, 0, x, y, z, VECTOR_LINE_RADIUS, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE, indent + 1);
+				result += cone(x, y, z, VECTOR_ARROW_RADIUS, x + VECTOR_ARROW_LENGTH * ex, y + VECTOR_ARROW_LENGTH * ey, z + VECTOR_ARROW_LENGTH * ez, 0, VECTOR_RED, VECTOR_GREEN, VECTOR_BLUE, indent + 1);
 			} else {
 				throw new IllegalStateException("Transform type not supported: " + transform);
 			}
@@ -313,7 +311,7 @@ public class Povray {
 		int red = part.getRed();
 		int green = part.getGreen();
 		int blue = part.getBlue();
-		
+
 		String result = "";
 
 		// Start
@@ -370,38 +368,25 @@ public class Povray {
 			// Start
 			result += indent(indent) + "union {\n";
 			// Edges (unten)
-			result += cylinder(-width / 2, -height / 2, -depth / 2, width / 2, -height / 2, -depth / 2,
-					WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
-			result += cylinder(-width / 2, -height / 2, depth / 2, width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
-			result += cylinder(-width / 2, -height / 2, -depth / 2, -width / 2, -height / 2, depth / 2,
-					WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
-			result += cylinder(width / 2, -height / 2, -depth / 2, width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, -height / 2, -depth / 2, width / 2, -height / 2, -depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, -height / 2, depth / 2, width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, -height / 2, -depth / 2, -width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(width / 2, -height / 2, -depth / 2, width / 2, -height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			// Edges (oben)
-			result += cylinder(-width / 2, height / 2, -depth / 2, width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
-			result += cylinder(-width / 2, height / 2, depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
-			result += cylinder(-width / 2, height / 2, -depth / 2, -width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
-			result += cylinder(width / 2, height / 2, -depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, height / 2, -depth / 2, width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, height / 2, depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, height / 2, -depth / 2, -width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(width / 2, height / 2, -depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			// Edges (mitte)
-			result += cylinder(-width / 2, -height / 2, -depth / 2, -width / 2, height / 2, -depth / 2,
-					WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
-			result += cylinder(-width / 2, -height / 2, depth / 2, -width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
-			result += cylinder(width / 2, -height / 2, -depth / 2, width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
-			result += cylinder(width / 2, -height / 2, depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS,
-					0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, -height / 2, -depth / 2, -width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(-width / 2, -height / 2, depth / 2, -width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(width / 2, -height / 2, -depth / 2, width / 2, height / 2, -depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
+			result += cylinder(width / 2, -height / 2, depth / 2, width / 2, height / 2, depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 			// Corners (unten)
 			for (int x = -1; x <= 1; x += 2) {
 				for (int y = -1; y <= 1; y += 2) {
 					for (int z = -1; z <= 1; z += 2) {
-						result += sphere(x * width / 2, y * height / 2, z * depth / 2, WIRE_LINE_RADIUS, 0, 0,
-								0, indent + 1);
+						result += sphere(x * width / 2, y * height / 2, z * depth / 2, WIRE_LINE_RADIUS, 0, 0, 0, indent + 1);
 					}
 				}
 			}
@@ -516,8 +501,7 @@ public class Povray {
 
 	// CYLINDER
 
-	private static String cylinder(double bx, double by, double bz, double cx, double cy, double cz, double r, int red,
-			int green, int blue, int indent) {
+	private static String cylinder(double bx, double by, double bz, double cx, double cy, double cz, double r, int red, int green, int blue, int indent) {
 		String result = "";
 
 		if (!equal(bx, by, bz, cx, cy, cz) && r > 0) {
@@ -561,8 +545,7 @@ public class Povray {
 		return result;
 	}
 
-	private static String cone(double x1, double y1, double z1, double r1, double x2, double y2, double z2, double r2,
-			int red, int green, int blue, int indent) {
+	private static String cone(double x1, double y1, double z1, double r1, double x2, double y2, double z2, double r2, int red, int green, int blue, int indent) {
 		String result = "";
 
 		if (!equal(x1, y1, z1, x2, y2, z2) && r1 >= 0 && r2 >= 0) {

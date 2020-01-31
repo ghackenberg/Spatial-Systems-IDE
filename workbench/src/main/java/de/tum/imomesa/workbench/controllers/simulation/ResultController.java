@@ -90,17 +90,17 @@ public class ResultController implements EventHandler {
 		}
 
 		runs = RUNS.get(simulator.getScenario());
-		
+
 		long timestamp = System.currentTimeMillis();
-		
+
 		for (SimulationRun run : runs) {
 			long duration = timestamp - run.getTimestamp();
-			
+
 			long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
 			long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
 			long hours = TimeUnit.MILLISECONDS.toHours(duration);
 			long days = TimeUnit.MILLISECONDS.toDays(duration);
-			
+
 			if (days > 0) {
 				run.setTimeString(days + " day" + (days == 1 ? "" : "s") + " ago");
 			} else if (hours > 0) {
@@ -143,15 +143,15 @@ public class ResultController implements EventHandler {
 
 	public void handle(EndEvent event) {
 		long duration = event.getTimestamp() - run.getTimestamp();
-		
+
 		run.setFinished(true);
 		run.setDuration(duration);
-		
+
 		long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
 		long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
 		long hours = TimeUnit.MILLISECONDS.toHours(duration);
 		long days = TimeUnit.MILLISECONDS.toDays(duration);
-		
+
 		if (days > 0) {
 			run.setDurationString(days + " day" + (days == 1 ? "" : "s"));
 		} else if (hours > 0) {

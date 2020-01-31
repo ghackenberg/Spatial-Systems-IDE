@@ -28,13 +28,13 @@ public class RectanglePositionListener implements ChangeListener<Number> {
 	private void update() {
 		double width = rectangle.getWidth();
 		double height = rectangle.getHeight();
-		
+
 		// TODO Not really an angle!
 		double angle = ((this.angle.get() + 360.) % 360.) / 360.;
-		
+
 		double dx = 0;
 		double dy = 0;
-		
+
 		if (angle < 0.25) {
 			dx = 1;
 			dy = (angle - 0.) / 0.25;
@@ -50,7 +50,7 @@ public class RectanglePositionListener implements ChangeListener<Number> {
 		} else {
 			throw new IllegalStateException();
 		}
-		
+
 		group.setTranslateX(rectangle.getX() + width * dx);
 		group.setTranslateY(rectangle.getY() + height * dy);
 	}

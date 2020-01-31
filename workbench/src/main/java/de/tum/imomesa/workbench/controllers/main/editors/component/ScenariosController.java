@@ -16,10 +16,10 @@ public class ScenariosController implements AbstractEditorChildController<Defini
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.scenariosProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

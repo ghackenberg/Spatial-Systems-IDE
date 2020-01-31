@@ -75,8 +75,7 @@ public class VariablesController extends EditorChildController<OverviewElement<V
 	@Override
 	public void handle(SimulationStepEvent event) {
 		for (Entry<Variable, XYChart<?, ?>> entry : charts.entrySet()) {
-			TimeChartHelper.update(simulator, event, entry.getValue(), entry.getKey().append(extendedContext),
-					entry.getKey());
+			TimeChartHelper.update(simulator, event, entry.getValue(), entry.getKey().append(extendedContext), entry.getKey());
 		}
 	}
 

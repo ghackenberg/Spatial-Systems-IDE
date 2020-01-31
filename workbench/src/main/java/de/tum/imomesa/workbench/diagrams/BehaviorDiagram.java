@@ -15,8 +15,7 @@ import javafx.scene.shape.Ellipse;
 
 public class BehaviorDiagram extends ExecutableDiagram<State, Transition, Behavior> {
 
-	public BehaviorDiagram(Pane pane, Behavior executable, AbstractDiagramBehavior<Behavior> behavior,
-			boolean interactive) {
+	public BehaviorDiagram(Pane pane, Behavior executable, AbstractDiagramBehavior<Behavior> behavior, boolean interactive) {
 		super(pane, executable, behavior, interactive);
 	}
 

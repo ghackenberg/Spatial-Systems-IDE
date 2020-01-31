@@ -26,8 +26,7 @@ public class DotSerialization<T> extends Serialization<Map<T, Map<T, Integer>>> 
 			for (Entry<T, Double> innerEntry : outerEntry.getValue().entrySet()) {
 				if (max < innerEntry.getValue()) {
 					max = innerEntry.getValue();
-					System.out.println(
-							outerEntry.getKey() + " -> " + innerEntry.getKey() + " = " + innerEntry.getValue());
+					System.out.println(outerEntry.getKey() + " -> " + innerEntry.getKey() + " = " + innerEntry.getValue());
 				}
 			}
 		}
@@ -54,12 +53,7 @@ public class DotSerialization<T> extends Serialization<Map<T, Map<T, Integer>>> 
 			getWriter().write("\"" + Namer.dispatch(outerEntry.getKey()) + "\";\n");
 			for (Entry<T, Double> innerEntry : outerEntry.getValue().entrySet()) {
 				if (innerEntry.getValue() > 0) {
-					getWriter().write("\"" + Namer.dispatch(outerEntry.getKey()) + "\" -> \""
-							+ Namer.dispatch(innerEntry.getKey()) + "\" [label = \""
-							+ Formatter.FORMAT_MINIMAL.format(innerEntry.getValue() * 100) + "%\", penwidth = "
-							+ (5 + innerEntry.getValue() * 20) + ", color = \""
-							+ toColorString(innerEntry.getValue(), max) + "\", fontcolor = \""
-							+ toColorString(innerEntry.getValue(), max) + "\"];\n");
+					getWriter().write("\"" + Namer.dispatch(outerEntry.getKey()) + "\" -> \"" + Namer.dispatch(innerEntry.getKey()) + "\" [label = \"" + Formatter.FORMAT_MINIMAL.format(innerEntry.getValue() * 100) + "%\", penwidth = " + (5 + innerEntry.getValue() * 20) + ", color = \"" + toColorString(innerEntry.getValue(), max) + "\", fontcolor = \"" + toColorString(innerEntry.getValue(), max) + "\"];\n");
 				}
 			}
 		}
@@ -82,8 +76,7 @@ public class DotSerialization<T> extends Serialization<Map<T, Map<T, Integer>>> 
 		String greenString = Integer.toHexString(green);
 		String blueString = Integer.toHexString(blue);
 
-		String color = "#" + (redString.length() == 1 ? "0" : "") + redString + (greenString.length() == 1 ? "0" : "")
-				+ greenString + (blueString.length() == 1 ? "0" : "") + blueString;
+		String color = "#" + (redString.length() == 1 ? "0" : "") + redString + (greenString.length() == 1 ? "0" : "") + greenString + (blueString.length() == 1 ? "0" : "") + blueString;
 
 		return color;
 	}

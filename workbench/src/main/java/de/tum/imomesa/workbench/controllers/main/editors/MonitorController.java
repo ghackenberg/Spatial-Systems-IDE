@@ -28,7 +28,7 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 	private Button buttonRemoveTransition;
 
 	private MonitorDiagram diagram;
-	
+
 	@FXML
 	public void initialize() {
 		buttonSetInitialActivity.setDisable(true);
@@ -45,33 +45,33 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 			buttonRemoveActivity.setDisable(!checkType(Activity.class));
 			buttonRemoveTransition.setDisable(!checkType(Transition.class));
 		};
-		
+
 		diagram = new MonitorDiagram(pane, element, new MonitorDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
-		
+
 		// TODO Remove listener when not needed anymore!
 		element.initialLabelProperty().addListener(listener);
 	}
-	
+
 	private <T extends Element> boolean checkObject(T object) {
 		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
-	
+
 	private <T extends Element> boolean checkType(Class<T> type) {
 		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
 	}
-	
+
 	private <T extends Element> boolean checkType(Element element, Class<T> type) {
-		return element != null && type.isAssignableFrom(element.getClass()); 
+		return element != null && type.isAssignableFrom(element.getClass());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
 		Activity label = element.getFirstAncestorByType(Activity.class);
 		Transition transition = element.getFirstAncestorByType(Transition.class);
 		Monitor executable = element.getFirstAncestorByType(Monitor.class);
-		
+
 		if (label != null) {
 			diagram.setClickedElement(label);
 		} else if (transition != null) {
@@ -80,14 +80,14 @@ public class MonitorController implements AbstractEditorChildController<Monitor>
 			diagram.setClickedElement(executable);
 		}
 	}
-	
+
 	@FXML
 	public void createActivity() {
 		Activity activity = new Activity();
 		activity.setName("New activity");
 		activity.setParent(diagram.getElement());
 		activity.accept(new SyntacticCheckVisitor());
-		
+
 		diagram.getElement().getLabels().add(activity);
 		diagram.setClickedElement(activity);
 	}

@@ -20,8 +20,7 @@ public class Requirement extends NamedElement {
 	}
 
 	// Requirements
-	private final ListProperty<Requirement> requirements = new SimpleListProperty<>(
-			FXCollections.observableArrayList());
+	private final ListProperty<Requirement> requirements = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	public List<Requirement> getRequirements() {
 		return requirements.get();

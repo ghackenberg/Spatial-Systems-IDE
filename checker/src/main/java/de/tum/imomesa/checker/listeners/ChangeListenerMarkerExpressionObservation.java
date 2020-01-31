@@ -9,7 +9,7 @@ import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.expressions.ObservationExpression;
 
 public class ChangeListenerMarkerExpressionObservation implements ChangeListener<Observation> {
-	
+
 	// data
 	private SyntacticMarker marker;
 	private ObservationExpression parent;
@@ -19,7 +19,7 @@ public class ChangeListenerMarkerExpressionObservation implements ChangeListener
 		this.marker = marker;
 		this.parent = parent;
 	}
-	
+
 	@Override
 	public void changed(ObservableValue<? extends Observation> observable, Observation oldValue, Observation newValue) {
 		HelperEvaluateType.evaluateType(parent.getType(), newValue.getReadType(), marker);

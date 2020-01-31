@@ -21,8 +21,7 @@ import de.tum.imomesa.model.properties.Property;
 public class Mapper {
 
 	public static final Class<?>[] FEATURES_EXCLUDED = { Workspace.class, Project.class, Point.class };
-	public static final Class<?>[] FEATURES_INCLUDED = { Component.class, Requirement.class, Port.class, Property.class,
-			Scenario.class, Monitor.class, Behavior.class, Part.class };
+	public static final Class<?>[] FEATURES_INCLUDED = { Component.class, Requirement.class, Port.class, Property.class, Scenario.class, Monitor.class, Behavior.class, Part.class };
 
 	public static Class<?> mapFeature(Change change) {
 		Element iterator = (Element) change.getObject();

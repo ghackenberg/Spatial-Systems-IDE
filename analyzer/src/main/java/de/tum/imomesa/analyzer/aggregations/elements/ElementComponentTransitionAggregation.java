@@ -51,8 +51,7 @@ public class ElementComponentTransitionAggregation extends TransitionAggregation
 					DefinitionComponent currentComponent = Mapper.mapComponent(change);
 					if (currentComponent != null) {
 						if (previousComponent != null && !previousComponent.equals(currentComponent)) {
-							counts.get(previousComponent).put(currentComponent,
-									counts.get(previousComponent).get(currentComponent) + 1);
+							counts.get(previousComponent).put(currentComponent, counts.get(previousComponent).get(currentComponent) + 1);
 						}
 						previousComponent = currentComponent;
 					}

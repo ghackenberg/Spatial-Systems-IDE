@@ -7,6 +7,6 @@ import de.tum.imomesa.model.components.ReferenceComponent;
 public class ComponentAddDialog extends SimpleAddDialog<Component<?>> {
 
 	public ComponentAddDialog() {
-    	super("Add component", "Choose the type of the new component:", new DefinitionComponent(), new ReferenceComponent());
+		super("Add component", "Choose the type of the new component:", new DefinitionComponent(), new ReferenceComponent());
 	}
 }

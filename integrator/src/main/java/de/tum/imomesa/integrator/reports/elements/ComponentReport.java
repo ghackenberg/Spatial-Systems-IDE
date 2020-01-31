@@ -10,21 +10,21 @@ import de.tum.imomesa.model.components.DefinitionComponent;
 import de.tum.imomesa.simulator.markers.SimulationMarker;
 
 public class ComponentReport extends ElementReport<DefinitionComponent> {
-	
+
 	private ComponentsReport components;
 	private ScenariosReport scenarios;
 
 	public ComponentReport(DefinitionComponent element) {
 		super(element);
-		
+
 		components = new ComponentsReport(element);
 		scenarios = new ScenariosReport(element);
 	}
-	
+
 	public ComponentsReport getComponentsReport() {
 		return components;
 	}
-	
+
 	public ScenariosReport getScenariosReport() {
 		return scenarios;
 	}
@@ -48,7 +48,7 @@ public class ComponentReport extends ElementReport<DefinitionComponent> {
 	public int getTimeoutCount() {
 		return components.getTimeoutCount() + scenarios.getTimeoutCount();
 	}
-	
+
 	@Override
 	public List<SimulationMarker> getMarkers() {
 		List<SimulationMarker> result = new ArrayList<>();

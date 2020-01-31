@@ -9,10 +9,7 @@ import de.tum.imomesa.workbench.explorers.Configuration;
 import de.tum.imomesa.workbench.explorers.TreeItemBuilder;
 
 /**
- * The TreeItem has a NamedElement as value When the name of the NamedElement
- * changes, the TreeItem value is not updated automatically Therefore, the
- * NamedElement is extracted, the value of the TreeItem set to NULL and the
- * previously extracted value set again as value
+ * The TreeItem has a NamedElement as value When the name of the NamedElement changes, the TreeItem value is not updated automatically Therefore, the NamedElement is extracted, the value of the TreeItem set to NULL and the previously extracted value set again as value
  * 
  * @author Thomas
  */

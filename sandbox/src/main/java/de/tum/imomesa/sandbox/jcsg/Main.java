@@ -27,10 +27,7 @@ public class Main extends Application {
 		CSG cubeMinusSphere = cube.difference(sphere);
 		CSG cubeIntersectSphere = cube.intersect(sphere);
 
-		CSG union = cube.union(sphere.transformed(Transform.unity().translateX(3)))
-				.union(cubePlusSphere.transformed(Transform.unity().translateX(6)))
-				.union(cubeMinusSphere.transformed(Transform.unity().translateX(9)))
-				.union(cubeIntersectSphere.transformed(Transform.unity().translateX(12)));
+		CSG union = cube.union(sphere.transformed(Transform.unity().translateX(3))).union(cubePlusSphere.transformed(Transform.unity().translateX(6))).union(cubeMinusSphere.transformed(Transform.unity().translateX(9))).union(cubeIntersectSphere.transformed(Transform.unity().translateX(12)));
 
 		Camera camera = new PerspectiveCamera(true);
 		camera.setNearClip(1.0);

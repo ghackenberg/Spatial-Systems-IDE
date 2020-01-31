@@ -10,8 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 
-public class StackedAreaChartVisualization<T>
-		extends Visualization<Map<T, List<Integer>>, StackedAreaChart<Number, Number>> {
+public class StackedAreaChartVisualization<T> extends Visualization<Map<T, List<Integer>>, StackedAreaChart<Number, Number>> {
 
 	private List<T> order;
 	private Discretizer discretizer;

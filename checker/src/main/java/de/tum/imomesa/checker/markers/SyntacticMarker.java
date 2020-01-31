@@ -10,9 +10,9 @@ import javafx.beans.property.StringProperty;
 public abstract class SyntacticMarker extends Marker {
 
 	public SyntacticMarker() {
-		
+
 	}
-	
+
 	public SyntacticMarker(Element source, String message) {
 		setObject(source);
 		setMessage(message);

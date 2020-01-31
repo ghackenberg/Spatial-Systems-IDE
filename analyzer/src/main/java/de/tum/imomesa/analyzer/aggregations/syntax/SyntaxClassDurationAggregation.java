@@ -81,8 +81,7 @@ public class SyntaxClassDurationAggregation extends DurationAggregation<String> 
 					long duration = currentTimestamp - previousTimestamp;
 
 					if (duration / 1000 / 60 > 600) {
-						System.out.println("[TYPE] Duration too long: " + duration + ", " + marker.getClass().getName()
-								+ ", " + element.getClass().getName());
+						System.out.println("[TYPE] Duration too long: " + duration + ", " + marker.getClass().getName() + ", " + element.getClass().getName());
 					}
 
 					durations.get(name).add(duration);

@@ -10,7 +10,7 @@ import de.tum.imomesa.simulator.dispatchers.ObservationDispatcher;
 import de.tum.imomesa.simulator.threads.VariableThread;
 
 public class VariableEvaluator extends AbstractEvaluator<Variable> {
-	
+
 	private VariableThread thread;
 
 	public VariableEvaluator(List<Element> context, Variable element, Memory memory, int step) {
@@ -21,7 +21,7 @@ public class VariableEvaluator extends AbstractEvaluator<Variable> {
 	public void prepare() throws InterruptedException {
 		// initialize data structure
 		memory.initValue(element.append(context), step);
-		
+
 		// evaluate expression
 		Object value = ExpressionDispatcher.getInstance().dispatch(null, element.append(context), element.getDefault(), memory, step);
 		// remember value

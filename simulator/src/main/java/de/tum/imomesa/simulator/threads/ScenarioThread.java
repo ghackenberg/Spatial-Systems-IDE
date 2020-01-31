@@ -24,7 +24,7 @@ public class ScenarioThread extends ExecutableThread<Step, Transition> {
 	protected Step getTargetLabel(Transition transition) {
 		return transition.getTargetLabel();
 	}
-	
+
 	@Override
 	public String toDotStyle() {
 		return "shape = box, style = filled, fillcolor = yellow";

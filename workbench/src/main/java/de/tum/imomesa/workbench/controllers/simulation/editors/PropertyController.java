@@ -13,7 +13,7 @@ public class PropertyController extends EditorChildController<Property> {
 
 	@Override
 	public void handle(SimulationStepEvent event) {
-		
+
 	}
 
 }

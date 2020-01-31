@@ -23,32 +23,31 @@ public class MarkerController extends AbstractMarkerController {
 	public void initialize() {
 		table.setItems(MarkerManager.get().getMarkersAsObservable());
 
-		message.setCellFactory(
-				new Callback<TableColumn<SimulationMarker, String>, TableCell<SimulationMarker, String>>() {
+		message.setCellFactory(new Callback<TableColumn<SimulationMarker, String>, TableCell<SimulationMarker, String>>() {
+			@Override
+			public TableCell<SimulationMarker, String> call(TableColumn<SimulationMarker, String> param) {
+				TableCell<SimulationMarker, String> cell = new TableCell<SimulationMarker, String>() {
 					@Override
-					public TableCell<SimulationMarker, String> call(TableColumn<SimulationMarker, String> param) {
-						TableCell<SimulationMarker, String> cell = new TableCell<SimulationMarker, String>() {
-							@Override
-							public void updateItem(String item, boolean empty) {
-								// if empty, delete all data in cell
-								if (empty == true) {
-									setGraphic(null);
-									setText(null);
-									return;
-								}
-								// set item text and graphic
-								if (item != null) {
-									setText(item);
-									SimulationMarker p = (SimulationMarker) getTableRow().getItem();
-									if (p != null) {
-										setGraphic(ImageHelper.getIcon(p.getClass()));
-									}
-								}
+					public void updateItem(String item, boolean empty) {
+						// if empty, delete all data in cell
+						if (empty == true) {
+							setGraphic(null);
+							setText(null);
+							return;
+						}
+						// set item text and graphic
+						if (item != null) {
+							setText(item);
+							SimulationMarker p = (SimulationMarker) getTableRow().getItem();
+							if (p != null) {
+								setGraphic(ImageHelper.getIcon(p.getClass()));
 							}
-						};
-						return cell;
+						}
 					}
-				});
+				};
+				return cell;
+			}
+		});
 	}
 
 	private Simulator simulator;

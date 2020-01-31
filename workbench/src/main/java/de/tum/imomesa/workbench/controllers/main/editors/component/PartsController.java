@@ -16,10 +16,10 @@ public class PartsController implements AbstractEditorChildController<Definition
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.partsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

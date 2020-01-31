@@ -21,8 +21,7 @@ public class CsvSerialization<T> extends Serialization<DurationDescriptor<T>> {
 
 	@Override
 	public void generateResult() throws IOException {
-		getWriter().write(
-				"Object;Minimum duration (in minutes);Average duration (in minutes);Maximum duration (in minutes)\n");
+		getWriter().write("Object;Minimum duration (in minutes);Average duration (in minutes);Maximum duration (in minutes)\n");
 
 		for (T key : order) {
 			getWriter().write(Namer.dispatch(key));

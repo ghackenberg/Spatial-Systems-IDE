@@ -10,17 +10,17 @@ import javafx.beans.property.SimpleObjectProperty;
 public class ItemNoListError extends ErrorMarker {
 
 	public ItemNoListError() {
-		
+
 	}
-	
+
 	public ItemNoListError(List<Element> context, Object item, int step) {
 		super(context, "Set item is not a list: " + item, step);
-		
+
 		this.item.set(item);
 	}
-	
+
 	private ObjectProperty<Object> item = new SimpleObjectProperty<>();
-	
+
 	public ObjectProperty<Object> itemProperty() {
 		return item;
 	}

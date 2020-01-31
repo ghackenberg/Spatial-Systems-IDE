@@ -6,9 +6,9 @@ import de.tum.imomesa.model.Element;
 public class ErrorNoLine extends SyntacticError {
 
 	public ErrorNoLine() {
-		
+
 	}
-	
+
 	public ErrorNoLine(Element source) {
 		super(source, "No line set.");
 	}

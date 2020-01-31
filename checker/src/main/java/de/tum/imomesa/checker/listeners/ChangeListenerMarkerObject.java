@@ -9,7 +9,7 @@ import de.tum.imomesa.checker.markers.SyntacticMarker;
 import de.tum.imomesa.model.Element;
 
 public class ChangeListenerMarkerObject<T extends Element> implements ChangeListener<T> {
-	
+
 	// data
 	private SyntacticMarker marker;
 	private BooleanExpression condition;
@@ -19,12 +19,12 @@ public class ChangeListenerMarkerObject<T extends Element> implements ChangeList
 	public ChangeListenerMarkerObject(SyntacticMarker marker, T value) {
 		this(marker, new SimpleBooleanProperty(true), value);
 	}
-	
+
 	public ChangeListenerMarkerObject(SyntacticMarker marker, BooleanExpression condition, T value) {
 		this.marker = marker;
 		this.condition = condition;
 		this.currentValue = value;
-		
+
 		// add listener on condition
 		condition.addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -34,7 +34,6 @@ public class ChangeListenerMarkerObject<T extends Element> implements ChangeList
 		});
 	}
 
-	
 	@Override
 	public void changed(ObservableValue<? extends T> observable, T oldValue, T newValue) {
 		currentValue = newValue;

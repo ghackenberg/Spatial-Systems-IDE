@@ -48,14 +48,14 @@ public class SceneController extends AbstractSceneController {
 			// Unbind transform values
 			rotationTransformX.angleProperty().unbindBidirectional(data.cameraAngleXProperty());
 			rotationTransformY.angleProperty().unbindBidirectional(data.cameraAngleYProperty());
-			
+
 			translateDistance.xProperty().unbindBidirectional(data.cameraTranslateXProperty());
 			translateDistance.yProperty().unbindBidirectional(data.cameraTranslateYProperty());
 			translateDistance.zProperty().unbindBidirectional(data.cameraDistanceProperty());
 			// Reset transform values
 			rotationTransformX.setAngle(-45);
 			rotationTransformY.setAngle(-45);
-			
+
 			translateDistance.setX(0);
 			translateDistance.setY(0);
 			translateDistance.setZ(-200);
@@ -76,7 +76,7 @@ public class SceneController extends AbstractSceneController {
 		// Clear scene
 		solidRoot.getChildren().clear();
 		alphaRoot.getChildren().clear();
-		
+
 		// Remove listeners
 		ListenerManager.getListenerRemover().removeAllListener();
 
@@ -84,19 +84,19 @@ public class SceneController extends AbstractSceneController {
 			// Initialize transforms
 			rotationTransformX.setAngle(data.getCameraAngleX());
 			rotationTransformY.setAngle(data.getCameraAngleY());
-			
+
 			translateDistance.setX(data.getCameraTranslateX());
 			translateDistance.setY(data.getCameraTranslateY());
 			translateDistance.setZ(data.getCameraDistance());
-			
+
 			// Bind transform values
 			rotationTransformX.angleProperty().bindBidirectional(data.cameraAngleXProperty());
 			rotationTransformY.angleProperty().bindBidirectional(data.cameraAngleYProperty());
-			
+
 			translateDistance.xProperty().bindBidirectional(data.cameraTranslateXProperty());
 			translateDistance.yProperty().bindBidirectional(data.cameraTranslateYProperty());
 			translateDistance.zProperty().bindBidirectional(data.cameraDistanceProperty());
-			
+
 			// Paint component
 			paintComponent(new ModelPath<>(data), new ScenePath(solidRoot, alphaRoot));
 		}
@@ -110,7 +110,7 @@ public class SceneController extends AbstractSceneController {
 
 			final Group solidChild = new Group();
 			final Group alphaChild = new Group();
-			
+
 			final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 
 			// get material ports from component

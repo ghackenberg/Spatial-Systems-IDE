@@ -30,7 +30,7 @@ public abstract class AbstractSceneController implements de.tum.imomesa.core.eve
 
 	private Group world;
 	private Group sceneRoot;
-	
+
 	protected Rotate rotationTransformX;
 	protected Rotate rotationTransformY;
 	protected Translate translateDistance;
@@ -91,13 +91,13 @@ public abstract class AbstractSceneController implements de.tum.imomesa.core.eve
 
 		// visualization
 		solidRoot = new Group();
-		
+
 		alphaRoot = new Group();
-		
+
 		sceneRoot = new Group();
 		sceneRoot.getChildren().add(solidRoot);
 		sceneRoot.getChildren().add(alphaRoot);
-		
+
 		world.getChildren().add(sceneRoot);
 
 		// create and set scene
@@ -155,8 +155,7 @@ public abstract class AbstractSceneController implements de.tum.imomesa.core.eve
 				}
 
 				/*
-				 * previous_x = event.getScreenX(); previous_y =
-				 * event.getScreenY();
+				 * previous_x = event.getScreenX(); previous_y = event.getScreenY();
 				 */
 			}
 		});

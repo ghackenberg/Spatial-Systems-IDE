@@ -23,7 +23,7 @@ public class BehaviorThread extends ExecutableThread<de.tum.imomesa.model.execut
 	protected de.tum.imomesa.model.executables.behaviors.State getTargetLabel(Transition transition) {
 		return transition.getTargetLabel();
 	}
-	
+
 	@Override
 	public String toDotStyle() {
 		return "shape = box, style = filled, fillcolor = red";

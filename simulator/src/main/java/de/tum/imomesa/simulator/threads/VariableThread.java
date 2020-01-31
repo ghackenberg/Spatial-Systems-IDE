@@ -23,14 +23,13 @@ public class VariableThread extends AbstractThread<Variable> {
 			// Check value
 			if (!memory.hasValue(element.append(context), step)) {
 				// Set variable to previous value
-				ObservationDispatcher.getInstance().dispatch(this, context, element, memory, step, memory.getValue(this, element.append(context),  step - 1));
+				ObservationDispatcher.getInstance().dispatch(this, context, element, memory, step, memory.getValue(this, element.append(context), step - 1));
 			}
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	@Override
 	public String toDotStyle() {
 		return "shape = box, style = filled, fillcolor = white";

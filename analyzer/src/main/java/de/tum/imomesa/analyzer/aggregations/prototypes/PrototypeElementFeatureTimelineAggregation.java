@@ -26,10 +26,10 @@ public class PrototypeElementFeatureTimelineAggregation extends TimelineAggregat
 
 		for (Class<?> type : Mapper.FEATURES_INCLUDED) {
 			String name = Namer.dispatch(type);
-			
+
 			counts.put(name + " - added", new ArrayList<>());
 			counts.put(name + " - removed", new ArrayList<>());
-			
+
 			for (int bin = 0; bin < getDiscretizer().getBins(); bin++) {
 				counts.get(name + " - added").add(0);
 				counts.get(name + " - removed").add(0);
@@ -38,10 +38,10 @@ public class PrototypeElementFeatureTimelineAggregation extends TimelineAggregat
 
 		for (Change change : getChanges()) {
 			Class<?> type = Mapper.mapFeature(change);
-			
+
 			if (type != null) {
 				String name = Namer.dispatch(type);
-				
+
 				int bin = getDiscretizer().mapBin(change.getTimestamp());
 
 				if (change instanceof ManageChange) {

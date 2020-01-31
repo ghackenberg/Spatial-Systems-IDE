@@ -54,14 +54,14 @@ public class HelperPort {
 			Scenario scenario = modelPath.element.getFirstAncestorByType(Scenario.class);
 			selected = selected || (config.getSelectedElement().getPath().contains(scenario) && config.getSelectedElement().getFirstAncestorByType(Port.class) == null);
 		}
-		
+
 		final boolean finalSelected = selected;
-		
+
 		final Group solidChild = new Group();
 		final Group alphaChild = new Group();
-		
+
 		final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
-		
+
 		int r = 0, g = 0, b = 0;
 
 		if (modelPath.element instanceof InteractionMaterialPort) {
@@ -73,24 +73,24 @@ public class HelperPort {
 		} else {
 			throw new IllegalStateException("Port type not supported: " + modelPath.element.getClass().getName());
 		}
-		
+
 		final Color color = Color.rgb(r, g, b);
-		
+
 		PhongMaterial material = new PhongMaterial();
-		
+
 		material.diffuseColorProperty().bind(Bindings.when(config.highlightSelectedProperty()).then(selected ? color : color.darker()).otherwise(color));
 
 		modelPath.element.volumeProperty().addListener((property, oldValue, newValue) -> {
 			updateVolume(modelPath, config, sceneChild, material, finalSelected);
 		});
-		
+
 		updateVolume(modelPath, config, sceneChild, material, finalSelected);
 	}
-	
+
 	private static void updateVolume(ModelPath<MaterialPort> modelPath, Configuration config, ScenePath scenePath, PhongMaterial material, boolean selected) {
 		scenePath.solidParent.getChildren().clear();
 		scenePath.alphaParent.getChildren().clear();
-		
+
 		if (modelPath.element.getVolume() != null) {
 			HelperVolume.paintVolume(new ModelPath<>(modelPath, modelPath.element.getVolume()), material, config, selected, scenePath);
 		}
@@ -99,22 +99,22 @@ public class HelperPort {
 	private static void paintKinematicEnergyPort(ModelPath<KinematicEnergyPort> modelPath, Configuration config, ScenePath scenePath) {
 		final Group solidChild = new Group();
 		final Group alphaChild = new Group();
-		
+
 		final ScenePath sceneChild = new ScenePath(scenePath, solidChild, alphaChild);
 
 		if (modelPath.element.getTransform() != null) {
 			HelperTransform.paintTransform(new ModelPath<>(modelPath, modelPath.element.getTransform()), config.selectedElementProperty(), sceneChild);
 		}
 	}
-	
+
 	private static boolean containsExpression(Expression expression, Port port) {
 		if (expression instanceof ObservationExpression) {
 			Observation observation = ((ObservationExpression) expression).getObservation();
-			
+
 			if (observation.getParent() instanceof Observation) {
 				return observation == port || observation.getParent() == port;
 			} else {
-				return observation == port;	
+				return observation == port;
 			}
 		} else if (expression instanceof UnaryExpression) {
 			return containsExpression(((UnaryExpression) expression).getArgument(), port);
@@ -129,7 +129,7 @@ public class HelperPort {
 			return false;
 		}
 	}
-	
+
 	private static boolean containsTransition(Transition transition, Port port) {
 		if (containsExpression(transition.getGuard().getExpression(), port)) {
 			return true;
@@ -139,14 +139,14 @@ public class HelperPort {
 		}
 		return false;
 	}
-	
+
 	private static boolean containsActivity(Activity activity, Port port) {
 		if (containsProperties(activity.getProperties(), port)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	private static boolean containsActions(List<Action> actions, Port port) {
 		for (Action action : actions) {
 			if (action.getObservation() == port || containsExpression(action.getExpression(), port)) {
@@ -155,16 +155,16 @@ public class HelperPort {
 		}
 		return false;
 	}
-	
+
 	private static boolean containsProperties(List<Property> properties, Port port) {
 		for (Property property : properties) {
-			if (/*containsExpression(property.getDefault(), port) || */containsExpression(property.getExpression(), port)) {
+			if (/* containsExpression(property.getDefault(), port) || */containsExpression(property.getExpression(), port)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	private static boolean containsMonitor(Monitor monitor, Port port) {
 		for (Activity activity : monitor.getLabels()) {
 			if (containsActivity(activity, port)) {
@@ -178,5 +178,5 @@ public class HelperPort {
 		}
 		return false;
 	}
-	
+
 }

@@ -29,23 +29,23 @@ import de.tum.imomesa.simulator.markers.errors.WrongInputKinematicPortError;
 import de.tum.imomesa.simulator.threads.AbstractThread;
 
 public class ObservationDispatcher {
-	
+
 	private static ObservationDispatcher instance = new ObservationDispatcher();
-	
+
 	public static ObservationDispatcher getInstance() {
 		return instance;
 	}
-	
+
 	private int number;
-	
+
 	private ObservationDispatcher() {
-		
+
 	}
-	
+
 	public void reset() {
 		number = 0;
 	}
-	
+
 	public void dispatch(AbstractThread<?> thread, List<Element> context, Observation observation, Memory memory, int step, Object value) {
 		dispatch(thread, context, observation, memory, step, value, true);
 	}
@@ -74,12 +74,12 @@ public class ObservationDispatcher {
 			throw new IllegalStateException(e);
 		}
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, Observation observation, Memory memory, Integer step, Object value, Boolean forward) {
 		// Default set operation
 		memory.setValue(thread, observation.append(context), step, value);
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, Port port, Memory memory, Integer step, Object value, Boolean forward) {
 		// Default set operation
 		set(thread, context, (Observation) port, memory, step, value, forward);
@@ -98,7 +98,7 @@ public class ObservationDispatcher {
 			set(thread, context, (Port) port, memory, step, value, forward);
 			// Propagate the value
 			for (Channel channel : Utils.getOutgoingChannelsForContext(context, port)) {
-				if(channel instanceof DynamicChannel) {
+				if (channel instanceof DynamicChannel) {
 					// Debug
 					// System.out.println("forward(" + thread + ", " + port.append(context) + " -> " + channel.getTarget().append(((DynamicChannel) channel).getTargetContext()) + ")");
 					// Dispatch
@@ -107,7 +107,7 @@ public class ObservationDispatcher {
 					// Debug
 					// System.out.println("forward(" + thread + ", " + port.append(context) + " -> " + channel.getTarget().append(channel.getTarget().resolve(context)) + ")");
 					// Dispatch
-					dispatch(thread, channel.getTarget().resolve(context), channel.getTarget(), memory, step, value, forward);	
+					dispatch(thread, channel.getTarget().resolve(context), channel.getTarget(), memory, step, value, forward);
 				}
 			}
 			// Check proxy
@@ -121,7 +121,7 @@ public class ObservationDispatcher {
 			}
 		}
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, ReferencePort proxy, Memory memory, Integer step, Object value, Boolean forward) {
 		// Debug
 		// System.out.println("set(" + thread + ", " + proxy.append(context) + " = " + value + ")");
@@ -146,7 +146,7 @@ public class ObservationDispatcher {
 			}
 			// Propagate the value
 			for (Channel channel : Utils.getOutgoingChannelsForContext(context, proxy)) {
-				if(channel instanceof DynamicChannel) {
+				if (channel instanceof DynamicChannel) {
 					// Debug
 					// System.out.println("forward(" + thread + ", " + proxy.append(context) + " -> " + channel.getTarget().append(((DynamicChannel) channel).getTargetContext()) + ")");
 					// Dispatch
@@ -155,19 +155,19 @@ public class ObservationDispatcher {
 					// Debug
 					// System.out.println("forward(" + thread + ", " + proxy.append(context) + " -> " + channel.getTarget().append(channel.getTarget().resolve(context)) + ")");
 					// Dispatch
-					dispatch(thread, channel.getTarget().resolve(context), channel.getTarget(), memory, step, value, forward);	
+					dispatch(thread, channel.getTarget().resolve(context), channel.getTarget(), memory, step, value, forward);
 				}
 			}
 		}
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, InteractionMaterialPort port, Memory memory, Integer step, Object object, Boolean forward) throws InterruptedException {
 		if (port.getAlwaysActive()) {
 			set(thread, context, (DefinitionPort) port, memory, step, memory.getCollisions(port.append(context), step), forward);
-		} else if(object == null) {
+		} else if (object == null) {
 			set(thread, context, (DefinitionPort) port, memory, step, object, forward);
-		} else if(object instanceof Boolean) {
-			if(object.equals(true)) {
+		} else if (object instanceof Boolean) {
+			if (object.equals(true)) {
 				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollisions(port.append(context), step), forward);
 			} else {
 				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<List<Element>>(), forward);
@@ -176,18 +176,18 @@ public class ObservationDispatcher {
 			throw new IllegalStateException();
 		}
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, EntryLifeMaterialPort port, Memory memory, Integer step, Object object, Boolean forward) throws InterruptedException {
 		if (object == null) {
-			set(thread, context, (DefinitionPort) port, memory, step, null, forward);	
+			set(thread, context, (DefinitionPort) port, memory, step, null, forward);
 		} else if (object instanceof Boolean) {
 			if ((Boolean) object) {
-				
+
 				// Create proxy
 				ReferenceComponent proxy_component = new ReferenceComponent();
 				proxy_component.setName("Generated component " + (number++));
 				proxy_component.setTemplate(port.getComponent());
-				
+
 				// Create port proxies
 				for (DefinitionPort nested : port.getComponent().getPorts()) {
 					// Create port
@@ -195,11 +195,11 @@ public class ObservationDispatcher {
 					// Add port
 					proxy_component.getPorts().add(proxy_port);
 				}
-				
+
 				// Set port value
 				Set<ReferenceComponent> set = new HashSet<>();
 				set.add(proxy_component);
-				
+
 				set(thread, context, (DefinitionPort) port, memory, step, set, forward);
 			} else {
 				set(thread, context, (DefinitionPort) port, memory, step, new HashSet<>(), forward);
@@ -208,10 +208,10 @@ public class ObservationDispatcher {
 			throw new IllegalStateException();
 		}
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, ExitLifeMaterialPort port, Memory memory, Integer step, Object object, Boolean forward) throws InterruptedException {
 		if (object == null) {
-			set(thread, context, (DefinitionPort) port, memory, step, null, forward);	
+			set(thread, context, (DefinitionPort) port, memory, step, null, forward);
 		} else if (object instanceof Boolean) {
 			if ((Boolean) object) {
 				set(thread, context, (DefinitionPort) port, memory, step, memory.getCollisions(port.append(context), step), forward);
@@ -222,33 +222,33 @@ public class ObservationDispatcher {
 			throw new IllegalStateException();
 		}
 	}
-	
+
 	protected void set(AbstractThread<?> thread, List<Element> context, KinematicEnergyPort port, Memory memory, Integer step, Object object, Boolean forward) throws InterruptedException {
-		if(object == null) {
+		if (object == null) {
 			// port is null
 			set(thread, context, (DefinitionPort) port, memory, step, object, forward);
-		} else if(port.getDirection() == Direction.OUTPUT.ordinal()) {
-			if(object instanceof Number) {
+		} else if (port.getDirection() == Direction.OUTPUT.ordinal()) {
+			if (object instanceof Number) {
 				// multiply transform with number
-				if(port.getTransform() != null) {
+				if (port.getTransform() != null) {
 					double multiplicator = (Double) object;
-					
+
 					// calculate transform
 					RealMatrix matrix = port.getTransform().multiplyTransform(multiplicator).toRealMatrix();
 					RealMatrix parent = memory.getTransform(context, step);
 					RealMatrix invers = new LUDecomposition(parent).getSolver().getInverse();
-		
+
 					set(thread, context, (DefinitionPort) port, memory, step, parent.multiply(matrix.multiply(invers)), forward);
 				} else {
 					throw new IllegalStateException("Transform not set.");
 				}
-			} else if(object instanceof RealMatrix) {
+			} else if (object instanceof RealMatrix) {
 				set(thread, context, (DefinitionPort) port, memory, step, object, forward);
 			} else {
 				throw new IllegalStateException();
 			}
-		} else if(port.getDirection() == Direction.INPUT.ordinal()) {
-			if(object instanceof RealMatrix) {
+		} else if (port.getDirection() == Direction.INPUT.ordinal()) {
+			if (object instanceof RealMatrix) {
 				set(thread, context, (DefinitionPort) port, memory, step, object, forward);
 			} else {
 				MarkerManager.get().addMarker(new WrongInputKinematicPortError(context, step));

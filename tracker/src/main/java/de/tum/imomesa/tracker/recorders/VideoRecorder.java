@@ -9,21 +9,21 @@ import de.tum.imomesa.tracker.structures.Frame;
 import de.tum.imomesa.tracker.writers.AbstractWriter;
 
 public abstract class VideoRecorder extends AbstractRecorder {
-	
+
 	private boolean running = true;
 	private AbstractWriter writer;
-	
+
 	public VideoRecorder(String name, AbstractWriter writer) {
 		super(name);
-		
+
 		this.writer = writer;
 	}
-	
+
 	@Override
 	public final void run() {
 		try {
 			EventBus.getInstance().publish(new RecorderStartEvent(this));
-			
+
 			// Start timestamp
 			long timestamp_start = System.currentTimeMillis();
 			// Previous timestamp
@@ -33,9 +33,8 @@ public abstract class VideoRecorder extends AbstractRecorder {
 			// Capture video
 			while (running) {
 				/*
-				// Debug output
-				System.out.println(this + " recording new frame");
-				*/
+				 * // Debug output System.out.println(this + " recording new frame");
+				 */
 				// Obtain image
 				BufferedImage image = grabImage();
 				// Check image
@@ -53,19 +52,19 @@ public abstract class VideoRecorder extends AbstractRecorder {
 			}
 			// Add null frame
 			writer.getFrames().put(new Frame());
-			
+
 			EventBus.getInstance().publish(new RecorderEndEvent(this));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void finish() {
 		// Mark finished
 		running = false;
 	}
-	
+
 	protected abstract BufferedImage grabImage();
-	
+
 }

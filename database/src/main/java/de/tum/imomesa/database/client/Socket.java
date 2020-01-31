@@ -38,22 +38,21 @@ public class Socket {
 	public void onMessage(String message) {
 		try {
 			// System.out.println("Message: \"" + message + "\" (" + message.length() + ")");
-			
+
 			if (message.length() == 0) {
 				// Notify heartbeat
 				// System.out.println("Hearbeat recieved!");
 			} else {
 				// Parse message
 				JSONObject json = new JSONObject(message);
-	
+
 				if (json.has("type")) {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
 							try {
 								// Remeber change
-								client.addChange(new ManageChange(json.getDouble("client"), json.getDouble("key"),
-										json.getLong("timestamp"), Class.forName(json.getString("type"))));
+								client.addChange(new ManageChange(json.getDouble("client"), json.getDouble("key"), json.getLong("timestamp"), Class.forName(json.getString("type"))));
 							} catch (ClassNotFoundException e) {
 								throw new IllegalStateException(e);
 							}
@@ -64,8 +63,7 @@ public class Socket {
 						@Override
 						public void run() {
 							// Add change
-							client.addChange(new UpdateChange(json.getDouble("client"), json.getDouble("key"),
-									json.getLong("timestamp"), json.getString("name"), json.get("value")));
+							client.addChange(new UpdateChange(json.getDouble("client"), json.getDouble("key"), json.getLong("timestamp"), json.getString("name"), json.get("value")));
 						}
 					});
 				} else {
@@ -73,17 +71,16 @@ public class Socket {
 						@Override
 						public void run() {
 							// Add change
-							client.addChange(new ReleaseChange(json.getDouble("client"), json.getDouble("key"),
-									json.getLong("timestamp")));
+							client.addChange(new ReleaseChange(json.getDouble("client"), json.getDouble("key"), json.getLong("timestamp")));
 						}
 					});
 				}
-	
+
 				// Compare client
 				if (json.getDouble("client") != client.getKey()) {
 					// Parse data fields
 					Double key = json.getDouble("key");
-	
+
 					// Check json
 					if (json.has("type")) {
 						// Obtain type
@@ -96,7 +93,7 @@ public class Socket {
 						// Get data
 						Object object = client.getObject(key);
 						Type type = client.getType(object.getClass());
-	
+
 						// Check json
 						if (json.has("name")) {
 							// Parse data fields
@@ -105,14 +102,14 @@ public class Socket {
 							if (type.hasField(name)) {
 								Field field = type.getField(name);
 								Listener listener = client.getListener(object, field);
-	
+
 								// Get property
 								Property<Object> property = field.getValue(object);
 								// Obtain old value
 								Object oldValue = property.getValue();
 								// Obtain new value
 								Object newValue = client.toObject(value);
-	
+
 								// TODO Find solution for analyzer here!
 								// Platform.runLater(new Runnable() {
 								// @Override
@@ -131,7 +128,7 @@ public class Socket {
 												}
 											}
 										}
-	
+
 										// Add new references
 										if (client.hasObject(newValue)) {
 											client.addReference(newValue, object, field);
@@ -145,17 +142,15 @@ public class Socket {
 										}
 										// Remove listener temporarily
 										property.removeListener(listener);
-	
+
 										try {
 											// Try updating value
 											property.setValue(newValue);
 										} catch (ClassCastException e) {
 											// Report class cast exception
-											System.out.println("Database socket: " + e.getMessage() + " (object = " + object
-													+ ", property = " + name + ", oldValue = " + oldValue + ", newValue = "
-													+ newValue + ")");
+											System.out.println("Database socket: " + e.getMessage() + " (object = " + object + ", property = " + name + ", oldValue = " + oldValue + ", newValue = " + newValue + ")");
 										}
-	
+
 										// Add listener again
 										property.addListener(listener);
 									}

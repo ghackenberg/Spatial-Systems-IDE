@@ -15,26 +15,26 @@ public abstract class ComponentEvaluator<T extends Component<?>> extends Abstrac
 	public ComponentEvaluator(List<Element> context, T element, Memory memory, int step) {
 		super(context, element, memory, step);
 	}
-	
+
 	@Override
 	public void prepare() throws InterruptedException {
 		memory.initTransform(element.append(context), step);
 		memory.initCollisions(element.append(context), step);
-		
-		RealMatrix parentMatrix = new DiagonalMatrix(new double[]{1.,1.,1.,1.});
-		
+
+		RealMatrix parentMatrix = new DiagonalMatrix(new double[] { 1., 1., 1., 1. });
+
 		// get transform matrix from parent
-		if(context.size() > 0) {
+		if (context.size() > 0) {
 			parentMatrix = memory.getTransform(context, step);
 		}
-		
+
 		// add own transforms
-		for(Transform t : element.getTransforms()) {
+		for (Transform t : element.getTransforms()) {
 			parentMatrix = parentMatrix.multiply(t.toRealMatrix());
 		}
-		
+
 		// store transform in memory
 		memory.setTransform(element.append(context), step, parentMatrix);
 	}
-	
+
 }

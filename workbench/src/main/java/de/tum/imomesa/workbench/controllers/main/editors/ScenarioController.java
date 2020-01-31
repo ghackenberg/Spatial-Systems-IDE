@@ -49,7 +49,7 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 	private Button buttonRemoveTransition;
 
 	private ScenarioDiagram diagram;
-	
+
 	@FXML
 	public void initialize() {
 		buttonSetInitialStep.setDisable(true);
@@ -68,35 +68,35 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 			buttonRemoveStep.setDisable(!checkType(Step.class));
 			buttonRemoveTransition.setDisable(!checkType(Transition.class));
 		};
-		
+
 		diagram = new ScenarioDiagram(pane, element, new ScenarioDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
-		
+
 		// TODO Remove listener when not needed anymore!
 		element.initialLabelProperty().addListener(listener);
 		// TODO Remove listener when not needed anymore!
 		element.finalLabelProperty().addListener(listener);
 	}
-	
+
 	private <T extends Element> boolean checkObject(T object) {
 		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
-	
+
 	private <T extends Element> boolean checkType(Class<T> type) {
 		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
 	}
-	
+
 	private <T extends Element> boolean checkType(Element element, Class<T> type) {
-		return element != null && type.isAssignableFrom(element.getClass()); 
+		return element != null && type.isAssignableFrom(element.getClass());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
 		Step label = element.getFirstAncestorByType(Step.class);
 		Transition transition = element.getFirstAncestorByType(Transition.class);
 		Scenario executable = element.getFirstAncestorByType(Scenario.class);
-		
+
 		if (label != null) {
 			diagram.setClickedElement(label);
 		} else if (transition != null) {
@@ -105,14 +105,14 @@ public class ScenarioController implements AbstractEditorChildController<Scenari
 			diagram.setClickedElement(executable);
 		}
 	}
-	
+
 	@FXML
 	public void createStep() {
 		Step step = new Step();
 		step.setName("New step");
 		step.setParent(diagram.getElement());
 		step.accept(new SyntacticCheckVisitor());
-		
+
 		diagram.getElement().getLabels().add(step);
 		diagram.setClickedElement(step);
 	}

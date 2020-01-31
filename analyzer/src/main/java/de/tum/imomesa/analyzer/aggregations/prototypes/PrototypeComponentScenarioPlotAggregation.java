@@ -32,8 +32,7 @@ import de.tum.imomesa.simulator.events.SimulationMarkerEvent;
 import de.tum.imomesa.simulator.events.StartEvent;
 import de.tum.imomesa.simulator.markers.SimulationMarker;
 
-public class PrototypeComponentScenarioPlotAggregation
-		extends Aggregation<Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>>> {
+public class PrototypeComponentScenarioPlotAggregation extends Aggregation<Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>>> {
 
 	private static final String MANAGE = "Manage";
 	private static final String RELEASE = "Release";
@@ -42,8 +41,7 @@ public class PrototypeComponentScenarioPlotAggregation
 
 	private String file;
 
-	public PrototypeComponentScenarioPlotAggregation(List<Change> changes, List<Event> events,
-			Discretizer discretizer) {
+	public PrototypeComponentScenarioPlotAggregation(List<Change> changes, List<Event> events, Discretizer discretizer) {
 		super(changes, events);
 
 		this.discretizer = discretizer;
@@ -79,8 +77,7 @@ public class PrototypeComponentScenarioPlotAggregation
 							result.get(firstComponent).put(scenario, new ArrayList<>());
 						}
 
-						result.get(firstComponent).get(scenario)
-								.add(new EventDescriptor(change.getTimestamp(), MANAGE, "Element created."));
+						result.get(firstComponent).get(scenario).add(new EventDescriptor(change.getTimestamp(), MANAGE, "Element created."));
 					}
 				}
 			}
@@ -106,7 +103,7 @@ public class PrototypeComponentScenarioPlotAggregation
 				SimulationMarker marker = casted.getMarker();
 
 				String name = Namer.dispatch(marker);
-				
+
 				if (name != null) {
 					messages.add(name.replace(' ', '_'));
 				}
@@ -124,8 +121,7 @@ public class PrototypeComponentScenarioPlotAggregation
 						message += (message.length() > 0 ? " " : "") + temp;
 					}
 
-					result.get(component).get(scenario)
-							.add(new EventDescriptor(start.getTimestamp(), message, description));
+					result.get(component).get(scenario).add(new EventDescriptor(start.getTimestamp(), message, description));
 				}
 			}
 		}
@@ -141,8 +137,7 @@ public class PrototypeComponentScenarioPlotAggregation
 					DefinitionComponent component = scenario.getFirstAncestorByType(DefinitionComponent.class);
 
 					if (result.containsKey(component)) {
-						result.get(component).get(scenario)
-								.add(new EventDescriptor(change.getTimestamp(), RELEASE, "Element deleted."));
+						result.get(component).get(scenario).add(new EventDescriptor(change.getTimestamp(), RELEASE, "Element deleted."));
 					}
 				}
 			}
@@ -189,8 +184,7 @@ public class PrototypeComponentScenarioPlotAggregation
 	}
 
 	@Override
-	protected List<Serialization<Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>>>> generateSerializations()
-			throws IOException {
+	protected List<Serialization<Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>>>> generateSerializations() throws IOException {
 		List<DefinitionComponent> outerOrder = Sorter.sortEventDescriptorsComponents(getResult());
 		List<Scenario> innerOrder = Sorter.sortEventDescriptorsScenarios(getResult());
 

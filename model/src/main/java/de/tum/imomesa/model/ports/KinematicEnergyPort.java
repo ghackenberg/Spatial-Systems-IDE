@@ -9,45 +9,42 @@ import de.tum.imomesa.database.annotations.Cascading;
 import de.tum.imomesa.model.transforms.Transform;
 import de.tum.imomesa.utilities.visitors.Visitor;
 
-public class KinematicEnergyPort extends EnergyPort
-{
-	
+public class KinematicEnergyPort extends EnergyPort {
+
 	// Constructors
-	
-	public KinematicEnergyPort()
-	{
+
+	public KinematicEnergyPort() {
 		setReadType(RealMatrix.class);
-		
+
 		getWriteType().add(Number.class);
 		getWriteType().add(RealMatrix.class);
 	}
-	
+
 	// Methods
-	
+
 	public void accept(Visitor visitor) {
 		super.accept(visitor);
 
-		if(getTransform() != null) {
+		if (getTransform() != null) {
 			getTransform().accept(visitor);
 		}
 	}
-	
+
 	// Transform
-	
+
 	private ObjectProperty<Transform> transform = new SimpleObjectProperty<>();
-	
-	public Transform getTransform()
-	{
+
+	public Transform getTransform() {
 		return transform.get();
 	}
-	public void setTransform(Transform transform)
-	{
+
+	public void setTransform(Transform transform) {
 		this.transform.set(transform);
 	}
+
 	@Cascading
-	public ObjectProperty<Transform> transformProperty()
-	{
+	public ObjectProperty<Transform> transformProperty() {
 		return transform;
 	}
-	
+
 }

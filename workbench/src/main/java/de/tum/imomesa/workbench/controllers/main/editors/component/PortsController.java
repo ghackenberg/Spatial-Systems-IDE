@@ -16,10 +16,10 @@ public class PortsController implements AbstractEditorChildController<Definition
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.portsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
-	
+
 }

@@ -11,7 +11,7 @@ import de.tum.imomesa.model.expressions.Expression;
 import de.tum.imomesa.model.ports.DataPort;
 
 public class ChangeListenerMarkerObservation implements ChangeListener<Observation> {
-	
+
 	// data
 	private SyntacticMarker marker;
 	private ObjectProperty<Expression> expressions;
@@ -21,20 +21,20 @@ public class ChangeListenerMarkerObservation implements ChangeListener<Observati
 		this.marker = marker;
 		this.expressions = expressions;
 	}
-	
+
 	@Override
 	public void changed(ObservableValue<? extends Observation> observable, Observation oldValue, Observation newValue) {
-		if(newValue != null) {
-			
+		if (newValue != null) {
+
 			// add listener on changes of expression
 			expressions.addListener(new ChangeListenerMarkerExpression(newValue.writeTypeProperty(), marker));
-			
+
 			// add listener on changes of write type property
-			if(newValue instanceof Variable || newValue instanceof DataPort) {
+			if (newValue instanceof Variable || newValue instanceof DataPort) {
 				newValue.writeTypeProperty().addListener(new ChangeListenerMarkerClass(expressions, marker));
 			}
 
-			if(expressions.get() != null) {
+			if (expressions.get() != null) {
 				HelperEvaluateType.evaluateType(newValue.getWriteType(), expressions.get().getType(), marker);
 			}
 		}

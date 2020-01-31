@@ -36,5 +36,5 @@ public class State extends Label {
 	public ListProperty<Part> partsProperty() {
 		return parts;
 	}
-	
+
 }

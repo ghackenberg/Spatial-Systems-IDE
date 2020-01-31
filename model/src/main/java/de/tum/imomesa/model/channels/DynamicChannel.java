@@ -5,7 +5,7 @@ import java.util.List;
 import de.tum.imomesa.model.Element;
 
 public class DynamicChannel extends Channel {
-	
+
 	// ########################################################################
 	// Attributes
 	// ########################################################################
@@ -25,15 +25,16 @@ public class DynamicChannel extends Channel {
 	public List<Element> getSourceContext() {
 		return sourceContext;
 	}
-	
+
 	public void setSourceContext(List<Element> context) {
 		this.sourceContext = context;
 	}
-	
+
 	// target context
 	public List<Element> getTargetContext() {
 		return targetContext;
 	}
+
 	public void setTargetContext(List<Element> context) {
 		targetContext = context;
 	}

@@ -14,7 +14,7 @@ public class WorkspaceReportPrinter extends AbstractReportPrinter<Workspace, Wor
 
 	@Override
 	public void process(Writer writer) {
-		
+
 	}
 
 }

@@ -15,19 +15,19 @@ public abstract class SimpleAddDialog<T extends Element> extends Dialog<T> {
 	@SafeVarargs
 	public SimpleAddDialog(String title, String label, T... options) {
 		setTitle(title);
-        setHeaderText(null);
-        setContentText(null);
-	    setResizable(true);
-	    
+		setHeaderText(null);
+		setContentText(null);
+		setResizable(true);
+
 		ComboBox<T> comboBox = new ComboBox<>(FXCollections.observableArrayList(options));
-	    comboBox.setValue(options[0]);
+		comboBox.setValue(options[0]);
 		comboBox.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				comboBox.requestFocus();
 			}
 		});
-		
+
 		GridPane content = new GridPane();
 		content.setHgap(10);
 		content.setVgap(10);
@@ -36,15 +36,14 @@ public abstract class SimpleAddDialog<T extends Element> extends Dialog<T> {
 
 		getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		getDialogPane().setContent(content);
-	    
-	    setResultConverter(dialogButton -> {
-	        if (dialogButton == ButtonType.OK) {
-	        	return comboBox.getValue();
-	        }
-	        else {
-	        	return null;
-	        }
-	    });
+
+		setResultConverter(dialogButton -> {
+			if (dialogButton == ButtonType.OK) {
+				return comboBox.getValue();
+			} else {
+				return null;
+			}
+		});
 	}
 
 }

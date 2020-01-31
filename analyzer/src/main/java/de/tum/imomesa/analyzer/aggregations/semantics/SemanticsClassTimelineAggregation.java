@@ -35,10 +35,7 @@ public class SemanticsClassTimelineAggregation extends TimelineAggregation<Strin
 
 		for (Event event : getEvents()) {
 			/*
-			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent)
-			 * { integration = true; } else if (event instanceof
-			 * de.tum.imomesa.integrator.events.EndEvent) { integration = false;
-			 * } else if (!integration) {
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
 			 */
 			if (event instanceof StartEvent) {
 				StartEvent start = (StartEvent) event;
@@ -48,15 +45,13 @@ public class SemanticsClassTimelineAggregation extends TimelineAggregation<Strin
 				SimulationMarkerEvent add = (SimulationMarkerEvent) event;
 				SimulationMarker marker = add.getMarker();
 
-				String name = Namer.dispatch(component)
-						+ " - " /* + Namer.dispatch(scenario) + " - " */
+				String name = Namer.dispatch(component) + " - " /* + Namer.dispatch(scenario) + " - " */
 						+ Namer.dispatch(marker);
 
 				if (marker instanceof ConstraintViolatedError) {
 					name += " (" + Namer.map(marker.getContext()) + ")";
 				} else if (marker instanceof PartCollisionError) {
-					name += " (" + Namer.map(marker.getContext()) + " / "
-							+ Namer.map(((PartCollisionError) marker).getCollisionObject()) + ")";
+					name += " (" + Namer.map(marker.getContext()) + " / " + Namer.map(((PartCollisionError) marker).getCollisionObject()) + ")";
 				}
 
 				if (Namer.dispatch(marker) != null) {

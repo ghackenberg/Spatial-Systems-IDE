@@ -15,7 +15,7 @@ public class PTreeTableColumn<S, T> extends TreeTableColumn<S, T> {
 			updateWidth(newValue.doubleValue());
 		}
 	};
-	
+
 	public PTreeTableColumn() {
 		this(null, 1);
 	}
@@ -23,8 +23,7 @@ public class PTreeTableColumn<S, T> extends TreeTableColumn<S, T> {
 	public PTreeTableColumn(String text, double precentageWidth) {
 		treeTableViewProperty().addListener(new ChangeListener<TreeTableView<S>>() {
 			@Override
-			public void changed(ObservableValue<? extends TreeTableView<S>> observable, TreeTableView<S> oldValue,
-					TreeTableView<S> newValue) {
+			public void changed(ObservableValue<? extends TreeTableView<S>> observable, TreeTableView<S> oldValue, TreeTableView<S> newValue) {
 				if (oldValue != null) {
 					oldValue.widthProperty().removeListener(listener);
 				}
@@ -58,8 +57,7 @@ public class PTreeTableColumn<S, T> extends TreeTableColumn<S, T> {
 		if (value >= 0 && value <= 1) {
 			this.percentageWidthProperty().set(value);
 		} else {
-			throw new IllegalArgumentException(
-					String.format("The provided percentage width is not between 0.0 and 1.0. Value is: %1$s", value));
+			throw new IllegalArgumentException(String.format("The provided percentage width is not between 0.0 and 1.0. Value is: %1$s", value));
 		}
 	}
 

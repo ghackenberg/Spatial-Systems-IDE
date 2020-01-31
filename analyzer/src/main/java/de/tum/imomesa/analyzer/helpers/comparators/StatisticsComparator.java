@@ -17,8 +17,7 @@ public class StatisticsComparator<T, N extends Number> implements Comparator<T> 
 
 	@Override
 	public int compare(T first, T second) {
-		int value = (int) Math.signum(minimums.get(first).doubleValue() + averages.get(first).doubleValue()
-				- minimums.get(second).doubleValue() - averages.get(second).doubleValue());
+		int value = (int) Math.signum(minimums.get(first).doubleValue() + averages.get(first).doubleValue() - minimums.get(second).doubleValue() - averages.get(second).doubleValue());
 
 		if (value != 0) {
 			return -value;

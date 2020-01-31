@@ -31,7 +31,7 @@ public class Configuration {
 	public Element getSelectedElement() {
 		return selectedElement.get();
 	}
-	
+
 	public ObjectProperty<Element> selectedElementProperty() {
 		return selectedElement;
 	}

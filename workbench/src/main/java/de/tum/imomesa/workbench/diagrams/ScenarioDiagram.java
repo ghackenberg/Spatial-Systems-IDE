@@ -15,8 +15,7 @@ import javafx.scene.shape.Ellipse;
 
 public class ScenarioDiagram extends ExecutableDiagram<Step, Transition, Scenario> {
 
-	public ScenarioDiagram(Pane pane, Scenario executable, AbstractDiagramBehavior<Scenario> behavior,
-			boolean interactive) {
+	public ScenarioDiagram(Pane pane, Scenario executable, AbstractDiagramBehavior<Scenario> behavior, boolean interactive) {
 		super(pane, executable, behavior, interactive);
 	}
 

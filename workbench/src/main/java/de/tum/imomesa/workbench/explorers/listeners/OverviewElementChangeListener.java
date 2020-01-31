@@ -12,8 +12,7 @@ public class OverviewElementChangeListener implements ListChangeListener<Element
 	private Configuration configuration;
 	private boolean childrenExpanded;
 
-	public OverviewElementChangeListener(TreeItem<Element> treeItem, Configuration configuration,
-			boolean childrenExpanded) {
+	public OverviewElementChangeListener(TreeItem<Element> treeItem, Configuration configuration, boolean childrenExpanded) {
 		this.item = treeItem;
 		this.configuration = configuration;
 		this.childrenExpanded = childrenExpanded;
@@ -37,8 +36,7 @@ public class OverviewElementChangeListener implements ListChangeListener<Element
 				}
 				int index = change.getFrom();
 				for (Element element : change.getAddedSubList()) {
-					item.getChildren().add(index++,
-							TreeItemBuilder.getInstance().transform(element, configuration, childrenExpanded));
+					item.getChildren().add(index++, TreeItemBuilder.getInstance().transform(element, configuration, childrenExpanded));
 				}
 			}
 		}

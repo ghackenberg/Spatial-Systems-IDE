@@ -32,35 +32,31 @@ public class SemanticsComponentTimelineAggregation extends TimelineAggregation<D
 
 		for (Event event : getEvents()) {
 			/*
-			if (event instanceof de.tum.imomesa.integrator.events.StartEvent) {
-				integration = true;
-			} else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) {
-				integration = false;
-			} else if (!integration) {
-			*/
-				if (event instanceof StartEvent) {
-					StartEvent start = (StartEvent) event;
-					component = start.getComponent();
-				} else if (event instanceof SimulationMarkerEvent) {
-					SimulationMarkerEvent add = (SimulationMarkerEvent) event;
-					SimulationMarker marker = add.getMarker();
-					String name = Namer.dispatch(marker);
-					if (name != null) {
-						if (!counts.containsKey(component)) {
-							counts.put(component, new ArrayList<>());
-							for (int bin = 0; bin < getDiscretizer().getBins(); bin++) {
-								counts.get(component).add(0);
-							}
+			 * if (event instanceof de.tum.imomesa.integrator.events.StartEvent) { integration = true; } else if (event instanceof de.tum.imomesa.integrator.events.EndEvent) { integration = false; } else if (!integration) {
+			 */
+			if (event instanceof StartEvent) {
+				StartEvent start = (StartEvent) event;
+				component = start.getComponent();
+			} else if (event instanceof SimulationMarkerEvent) {
+				SimulationMarkerEvent add = (SimulationMarkerEvent) event;
+				SimulationMarker marker = add.getMarker();
+				String name = Namer.dispatch(marker);
+				if (name != null) {
+					if (!counts.containsKey(component)) {
+						counts.put(component, new ArrayList<>());
+						for (int bin = 0; bin < getDiscretizer().getBins(); bin++) {
+							counts.get(component).add(0);
 						}
-						int bin = getDiscretizer().mapBin(event.getTimestamp());
-						counts.get(component).set(bin, counts.get(component).get(bin) + 1);
 					}
-				} else if (event instanceof EndEvent) {
-					component = null;
+					int bin = getDiscretizer().mapBin(event.getTimestamp());
+					counts.get(component).set(bin, counts.get(component).get(bin) + 1);
 				}
-			/*
+			} else if (event instanceof EndEvent) {
+				component = null;
 			}
-			*/
+			/*
+			 * }
+			 */
 		}
 
 		return counts;

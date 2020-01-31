@@ -1,6 +1,5 @@
 package de.tum.imomesa.database.client;
 
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ public class Type {
 
 	private Class<?> type;
 	private List<Field> fields = new ArrayList<>();
-	
+
 	public Type(Class<?> type) {
 		this.type = type;
 		// Iterate over methods
@@ -26,19 +25,19 @@ public class Type {
 			}
 		}
 	}
-	
+
 	public Class<?> getType() {
 		return type;
 	}
-	
+
 	public String getName() {
 		return type.getName();
 	}
-	
+
 	public List<Field> getFields() {
 		return fields;
 	}
-	
+
 	public boolean hasField(String name) {
 		for (Field field : fields) {
 			if (field.getName().equals(name)) {
@@ -56,7 +55,7 @@ public class Type {
 		}
 		throw new IllegalStateException(name);
 	}
-	
+
 	public List<Field> getCascadingFields() {
 		List<Field> result = new ArrayList<>();
 		for (Field field : fields) {
@@ -66,5 +65,5 @@ public class Type {
 		}
 		return result;
 	}
-	
+
 }

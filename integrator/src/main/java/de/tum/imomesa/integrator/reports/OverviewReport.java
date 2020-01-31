@@ -9,15 +9,15 @@ import de.tum.imomesa.simulator.markers.SimulationMarker;
 public abstract class OverviewReport<P extends NamedElement, C extends AbstractReport<?>> extends AbstractReport<P> {
 
 	private List<C> reports = new ArrayList<>();
-	
+
 	public OverviewReport(P element, String name) {
 		super(element, name, "");
 	}
-	
+
 	public void addReport(C report) {
 		reports.add(report);
 	}
-	
+
 	public List<C> getReports() {
 		return reports;
 	}
@@ -58,7 +58,7 @@ public abstract class OverviewReport<P extends NamedElement, C extends AbstractR
 		}
 		return result;
 	}
-	
+
 	@Override
 	public List<SimulationMarker> getMarkers() {
 		List<SimulationMarker> result = new ArrayList<>();

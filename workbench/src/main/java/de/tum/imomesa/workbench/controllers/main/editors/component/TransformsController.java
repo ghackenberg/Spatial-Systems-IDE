@@ -16,10 +16,10 @@ public class TransformsController implements AbstractEditorChildController<Defin
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.transformsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

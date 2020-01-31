@@ -89,8 +89,7 @@ public class AttributeController extends AbstractAttributeController implements 
 
 	}
 
-	public void handle(AttributesGrid grid, List<Element> context, Element element, Integer step)
-			throws InterruptedException {
+	public void handle(AttributesGrid grid, List<Element> context, Element element, Integer step) throws InterruptedException {
 		grid.addProperty("Key", "" + StorageManager.getInstance().getKey(element));
 
 		String path = "";
@@ -100,8 +99,7 @@ public class AttributeController extends AbstractAttributeController implements 
 		grid.addProperty("Path", path);
 	}
 
-	public void handle(AttributesGrid grid, List<Element> context, NamedElement element, Integer step)
-			throws InterruptedException {
+	public void handle(AttributesGrid grid, List<Element> context, NamedElement element, Integer step) throws InterruptedException {
 		grid.addProperty("Name", element.getName());
 
 		TextArea description = new TextArea();
@@ -112,8 +110,7 @@ public class AttributeController extends AbstractAttributeController implements 
 		grid.addProperty("Description", description);
 	}
 
-	public void handle(AttributesGrid grid, List<Element> context, DefinitionComponent component, Integer step)
-			throws InterruptedException {
+	public void handle(AttributesGrid grid, List<Element> context, DefinitionComponent component, Integer step) throws InterruptedException {
 		Memory memory = simulator.getMemory();
 
 		TextField bindings = new TextField();
@@ -131,8 +128,7 @@ public class AttributeController extends AbstractAttributeController implements 
 		grid.addProperty("Transform", transform, AttributesGrid.DYNAMIC_CELL_LABEL_STYLE, AttributesGrid.DYNAMIC_CELL_VALUE_STYLE);
 	}
 
-	public void handle(AttributesGrid grid, List<Element> context, Executable<?, ?> executable, Integer step)
-			throws InterruptedException {
+	public void handle(AttributesGrid grid, List<Element> context, Executable<?, ?> executable, Integer step) throws InterruptedException {
 		Memory memory = simulator.getMemory();
 
 		TextField transition = new TextField();
@@ -150,14 +146,12 @@ public class AttributeController extends AbstractAttributeController implements 
 		grid.addProperty("Label", label, AttributesGrid.DYNAMIC_CELL_LABEL_STYLE, AttributesGrid.DYNAMIC_CELL_VALUE_STYLE);
 	}
 
-	public void handle(AttributesGrid grid, List<Element> context, ObservedElement observation, Integer step)
-			throws InterruptedException {
+	public void handle(AttributesGrid grid, List<Element> context, ObservedElement observation, Integer step) throws InterruptedException {
 		grid.addProperty("Read", "" + observation.getReadType());
 		grid.addProperty("Write", "" + observation.getWriteType());
 	}
 
-	public void handle(AttributesGrid grid, List<Element> context, Observation observation, Integer step)
-			throws InterruptedException {
+	public void handle(AttributesGrid grid, List<Element> context, Observation observation, Integer step) throws InterruptedException {
 		Memory memory = simulator.getMemory();
 
 		TextField value = new TextField();

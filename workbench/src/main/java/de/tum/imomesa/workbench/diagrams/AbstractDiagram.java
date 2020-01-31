@@ -44,8 +44,7 @@ public abstract class AbstractDiagram<E extends Element> {
 	private static final double SHADOW_OFFSET_X = 2.5;
 	private static final double SHADOW_OFFSET_Y = 2.5;
 	private static final Color SHADOW_COLOR = new Color(0, 0, 0, 0.75);
-	protected static final DropShadow SHADOW = new DropShadow(SHADOW_RADIUS, SHADOW_OFFSET_X, SHADOW_OFFSET_Y,
-			SHADOW_COLOR);
+	protected static final DropShadow SHADOW = new DropShadow(SHADOW_RADIUS, SHADOW_OFFSET_X, SHADOW_OFFSET_Y, SHADOW_COLOR);
 
 	// Container
 	protected static final Paint CONTAINER_FILL_INACTIVE = new Color(1, 1, 1, 1. / 3.);
@@ -230,13 +229,11 @@ public abstract class AbstractDiagram<E extends Element> {
 	// When active
 
 	public When whenActive(Element element) {
-		return Bindings.when(clickedElement.isEqualTo(element).or(pressedElement.isEqualTo(element))
-				.or(draggedElement.isEqualTo(element)).or(releasedElement.isEqualTo(element)));
+		return Bindings.when(clickedElement.isEqualTo(element).or(pressedElement.isEqualTo(element)).or(draggedElement.isEqualTo(element)).or(releasedElement.isEqualTo(element)));
 	}
 
 	public When whenActive(Node node) {
-		return Bindings.when(clickedNode.isEqualTo(node).or(pressedNode.isEqualTo(node)).or(draggedNode.isEqualTo(node))
-				.or(releasedNode.isEqualTo(node)));
+		return Bindings.when(clickedNode.isEqualTo(node).or(pressedNode.isEqualTo(node)).or(draggedNode.isEqualTo(node)).or(releasedNode.isEqualTo(node)));
 	}
 
 	// Binding and resolving

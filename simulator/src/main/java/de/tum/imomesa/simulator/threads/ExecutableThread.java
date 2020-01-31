@@ -17,23 +17,23 @@ import de.tum.imomesa.simulator.markers.errors.InterruptedExceptionError;
 import de.tum.imomesa.simulator.markers.warnings.NonDeterministicChoiceWarning;
 
 public abstract class ExecutableThread<L extends Label, T extends Transition<L>> extends AbstractThread<Executable<L, T>> {
-	
+
 	public ExecutableThread(List<Element> context, Executable<L, T> executable, Memory memory, int step) {
 		super(context, executable, memory, step);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void execute() {
 		try {
 			// Get active label
-			
+
 			L label = (L) memory.getLabel(element.append(context), step);
-			
+
 			// Select enabled transitions
-			
+
 			List<T> enabled = new LinkedList<>();
-			
+
 			for (T transition : getOutgoingTransitions(label)) {
 				// Evaluate guard
 				Object result = ExpressionDispatcher.getInstance().dispatch(this, element.append(context), transition.getGuard().getExpression(), memory, step);
@@ -43,11 +43,11 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 					enabled.add(transition);
 				}
 			}
-			
+
 			// Select executable actions
-			
+
 			List<Action> actions;
-			
+
 			if (enabled.size() == 0) {
 				// Obtain actions
 				actions = label != null ? label.getActions() : new ArrayList<>();
@@ -55,10 +55,9 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 				memory.setTransition(element.append(context), step, null);
 				// Update active state
 				memory.setLabel(element.append(context), step + 1, label);
-			}
-			else {
+			} else {
 				// warning if more than one transition available
-				if(enabled.size() > 1) {
+				if (enabled.size() > 1) {
 					// Create marker
 					MarkerManager.get().addMarker(new NonDeterministicChoiceWarning<L, T, Executable<L, T>>(context, element, label, enabled, enabled.size(), step));
 				}
@@ -71,9 +70,9 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 				// Update active state
 				memory.setLabel(element.append(context), step + 1, getTargetLabel(selected));
 			}
-			
+
 			// Calculate actions
-			
+
 			for (Action action : actions) {
 				if (action.getObservation() != null && action.getExpression() != null) {
 					// Evaluate expression
@@ -86,8 +85,9 @@ public abstract class ExecutableThread<L extends Label, T extends Transition<L>>
 			MarkerManager.get().addMarker(new InterruptedExceptionError(element.append(context), e, step));
 		}
 	}
-	
+
 	protected abstract List<T> getOutgoingTransitions(L label);
+
 	protected abstract L getTargetLabel(T transition);
 
 }

@@ -11,15 +11,15 @@ public class RequirementsController implements AbstractEditorChildController<Def
 
 	@FXML
 	private TableView<Requirement> tableView;
-	
+
 	@Override
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.requirementsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

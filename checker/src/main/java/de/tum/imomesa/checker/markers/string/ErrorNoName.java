@@ -6,9 +6,9 @@ import de.tum.imomesa.model.Element;
 public class ErrorNoName extends SyntacticError {
 
 	public ErrorNoName() {
-		
+
 	}
-	
+
 	public ErrorNoName(Element source) {
 		super(source, "No name set.");
 	}

@@ -90,7 +90,7 @@ public class SyntacticCheckVisitor extends MultipleMethodVisitor {
 		// HelperEvaluateString.evaluateStringInit(element.descriptionProperty(),
 		// warningDescriptionIsEmpty);
 	}
-	
+
 	public void visit(Variable observation) {
 		// Step 1: create error and warning objects
 		SyntacticError errorDefaultExpressionNotSet = new ErrorNoDefaultExpression(observation);
@@ -154,8 +154,7 @@ public class SyntacticCheckVisitor extends MultipleMethodVisitor {
 		// Step 2: initial evaluation and add listener
 		HelperEvaluateObject.evaluateObjectInit(action.observationProperty(), errorObservationEmpty);
 		HelperEvaluateObject.evaluateObjectInit(action.expressionProperty(), errorExpressionEmpty);
-		HelperEvaluateType.evaluateTypeObservationInit(action.observationProperty(), action.expressionProperty(),
-				errorExpressionType);
+		HelperEvaluateType.evaluateTypeObservationInit(action.observationProperty(), action.expressionProperty(), errorExpressionType);
 	}
 
 	public void visit(Guard guard) {
@@ -165,8 +164,7 @@ public class SyntacticCheckVisitor extends MultipleMethodVisitor {
 
 		// Step 2: initial evaluation
 		HelperEvaluateObject.evaluateObjectInit(guard.expressionProperty(), errorExpressionNotSet);
-		HelperEvaluateType.evaluateTypeObservationInit(new ArrayList<Class<?>>(Arrays.asList(Boolean.class)),
-				guard.expressionProperty(), errorExpressionWithWrongType);
+		HelperEvaluateType.evaluateTypeObservationInit(new ArrayList<Class<?>>(Arrays.asList(Boolean.class)), guard.expressionProperty(), errorExpressionWithWrongType);
 	}
 
 	public void visit(Transition<?> t) {
@@ -292,8 +290,7 @@ public class SyntacticCheckVisitor extends MultipleMethodVisitor {
 
 		// Step 2: initial evaluation and add listener
 		HelperEvaluateObject.evaluateObjectInit(property.expressionProperty(), errorExpressionNotSet);
-		HelperEvaluateType.evaluateTypeObservationInit(property, property.expressionProperty(),
-				errorExpressionWithWrongType);
+		HelperEvaluateType.evaluateTypeObservationInit(property, property.expressionProperty(), errorExpressionWithWrongType);
 	}
 
 	public void visit(RotationTransform transform) {

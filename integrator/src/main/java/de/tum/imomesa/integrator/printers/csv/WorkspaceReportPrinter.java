@@ -16,9 +16,9 @@ public class WorkspaceReportPrinter extends AbstractReportPrinter<Workspace, Wor
 
 	@Override
 	public void process(Writer writer) throws IOException {
-		
-		writer.write("Workspace;" + getReport().getElement() + "\n");	
-		
+
+		writer.write("Workspace;" + getReport().getElement() + "\n");
+
 		for (ProjectReport project : getReport().getProjectsReport().getReports()) {
 			ProjectReportPrinter printer = new ProjectReportPrinter(project);
 			printer.process(writer);

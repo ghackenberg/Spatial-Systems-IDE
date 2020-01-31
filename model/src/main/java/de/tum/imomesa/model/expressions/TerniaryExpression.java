@@ -20,8 +20,7 @@ public abstract class TerniaryExpression extends CompositeExpression {
 		}
 	}
 
-	public TerniaryExpression(Class<?> typeObject, Class<?> argumentTypeObject1, Class<?> argumentTypeObject2,
-			Class<?> argumentTypeObject3) {
+	public TerniaryExpression(Class<?> typeObject, Class<?> argumentTypeObject1, Class<?> argumentTypeObject2, Class<?> argumentTypeObject3) {
 		super(typeObject, argumentTypeObject1);
 
 		try {

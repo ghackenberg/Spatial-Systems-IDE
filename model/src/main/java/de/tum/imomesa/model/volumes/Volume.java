@@ -27,10 +27,10 @@ public abstract class Volume extends Element {
 	public Volume() {
 		transforms.addListener(this::handleTransformsChange);
 		transforms.addListener(this::handleTransformsItemChange);
-		
+
 		transform.addListener(this::updateCSG);
 	}
-	
+
 	private void handleTransformsChange(ObservableValue<? extends List<Transform>> property, List<Transform> oldValue, List<Transform> newValue) {
 		for (Transform transform : oldValue) {
 			transform.transformProperty().removeListener(this::updateTransform);
@@ -40,7 +40,7 @@ public abstract class Volume extends Element {
 		}
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
-	
+
 	private void handleTransformsItemChange(ListChangeListener.Change<? extends Transform> change) {
 		while (change.next()) {
 			for (Transform transform : change.getRemoved()) {
@@ -52,7 +52,7 @@ public abstract class Volume extends Element {
 		}
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
-	
+
 	public void accept(Visitor visitor) {
 		super.accept(visitor);
 
@@ -76,85 +76,85 @@ public abstract class Volume extends Element {
 	public ListProperty<Transform> transformsProperty() {
 		return transforms;
 	}
-	
+
 	// Transform
 	private final ObjectProperty<eu.mihosoft.vvecmath.Transform> transform = new SimpleObjectProperty<>(eu.mihosoft.vvecmath.Transform.unity());
-	
+
 	protected void setTransform(eu.mihosoft.vvecmath.Transform transform) {
 		this.transform.set(transform);
 	}
-	
+
 	public eu.mihosoft.vvecmath.Transform getTransform() {
 		return transform.get();
 	}
-	
+
 	@Transient
 	public ObjectProperty<eu.mihosoft.vvecmath.Transform> transformProperty() {
 		return transform;
 	}
-	
+
 	// CSG
 	private final ObjectProperty<CSG> csg = new SimpleObjectProperty<>(CSG.fromPolygons());
-	
+
 	protected void setCSG(CSG csg) {
 		this.csg.set(csg);
 	}
-	
+
 	public CSG getCSG() {
 		return csg.get();
 	}
-	
+
 	@Transient
 	public ObjectProperty<CSG> csgProperty() {
 		return csg;
 	}
-	
+
 	// Meshes
 	private final ObjectProperty<MeshContainer> meshes = new SimpleObjectProperty<>();
-	
+
 	private void setMeshes(MeshContainer meshes) {
 		this.meshes.set(meshes);
 	}
-	
+
 	public MeshContainer getMeshes() {
 		return meshes.get();
 	}
-	
+
 	@Transient
 	public ObjectProperty<MeshContainer> meshesProperty() {
 		return meshes;
 	}
-	
+
 	// Dirty
 	private final BooleanProperty dirty = new SimpleBooleanProperty(true);
-	
+
 	private void setDirty(boolean dirty) {
 		this.dirty.set(dirty);
 	}
-	
+
 	public boolean getDirty() {
 		return dirty.get();
 	}
-	
+
 	@Transient
 	public BooleanProperty dirtyProperty() {
 		return dirty;
 	}
-	
+
 	public static final Thread UPDATE_THREAD = new Thread(Volume::updateLoop);
-	
+
 	private static final BlockingQueue<Volume> UPDATE_QUEUE = new LinkedBlockingDeque<>();
-	
+
 	private static void updateLoop() {
 		try {
 			while (true) {
 				try {
 					Volume volume = UPDATE_QUEUE.take();
-					
+
 					if (volume.getDirty()) {
 						CSG csg = volume.toCSG();
 						MeshContainer container = csg.toJavaFXMesh();
-						
+
 						Platform.runLater(() -> {
 							volume.setCSG(csg);
 							volume.setMeshes(container);
@@ -170,24 +170,24 @@ public abstract class Volume extends Element {
 				}
 			}
 		} catch (InterruptedException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
-	
+
 	protected <T> void updateTransform(ObservableValue<? extends T> property, T oldValue, T newValue) {
 		setTransform(Transform.toVVecMathTransform(getTransforms()));
 	}
-	
+
 	protected <T> void updateCSG(ObservableValue<? extends T> property, T oldValue, T newValue) {
 		try {
 			setDirty(true);
-			
+
 			UPDATE_QUEUE.put(this);
 		} catch (InterruptedException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
-	
+
 	protected abstract CSG toCSG();
-	
+
 }

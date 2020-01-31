@@ -13,11 +13,11 @@ public class TranslationTransform extends Transform {
 
 	public TranslationTransform() {
 		vector.addListener(this::handleVectorChange);
-		
+
 		getVector().xProperty().addListener(this::handleNumberChange);
 		getVector().yProperty().addListener(this::handleNumberChange);
 		getVector().zProperty().addListener(this::handleNumberChange);
-		
+
 		setTransform(toVVecMathTransform());
 	}
 
@@ -44,8 +44,7 @@ public class TranslationTransform extends Transform {
 
 	@Override
 	public RealMatrix toRealMatrix() {
-		return new BlockRealMatrix(new double[][] { { 1, 0, 0, getVector().getX() }, { 0, 1, 0, getVector().getY() },
-				{ 0, 0, 1, getVector().getZ() }, { 0, 0, 0, 1 } });
+		return new BlockRealMatrix(new double[][] { { 1, 0, 0, getVector().getX() }, { 0, 1, 0, getVector().getY() }, { 0, 0, 1, getVector().getZ() }, { 0, 0, 0, 1 } });
 	}
 
 	// Move vector
@@ -63,5 +62,5 @@ public class TranslationTransform extends Transform {
 	public ObjectProperty<Point> vectorProperty() {
 		return vector;
 	}
-	
+
 }

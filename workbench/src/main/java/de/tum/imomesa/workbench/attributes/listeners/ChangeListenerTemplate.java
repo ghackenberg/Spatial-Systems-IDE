@@ -6,9 +6,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class ChangeListenerTemplate implements ChangeListener<DefinitionComponent> {
-	
+
 	private ObjectProperty<DefinitionComponent> componentProperty;
-	
+
 	public ChangeListenerTemplate(ObjectProperty<DefinitionComponent> componentProperty) {
 		this.componentProperty = componentProperty;
 	}

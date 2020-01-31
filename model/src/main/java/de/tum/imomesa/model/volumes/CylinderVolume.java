@@ -51,11 +51,11 @@ public class CylinderVolume extends AtomicVolume {
 	public int getSlices() {
 		return slices.get();
 	}
-	
+
 	public void setSlices(int slices) {
 		this.slices.set(slices);
 	}
-	
+
 	public IntegerProperty slicesProperty() {
 		return slices;
 	}

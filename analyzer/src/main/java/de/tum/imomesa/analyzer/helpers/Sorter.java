@@ -81,7 +81,7 @@ public class Sorter {
 				double second = Math.abs(durations.getSortedMinimums().get(o1) + durations.getSortedAverages().get(o1));
 
 				double diff = first - second;
-				
+
 				return (int) Math.signum(diff);
 			}
 		});
@@ -137,8 +137,7 @@ public class Sorter {
 		return result;
 	}
 
-	public static List<DefinitionComponent> sortEventDescriptors(
-			Map<DefinitionComponent, List<EventDescriptor>> events) {
+	public static List<DefinitionComponent> sortEventDescriptors(Map<DefinitionComponent, List<EventDescriptor>> events) {
 		Map<DefinitionComponent, Long> timestamps = new HashMap<>();
 
 		for (Entry<DefinitionComponent, List<EventDescriptor>> entry : events.entrySet()) {
@@ -154,8 +153,7 @@ public class Sorter {
 		return sortTimestamps(timestamps);
 	}
 
-	public static List<DefinitionComponent> sortEventDescriptorsComponents(
-			Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>> events) {
+	public static List<DefinitionComponent> sortEventDescriptorsComponents(Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>> events) {
 		Map<DefinitionComponent, Long> timestamps = new HashMap<>();
 
 		for (Entry<DefinitionComponent, Map<Scenario, List<EventDescriptor>>> outerEntry : events.entrySet()) {
@@ -173,8 +171,7 @@ public class Sorter {
 		return sortTimestamps(timestamps);
 	}
 
-	public static List<Scenario> sortEventDescriptorsScenarios(
-			Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>> events) {
+	public static List<Scenario> sortEventDescriptorsScenarios(Map<DefinitionComponent, Map<Scenario, List<EventDescriptor>>> events) {
 		Map<Scenario, Long> timestamps = new HashMap<>();
 
 		for (Entry<DefinitionComponent, Map<Scenario, List<EventDescriptor>>> outerEntry : events.entrySet()) {

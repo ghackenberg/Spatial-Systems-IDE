@@ -1,20 +1,18 @@
 package de.tum.imomesa.model.properties;
 
-public class ConstraintProperty extends Property
-{
+public class ConstraintProperty extends Property {
 	// ########################################################################
 	// Constructors
 	// ########################################################################
-	
-	public ConstraintProperty()
-	{
+
+	public ConstraintProperty() {
 		super(Boolean.class);
 	}
-	
+
 	// ########################################################################
 	// Methods
 	// ########################################################################
-	
+
 	// ########################################################################
 	// Properties
 	// ########################################################################

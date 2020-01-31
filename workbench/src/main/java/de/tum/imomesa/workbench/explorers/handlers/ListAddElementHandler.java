@@ -18,5 +18,5 @@ public class ListAddElementHandler<T extends Element> extends AbstractAddElement
 	protected void updateProperty(T element) {
 		property.get().add(element);
 	}
-	
+
 }

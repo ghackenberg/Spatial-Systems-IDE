@@ -6,9 +6,9 @@ import de.tum.imomesa.model.Element;
 public class ErrorNoGuard extends SyntacticError {
 
 	public ErrorNoGuard() {
-		
+
 	}
-	
+
 	public ErrorNoGuard(Element source) {
 		super(source, "No guard set.");
 	}

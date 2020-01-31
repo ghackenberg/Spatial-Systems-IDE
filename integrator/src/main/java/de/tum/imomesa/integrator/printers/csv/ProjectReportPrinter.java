@@ -16,14 +16,14 @@ public class ProjectReportPrinter extends AbstractReportPrinter<Project, Project
 
 	@Override
 	public void process(Writer writer) throws IOException {
-		
+
 		writer.write("Project;" + getReport().getElement() + "\n");
-		
+
 		for (ComponentReport component : getReport().getTemplatesReport().getReports()) {
 			ComponentReportPrinter printer = new ComponentReportPrinter(component);
 			printer.process(writer);
 		}
-		
+
 	}
 
 }

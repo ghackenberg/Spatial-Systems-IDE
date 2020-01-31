@@ -7,11 +7,11 @@ import de.tum.imomesa.checker.markers.SyntacticMarker;
 import de.tum.imomesa.model.ports.Port;
 
 public class ChangeListenerMarkerPortDirection implements ChangeListener<Number> {
-	
+
 	private Port source;
 	private Port target;
 	private SyntacticMarker marker;
-	
+
 	public ChangeListenerMarkerPortDirection(Port source, Port target, SyntacticMarker marker) {
 		this.source = source;
 		this.target = target;

@@ -12,8 +12,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
-public class ScatterChartVisualization<T>
-		extends Visualization<Map<T, Map<Long, String>>, ScatterChart<Number, String>> {
+public class ScatterChartVisualization<T> extends Visualization<Map<T, Map<Long, String>>, ScatterChart<Number, String>> {
 
 	private List<T> order;
 

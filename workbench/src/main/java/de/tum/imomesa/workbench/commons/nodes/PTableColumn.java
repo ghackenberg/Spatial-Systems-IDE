@@ -19,8 +19,7 @@ public class PTableColumn<S, T> extends TableColumn<S, T> {
 	public PTableColumn() {
 		tableViewProperty().addListener(new ChangeListener<TableView<S>>() {
 			@Override
-			public void changed(ObservableValue<? extends TableView<S>> observable, TableView<S> oldValue,
-					TableView<S> newValue) {
+			public void changed(ObservableValue<? extends TableView<S>> observable, TableView<S> oldValue, TableView<S> newValue) {
 				if (oldValue != null) {
 					oldValue.widthProperty().removeListener(listener);
 				}
@@ -31,7 +30,7 @@ public class PTableColumn<S, T> extends TableColumn<S, T> {
 			}
 		});
 	}
-	
+
 	private void updateWidth(double tableWidth) {
 		this.setPrefWidth(Math.floor(tableWidth * getPercentageWidth()));
 	}
@@ -52,8 +51,7 @@ public class PTableColumn<S, T> extends TableColumn<S, T> {
 		if (value >= 0 && value <= 1) {
 			this.percentageWidthProperty().set(value);
 		} else {
-			throw new IllegalArgumentException(
-					String.format("The provided percentage width is not between 0.0 and 1.0. Value is: %1$s", value));
+			throw new IllegalArgumentException(String.format("The provided percentage width is not between 0.0 and 1.0. Value is: %1$s", value));
 		}
 	}
 

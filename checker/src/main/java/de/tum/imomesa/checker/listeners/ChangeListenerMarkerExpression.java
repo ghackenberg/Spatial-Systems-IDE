@@ -8,7 +8,7 @@ import de.tum.imomesa.checker.markers.SyntacticMarker;
 import de.tum.imomesa.model.expressions.Expression;
 
 public class ChangeListenerMarkerExpression implements ChangeListener<Expression> {
-	
+
 	// data
 	private SyntacticMarker marker;
 	private ListProperty<Class<?>> parentType;
@@ -18,10 +18,10 @@ public class ChangeListenerMarkerExpression implements ChangeListener<Expression
 		this.marker = marker;
 		this.parentType = setProperty;
 	}
-	
+
 	@Override
 	public void changed(ObservableValue<? extends Expression> observable, Expression oldValue, Expression newValue) {
-		if(newValue != null) {
+		if (newValue != null) {
 			HelperEvaluateType.evaluateType(parentType.get(), newValue.getType(), marker);
 		}
 	}

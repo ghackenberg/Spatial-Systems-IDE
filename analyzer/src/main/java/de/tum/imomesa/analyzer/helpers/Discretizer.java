@@ -17,7 +17,7 @@ public class Discretizer {
 	private long seconds;
 	private long minutes;
 	private long hours;
-	
+
 	private long duration;
 	private int bins;
 

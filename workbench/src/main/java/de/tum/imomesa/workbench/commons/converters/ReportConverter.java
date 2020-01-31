@@ -39,121 +39,108 @@ public class ReportConverter {
 
 		// Cell factories
 
-		successesColumn.setCellFactory(
-				new Callback<TreeTableColumn<AbstractReport<?>, Double>, TreeTableCell<AbstractReport<?>, Double>>() {
+		successesColumn.setCellFactory(new Callback<TreeTableColumn<AbstractReport<?>, Double>, TreeTableCell<AbstractReport<?>, Double>>() {
+			@Override
+			public TreeTableCell<AbstractReport<?>, Double> call(TreeTableColumn<AbstractReport<?>, Double> param) {
+				return new ProgressBarTreeTableCell<AbstractReport<?>>() {
 					@Override
-					public TreeTableCell<AbstractReport<?>, Double> call(
-							TreeTableColumn<AbstractReport<?>, Double> param) {
-						return new ProgressBarTreeTableCell<AbstractReport<?>>() {
-							@Override
-							public void updateItem(Double item, boolean empty) {
-								super.updateItem(item, empty);
-								if (!empty) {
-									setStyle("-fx-accent: green");
-									setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
-								} else {
-									setText(null);
-									setGraphic(null);
-									setStyle(null);
-								}
-							}
-						};
+					public void updateItem(Double item, boolean empty) {
+						super.updateItem(item, empty);
+						if (!empty) {
+							setStyle("-fx-accent: green");
+							setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
+						} else {
+							setText(null);
+							setGraphic(null);
+							setStyle(null);
+						}
 					}
-				});
-		failuresColumn.setCellFactory(
-				new Callback<TreeTableColumn<AbstractReport<?>, Double>, TreeTableCell<AbstractReport<?>, Double>>() {
+				};
+			}
+		});
+		failuresColumn.setCellFactory(new Callback<TreeTableColumn<AbstractReport<?>, Double>, TreeTableCell<AbstractReport<?>, Double>>() {
+			@Override
+			public TreeTableCell<AbstractReport<?>, Double> call(TreeTableColumn<AbstractReport<?>, Double> param) {
+				return new ProgressBarTreeTableCell<AbstractReport<?>>() {
 					@Override
-					public TreeTableCell<AbstractReport<?>, Double> call(
-							TreeTableColumn<AbstractReport<?>, Double> param) {
-						return new ProgressBarTreeTableCell<AbstractReport<?>>() {
-							@Override
-							public void updateItem(Double item, boolean empty) {
-								super.updateItem(item, empty);
-								if (!empty) {
-									setStyle("-fx-accent: red");
-									setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
-								} else {
-									setText(null);
-									setGraphic(null);
-									setStyle(null);
-								}
-							}
-						};
+					public void updateItem(Double item, boolean empty) {
+						super.updateItem(item, empty);
+						if (!empty) {
+							setStyle("-fx-accent: red");
+							setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
+						} else {
+							setText(null);
+							setGraphic(null);
+							setStyle(null);
+						}
 					}
-				});
-		timeoutsColumn.setCellFactory(
-				new Callback<TreeTableColumn<AbstractReport<?>, Double>, TreeTableCell<AbstractReport<?>, Double>>() {
+				};
+			}
+		});
+		timeoutsColumn.setCellFactory(new Callback<TreeTableColumn<AbstractReport<?>, Double>, TreeTableCell<AbstractReport<?>, Double>>() {
+			@Override
+			public TreeTableCell<AbstractReport<?>, Double> call(TreeTableColumn<AbstractReport<?>, Double> param) {
+				return new ProgressBarTreeTableCell<AbstractReport<?>>() {
 					@Override
-					public TreeTableCell<AbstractReport<?>, Double> call(
-							TreeTableColumn<AbstractReport<?>, Double> param) {
-						return new ProgressBarTreeTableCell<AbstractReport<?>>() {
-							@Override
-							public void updateItem(Double item, boolean empty) {
-								super.updateItem(item, empty);
-								if (!empty) {
-									setStyle("-fx-accent: blue");
-									setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
-								} else {
-									setText(null);
-									setGraphic(null);
-									setStyle(null);
-								}
-							}
-						};
+					public void updateItem(Double item, boolean empty) {
+						super.updateItem(item, empty);
+						if (!empty) {
+							setStyle("-fx-accent: blue");
+							setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
+						} else {
+							setText(null);
+							setGraphic(null);
+							setStyle(null);
+						}
 					}
-				});
+				};
+			}
+		});
 
 		// Cell value factories
 
-		nameColumn.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<AbstractReport<?>, String> param) {
-						return new ReadOnlyStringWrapper(param.getValue().getValue().getName());
-					}
-				});
-		successesColumn.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, Double>, ObservableValue<Double>>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public ObservableValue<Double> call(CellDataFeatures<AbstractReport<?>, Double> param) {
-						int success = param.getValue().getValue().getSuccessCount();
-						int total = param.getValue().getValue().getTotalCount();
-						if (total == 0) {
-							total = 1;
-						}
-						return (ObservableValue<Double>) (ObservableValue<?>) new ReadOnlyDoubleWrapper(
-								1.0 * success / total);
-					}
-				});
-		failuresColumn.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, Double>, ObservableValue<Double>>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public ObservableValue<Double> call(CellDataFeatures<AbstractReport<?>, Double> param) {
-						int failure = param.getValue().getValue().getFailureCount();
-						int total = param.getValue().getValue().getTotalCount();
-						if (total == 0) {
-							total = 1;
-						}
-						return (ObservableValue<Double>) (ObservableValue<?>) new ReadOnlyDoubleWrapper(
-								1.0 * failure / total);
-					}
-				});
-		timeoutsColumn.setCellValueFactory(
-				new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, Double>, ObservableValue<Double>>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public ObservableValue<Double> call(CellDataFeatures<AbstractReport<?>, Double> param) {
-						int timeout = param.getValue().getValue().getTimeoutCount();
-						int total = param.getValue().getValue().getTotalCount();
-						if (total == 0) {
-							total = 1;
-						}
-						return (ObservableValue<Double>) (ObservableValue<?>) new ReadOnlyDoubleWrapper(
-								1.0 * timeout / total);
-					}
-				});
+		nameColumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<AbstractReport<?>, String> param) {
+				return new ReadOnlyStringWrapper(param.getValue().getValue().getName());
+			}
+		});
+		successesColumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, Double>, ObservableValue<Double>>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public ObservableValue<Double> call(CellDataFeatures<AbstractReport<?>, Double> param) {
+				int success = param.getValue().getValue().getSuccessCount();
+				int total = param.getValue().getValue().getTotalCount();
+				if (total == 0) {
+					total = 1;
+				}
+				return (ObservableValue<Double>) (ObservableValue<?>) new ReadOnlyDoubleWrapper(1.0 * success / total);
+			}
+		});
+		failuresColumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, Double>, ObservableValue<Double>>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public ObservableValue<Double> call(CellDataFeatures<AbstractReport<?>, Double> param) {
+				int failure = param.getValue().getValue().getFailureCount();
+				int total = param.getValue().getValue().getTotalCount();
+				if (total == 0) {
+					total = 1;
+				}
+				return (ObservableValue<Double>) (ObservableValue<?>) new ReadOnlyDoubleWrapper(1.0 * failure / total);
+			}
+		});
+		timeoutsColumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<AbstractReport<?>, Double>, ObservableValue<Double>>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public ObservableValue<Double> call(CellDataFeatures<AbstractReport<?>, Double> param) {
+				int timeout = param.getValue().getValue().getTimeoutCount();
+				int total = param.getValue().getValue().getTotalCount();
+				if (total == 0) {
+					total = 1;
+				}
+				return (ObservableValue<Double>) (ObservableValue<?>) new ReadOnlyDoubleWrapper(1.0 * timeout / total);
+			}
+		});
 
 		// Add
 

@@ -13,8 +13,7 @@ import javafx.scene.shape.Ellipse;
 
 public class MonitorDiagram extends ExecutableDiagram<Activity, Transition, Monitor> {
 
-	public MonitorDiagram(Pane pane, Monitor executable, AbstractDiagramBehavior<Monitor> behavior,
-			boolean interactive) {
+	public MonitorDiagram(Pane pane, Monitor executable, AbstractDiagramBehavior<Monitor> behavior, boolean interactive) {
 		super(pane, executable, behavior, interactive);
 	}
 

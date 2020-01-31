@@ -19,7 +19,7 @@ public class EventDescriptor extends Descriptor {
 	public String getMessage() {
 		return message;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}

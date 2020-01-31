@@ -42,8 +42,7 @@ import de.tum.imomesa.simulator.threads.MaterialBindingPortThread;
 
 public class Utils {
 
-	public static Set<MaterialBindingPortThread> getMaterialBindingPortThreads(List<Element> context, Port port,
-			Memory memory, int step) throws InterruptedException {
+	public static Set<MaterialBindingPortThread> getMaterialBindingPortThreads(List<Element> context, Port port, Memory memory, int step) throws InterruptedException {
 
 		Set<MaterialBindingPortThread> intermediate = getMaterialBindingPortThreads();
 		Set<MaterialBindingPortThread> result = new HashSet<>();
@@ -103,8 +102,7 @@ public class Utils {
 		return null;
 	}
 
-	public static Set<ExecutableThread<?, ?>> getWritingExecutableThreads(List<Element> context, Port port,
-			Memory memory, int step) throws InterruptedException {
+	public static Set<ExecutableThread<?, ?>> getWritingExecutableThreads(List<Element> context, Port port, Memory memory, int step) throws InterruptedException {
 		Set<ExecutableThread<?, ?>> result = new HashSet<>();
 
 		// Iterate behaviors
@@ -113,8 +111,7 @@ public class Utils {
 			// Executable
 			Executable<?, ?> executable = (Executable<?, ?>) thread.getElement();
 			// Check the context!
-			if (thread.getContext().equals(context)
-					|| thread.getContext().equals(context.subList(0, context.size() - 1))) {
+			if (thread.getContext().equals(context) || thread.getContext().equals(context.subList(0, context.size() - 1))) {
 				// Get active label
 				Label label = memory.getLabel(executable.append(thread.getContext()), step);
 				// Check active label
@@ -130,11 +127,9 @@ public class Utils {
 						// Iterate transitions
 						for (Transition<?> transition : executable.getOutgoingTransitions(label)) {
 							for (Action action : transition.getActions()) {
-								if (action != null && action
-										.getObservation() != null /*
-																	 * bug in
-																	 * database
-																	 */ && action.getObservation().equals(port)) {
+								if (action != null && action.getObservation() != null /*
+																						 * bug in database
+																						 */ && action.getObservation().equals(port)) {
 									result.add(thread);
 								}
 							}
@@ -146,8 +141,7 @@ public class Utils {
 						for (Transition<?> transition : executable.getOutgoingTransitions(label)) {
 							if (transition != null) {
 								for (Action action : transition.getActions()) {
-									if (action != null && action.getObservation() != null
-											&& action.getObservation().equals(port)) {
+									if (action != null && action.getObservation() != null && action.getObservation().equals(port)) {
 										result.add(thread);
 									}
 								}
@@ -162,8 +156,7 @@ public class Utils {
 		return result;
 	}
 
-	public static Set<ExecutableThread<?, ?>> getWritingExecutableThreads(List<Element> context, Variable port,
-			Memory memory, int step) throws InterruptedException {
+	public static Set<ExecutableThread<?, ?>> getWritingExecutableThreads(List<Element> context, Variable port, Memory memory, int step) throws InterruptedException {
 		Set<ExecutableThread<?, ?>> result = new HashSet<>();
 
 		// Iterate behaviors
@@ -172,8 +165,7 @@ public class Utils {
 			// Executable
 			Executable<?, ?> executable = (Executable<?, ?>) thread.getElement();
 			// Check the context!
-			if (thread.getContext().equals(context)
-					|| thread.getContext().equals(context.subList(0, context.size() - 1))) {
+			if (thread.getContext().equals(context) || thread.getContext().equals(context.subList(0, context.size() - 1))) {
 				// Get active label
 				Label label = memory.getLabel(executable.append(thread.getContext()), step);
 				// Iterate actions
@@ -187,8 +179,7 @@ public class Utils {
 					// Iterate transitions
 					for (Transition<?> transition : executable.getOutgoingTransitions(label)) {
 						for (Action action : transition.getActions()) {
-							if (action != null && action.getObservation() != null
-									&& action.getObservation().equals(port)) {
+							if (action != null && action.getObservation() != null && action.getObservation().equals(port)) {
 								result.add(thread);
 							}
 						}
@@ -199,8 +190,7 @@ public class Utils {
 					// Iterate transitions
 					for (Transition<?> transition : executable.getOutgoingTransitions(label)) {
 						for (Action action : transition.getActions()) {
-							if (action != null && action.getObservation() != null
-									&& action.getObservation().equals(port)) {
+							if (action != null && action.getObservation() != null && action.getObservation().equals(port)) {
 								result.add(thread);
 							}
 						}
@@ -213,8 +203,7 @@ public class Utils {
 		return result;
 	}
 
-	public static void createComponent(List<Element> context, EntryLifeMaterialPort port, Memory memory, int step)
-			throws InterruptedException {
+	public static void createComponent(List<Element> context, EntryLifeMaterialPort port, Memory memory, int step) throws InterruptedException {
 
 		Object value = memory.getValue(null, port.append(context), step);
 		if (value != null) {
@@ -227,7 +216,7 @@ public class Utils {
 						ReferenceComponent proxy = (ReferenceComponent) intermediate;
 						// Remember proxy
 						memory.getAddedProxy(step).add(proxy);
-						
+
 						// Initialize transforms
 						if (context.get(context.size() - 1) instanceof Scenario) {
 							proxy.getTransforms().add(new RawTransform(memory.getTransform(context.subList(0, context.size() - 1), step)));
@@ -237,7 +226,7 @@ public class Utils {
 							throw new IllegalStateException();
 						}
 						proxy.getTransforms().addAll(((EntryLifeMaterialPort) port).getVolume().getTransforms());
-						
+
 						// Initialize proxy
 						new ReferenceComponentEvaluator(new ArrayList<>(), proxy, memory, step + 1).prepare();
 						// Publish event
@@ -254,8 +243,7 @@ public class Utils {
 		}
 	}
 
-	public static void deleteComponent(List<Element> context, ExitLifeMaterialPort port, Memory memory, int step)
-			throws InterruptedException {
+	public static void deleteComponent(List<Element> context, ExitLifeMaterialPort port, Memory memory, int step) throws InterruptedException {
 		Object value = memory.getValue(null, port.append(context), step);
 		if (value != null) {
 			if (value instanceof Set) {
@@ -320,8 +308,7 @@ public class Utils {
 		return result;
 	}
 
-	public static RealMatrix calcTransforms(Component<?> c, List<Element> context, Memory memory, int step)
-			throws InterruptedException {
+	public static RealMatrix calcTransforms(Component<?> c, List<Element> context, Memory memory, int step) throws InterruptedException {
 
 		if (!memory.hasTransform(context, step + 1)) {
 			List<Port> kinematicPorts = new ArrayList<>();
@@ -351,8 +338,7 @@ public class Utils {
 		return memory.getTransform(context, step + 1);
 	}
 
-	private static void calcAffectingEnergyPorts(List<Element> context, Memory memory, int step,
-			List<Port> kinematicPorts, List<List<Element>> contextForPorts) throws InterruptedException {
+	private static void calcAffectingEnergyPorts(List<Element> context, Memory memory, int step, List<Port> kinematicPorts, List<List<Element>> contextForPorts) throws InterruptedException {
 		for (int i = 0; i < context.size(); i++) {
 			List<Element> newContext = context.subList(0, i + 1);
 			Element lastContextData = newContext.get(newContext.size() - 1);

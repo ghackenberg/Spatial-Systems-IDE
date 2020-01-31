@@ -21,8 +21,7 @@ public class SimulationSelectionEvent extends SimulationEvent {
 		this.component.set(component);
 	}
 
-	public SimulationSelectionEvent(List<Element> extendedContext, Element element, List<Element> context,
-			Component<?> component) {
+	public SimulationSelectionEvent(List<Element> extendedContext, Element element, List<Element> context, Component<?> component) {
 		this.extendedContext.set(FXCollections.observableList(extendedContext));
 		this.element.set(element);
 		this.context.set(FXCollections.observableList(context));

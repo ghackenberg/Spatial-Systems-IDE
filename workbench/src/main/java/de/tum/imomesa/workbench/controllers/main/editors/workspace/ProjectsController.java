@@ -16,10 +16,10 @@ public class ProjectsController implements AbstractEditorChildController<Workspa
 	public void setRootElement(Workspace e) {
 		tableView.setItems(e.projectsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

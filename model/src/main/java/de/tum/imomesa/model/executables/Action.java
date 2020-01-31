@@ -18,8 +18,7 @@ public class Action extends NamedElement {
 	public Action() {
 		observation.addListener(new ChangeListener<Observation>() {
 			@Override
-			public void changed(ObservableValue<? extends Observation> observable, Observation oldValue,
-					Observation newValue) {
+			public void changed(ObservableValue<? extends Observation> observable, Observation oldValue, Observation newValue) {
 				if (newValue != null) {
 					name.bind(observation.get().nameProperty());
 				} else {

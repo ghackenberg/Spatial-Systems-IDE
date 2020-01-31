@@ -199,11 +199,11 @@ public class SimulationController implements EventHandler {
 		// Create simulator
 		simulator = new Simulator(component, scenario, Main.SESSION_PATH);
 		simulator.start();
-		
+
 		// Create animator
 		animation = new AnimationThread(simulator, sStep, spIdleTime);
 		animation.start();
-		
+
 		// Propagate simulator
 		embeddedExplorerController.setSimulator(simulator);
 		embeddedEditorController.setSimulator(simulator);

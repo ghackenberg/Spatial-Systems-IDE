@@ -16,10 +16,10 @@ public class BehaviorsController implements AbstractEditorChildController<Defini
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.behaviorsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

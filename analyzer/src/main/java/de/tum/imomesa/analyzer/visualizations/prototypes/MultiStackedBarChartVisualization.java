@@ -11,15 +11,13 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-public class MultiStackedBarChartVisualization<T1, T2>
-		extends Visualization<Map<T1, Map<T2, List<Integer>>>, GridPane> {
+public class MultiStackedBarChartVisualization<T1, T2> extends Visualization<Map<T1, Map<T2, List<Integer>>>, GridPane> {
 
 	private List<T1> outerOrder;
 	private List<T2> innerOrder;
 	private Discretizer discretizer;
 
-	public MultiStackedBarChartVisualization(Map<T1, Map<T2, List<Integer>>> data, List<T1> outerOrder,
-			List<T2> innerOrder, Discretizer discretizer) {
+	public MultiStackedBarChartVisualization(Map<T1, Map<T2, List<Integer>>> data, List<T1> outerOrder, List<T2> innerOrder, Discretizer discretizer) {
 		super(data);
 
 		this.outerOrder = outerOrder;
@@ -43,8 +41,7 @@ public class MultiStackedBarChartVisualization<T1, T2>
 		for (T1 key : outerOrder) {
 			Map<T2, List<Integer>> value = getData().get(key);
 
-			StackedBarChartVisualization<T2> nested = new StackedBarChartVisualization<>(value, innerOrder,
-					discretizer);
+			StackedBarChartVisualization<T2> nested = new StackedBarChartVisualization<>(value, innerOrder, discretizer);
 
 			StackedBarChart<String, Number> chart = nested.getResult();
 

@@ -15,9 +15,9 @@ public class ScenarioReportPrinter extends AbstractReportPrinter<Scenario, Scena
 
 	@Override
 	public void process(Writer writer) throws IOException {
-		
+
 		writer.write("Scenario;" + getReport().getElement() + ";" + getReport().getMarkers() + "\n");
-		
+
 	}
 
 }

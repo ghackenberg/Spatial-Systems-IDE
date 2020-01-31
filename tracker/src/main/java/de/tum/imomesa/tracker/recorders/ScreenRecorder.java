@@ -15,16 +15,16 @@ public class ScreenRecorder extends VideoRecorder {
 
 	private Rectangle maxBounds;
 	private Robot robot;
-	
+
 	public ScreenRecorder(AbstractWriter writer) {
 		super("Screen recorder", writer);
-		
+
 		try {
-			
+
 			// Obtain screen objects
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			GraphicsDevice[] screens = ge.getScreenDevices();
-	
+
 			// Calculate maximum bounds
 			maxBounds = new Rectangle();
 			for (GraphicsDevice screen : screens) {
@@ -32,10 +32,10 @@ public class ScreenRecorder extends VideoRecorder {
 				maxBounds.width += screenBounds.width;
 				maxBounds.height = Math.max(maxBounds.height, screenBounds.height);
 			}
-			
+
 			// Create robot
 			robot = new Robot();
-			
+
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
@@ -45,21 +45,19 @@ public class ScreenRecorder extends VideoRecorder {
 	protected BufferedImage grabImage() {
 		if (robot != null) {
 			/*
-			// Debug output
-			System.out.println("Taking screenshot!");
-			*/
+			 * // Debug output System.out.println("Taking screenshot!");
+			 */
 			BufferedImage original = robot.createScreenCapture(maxBounds);
 			BufferedImage scaled = new BufferedImage(original.getWidth() / 2, original.getHeight() / 2, original.getType());
-			
+
 			AffineTransform affine = new AffineTransform();
 			affine.scale(0.5, 0.5);
-			
+
 			AffineTransformOp operation = new AffineTransformOp(affine, AffineTransformOp.TYPE_BICUBIC);
 			operation.filter(original, scaled);
-			
+
 			return scaled;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

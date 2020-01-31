@@ -17,13 +17,13 @@ public class RotationTransform extends Transform {
 
 	public RotationTransform() {
 		this.rotationAxe.addListener(this::handleVectorChange);
-		
+
 		this.getRotationAxe().xProperty().addListener(this::handleNumberChange);
 		this.getRotationAxe().yProperty().addListener(this::handleNumberChange);
 		this.getRotationAxe().zProperty().addListener(this::handleNumberChange);
-		
+
 		this.angle.addListener(this::handleNumberChange);
-		
+
 		setTransform(toVVecMathTransform());
 	}
 
@@ -52,23 +52,21 @@ public class RotationTransform extends Transform {
 	public RealMatrix toRealMatrix() {
 
 		double angle = getAngle();
-		
+
 		Vector3D vector;
-		
+
 		if (getRotationAxe().getX() == 0 && getRotationAxe().getY() == 0 && getRotationAxe().getZ() == 0) {
 			vector = new Vector3D(1, 0, 0);
 			angle = 0;
 		} else {
 			vector = new Vector3D(getRotationAxe().getX(), getRotationAxe().getY(), getRotationAxe().getZ());
 		}
-		
+
 		Rotation rot = new Rotation(vector, angle * 2 * Math.PI / 360);
-		
+
 		double[][] result = rot.getMatrix();
 
-		return new BlockRealMatrix(new double[][] { { result[0][0], result[0][1], result[0][2], 0 },
-				{ result[1][0], result[1][1], result[1][2], 0 }, { result[2][0], result[2][1], result[2][2], 0 },
-				{ 0, 0, 0, 1 } });
+		return new BlockRealMatrix(new double[][] { { result[0][0], result[0][1], result[0][2], 0 }, { result[1][0], result[1][1], result[1][2], 0 }, { result[2][0], result[2][1], result[2][2], 0 }, { 0, 0, 0, 1 } });
 	}
 
 	// rotation axe
@@ -101,5 +99,5 @@ public class RotationTransform extends Transform {
 	public DoubleProperty angleProperty() {
 		return angle;
 	}
-	
+
 }

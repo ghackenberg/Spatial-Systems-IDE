@@ -9,20 +9,20 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 
 public class ReferencePort extends Port {
-	
+
 	// Constructors
-	
+
 	public ReferencePort() {
 		super();
 	}
-	
+
 	public ReferencePort(ReferenceComponent parent, DefinitionPort port) {
 		setParent(parent);
 		setPortImplementation(port);
 	}
-	
+
 	// Name
-	
+
 	@Override
 	@Transient
 	public StringProperty nameProperty() {
@@ -31,9 +31,9 @@ public class ReferencePort extends Port {
 		}
 		throw new IllegalStateException();
 	}
-	
+
 	// Description
-	
+
 	@Override
 	@Transient
 	public StringProperty descriptionProperty() {
@@ -42,9 +42,9 @@ public class ReferencePort extends Port {
 		}
 		throw new IllegalStateException();
 	}
-	
+
 	// Direction
-	
+
 	@Override
 	@Transient
 	public IntegerProperty directionProperty() {
@@ -53,9 +53,9 @@ public class ReferencePort extends Port {
 		}
 		throw new IllegalStateException();
 	}
-	
+
 	// Read type
-	
+
 	@Override
 	@Transient
 	public ObjectProperty<Class<?>> readTypeProperty() {
@@ -64,9 +64,9 @@ public class ReferencePort extends Port {
 		}
 		throw new IllegalStateException();
 	}
-	
+
 	// Write types
-	
+
 	@Override
 	@Transient
 	public ListProperty<Class<?>> writeTypeProperty() {
@@ -75,19 +75,21 @@ public class ReferencePort extends Port {
 		}
 		throw new IllegalStateException();
 	}
-	
+
 	// Port implementation
-	
+
 	private ObjectProperty<DefinitionPort> portImplementation = new SimpleObjectProperty<DefinitionPort>();
-	
+
 	public DefinitionPort getPortImplementation() {
 		return portImplementationProperty().get();
 	}
+
 	public void setPortImplementation(DefinitionPort value) {
 		this.portImplementationProperty().set(value);
 	}
+
 	public ObjectProperty<DefinitionPort> portImplementationProperty() {
 		return portImplementation;
 	}
-	
+
 }

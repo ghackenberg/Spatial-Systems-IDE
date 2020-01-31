@@ -19,20 +19,8 @@ public class PortEvaluator<T extends Port> extends AbstractEvaluator<T> {
 	public void prepare() throws InterruptedException {
 		memory.initValue(element.append(context), step);
 		/*
-		// Get potential proxy
-		ReferencePort proxy = Utils.getPortProxy(context, element);
-		// Check if the port does not have any incoming ports
-		// if(element.getIncomingStaticChannels().size() == 0 && (proxy == null
-		// || proxy.getIncomingStaticChannels().size() == 0)) {
-		if (Utils.getIncomingChannelsForContext(context, element).size() == 0 && (proxy == null
-				|| Utils.getIncomingChannelsForContext(context.subList(0, context.size() - 1), proxy).size() == 0)) {
-			// Evaluate expression
-			Object value = ExpressionDispatcher.getInstance().dispatch(null, context, element.getDefault(), memory,
-					step);
-			// Set the port value
-			ObservationDispatcher.getInstance().dispatch(null, context, element, memory, step, value);
-		}
-		*/
+		 * // Get potential proxy ReferencePort proxy = Utils.getPortProxy(context, element); // Check if the port does not have any incoming ports // if(element.getIncomingStaticChannels().size() == 0 && (proxy == null // || proxy.getIncomingStaticChannels().size() == 0)) { if (Utils.getIncomingChannelsForContext(context, element).size() == 0 && (proxy == null || Utils.getIncomingChannelsForContext(context.subList(0, context.size() - 1), proxy).size() == 0)) { // Evaluate expression Object value = ExpressionDispatcher.getInstance().dispatch(null, context, element.getDefault(), memory, step); // Set the port value ObservationDispatcher.getInstance().dispatch(null, context, element, memory, step, value); }
+		 */
 	}
 
 	@Override

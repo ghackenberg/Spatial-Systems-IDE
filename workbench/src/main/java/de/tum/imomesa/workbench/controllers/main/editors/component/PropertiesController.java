@@ -16,10 +16,10 @@ public class PropertiesController implements AbstractEditorChildController<Defin
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.propertiesProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

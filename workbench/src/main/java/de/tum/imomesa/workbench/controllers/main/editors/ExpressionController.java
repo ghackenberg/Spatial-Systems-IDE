@@ -36,8 +36,7 @@ public class ExpressionController implements AbstractEditorChildController<Expre
 			writer.write("digraph G {\n");
 			writer.write("size = \"8,8\";\n");
 			writer.write("ratio = \"fill\";\n");
-			writer.write(
-					"node [shape = rectangle, style = filled, color = \"black\", fillcolor = \"gray\", fontcolor = \"black\", fontname = \"Calibri\"]\n");
+			writer.write("node [shape = rectangle, style = filled, color = \"black\", fillcolor = \"gray\", fontcolor = \"black\", fontname = \"Calibri\"]\n");
 			writer.write("edge [color = \"blue\", fontcolor = \"blue\", fontname = \"Calibri\"]\n");
 			render(element, writer);
 			writer.write("}");
@@ -65,10 +64,10 @@ public class ExpressionController implements AbstractEditorChildController<Expre
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 	private void render(Expression expression, Writer writer) {
@@ -94,20 +93,17 @@ public class ExpressionController implements AbstractEditorChildController<Expre
 	}
 
 	public void handle(AtomicExpression expr, Writer writer) throws IOException {
-		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \""
-				+ expr.getClass().getSimpleName() + "\"]\n;");
+		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \"" + expr.getClass().getSimpleName() + "\"]\n;");
 	}
 
 	public void handle(UnaryExpression expr, Writer writer) throws IOException {
-		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \""
-				+ expr.getClass().getSimpleName() + "\"]\n;");
+		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \"" + expr.getClass().getSimpleName() + "\"]\n;");
 
 		argument(expr, expr.argumentProperty(), "", writer);
 	}
 
 	public void handle(TerniaryExpression expr, Writer writer) throws IOException {
-		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \""
-				+ expr.getClass().getSimpleName() + "\"]\n;");
+		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \"" + expr.getClass().getSimpleName() + "\"]\n;");
 
 		argument(expr, expr.argumentOneProperty(), "first", writer);
 		argument(expr, expr.argumentTwoProperty(), "second", writer);
@@ -115,8 +111,7 @@ public class ExpressionController implements AbstractEditorChildController<Expre
 	}
 
 	public void handle(NaryExpression expr, Writer writer) throws IOException {
-		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \""
-				+ expr.getClass().getSimpleName() + "\"]\n;");
+		writer.write("\"" + StorageManager.getInstance().getKey(expr) + "\" [label = \"" + expr.getClass().getSimpleName() + "\"]\n;");
 
 		int index = 1;
 		for (Expression argument : expr.getArguments()) {
@@ -124,8 +119,7 @@ public class ExpressionController implements AbstractEditorChildController<Expre
 		}
 	}
 
-	private void argument(Expression parent, ObjectProperty<Expression> child, String label, Writer writer)
-			throws IOException {
+	private void argument(Expression parent, ObjectProperty<Expression> child, String label, Writer writer) throws IOException {
 		if (child.get() != null) {
 			argument(parent, child.get(), label, writer);
 		}
@@ -134,8 +128,7 @@ public class ExpressionController implements AbstractEditorChildController<Expre
 	private void argument(Expression parent, Expression child, String label, Writer writer) throws IOException {
 		if (child != null) {
 			render(child, writer);
-			writer.write("\"" + StorageManager.getInstance().getKey(parent) + "\" -> \""
-					+ StorageManager.getInstance().getKey(child) + "\" [label = \"" + label + "\"];\n");
+			writer.write("\"" + StorageManager.getInstance().getKey(parent) + "\" -> \"" + StorageManager.getInstance().getKey(child) + "\" [label = \"" + label + "\"];\n");
 		}
 	}
 

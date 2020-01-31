@@ -83,8 +83,7 @@ public class InteractionMaterialPort extends MaterialPort {
 	/*
 	 * private ObjectProperty<Point> point = new SimpleObjectProperty<>();
 	 * 
-	 * public Point getPoint() { return point.get(); } public void
-	 * setPoint(Point p) { this.point.set(p); }
+	 * public Point getPoint() { return point.get(); } public void setPoint(Point p) { this.point.set(p); }
 	 * 
 	 * @Cascading public ObjectProperty<Point> pointProperty() { return point; }
 	 */

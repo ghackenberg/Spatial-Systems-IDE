@@ -38,8 +38,7 @@ public class ElementFeatureTransitionAggregation extends TransitionAggregation<C
 				Class<?> currentType = Mapper.mapFeature(change);
 				if (currentType != null) {
 					Element currentElement = ((Element) change.getObject());
-					DefinitionComponent currentContext = currentElement.getParent()
-							.getFirstAncestorByType(DefinitionComponent.class);
+					DefinitionComponent currentContext = currentElement.getParent().getFirstAncestorByType(DefinitionComponent.class);
 					if (currentContext != null) {
 						Class<?> previousType = previousTypes.get(currentContext);
 						if (previousType != null && !previousType.equals(currentType)) {

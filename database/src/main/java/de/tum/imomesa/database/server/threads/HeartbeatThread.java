@@ -9,11 +9,11 @@ public class HeartbeatThread extends StoppableThread {
 
 	private static final long SECONDS = 10;
 	private static final long MINUTES = 0;
-	
+
 	private static final long DURATION = 1000 * SECONDS + 1000 * 60 * MINUTES;
-	
+
 	private List<Socket> sockets;
-	
+
 	public HeartbeatThread(List<Socket> sockets) {
 		this.sockets = sockets;
 	}

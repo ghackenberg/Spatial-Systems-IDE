@@ -14,36 +14,35 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 
 public class RemoveElementHandler implements EventHandler<ActionEvent> {
-	
+
 	private Element object;
-	
+
 	public RemoveElementHandler(Element object) {
 		this.object = object;
 	}
-	
+
 	@Override
 	public void handle(ActionEvent event) {
-		if(confirmDeletion(object) == true) {
+		if (confirmDeletion(object) == true) {
 			object.accept(new SyntacticCheckRemoverVisitor());
 			StorageManager.getInstance().releaseElement(object);
 		}
 	}
-	
+
 	private boolean confirmDeletion(Element e) {
 		ImageView icon = ImageHelper.getImageAsIcon("icons/warning.png");
 		icon.setFitHeight(30);
-		
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Deleting object");
 		alert.setHeaderText(null);
 		alert.setGraphic(icon);
 		alert.setContentText("Do you really want to delete this object:\n" + e.getClass().getSimpleName() + " \"" + e.toString() + "\"");
-		
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}

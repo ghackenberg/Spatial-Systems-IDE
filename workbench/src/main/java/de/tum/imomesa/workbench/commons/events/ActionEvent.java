@@ -8,9 +8,9 @@ import javafx.beans.property.SimpleObjectProperty;
 public abstract class ActionEvent extends Event {
 
 	public ActionEvent() {
-		
+
 	}
-	
+
 	public ActionEvent(Element element) {
 		this.element.set(element);
 	}
@@ -20,9 +20,9 @@ public abstract class ActionEvent extends Event {
 	public Element getElement() {
 		return element.get();
 	}
-	
+
 	public ObjectProperty<Element> elementProperty() {
 		return element;
 	}
-	
+
 }

@@ -6,11 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class LengthChangeListener implements ChangeListener<Number> {
-	
+
 	// data
 	private Point originalPoint;
 	private DoubleProperty target;
-	
+
 	public LengthChangeListener(Point originalPoint, DoubleProperty target) {
 		this.originalPoint = originalPoint;
 		this.target = target;
@@ -18,7 +18,7 @@ public class LengthChangeListener implements ChangeListener<Number> {
 
 	@Override
 	public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-		target.setValue(originalPoint.getLength());	
+		target.setValue(originalPoint.getLength());
 	}
 
 }

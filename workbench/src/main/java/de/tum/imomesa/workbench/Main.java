@@ -40,8 +40,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		// initialize session path
-		SESSION_PATH = ((args.length == 0) ? DEFAULT_RUN_PATH : args[0]) + "/session_"
-				+ new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date()) + "/";
+		SESSION_PATH = ((args.length == 0) ? DEFAULT_RUN_PATH : args[0]) + "/session_" + new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date()) + "/";
 		// initialize session folder
 		SESSION_FOLDER = new File(SESSION_PATH);
 		SESSION_FOLDER.mkdirs();
@@ -59,7 +58,7 @@ public class Main extends Application {
 	private SplashScreenCreator splashScreen;
 
 	private Stage mainStage;
-	
+
 	public static Stage PRIMARY_STAGE;
 
 	@Override
@@ -143,7 +142,7 @@ public class Main extends Application {
 					Volume.UPDATE_THREAD.interrupt();
 				}
 			});
-			
+
 			PRIMARY_STAGE = mainStage;
 
 		} catch (IOException e) {

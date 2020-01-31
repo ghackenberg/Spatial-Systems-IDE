@@ -11,26 +11,26 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 
 public class AttributeController extends AbstractAttributeController implements EventHandler {
-	
-	@FXML private ScrollPane scrollPane;
-	
+
+	@FXML
+	private ScrollPane scrollPane;
+
 	public void initialize() {
 		EventBus.getInstance().subscribe(this);
 	}
-	
+
 	public void handle(SelectionExplorerEvent event) {
 		showAttributesOfElement(event.getSelected());
 	}
-	
+
 	public void handle(SelectionDiagramEvent event) {
 		showAttributesOfElement(event.getSelected());
 	}
-	
+
 	private void showAttributesOfElement(Element element) {
 		if (element != null) {
 			scrollPane.setContent(AttributesEditorBuilder.getAttributes(element));
-		}
-		else {
+		} else {
 			scrollPane.setContent(null);
 		}
 	}

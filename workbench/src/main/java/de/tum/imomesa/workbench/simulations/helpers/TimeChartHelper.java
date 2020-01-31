@@ -80,8 +80,7 @@ public class TimeChartHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public synchronized static void update(Simulator simulator, SimulationStepEvent event, XYChart<?, ?> chart,
-			List<Element> context, Observation element) {
+	public synchronized static void update(Simulator simulator, SimulationStepEvent event, XYChart<?, ?> chart, List<Element> context, Observation element) {
 		try {
 			Memory memory = simulator.getMemory();
 

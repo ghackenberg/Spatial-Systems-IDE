@@ -9,14 +9,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 
-public class ReferenceComponent extends Component<ReferencePort>
-{
+public class ReferenceComponent extends Component<ReferencePort> {
 
 	private ListChangeListener<Port> listener = new ComponentImplementationChangedListener(this);
-	
+
 	public ReferenceComponent() {
 		super();
-		
+
 		template.addListener(new ChangeListener<DefinitionComponent>() {
 			@Override
 			public void changed(ObservableValue<? extends DefinitionComponent> observable, DefinitionComponent oldValue, DefinitionComponent newValue) {
@@ -31,21 +30,20 @@ public class ReferenceComponent extends Component<ReferencePort>
 			}
 		});
 	}
-	
+
 	// Implementation Template
-	
+
 	private ObjectProperty<DefinitionComponent> template = new SimpleObjectProperty<>();
-	
-	public DefinitionComponent getTemplate()
-	{
+
+	public DefinitionComponent getTemplate() {
 		return template.get();
 	}
-	public void setTemplate(DefinitionComponent c)
-	{
+
+	public void setTemplate(DefinitionComponent c) {
 		template.set(c);
 	}
-	public ObjectProperty<DefinitionComponent> templateProperty()
-	{
+
+	public ObjectProperty<DefinitionComponent> templateProperty() {
 		return template;
 	}
 }

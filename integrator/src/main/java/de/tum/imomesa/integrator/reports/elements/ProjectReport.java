@@ -9,24 +9,24 @@ import de.tum.imomesa.model.Project;
 import de.tum.imomesa.simulator.markers.SimulationMarker;
 
 public class ProjectReport extends ElementReport<Project> {
-	
+
 	private TemplatesReport templates;
 	private ComponentReport component;
 
 	public ProjectReport(Project element) {
 		super(element);
-		
+
 		templates = new TemplatesReport(element);
 	}
-	
+
 	public TemplatesReport getTemplatesReport() {
 		return templates;
 	}
-	
+
 	public void setComponentReport(ComponentReport report) {
 		component = report;
 	}
-	
+
 	public ComponentReport getComponentReport() {
 		return component;
 	}
@@ -50,7 +50,7 @@ public class ProjectReport extends ElementReport<Project> {
 	public int getTimeoutCount() {
 		return templates.getTimeoutCount() + component.getTimeoutCount();
 	}
-	
+
 	@Override
 	public List<SimulationMarker> getMarkers() {
 		List<SimulationMarker> result = new ArrayList<>();

@@ -16,10 +16,10 @@ public class ChannelsController implements AbstractEditorChildController<Definit
 	public void setRootElement(DefinitionComponent e) {
 		tableView.setItems(e.channelsProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

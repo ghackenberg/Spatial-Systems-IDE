@@ -18,13 +18,11 @@ import de.tum.imomesa.core.events.Event;
 import de.tum.imomesa.database.changes.Change;
 import de.tum.imomesa.model.components.DefinitionComponent;
 
-public class PrototypeElementComponentFeatureAggregation
-		extends Aggregation<Map<DefinitionComponent, Map<Class<?>, List<Integer>>>> {
+public class PrototypeElementComponentFeatureAggregation extends Aggregation<Map<DefinitionComponent, Map<Class<?>, List<Integer>>>> {
 
 	private Discretizer discretizer;
 
-	public PrototypeElementComponentFeatureAggregation(List<Change> changes, List<Event> events,
-			Discretizer discretizer) {
+	public PrototypeElementComponentFeatureAggregation(List<Change> changes, List<Event> events, Discretizer discretizer) {
 		super(changes, events);
 
 		this.discretizer = discretizer;
@@ -64,8 +62,7 @@ public class PrototypeElementComponentFeatureAggregation
 	}
 
 	@Override
-	protected List<Serialization<Map<DefinitionComponent, Map<Class<?>, List<Integer>>>>> generateSerializations()
-			throws IOException {
+	protected List<Serialization<Map<DefinitionComponent, Map<Class<?>, List<Integer>>>>> generateSerializations() throws IOException {
 		List<Serialization<Map<DefinitionComponent, Map<Class<?>, List<Integer>>>>> result = new ArrayList<>();
 
 		return result;

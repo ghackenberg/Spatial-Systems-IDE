@@ -53,7 +53,7 @@ public abstract class EditorChildController<T extends Element> implements Abstra
 	public void setRootElement(T element) {
 		this.element = element;
 	}
-	
+
 	public void setSelectedElement(Element selected) {
 		this.selected = selected;
 	}
@@ -63,7 +63,7 @@ public abstract class EditorChildController<T extends Element> implements Abstra
 	}
 
 	public abstract void render();
-	
+
 	public abstract void handle(SimulationStepEvent event);
 
 }

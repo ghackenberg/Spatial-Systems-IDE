@@ -14,7 +14,7 @@ public class ProjectReportPrinter extends AbstractReportPrinter<Project, Project
 
 	@Override
 	public void process(Writer writer) {
-		
+
 	}
 
 }

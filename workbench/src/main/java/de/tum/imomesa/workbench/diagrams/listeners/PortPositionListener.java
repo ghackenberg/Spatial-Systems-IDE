@@ -14,8 +14,7 @@ public class PortPositionListener implements ChangeListener<Number> {
 	private NumberExpression radius;
 	private Line line;
 
-	public PortPositionListener(NumberExpression startX, NumberExpression startY, NumberExpression endX,
-			NumberExpression endY, NumberExpression radius, Line line) {
+	public PortPositionListener(NumberExpression startX, NumberExpression startY, NumberExpression endX, NumberExpression endY, NumberExpression radius, Line line) {
 
 		this.startX = startX;
 		this.startY = startY;

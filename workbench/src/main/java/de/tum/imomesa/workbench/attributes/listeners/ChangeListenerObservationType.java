@@ -8,11 +8,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class ChangeListenerObservationType<T extends Observation> implements ChangeListener<Class<?>> {
-	
+
 	// attribute
 	// should be DataPort or Variable
 	private T data;
-	
+
 	// constructor
 	public ChangeListenerObservationType(T data) {
 		this.data = data;
@@ -20,7 +20,7 @@ public class ChangeListenerObservationType<T extends Observation> implements Cha
 
 	@Override
 	public void changed(ObservableValue<? extends Class<?>> observable, Class<?> oldValue, Class<?> newValue) {
-		if(oldValue != newValue) {
+		if (oldValue != newValue) {
 			data.setReadType(newValue);
 			data.setWriteType(new ArrayList<>(Arrays.asList(newValue)));
 		}

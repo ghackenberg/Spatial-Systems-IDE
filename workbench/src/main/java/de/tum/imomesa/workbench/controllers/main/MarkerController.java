@@ -33,32 +33,31 @@ public class MarkerController extends AbstractMarkerController implements EventH
 		// sort table by column
 		table.getSortOrder().add(columnPath);
 		// add cell factory to display icon
-		columnType.setCellFactory(
-				new Callback<TableColumn<SyntacticMarker, String>, TableCell<SyntacticMarker, String>>() {
+		columnType.setCellFactory(new Callback<TableColumn<SyntacticMarker, String>, TableCell<SyntacticMarker, String>>() {
+			@Override
+			public TableCell<SyntacticMarker, String> call(TableColumn<SyntacticMarker, String> param) {
+				TableCell<SyntacticMarker, String> cell = new TableCell<SyntacticMarker, String>() {
 					@Override
-					public TableCell<SyntacticMarker, String> call(TableColumn<SyntacticMarker, String> param) {
-						TableCell<SyntacticMarker, String> cell = new TableCell<SyntacticMarker, String>() {
-							@Override
-							public void updateItem(String item, boolean empty) {
-								// if empty, delete all data in cell
-								if (empty == true) {
-									setGraphic(null);
-									setText(null);
-									return;
-								}
-								// set item text and graphic
-								if (item != null) {
-									setText(item);
-									SyntacticMarker p = (SyntacticMarker) getTableRow().getItem();
-									if (p != null) {
-										setGraphic(ImageHelper.getIcon(p.getClass()));
-									}
-								}
+					public void updateItem(String item, boolean empty) {
+						// if empty, delete all data in cell
+						if (empty == true) {
+							setGraphic(null);
+							setText(null);
+							return;
+						}
+						// set item text and graphic
+						if (item != null) {
+							setText(item);
+							SyntacticMarker p = (SyntacticMarker) getTableRow().getItem();
+							if (p != null) {
+								setGraphic(ImageHelper.getIcon(p.getClass()));
 							}
-						};
-						return cell;
+						}
 					}
-				});
+				};
+				return cell;
+			}
+		});
 		// listen to event bus
 		EventBus.getInstance().subscribe(this);
 	}

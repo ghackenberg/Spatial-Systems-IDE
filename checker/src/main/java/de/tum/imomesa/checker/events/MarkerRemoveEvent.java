@@ -5,9 +5,9 @@ import de.tum.imomesa.checker.markers.SyntacticMarker;
 public class MarkerRemoveEvent extends MarkerEvent {
 
 	public MarkerRemoveEvent() {
-		
+
 	}
-	
+
 	public MarkerRemoveEvent(SyntacticMarker marker) {
 		super(marker);
 	}

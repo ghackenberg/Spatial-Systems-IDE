@@ -8,7 +8,7 @@ import de.tum.imomesa.simulator.Memory;
 import de.tum.imomesa.simulator.threads.PropertyThread;
 
 public class PropertyEvaluator extends AbstractEvaluator<Property> {
-	
+
 	private PropertyThread thread;
 
 	public PropertyEvaluator(List<Element> context, Property element, Memory memory, int step) {
@@ -19,11 +19,8 @@ public class PropertyEvaluator extends AbstractEvaluator<Property> {
 	public void prepare() throws InterruptedException {
 		memory.initValue(element.append(context), step);
 		/*
-		// Evaluate expression
-		Object value = ExpressionDispatcher.getInstance().dispatch(null, element.append(context), element.getDefault(), memory, step);
-		// Remember value
-		ObservationDispatcher.getInstance().dispatch(null, context, element, memory, step, value);
-		*/
+		 * // Evaluate expression Object value = ExpressionDispatcher.getInstance().dispatch(null, element.append(context), element.getDefault(), memory, step); // Remember value ObservationDispatcher.getInstance().dispatch(null, context, element, memory, step, value);
+		 */
 	}
 
 	@Override

@@ -11,70 +11,67 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Dialog;
 
 public abstract class AbstractAddElementHandler<T extends Element, S extends Property<?>> implements EventHandler<ActionEvent> {
-	
+
 	private Element parent;
 	private Class<T> type;
 	private Dialog<T> dialog;
-	
+
 	protected S property;
-	
+
 	public AbstractAddElementHandler(Element parent, S property, Class<T> type) {
 		this.parent = parent;
 		this.property = property;
 		this.type = type;
 	}
-	
+
 	public AbstractAddElementHandler(Element parent, S property, Dialog<T> dialog) {
 		this.parent = parent;
 		this.property = property;
 		this.dialog = dialog;
 	}
-	
+
 	@Override
 	public void handle(ActionEvent event) {
 		T element = createElement();
-		if(element != null) {
+		if (element != null) {
 			element.setParent(parent);
 			updateProperty(element);
 			element.accept(new SyntacticCheckVisitor());
 		}
 	}
-	
+
 	// Step 1: Creation
 	private T createElement() {
 		T element = null;
-		
-		if(dialog != null) {
+
+		if (dialog != null) {
 			Optional<T> result = dialog.showAndWait();
-			if(result.isPresent()) {
+			if (result.isPresent()) {
 				element = result.get();
-			}
-			else {
+			} else {
 				return null;
 			}
-		}
-		else {
+		} else {
 			try {
 				element = type.getConstructor().newInstance();
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				throw new IllegalStateException(e);
 			}
 		}
-		
-		if(element instanceof NamedElement) {
+
+		if (element instanceof NamedElement) {
 			String[] words = element.getClass().getSimpleName().split("(?=\\p{Upper})");
 			String name = "";
 			for (String word : words) {
 				name += " " + word.toLowerCase();
 			}
-			
-			((NamedElement)element).setName("New" + name);
+
+			((NamedElement) element).setName("New" + name);
 		}
-		
+
 		return element;
 	}
-	
+
 	protected abstract void updateProperty(T element);
-	
+
 }

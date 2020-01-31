@@ -34,32 +34,21 @@ public class DefinitionComponentChangeListener implements ChangeListener<Boolean
 	private TreeItem<Element> parts;
 	private TreeItem<Element> transforms;
 
-	public DefinitionComponentChangeListener(DefinitionComponent component, TreeItem<Element> item,
-			Configuration configuration) {
+	public DefinitionComponentChangeListener(DefinitionComponent component, TreeItem<Element> item, Configuration configuration) {
 
 		this.item = item;
 		this.configuration = configuration;
 
-		requirements = TreeItemBuilder.getInstance().transform(component, "Requirements", Requirement.class,
-				component.requirementsProperty(), configuration);
-		ports = TreeItemBuilder.getInstance().transform(component, "Ports", DefinitionPort.class,
-				component.portsProperty(), configuration);
-		properties = TreeItemBuilder.getInstance().transform(component, "Properties", Property.class,
-				component.propertiesProperty(), configuration);
-		scenarios = TreeItemBuilder.getInstance().transform(component, "Scenarios", Scenario.class,
-				component.scenariosProperty(), configuration);
-		monitors = TreeItemBuilder.getInstance().transform(component, "Monitors", Monitor.class,
-				component.monitorsProperty(), configuration);
-		components = TreeItemBuilder.getInstance().transform(component, "Components", Component.class,
-				component.componentsProperty(), configuration);
-		channels = TreeItemBuilder.getInstance().transform(component, "Channels", StaticChannel.class,
-				component.channelsProperty(), configuration);
-		behaviors = TreeItemBuilder.getInstance().transform(component, "Behaviors", Behavior.class,
-				component.behaviorsProperty(), configuration);
-		parts = TreeItemBuilder.getInstance().transform(component, "Parts", Part.class, component.partsProperty(),
-				configuration);
-		transforms = TreeItemBuilder.getInstance().transform(component, "Transforms", Transform.class,
-				component.transformsProperty(), configuration);
+		requirements = TreeItemBuilder.getInstance().transform(component, "Requirements", Requirement.class, component.requirementsProperty(), configuration);
+		ports = TreeItemBuilder.getInstance().transform(component, "Ports", DefinitionPort.class, component.portsProperty(), configuration);
+		properties = TreeItemBuilder.getInstance().transform(component, "Properties", Property.class, component.propertiesProperty(), configuration);
+		scenarios = TreeItemBuilder.getInstance().transform(component, "Scenarios", Scenario.class, component.scenariosProperty(), configuration);
+		monitors = TreeItemBuilder.getInstance().transform(component, "Monitors", Monitor.class, component.monitorsProperty(), configuration);
+		components = TreeItemBuilder.getInstance().transform(component, "Components", Component.class, component.componentsProperty(), configuration);
+		channels = TreeItemBuilder.getInstance().transform(component, "Channels", StaticChannel.class, component.channelsProperty(), configuration);
+		behaviors = TreeItemBuilder.getInstance().transform(component, "Behaviors", Behavior.class, component.behaviorsProperty(), configuration);
+		parts = TreeItemBuilder.getInstance().transform(component, "Parts", Part.class, component.partsProperty(), configuration);
+		transforms = TreeItemBuilder.getInstance().transform(component, "Transforms", Transform.class, component.transformsProperty(), configuration);
 
 		update();
 	}

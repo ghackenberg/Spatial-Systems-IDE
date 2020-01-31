@@ -16,10 +16,10 @@ public class TemplatesController implements AbstractEditorChildController<Projec
 	public void setRootElement(Project e) {
 		tableView.setItems(e.templatesProperty());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
-		
+
 	}
 
 }

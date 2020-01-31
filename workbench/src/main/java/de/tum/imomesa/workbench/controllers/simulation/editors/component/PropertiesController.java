@@ -14,7 +14,7 @@ public class PropertiesController extends EditorChildController<OverviewElement<
 
 	@Override
 	public void handle(SimulationStepEvent event) {
-		
+
 	}
 
 }

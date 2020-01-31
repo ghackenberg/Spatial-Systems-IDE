@@ -106,8 +106,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 		componentItem.setExpanded(true);
 
 		// create root overview element
-		root = new TreeItem<Element>(new OverviewElement<>(null, Component.class, "Simulation"),
-				ImageHelper.getImageAsIcon("icons/simulation.png"));
+		root = new TreeItem<Element>(new OverviewElement<>(null, Component.class, "Simulation"), ImageHelper.getImageAsIcon("icons/simulation.png"));
 		root.getChildren().add(componentItem);
 		root.setExpanded(true);
 
@@ -115,8 +114,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 		treeView.setRoot(root);
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Element>>() {
 			@Override
-			public void changed(ObservableValue<? extends TreeItem<Element>> arg0, TreeItem<Element> oldItem,
-					TreeItem<Element> newItem) {
+			public void changed(ObservableValue<? extends TreeItem<Element>> arg0, TreeItem<Element> oldItem, TreeItem<Element> newItem) {
 				// Check null
 				if (newItem == null) {
 					return;
@@ -141,8 +139,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 						TreeItem<Element> currentItem = newItem;
 
 						while (currentItem != root) {
-							if (currentItem.getValue() != null && !(currentItem.getValue() instanceof OverviewElement)
-									&& !extendedContext.contains(currentItem.getValue())) {
+							if (currentItem.getValue() != null && !(currentItem.getValue() instanceof OverviewElement) && !extendedContext.contains(currentItem.getValue())) {
 								extendedContext.add(0, currentItem.getValue());
 								if (currentItem.getValue() instanceof Component) {
 									context.add(0, currentItem.getValue());
@@ -161,8 +158,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 					}
 
 					// Publish event
-					EventBus.getInstance()
-							.publish(new SimulationSelectionEvent(extendedContext, element, context, component));
+					EventBus.getInstance().publish(new SimulationSelectionEvent(extendedContext, element, context, component));
 				}
 			}
 		});
@@ -226,8 +222,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 			DefinitionComponent def = (DefinitionComponent) component;
 
 			if (!def.getPorts().isEmpty()) {
-				TreeItem<Element> portsItem = new TreeItem<>(new OverviewElement<>(def, DefinitionPort.class, "Ports"),
-						ImageHelper.getFolderIcon(Port.class));
+				TreeItem<Element> portsItem = new TreeItem<>(new OverviewElement<>(def, DefinitionPort.class, "Ports"), ImageHelper.getFolderIcon(Port.class));
 				for (DefinitionPort port : def.getPorts()) {
 					portsItem.getChildren().add(getTreeItem(port));
 				}
@@ -235,8 +230,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 			}
 
 			if (!def.getProperties().isEmpty()) {
-				TreeItem<Element> propsItem = new TreeItem<>(new OverviewElement<>(def, Property.class, "Properties"),
-						ImageHelper.getFolderIcon(Property.class));
+				TreeItem<Element> propsItem = new TreeItem<>(new OverviewElement<>(def, Property.class, "Properties"), ImageHelper.getFolderIcon(Property.class));
 				for (Property property : def.getProperties()) {
 					propsItem.getChildren().add(getTreeItem(property));
 				}
@@ -244,8 +238,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 			}
 
 			if (!def.getScenarios().isEmpty() && def.equals(simulator.getComponent())) {
-				TreeItem<Element> scenarItem = new TreeItem<>(new OverviewElement<>(def, Scenario.class, "Scenarios"),
-						ImageHelper.getFolderIcon(Scenario.class));
+				TreeItem<Element> scenarItem = new TreeItem<>(new OverviewElement<>(def, Scenario.class, "Scenarios"), ImageHelper.getFolderIcon(Scenario.class));
 				scenarioItem = getTreeItem(simulator.getScenario());
 				scenarItem.getChildren().add(scenarioItem);
 				scenarItem.setExpanded(true);
@@ -253,26 +246,23 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 			}
 
 			if (!def.getMonitors().isEmpty()) {
-				TreeItem<Element> monitsItem = new TreeItem<>(new OverviewElement<>(def, Monitor.class, "Monitors"),
-						ImageHelper.getFolderIcon(Monitor.class));
+				TreeItem<Element> monitsItem = new TreeItem<>(new OverviewElement<>(def, Monitor.class, "Monitors"), ImageHelper.getFolderIcon(Monitor.class));
 				for (Monitor monitor : def.getMonitors()) {
 					monitsItem.getChildren().add(getTreeItem(monitor));
 				}
 				rootItem.getChildren().add(monitsItem);
 			}
 
-			//if (!def.getComponents().isEmpty()) {
-				TreeItem<Element> compsItem = new TreeItem<>(new OverviewElement<>(def, Component.class, "Components"),
-						ImageHelper.getFolderIcon(Component.class));
-				for (Component<?> comp : def.getComponents()) {
-					compsItem.getChildren().add(getTreeItem(comp));
-				}
-				rootItem.getChildren().add(compsItem);
-			//}
+			// if (!def.getComponents().isEmpty()) {
+			TreeItem<Element> compsItem = new TreeItem<>(new OverviewElement<>(def, Component.class, "Components"), ImageHelper.getFolderIcon(Component.class));
+			for (Component<?> comp : def.getComponents()) {
+				compsItem.getChildren().add(getTreeItem(comp));
+			}
+			rootItem.getChildren().add(compsItem);
+			// }
 
 			if (!def.getBehaviors().isEmpty()) {
-				TreeItem<Element> behavItem = new TreeItem<>(new OverviewElement<>(def, Behavior.class, "Behaviors"),
-						ImageHelper.getFolderIcon(Behavior.class));
+				TreeItem<Element> behavItem = new TreeItem<>(new OverviewElement<>(def, Behavior.class, "Behaviors"), ImageHelper.getFolderIcon(Behavior.class));
 				for (Behavior behavior : def.getBehaviors()) {
 					behavItem.getChildren().add(getTreeItem(behavior));
 				}
@@ -296,9 +286,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 			InteractionMaterialPort inter = (InteractionMaterialPort) port;
 
 			if (!inter.getPorts().isEmpty()) {
-				TreeItem<Element> portsItem = new TreeItem<>(
-						new OverviewElement<>(inter, DefinitionPort.class, "Ports"),
-						ImageHelper.getFolderIcon(Port.class));
+				TreeItem<Element> portsItem = new TreeItem<>(new OverviewElement<>(inter, DefinitionPort.class, "Ports"), ImageHelper.getFolderIcon(Port.class));
 				for (DefinitionPort def : inter.getPorts()) {
 					portsItem.getChildren().add(getTreeItem(def));
 				}
@@ -313,8 +301,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 		TreeItem<Element> result = new TreeItem<>(scenario, ImageHelper.getIcon(scenario.getClass()));
 
 		if (!scenario.getPorts().isEmpty()) {
-			TreeItem<Element> scensItem = new TreeItem<>(new OverviewElement<>(scenario, DefinitionPort.class, "Ports"),
-					ImageHelper.getFolderIcon(DefinitionPort.class));
+			TreeItem<Element> scensItem = new TreeItem<>(new OverviewElement<>(scenario, DefinitionPort.class, "Ports"), ImageHelper.getFolderIcon(DefinitionPort.class));
 			for (DefinitionPort port : scenario.getPorts()) {
 				scensItem.getChildren().add(getTreeItem(port));
 			}
@@ -322,8 +309,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 		}
 
 		if (!scenario.getVariables().isEmpty()) {
-			TreeItem<Element> varsItem = new TreeItem<>(new OverviewElement<>(scenario, Variable.class, "Variables"),
-					ImageHelper.getFolderIcon(Variable.class));
+			TreeItem<Element> varsItem = new TreeItem<>(new OverviewElement<>(scenario, Variable.class, "Variables"), ImageHelper.getFolderIcon(Variable.class));
 			for (Variable variable : scenario.getVariables()) {
 				varsItem.getChildren().add(getTreeItem(variable));
 			}
@@ -337,8 +323,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 		TreeItem<Element> result = new TreeItem<>(monitor, ImageHelper.getIcon(monitor.getClass()));
 
 		if (!monitor.getVariables().isEmpty()) {
-			TreeItem<Element> varsItem = new TreeItem<>(new OverviewElement<>(monitor, Variable.class, "Variables"),
-					ImageHelper.getFolderIcon(Variable.class));
+			TreeItem<Element> varsItem = new TreeItem<>(new OverviewElement<>(monitor, Variable.class, "Variables"), ImageHelper.getFolderIcon(Variable.class));
 			for (Variable variable : monitor.getVariables()) {
 				varsItem.getChildren().add(getTreeItem(variable));
 			}
@@ -352,8 +337,7 @@ public class ExplorerController extends AbstractExplorerController implements Ev
 		TreeItem<Element> result = new TreeItem<>(behavior, ImageHelper.getIcon(behavior.getClass()));
 
 		if (!behavior.getVariables().isEmpty()) {
-			TreeItem<Element> varsItem = new TreeItem<>(new OverviewElement<>(behavior, Variable.class, "Variables"),
-					ImageHelper.getFolderIcon(Variable.class));
+			TreeItem<Element> varsItem = new TreeItem<>(new OverviewElement<>(behavior, Variable.class, "Variables"), ImageHelper.getFolderIcon(Variable.class));
 			for (Variable variable : behavior.getVariables()) {
 				varsItem.getChildren().add(getTreeItem(variable));
 			}

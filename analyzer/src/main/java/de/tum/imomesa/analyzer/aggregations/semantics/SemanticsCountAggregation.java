@@ -52,8 +52,7 @@ public class SemanticsCountAggregation extends CountAggregtion<String> {
 						} else if (marker instanceof TimeoutMarker) {
 							counts.put(TIMEOUT, counts.get(TIMEOUT) + 1);
 						} else {
-							throw new IllegalStateException(
-									"Semantic marker type not supported: " + marker.getClass().getName());
+							throw new IllegalStateException("Semantic marker type not supported: " + marker.getClass().getName());
 						}
 					}
 				}

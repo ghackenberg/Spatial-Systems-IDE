@@ -23,8 +23,7 @@ import de.tum.imomesa.database.changes.Change;
 import de.tum.imomesa.model.Project;
 import de.tum.imomesa.model.components.DefinitionComponent;
 
-public class PrototypeComponentFeaturePlotAggregation
-		extends Aggregation<Map<DefinitionComponent, List<EventDescriptor>>> {
+public class PrototypeComponentFeaturePlotAggregation extends Aggregation<Map<DefinitionComponent, List<EventDescriptor>>> {
 
 	private Discretizer discretizer;
 
@@ -50,8 +49,7 @@ public class PrototypeComponentFeaturePlotAggregation
 			Class<?> currentFeature = Mapper.mapFeature(change);
 
 			if (currentComponent != null && currentFeature != null) {
-				List<DefinitionComponent> components = currentComponent
-						.getAncestorsOrSelfByType(DefinitionComponent.class);
+				List<DefinitionComponent> components = currentComponent.getAncestorsOrSelfByType(DefinitionComponent.class);
 
 				DefinitionComponent rootComponent = components.get(components.size() - 1);
 
@@ -63,8 +61,7 @@ public class PrototypeComponentFeaturePlotAggregation
 
 				if (lastComponent != null && lastFeature != null) {
 					if (result.containsKey(lastComponent) && lastComponent != currentComponent) {
-						result.get(lastComponent).add(new EventDescriptor(change.getTimestamp(), "Idle",
-								"Switching to component: " + currentComponent.getName()));
+						result.get(lastComponent).add(new EventDescriptor(change.getTimestamp(), "Idle", "Switching to component: " + currentComponent.getName()));
 					}
 				}
 
@@ -73,8 +70,7 @@ public class PrototypeComponentFeaturePlotAggregation
 						String message = currentFeature.getSimpleName();
 						String description = message;
 
-						result.get(currentComponent)
-								.add(new EventDescriptor(change.getTimestamp(), message, description));
+						result.get(currentComponent).add(new EventDescriptor(change.getTimestamp(), message, description));
 					}
 				}
 
@@ -88,8 +84,7 @@ public class PrototypeComponentFeaturePlotAggregation
 	}
 
 	@Override
-	protected List<Serialization<Map<DefinitionComponent, List<EventDescriptor>>>> generateSerializations()
-			throws IOException {
+	protected List<Serialization<Map<DefinitionComponent, List<EventDescriptor>>>> generateSerializations() throws IOException {
 		List<DefinitionComponent> order = Sorter.sortEventDescriptors(getResult());
 
 		List<Serialization<Map<DefinitionComponent, List<EventDescriptor>>>> result = new ArrayList<>();

@@ -3,7 +3,7 @@ package de.tum.imomesa.workbench.scenes.paths;
 import javafx.scene.Group;
 
 public class ScenePath {
-	
+
 	public final Group solidRoot, alphaRoot, solidParent, alphaParent;
 
 	public ScenePath(Group solidRoot, Group alphaRoot) {
@@ -20,7 +20,7 @@ public class ScenePath {
 
 		this.solidParent = solidChild;
 		this.alphaParent = alphaChild;
-		
+
 		parent.solidParent.getChildren().add(solidChild);
 		parent.alphaParent.getChildren().add(alphaChild);
 	}

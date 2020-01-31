@@ -26,9 +26,9 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	private Button buttonRemoveState;
 	@FXML
 	private Button buttonRemoveTransition;
-	
+
 	private BehaviorDiagram diagram;
-	
+
 	@FXML
 	public void initialize() {
 		buttonSetInitialState.setDisable(true);
@@ -39,39 +39,39 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 	@Override
 	public void setRootElement(Behavior element) {
 		pane.getChildren().clear();
-		
+
 		final ChangeListener<Element> listener = (observable, oldValue, newValue) -> {
 			buttonSetInitialState.setDisable(!checkType(State.class) || checkObject(element.getInitialLabel()));
 			buttonRemoveState.setDisable(!checkType(State.class));
 			buttonRemoveTransition.setDisable(!checkType(Transition.class));
 		};
-		
+
 		diagram = new BehaviorDiagram(pane, element, new BehaviorDiagramBehavior(), true);
 		diagram.clickedElementProperty().addListener(listener);
 		diagram.pressedElementProperty().addListener(listener);
-		
+
 		// TODO Remove listener when not needed anymore!
 		element.initialLabelProperty().addListener(listener);
 	}
-	
+
 	private <T extends Element> boolean checkObject(T object) {
 		return object != null && (diagram.getClickedElement() == object || diagram.getPressedElement() == object);
 	}
-	
+
 	private <T extends Element> boolean checkType(Class<T> type) {
 		return checkType(diagram.getClickedElement(), type) || checkType(diagram.getPressedElement(), type);
 	}
-	
+
 	private <T extends Element> boolean checkType(Element element, Class<T> type) {
-		return element != null && type.isAssignableFrom(element.getClass()); 
+		return element != null && type.isAssignableFrom(element.getClass());
 	}
-	
+
 	@Override
 	public void setSelectedElement(Element element) {
 		State label = element.getFirstAncestorByType(State.class);
 		Transition transition = element.getFirstAncestorByType(Transition.class);
 		Behavior executable = element.getFirstAncestorByType(Behavior.class);
-		
+
 		if (label != null) {
 			diagram.setClickedElement(label);
 		} else if (transition != null) {
@@ -80,28 +80,28 @@ public class BehaviorController implements AbstractEditorChildController<Behavio
 			diagram.setClickedElement(executable);
 		}
 	}
-	
+
 	@FXML
 	public void createState() {
 		State state = new State();
 		state.setName("New state");
 		state.setParent(diagram.getElement());
 		state.accept(new SyntacticCheckVisitor());
-		
+
 		diagram.getElement().getLabels().add(state);
 		diagram.setClickedElement(state);
 	}
-	
+
 	@FXML
 	public void setInitialState() {
 		diagram.getElement().setInitialLabel((State) diagram.getClickedElement());
 	}
-	
+
 	@FXML
 	public void removeState() {
 		new RemoveElementHandler(diagram.getClickedElement()).handle(null);
 	}
-	
+
 	@FXML
 	public void removeTransition() {
 		new RemoveElementHandler(diagram.getClickedElement()).handle(null);

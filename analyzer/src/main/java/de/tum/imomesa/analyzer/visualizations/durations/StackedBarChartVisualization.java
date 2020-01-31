@@ -10,8 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 
-public class StackedBarChartVisualization<T>
-		extends Visualization<DurationDescriptor<T>, StackedBarChart<String, Number>> {
+public class StackedBarChartVisualization<T> extends Visualization<DurationDescriptor<T>, StackedBarChart<String, Number>> {
 
 	private List<T> order;
 

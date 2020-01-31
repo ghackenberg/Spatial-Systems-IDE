@@ -17,8 +17,7 @@ public class MultiBarChartVisualization<T1, T2> extends Visualization<Map<T1, Ma
 	private List<T2> innerOrder;
 	private Discretizer discretizer;
 
-	public MultiBarChartVisualization(Map<T1, Map<T2, List<Integer>>> data, List<T1> outerOrder, List<T2> innerOrder,
-			Discretizer discretizer) {
+	public MultiBarChartVisualization(Map<T1, Map<T2, List<Integer>>> data, List<T1> outerOrder, List<T2> innerOrder, Discretizer discretizer) {
 		super(data);
 
 		this.outerOrder = outerOrder;
