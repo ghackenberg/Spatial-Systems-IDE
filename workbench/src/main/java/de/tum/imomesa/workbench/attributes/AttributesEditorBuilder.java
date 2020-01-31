@@ -158,19 +158,6 @@ public class AttributesEditorBuilder {
 		grid.addProperty("Read type:", lReadType);
 	}
 
-	public static void addProperties(AttributesGrid grid, Observation o) {
-		// expression string
-		TextField lExpressionString = new TextField();
-		if (o.getDefault() != null) {
-			lExpressionString.textProperty().bind(o.getDefault().toStringExpression());
-		} else {
-			lExpressionString.setText("No expression specified.");
-			lExpressionString.setFont(Font.font("System", FontPosture.ITALIC, 12));
-		}
-		lExpressionString.setDisable(true);
-		grid.addProperty("Default:", lExpressionString);
-	}
-
 	public static void addProperties(AttributesGrid grid, Project p) {
 		// Component
 		TextField lComponent = new TextField();
@@ -626,6 +613,17 @@ public class AttributesEditorBuilder {
 		cbType.getSelectionModel().select(v.getReadType());
 		cbType.valueProperty().addListener(new ChangeListenerObservationType<Variable>(v));
 		grid.addProperty("Read / write type:", cbType);
+		
+		// expression string
+		TextField lExpressionString = new TextField();
+		if (v.getDefault() != null) {
+			lExpressionString.textProperty().bind(v.getDefault().toStringExpression());
+		} else {
+			lExpressionString.setText("No expression specified.");
+			lExpressionString.setFont(Font.font("System", FontPosture.ITALIC, 12));
+		}
+		lExpressionString.setDisable(true);
+		grid.addProperty("Default:", lExpressionString);
 	}
 
 	public static void addProperties(AttributesGrid grid, StaticChannel channel) {

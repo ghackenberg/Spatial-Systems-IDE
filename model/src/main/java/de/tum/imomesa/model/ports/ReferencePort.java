@@ -2,7 +2,6 @@ package de.tum.imomesa.model.ports;
 
 import de.tum.imomesa.database.annotations.Transient;
 import de.tum.imomesa.model.components.ReferenceComponent;
-import de.tum.imomesa.model.expressions.Expression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -73,17 +72,6 @@ public class ReferencePort extends Port {
 	public ListProperty<Class<?>> writeTypeProperty() {
 		if (getPortImplementation() != null) {
 			return getPortImplementation().writeTypeProperty();
-		}
-		throw new IllegalStateException();
-	}
-	
-	// Default (expression)
-	
-	@Override
-	@Transient
-	public ObjectProperty<Expression> defaultProperty() {
-		if (getPortImplementation() != null) {
-			return getPortImplementation().defaultProperty();
 		}
 		throw new IllegalStateException();
 	}

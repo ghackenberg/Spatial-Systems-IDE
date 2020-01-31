@@ -100,7 +100,7 @@ public class ExpressionDispatcher
 				// Add marker
 				MarkerManager.get().addMarker(new NegativeDelayWarning(context, expression, step, delay));
 				// Return default
-				return dispatch(thread, temp, expression.getObservation().getDefault(), memory, step);
+				return dispatch(thread, temp, null, memory, step);
 			} else {
 				// Obtain value
 				return memory.getValue(thread, expression.getObservation().append(temp), timepoint);	

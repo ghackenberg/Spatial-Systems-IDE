@@ -14,6 +14,7 @@ import de.tum.imomesa.model.executables.Action;
 import de.tum.imomesa.model.executables.Executable;
 import de.tum.imomesa.model.executables.Guard;
 import de.tum.imomesa.model.executables.Transition;
+import de.tum.imomesa.model.executables.Variable;
 import de.tum.imomesa.model.executables.scenarios.Scenario;
 import de.tum.imomesa.model.expressions.NaryExpression;
 import de.tum.imomesa.model.expressions.ObservationExpression;
@@ -45,8 +46,11 @@ public class SyntacticCheckRemoverVisitor extends MultipleMethodVisitor {
 	}
 
 	public void visit(Observation observation) {
-		ListenerRemover.getListenerManager().removeAllListeners(observation.defaultProperty());
 		ListenerRemover.getListenerManager().removeAllListeners((ObservableList<?>) observation.writeTypeProperty());
+	}
+	
+	public void visit(Variable variable) {
+		ListenerRemover.getListenerManager().removeAllListeners(variable.defaultProperty());
 	}
 
 	public void visit(ObservedElement observedElement) {

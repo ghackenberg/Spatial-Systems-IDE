@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tum.imomesa.model.Element;
-import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.Part;
 import de.tum.imomesa.model.Project;
 import de.tum.imomesa.model.Requirement;
@@ -58,7 +57,8 @@ public class TreeItemBuilder {
 
 	}
 
-	// Transform (element)
+	// Transform
+	// (element)
 
 	public <T extends Element> TreeItem<Element> transform(T object, Configuration configuration) {
 		return transform(object, configuration, false);
@@ -78,15 +78,14 @@ public class TreeItemBuilder {
 		return item;
 	}
 
-	// Transform (child)
+	// Transform
+	// (child)
 
-	public <T extends Element> TreeItem<Element> transform(Class<T> type, ObjectProperty<T> property,
-			Configuration configuration) {
+	public <T extends Element> TreeItem<Element> transform(Class<T> type, ObjectProperty<T> property, Configuration configuration) {
 		return transform(type, property, configuration, false);
 	}
 
-	public <T extends Element> TreeItem<Element> transform(Class<T> type, ObjectProperty<T> property,
-			Configuration configuration, boolean expanded) {
+	public <T extends Element> TreeItem<Element> transform(Class<T> type, ObjectProperty<T> property, Configuration configuration, boolean expanded) {
 		T object = property.get();
 
 		Class<?> internalType = type;
@@ -108,15 +107,14 @@ public class TreeItemBuilder {
 		return item;
 	}
 
-	// Transform (overview)
+	// Transform
+	// (overview)
 
-	public <T extends Element, S extends T> TreeItem<Element> transform(Element parent, String name, Class<T> type,
-			ListProperty<S> list, Configuration configuration) {
+	public <T extends Element, S extends T> TreeItem<Element> transform(Element parent, String name, Class<T> type, ListProperty<S> list, Configuration configuration) {
 		return transform(parent, name, type, list, configuration, false, false);
 	}
 
-	public <T extends Element, S extends T> TreeItem<Element> transform(Element parent, String name, Class<T> type,
-			ListProperty<S> list, Configuration configuration, boolean expanded, boolean childrenExpanded) {
+	public <T extends Element, S extends T> TreeItem<Element> transform(Element parent, String name, Class<T> type, ListProperty<S> list, Configuration configuration, boolean expanded, boolean childrenExpanded) {
 		@SuppressWarnings("unchecked")
 		OverviewElement<T> element = new OverviewElement<T>(parent, type, (ListProperty<T>) list, name);
 
@@ -141,8 +139,7 @@ public class TreeItemBuilder {
 			Class<?> iterator = object.getClass();
 			while (iterator != null) {
 				try {
-					methods.add(TreeItemBuilder.class.getDeclaredMethod("process", iterator, TreeItem.class,
-							Configuration.class));
+					methods.add(TreeItemBuilder.class.getDeclaredMethod("process", iterator, TreeItem.class, Configuration.class));
 				} catch (Exception e) {
 					// ignore
 				} finally {
@@ -163,21 +160,17 @@ public class TreeItemBuilder {
 
 	public void process(Activity a, TreeItem<Element> item, Configuration configuration) {
 		item.getChildren().add(transform(a, "Actions", Action.class, a.actionsProperty(), configuration, true, false));
-		item.getChildren()
-				.add(transform(a, "Properties", Property.class, a.propertiesProperty(), configuration, true, false));
+		item.getChildren().add(transform(a, "Properties", Property.class, a.propertiesProperty(), configuration, true, false));
 	}
 
 	public void process(Behavior b, TreeItem<Element> item, Configuration configuration) {
 		item.getChildren().add(transform(b, "States", State.class, b.labelsProperty(), configuration, true, false));
-		item.getChildren().add(transform(b, "Transitions", de.tum.imomesa.model.executables.behaviors.Transition.class,
-				b.transitionsProperty(), configuration, true, false));
-		item.getChildren()
-				.add(transform(b, "Variables", Variable.class, b.variablesProperty(), configuration, true, false));
+		item.getChildren().add(transform(b, "Transitions", de.tum.imomesa.model.executables.behaviors.Transition.class, b.transitionsProperty(), configuration, true, false));
+		item.getChildren().add(transform(b, "Variables", Variable.class, b.variablesProperty(), configuration, true, false));
 	}
 
 	public void process(DefinitionComponent component, TreeItem<Element> item, Configuration configuration) {
-		DefinitionComponentChangeListener listener = new DefinitionComponentChangeListener(component, item,
-				configuration);
+		DefinitionComponentChangeListener listener = new DefinitionComponentChangeListener(component, item, configuration);
 
 		configuration.requirementsProperty().addListener(listener);
 		configuration.portsProperty().addListener(listener);
@@ -192,8 +185,7 @@ public class TreeItemBuilder {
 	}
 
 	public void process(ReferenceComponent component, TreeItem<Element> item, Configuration configuration) {
-		ReferenceComponentChangeListener listener = new ReferenceComponentChangeListener(component, item,
-				configuration);
+		ReferenceComponentChangeListener listener = new ReferenceComponentChangeListener(component, item, configuration);
 
 		configuration.transformsProperty().addListener(listener);
 	}
@@ -203,8 +195,7 @@ public class TreeItemBuilder {
 	}
 
 	public void process(NaryExpression e, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren()
-				.add(transform(e, "Arguments", Expression.class, e.argumentsProperty(), configuration, true, false));
+		item.getChildren().add(transform(e, "Arguments", Expression.class, e.argumentsProperty(), configuration, true, false));
 	}
 
 	public void process(TerniaryExpression e, TreeItem<Element> item, Configuration configuration) {
@@ -214,22 +205,18 @@ public class TreeItemBuilder {
 	}
 
 	public void process(Monitor m, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren()
-				.add(transform(m, "Activities", Activity.class, m.labelsProperty(), configuration, true, false));
-		item.getChildren().add(transform(m, "Transitions", de.tum.imomesa.model.executables.monitors.Transition.class,
-				m.transitionsProperty(), configuration, true, false));
-		item.getChildren()
-				.add(transform(m, "Variables", Variable.class, m.variablesProperty(), configuration, true, false));
+		item.getChildren().add(transform(m, "Activities", Activity.class, m.labelsProperty(), configuration, true, false));
+		item.getChildren().add(transform(m, "Transitions", de.tum.imomesa.model.executables.monitors.Transition.class, m.transitionsProperty(), configuration, true, false));
+		item.getChildren().add(transform(m, "Variables", Variable.class, m.variablesProperty(), configuration, true, false));
 	}
 
 	public void process(Part p, TreeItem<Element> item, Configuration configuration) {
 		item.getChildren().add(transform(Volume.class, p.volumeProperty(), configuration));
-		item.getChildren()
-				.add(transform(p, "Transforms", Transform.class, p.transformsProperty(), configuration, true, false));
+		item.getChildren().add(transform(p, "Transforms", Transform.class, p.transformsProperty(), configuration, true, false));
 	}
 
-	public void process(Observation observation, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren().add(transform(Expression.class, observation.defaultProperty(), configuration));
+	public void process(Variable variable, TreeItem<Element> item, Configuration configuration) {
+		item.getChildren().add(transform(Expression.class, variable.defaultProperty(), configuration));
 	}
 
 	public void process(MaterialPort port, TreeItem<Element> item, Configuration configuration) {
@@ -237,8 +224,7 @@ public class TreeItemBuilder {
 	}
 
 	public void process(InteractionMaterialPort port, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren()
-				.add(transform(port, "Ports", DefinitionPort.class, port.portsProperty(), configuration, true, false));
+		item.getChildren().add(transform(port, "Ports", DefinitionPort.class, port.portsProperty(), configuration, true, false));
 	}
 
 	public void process(KinematicEnergyPort port, TreeItem<Element> item, Configuration configuration) {
@@ -250,48 +236,35 @@ public class TreeItemBuilder {
 	}
 
 	public void process(Project project, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren().add(transform(project, "Templates", DefinitionComponent.class, project.templatesProperty(),
-				configuration, true, false));
+		item.getChildren().add(transform(project, "Templates", DefinitionComponent.class, project.templatesProperty(), configuration, true, false));
 		item.getChildren().add(transform(DefinitionComponent.class, project.componentProperty(), configuration));
 	}
 
 	public void process(Requirement requirement, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren().add(transform(requirement, "Requirements", Requirement.class,
-				requirement.requirementsProperty(), configuration));
+		item.getChildren().add(transform(requirement, "Requirements", Requirement.class, requirement.requirementsProperty(), configuration));
 	}
 
 	public void process(Scenario scenario, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren().add(transform(scenario, "Ports", LifeMaterialPort.class, scenario.portsProperty(),
-				configuration, true, false));
-		item.getChildren()
-				.add(transform(scenario, "Steps", Step.class, scenario.labelsProperty(), configuration, true, false));
-		item.getChildren()
-				.add(transform(scenario, "Transitions", de.tum.imomesa.model.executables.scenarios.Transition.class,
-						scenario.transitionsProperty(), configuration, true, false));
-		item.getChildren().add(transform(scenario, "Variables", Variable.class, scenario.variablesProperty(),
-				configuration, true, false));
+		item.getChildren().add(transform(scenario, "Ports", LifeMaterialPort.class, scenario.portsProperty(), configuration, true, false));
+		item.getChildren().add(transform(scenario, "Steps", Step.class, scenario.labelsProperty(), configuration, true, false));
+		item.getChildren().add(transform(scenario, "Transitions", de.tum.imomesa.model.executables.scenarios.Transition.class, scenario.transitionsProperty(), configuration, true, false));
+		item.getChildren().add(transform(scenario, "Variables", Variable.class, scenario.variablesProperty(), configuration, true, false));
 	}
 
 	public void process(State state, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren()
-				.add(transform(state, "Actions", Action.class, state.actionsProperty(), configuration, true, false));
-		item.getChildren().add(
-				transform(state, "Properties", Property.class, state.propertiesProperty(), configuration, true, false));
-		item.getChildren()
-				.add(transform(state, "Parts", Part.class, state.partsProperty(), configuration, true, false));
+		item.getChildren().add(transform(state, "Actions", Action.class, state.actionsProperty(), configuration, true, false));
+		item.getChildren().add(transform(state, "Properties", Property.class, state.propertiesProperty(), configuration, true, false));
+		item.getChildren().add(transform(state, "Parts", Part.class, state.partsProperty(), configuration, true, false));
 	}
 
 	public void process(Step step, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren()
-				.add(transform(step, "Actions", Action.class, step.actionsProperty(), configuration, true, false));
-		item.getChildren().add(
-				transform(step, "Properties", Property.class, step.propertiesProperty(), configuration, true, false));
+		item.getChildren().add(transform(step, "Actions", Action.class, step.actionsProperty(), configuration, true, false));
+		item.getChildren().add(transform(step, "Properties", Property.class, step.propertiesProperty(), configuration, true, false));
 	}
 
 	public void process(Transition<?> transition, TreeItem<Element> item, Configuration configuration) {
 		item.getChildren().add(transform(Guard.class, transition.guardProperty(), configuration));
-		item.getChildren().add(transform(transition, "Actions", Action.class, transition.actionsProperty(),
-				configuration, true, false));
+		item.getChildren().add(transform(transition, "Actions", Action.class, transition.actionsProperty(), configuration, true, false));
 	}
 
 	public void process(Guard guard, TreeItem<Element> item, Configuration configuration) {
@@ -303,18 +276,15 @@ public class TreeItemBuilder {
 	}
 
 	public void process(Volume volume, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren().add(transform(volume, "Transforms", Transform.class, volume.transformsProperty(),
-				configuration, true, false));
+		item.getChildren().add(transform(volume, "Transforms", Transform.class, volume.transformsProperty(), configuration, true, false));
 	}
 
 	public void process(CompositeVolume volume, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren()
-				.add(transform(volume, "Volumes", Volume.class, volume.volumesProperty(), configuration, true, false));
+		item.getChildren().add(transform(volume, "Volumes", Volume.class, volume.volumesProperty(), configuration, true, false));
 	}
 
 	public void process(Workspace workspace, TreeItem<Element> item, Configuration configuration) {
-		item.getChildren().add(transform(workspace, "Projects", Project.class, workspace.projectsProperty(),
-				configuration, true, true));
+		item.getChildren().add(transform(workspace, "Projects", Project.class, workspace.projectsProperty(), configuration, true, true));
 	}
 
 }

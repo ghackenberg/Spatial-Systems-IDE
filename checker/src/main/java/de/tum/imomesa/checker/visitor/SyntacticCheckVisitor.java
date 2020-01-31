@@ -35,7 +35,6 @@ import de.tum.imomesa.checker.markers.type.ErrorWrongTypeOfExpression;
 import de.tum.imomesa.checker.markers.type.ErrorWrongTypeOfObservation;
 import de.tum.imomesa.model.Element;
 import de.tum.imomesa.model.NamedElement;
-import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.ObservedElement;
 import de.tum.imomesa.model.Part;
 import de.tum.imomesa.model.Project;
@@ -46,6 +45,7 @@ import de.tum.imomesa.model.executables.Action;
 import de.tum.imomesa.model.executables.Executable;
 import de.tum.imomesa.model.executables.Guard;
 import de.tum.imomesa.model.executables.Transition;
+import de.tum.imomesa.model.executables.Variable;
 import de.tum.imomesa.model.executables.scenarios.Scenario;
 import de.tum.imomesa.model.expressions.NaryExpression;
 import de.tum.imomesa.model.expressions.ObservationExpression;
@@ -90,16 +90,15 @@ public class SyntacticCheckVisitor extends MultipleMethodVisitor {
 		// HelperEvaluateString.evaluateStringInit(element.descriptionProperty(),
 		// warningDescriptionIsEmpty);
 	}
-
-	public void visit(Observation observation) {
+	
+	public void visit(Variable observation) {
 		// Step 1: create error and warning objects
 		SyntacticError errorDefaultExpressionNotSet = new ErrorNoDefaultExpression(observation);
 		SyntacticError errorDefaultExpressionWithWrongType = new ErrorWrongTypeOfExpression(observation);
 
 		// Step 2: initial evaluation and add listener
 		HelperEvaluateObject.evaluateObjectInit(observation.defaultProperty(), errorDefaultExpressionNotSet);
-		HelperEvaluateType.evaluateTypeObservationInit(observation, observation.defaultProperty(),
-				errorDefaultExpressionWithWrongType);
+		HelperEvaluateType.evaluateTypeObservationInit(observation, observation.defaultProperty(), errorDefaultExpressionWithWrongType);
 	}
 
 	public void visit(ObservedElement observedElement) {

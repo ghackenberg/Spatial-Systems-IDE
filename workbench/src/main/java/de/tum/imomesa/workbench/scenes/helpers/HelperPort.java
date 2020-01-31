@@ -158,7 +158,7 @@ public class HelperPort {
 	
 	private static boolean containsProperties(List<Property> properties, Port port) {
 		for (Property property : properties) {
-			if (containsExpression(property.getDefault(), port) || containsExpression(property.getExpression(), port)) {
+			if (/*containsExpression(property.getDefault(), port) || */containsExpression(property.getExpression(), port)) {
 				return true;
 			}
 		}

@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.tum.imomesa.model.Element;
-import de.tum.imomesa.model.Observation;
 import de.tum.imomesa.model.Part;
 import de.tum.imomesa.model.Project;
 import de.tum.imomesa.model.Requirement;
@@ -191,11 +190,11 @@ public class ContextMenuBuilder {
 		return new MenuItem[] { addComponent };
 	}
 	
-	public static MenuItem[] getContextMenu(Observation o) {
+	public static MenuItem[] getContextMenu(Variable v) {
 		MenuItem addExpression = new MenuItem("Add default expression");
-		addExpression.setOnAction(new ObjectAddElementHandler<>(o, o.defaultProperty(), new ExpressionAddDialog(o.getWriteType())));
+		addExpression.setOnAction(new ObjectAddElementHandler<>(v, v.defaultProperty(), new ExpressionAddDialog(v.getWriteType())));
 		addExpression.setGraphic(ImageHelper.getIcon(Expression.class));
-		addExpression.disableProperty().bind(o.defaultProperty().isNotNull());
+		addExpression.disableProperty().bind(v.defaultProperty().isNotNull());
 		
 		return new MenuItem[] { addExpression };
 	}
