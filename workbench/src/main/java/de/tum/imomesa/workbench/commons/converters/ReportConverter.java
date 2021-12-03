@@ -48,7 +48,7 @@ public class ReportConverter {
 						super.updateItem(item, empty);
 						if (!empty) {
 							setStyle("-fx-accent: green");
-							setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
+							setText(Math.round(item * getTableRow().getItem().getTotalCount()) + "");
 						} else {
 							setText(null);
 							setGraphic(null);
@@ -67,7 +67,7 @@ public class ReportConverter {
 						super.updateItem(item, empty);
 						if (!empty) {
 							setStyle("-fx-accent: red");
-							setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
+							setText(Math.round(item * getTableRow().getItem().getTotalCount()) + "");
 						} else {
 							setText(null);
 							setGraphic(null);
@@ -86,7 +86,7 @@ public class ReportConverter {
 						super.updateItem(item, empty);
 						if (!empty) {
 							setStyle("-fx-accent: blue");
-							setText(Math.round(item * getTreeTableRow().getItem().getTotalCount()) + "");
+							setText(Math.round(item * getTableRow().getItem().getTotalCount()) + "");
 						} else {
 							setText(null);
 							setGraphic(null);

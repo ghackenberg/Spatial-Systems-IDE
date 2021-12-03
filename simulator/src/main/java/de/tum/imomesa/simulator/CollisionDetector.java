@@ -148,7 +148,7 @@ public class CollisionDetector {
 							Element second = listB.get(listB.size() - 1);
 
 							synchronized (threads) {
-								System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get() + " with " + intersection.computeVolume());
+								System.out.println("Step " + step + ": collision between " + first.getElementPath().get() + " and " + second.getElementPath().get());
 								// System.out.println(first.getElementPath().get() + ": " + (first instanceof Component ? memory.getTransform(listA, step) : memory.getTransform(listA.subList(0, listA.size() - 1), step)));
 								// System.out.println(second.getElementPath().get() + ": " + (second instanceof Component ? memory.getTransform(listB, step) : memory.getTransform(listB.subList(0, listB.size() - 1), step)));
 							}
