@@ -5,10 +5,10 @@ import de.tum.imomesa.model.components.DefinitionComponent;
 import de.tum.imomesa.workbench.commons.helpers.ImageHelper;
 import de.tum.imomesa.workbench.view.tabs.GenericTab;
 
-public class MainDefinitionComponentBottomLeftTabPane extends AbstractTabPane {
+public class MainComponentBottomRightTabPane extends AbstractTabPane {
 
-	public MainDefinitionComponentBottomLeftTabPane(DefinitionComponent project) {
-		getTabs().add(new GenericTab("Requirements", ImageHelper.getIcon(Requirement.class)));
+	public MainComponentBottomRightTabPane(DefinitionComponent project) {
+		getTabs().add(new GenericTab("Scene", ImageHelper.getIcon(Requirement.class)));
 	}
 
 }

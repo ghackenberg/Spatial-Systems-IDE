@@ -9,7 +9,7 @@ import de.tum.imomesa.model.components.ReferenceComponent;
 import de.tum.imomesa.workbench.commons.events.SelectionExplorerEvent;
 import de.tum.imomesa.workbench.view.panes.grids.MainDefinitionComponentGridPane;
 import de.tum.imomesa.workbench.view.panes.tabs.MainProjectTabPane;
-import de.tum.imomesa.workbench.view.panes.tabs.MainReferenceComponentTabPane;
+import de.tum.imomesa.workbench.view.panes.tabs.MainReferenceTabPane;
 import de.tum.imomesa.workbench.view.panes.tabs.MainWelcomeTabPane;
 import de.tum.imomesa.workbench.view.panes.tabs.MainWorkspaceTabPane;
 
@@ -53,7 +53,7 @@ public class MainObjectBorderPane extends AbstractBorderPane implements EventHan
 	}
 
 	protected void show(ReferenceComponent reference) {
-		setCenter(new MainReferenceComponentTabPane(reference));
+		setCenter(new MainReferenceTabPane(reference));
 	}
 
 }
