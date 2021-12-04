@@ -10,11 +10,13 @@ import de.tum.imomesa.workbench.commons.events.SelectionExplorerEvent;
 import de.tum.imomesa.workbench.view.panes.grids.MainDefinitionComponentGridPane;
 import de.tum.imomesa.workbench.view.panes.tabs.MainProjectTabPane;
 import de.tum.imomesa.workbench.view.panes.tabs.MainReferenceComponentTabPane;
+import de.tum.imomesa.workbench.view.panes.tabs.MainWelcomeTabPane;
 import de.tum.imomesa.workbench.view.panes.tabs.MainWorkspaceTabPane;
 
 public class MainObjectBorderPane extends AbstractBorderPane implements EventHandler {
 
 	public MainObjectBorderPane() {
+		setCenter(new MainWelcomeTabPane());
 		EventBus.getInstance().subscribe(this);
 	}
 
@@ -28,10 +30,14 @@ public class MainObjectBorderPane extends AbstractBorderPane implements EventHan
 		} else if (event.getSelected() instanceof ReferenceComponent) {
 			show((ReferenceComponent) event.getSelected());
 		} else if (event.getSelected() == null) {
-			setCenter(null);
+			show();
 		} else {
 			throw new IllegalStateException();
 		}
+	}
+
+	protected void show() {
+		setCenter(new MainWelcomeTabPane());
 	}
 
 	protected void show(Workspace workspace) {
