@@ -13,12 +13,12 @@ import javafx.scene.control.Dialog;
 public abstract class AbstractAddElementHandler<T extends Element, S extends Property<?>> implements EventHandler<ActionEvent> {
 
 	private Element parent;
-	private Class<T> type;
+	private Class<? extends T> type;
 	private Dialog<T> dialog;
 
 	protected S property;
 
-	public AbstractAddElementHandler(Element parent, S property, Class<T> type) {
+	public AbstractAddElementHandler(Element parent, S property, Class<? extends T> type) {
 		this.parent = parent;
 		this.property = property;
 		this.type = type;

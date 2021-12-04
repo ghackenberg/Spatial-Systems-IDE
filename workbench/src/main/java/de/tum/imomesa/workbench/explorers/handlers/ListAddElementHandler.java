@@ -6,7 +6,7 @@ import javafx.scene.control.Dialog;
 
 public class ListAddElementHandler<T extends Element> extends AbstractAddElementHandler<T, ListProperty<T>> {
 
-	public ListAddElementHandler(Element parent, ListProperty<T> property, Class<T> type) {
+	public ListAddElementHandler(Element parent, ListProperty<T> property, Class<? extends T> type) {
 		super(parent, property, type);
 	}
 

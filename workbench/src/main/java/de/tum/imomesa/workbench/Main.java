@@ -1,7 +1,6 @@
 package de.tum.imomesa.workbench;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,11 +11,10 @@ import de.tum.imomesa.utilities.managers.StorageManager;
 import de.tum.imomesa.workbench.FadeApp.InitCompletionHandler;
 import de.tum.imomesa.workbench.commons.events.ProgramEndEvent;
 import de.tum.imomesa.workbench.commons.events.ProgramStartEvent;
+import de.tum.imomesa.workbench.view.panes.borders.MainBorderPane;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -32,7 +30,7 @@ public class Main extends Application {
 
 	private static String DEFAULT_RUN_PATH = "run/default";
 
-	public static String NAME = "MACON Workbench";
+	public static String NAME = "AbstractFactory";
 	public static String DESCRIPTION = "A tool for consistent cross-discipline MAnufacturing CONception";
 
 	public static String SESSION_PATH;
@@ -116,37 +114,32 @@ public class Main extends Application {
 	}
 
 	private void showMainStage() {
-		try {
-			// load fxml
-			Parent root = FXMLLoader.load(getClass().getResource("/views/Main.fxml"));
+		// create pane
+		MainBorderPane pane = new MainBorderPane();
 
-			// create scene
-			Scene s = new Scene(root, 1000, 650);
+		// create scene
+		Scene scene = new Scene(pane, 1000, 650);
 
-			// create stage
-			mainStage = new Stage(StageStyle.DECORATED);
-			mainStage.setTitle(NAME + " - Main");
-			mainStage.setIconified(true);
-			mainStage.getIcons().add(new Image("images/icon.png"));
-			mainStage.setMaximized(true);
-			mainStage.setScene(s);
-			mainStage.show();
-			mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					// close connection to database
-					StorageManager.getInstance().close();
-					// log program end
-					EventBus.getInstance().publish(new ProgramEndEvent());
-					// stop update thread
-					Volume.UPDATE_THREAD.interrupt();
-				}
-			});
+		// create stage
+		mainStage = new Stage(StageStyle.DECORATED);
+		mainStage.setTitle(NAME + " - Main");
+		mainStage.setIconified(true);
+		mainStage.getIcons().add(new Image("images/icon.png"));
+		mainStage.setMaximized(true);
+		mainStage.setScene(scene);
+		mainStage.show();
+		mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				// close connection to database
+				StorageManager.getInstance().close();
+				// log program end
+				EventBus.getInstance().publish(new ProgramEndEvent());
+				// stop update thread
+				Volume.UPDATE_THREAD.interrupt();
+			}
+		});
 
-			PRIMARY_STAGE = mainStage;
-
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
+		PRIMARY_STAGE = mainStage;
 	}
 }

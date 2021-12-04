@@ -30,7 +30,7 @@ public class CustomTreeCell extends TreeCell<Element> {
 						textProperty().bind(new ReadOnlyStringWrapper(item.toString()));
 					}
 					setStyle("-fx-font-style: normal;");
-					setContextMenu(ContextMenuBuilder.getContextMenu(getTreeItem()));
+					setContextMenu(ContextMenuBuilder.getContextMenu(getTreeItem().getValue()));
 				}
 				setGraphic(getTreeItem().getGraphic());
 			} else {

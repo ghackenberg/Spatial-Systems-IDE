@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import de.tum.imomesa.model.Element;
-import de.tum.imomesa.workbench.explorers.OverviewElement;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,44 +28,7 @@ public abstract class AbstractEditorController {
 		// Initialize element
 		Element element = original;
 
-		// Process overview elements
-		if (element instanceof OverviewElement) {
-			// Cast element
-			OverviewElement<?> overview = (OverviewElement<?>) element;
-			// Get parent
-			Element parent = overview.getParent();
-			// Check parent
-			if (parent != null) {
-				// Get name
-				String name = overview.getName();
-				// Get class
-				Class<?> iterator = parent.getClass();
-				// Iterate class
-				while (Element.class.isAssignableFrom(iterator)) {
-					// Create url
-					String urlString = prefix + iterator.getSimpleName().toLowerCase() + "/" + name + ".fxml";
-					// Load url
-					if (tryLoading(urlString)) {
-						// Check controller
-						if (controller != null) {
-							// Set root element
-							controller.setRootElement(parent);
-							// Set selected element
-							controller.setSelectedElement(original);
-						}
-						// Return controller
-						return controller;
-					} else {
-						// Iterate class
-						iterator = iterator.getSuperclass();
-					}
-				}
-			}
-			// Get parent
-			element = element.getParent();
-		}
-
-		// Process normal elements
+		// Process elements
 		while (element != null) {
 			// Get class
 			Class<?> iterator = element.getClass();

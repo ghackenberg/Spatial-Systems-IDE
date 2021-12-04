@@ -14,7 +14,6 @@ import de.tum.imomesa.model.ports.Port;
 import de.tum.imomesa.workbench.commons.events.SelectionDiagramEvent;
 import de.tum.imomesa.workbench.commons.events.SelectionExplorerEvent;
 import de.tum.imomesa.workbench.controllers.AbstractSceneController;
-import de.tum.imomesa.workbench.explorers.OverviewElement;
 import de.tum.imomesa.workbench.scenes.helpers.HelperPart;
 import de.tum.imomesa.workbench.scenes.helpers.HelperPort;
 import de.tum.imomesa.workbench.scenes.helpers.HelperTransform;
@@ -26,20 +25,12 @@ import javafx.scene.Group;
 public class SceneController extends AbstractSceneController {
 
 	public void handle(SelectionExplorerEvent event) {
-		if (event.getSelected() instanceof OverviewElement) {
-			selected.set(event.getSelected().getParent());
-		} else {
-			selected.set(event.getSelected());
-		}
+		selected.set(event.getSelected());
 		select(event.getSelected());
 	}
 
 	public void handle(SelectionDiagramEvent event) {
-		if (event.getSelected() instanceof OverviewElement) {
-			selected.set(event.getSelected().getParent());
-		} else {
-			selected.set(event.getSelected());
-		}
+		selected.set(event.getSelected());
 		select(data);
 	}
 

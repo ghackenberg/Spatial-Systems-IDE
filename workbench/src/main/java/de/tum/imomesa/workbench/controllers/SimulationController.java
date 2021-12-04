@@ -212,9 +212,6 @@ public class SimulationController implements EventHandler {
 		embeddedResultController.setSimulator(simulator);
 		embeddedAttributeController.setSimulator(simulator);
 
-		// init tree view
-		embeddedExplorerController.setElement(component);
-
 		// bind slider to step property
 		sStep.maxProperty().bind(Bindings.max(0, simulator.stepProperty()));
 
