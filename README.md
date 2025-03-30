@@ -1,4 +1,4 @@
-# Spatial-Systems IDE
+# Spatial-Systems-IDE
 
 **Integrated Development Environment (IDE) for Spatio-Temporal Systems.**
 
